@@ -9,9 +9,9 @@ pub struct Writer {
     pub implement: bool, // TODO: ideally we can use this to generate implementation traits on the fly and
     // and have a single interface definition macro for consumption that expands to include
     // impl traits when the `implement` cfg flag is set and then this writer option would be
-    // unecessary.
+    // unnecessary.
     //
-    // Maybe this macro is the embedable version of the IDL format?! like a more intelligient
+    // Maybe this macro is the embeddable version of the IDL format?! like a more intelligent
     // version of the existing interface macro...
     pub std: bool,                 // tweaks for internal std library support
     pub sys: bool,                 // writer sys-style bindings
@@ -189,6 +189,9 @@ impl Writer {
             metadata::Type::WinrtArrayRef(ty) => self.type_name(ty),
             metadata::Type::ConstRef(ty) => self.type_name(ty),
             metadata::Type::PrimitiveOrEnum(_, ty) => self.type_name(ty),
+            metadata::Type::TypeRef(metadata::TypeName { namespace, name }) => {
+                panic!("Should have a complete type definition for {name} in {namespace}")
+            }
             rest => unimplemented!("{rest:?}"),
         }
     }

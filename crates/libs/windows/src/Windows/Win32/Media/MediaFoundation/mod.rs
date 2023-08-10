@@ -20184,16 +20184,6 @@ pub const D3D12_VIDEO_DECODE_PROFILE_H264_STEREO: ::windows_core::GUID = ::windo
 pub const D3D12_VIDEO_DECODE_PROFILE_H264_STEREO_PROGRESSIVE: ::windows_core::GUID = ::windows_core::GUID::from_u128(0xd79be8da_0cf1_4c81_b82a_69a4e236f43d);
 pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x5b11d51b_2f4c_4452_bcc3_09f2a1160cc0);
 pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x107af0e0_ef1a_4d19_aba8_67a163073d13);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_422: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x0bac4fe5_1532_4429_a854_f84de04953db);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_444: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x0dabeffa_4458_4602_bc03_0795659d617c);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_EXT: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x9cc55490_e37c_4932_8684_4920f9f6409c);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x1a72925f_0c2c_4f15_96fb_b17d1473603f);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12_422: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x55bcac81_f311_4093_a7d0_1cbc0b849bee);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12_444: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x9798634d_fe9d_48e5_b4da_dbec45b3df01);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN16: ::windows_core::GUID = ::windows_core::GUID::from_u128(0xa4fbdbb0_a113_482b_a232_635cc0697f6d);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN_444: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x4008018f_f537_4b36_98cf_61af8a2c1a33);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MONOCHROME: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x0685b993_3d8c_43a0_8b28_d74c2d6899a4);
-pub const D3D12_VIDEO_DECODE_PROFILE_HEVC_MONOCHROME10: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x142a1d0f_69dd_4ec9_8591_b12ffcb91a29);
 pub const D3D12_VIDEO_DECODE_PROFILE_MPEG1_AND_MPEG2: ::windows_core::GUID = ::windows_core::GUID::from_u128(0x86695f12_340e_4f04_9fd3_9253dd327460);
 pub const D3D12_VIDEO_DECODE_PROFILE_MPEG2: ::windows_core::GUID = ::windows_core::GUID::from_u128(0xee27417f_5e28_4e65_beea_1d26b508adc9);
 pub const D3D12_VIDEO_DECODE_PROFILE_MPEG4PT2_ADVSIMPLE_NOGMC: ::windows_core::GUID = ::windows_core::GUID::from_u128(0xed418a9f_010d_4eda_9ae3_9a65358d8d2e);
@@ -20516,12 +20506,11 @@ pub const D3D12_VIDEO_ENCODER_PROFILE_H264_MAIN: D3D12_VIDEO_ENCODER_PROFILE_H26
 pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN: D3D12_VIDEO_ENCODER_PROFILE_HEVC = D3D12_VIDEO_ENCODER_PROFILE_HEVC(0i32);
 pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10: D3D12_VIDEO_ENCODER_PROFILE_HEVC = D3D12_VIDEO_ENCODER_PROFILE_HEVC(1i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_DELTA_QP: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(1i32);
-pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_EXTENSION1_SUPPORT: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(64i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_EXTENDED_QVBR1_SUPPORT: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(64i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_FRAME_ANALYSIS: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(2i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_INITIAL_QP: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(8i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_MAX_FRAME_SIZE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(16i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QP_RANGE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(4i32);
-pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QUALITY_VS_SPEED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(128i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_VBV_SIZES: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(32i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_NONE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(0i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_ABSOLUTE_QP_MAP: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE = D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE(0i32);
@@ -20540,11 +20529,10 @@ pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_MOTION_ESTIMATION_PRECISION_MODE_LIMI
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(0i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_ADJUSTABLE_QP_RANGE_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(256i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_DELTA_QP_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(64i32);
-pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_EXTENSION1_SUPPORT: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8192i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_EXTENDED_QVBR1_SUPPORT: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8192i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_FRAME_ANALYSIS_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(16i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_INITIAL_QP_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(512i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_MAX_FRAME_SIZE_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(1024i32);
-pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_QUALITY_VS_SPEED_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(16384i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(2i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RECONSTRUCTED_FRAMES_REQUIRE_TEXTURE_ARRAYS: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(32i32);
@@ -31628,7 +31616,6 @@ pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 {
     pub SuggestedLevel: D3D12_VIDEO_ENCODER_LEVEL_SETTING,
     pub pResolutionDependentSupport: *mut D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS,
     pub SubregionFrameEncodingData: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA,
-    pub MaxQualityVsSpeed: u32,
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl ::core::marker::Copy for D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 {}
@@ -34883,35 +34870,6 @@ impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL {
     }
 }
 #[repr(C)]
-pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    pub QualityVsSpeed: u32,
-}
-impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {}
-impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
-impl ::core::fmt::Debug for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP").field("QualityVsSpeed", &self.QualityVsSpeed).finish()
-    }
-}
-impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    type TypeKind = ::windows_core::CopyType;
-}
-impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    fn eq(&self, other: &Self) -> bool {
-        self.QualityVsSpeed == other.QualityVsSpeed
-    }
-}
-impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {}
-impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP {
-    fn default() -> Self {
-        unsafe { ::core::mem::zeroed() }
-    }
-}
-#[repr(C)]
 pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR {
     pub InitialQP: u32,
     pub MinQP: u32,
@@ -34947,42 +34905,6 @@ impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR {
     }
 }
 #[repr(C)]
-pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    pub InitialQP: u32,
-    pub MinQP: u32,
-    pub MaxQP: u32,
-    pub MaxFrameBitSize: u64,
-    pub TargetBitRate: u64,
-    pub VBVCapacity: u64,
-    pub InitialVBVFullness: u64,
-    pub QualityVsSpeed: u32,
-}
-impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {}
-impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
-impl ::core::fmt::Debug for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1").field("InitialQP", &self.InitialQP).field("MinQP", &self.MinQP).field("MaxQP", &self.MaxQP).field("MaxFrameBitSize", &self.MaxFrameBitSize).field("TargetBitRate", &self.TargetBitRate).field("VBVCapacity", &self.VBVCapacity).field("InitialVBVFullness", &self.InitialVBVFullness).field("QualityVsSpeed", &self.QualityVsSpeed).finish()
-    }
-}
-impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    type TypeKind = ::windows_core::CopyType;
-}
-impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    fn eq(&self, other: &Self) -> bool {
-        self.InitialQP == other.InitialQP && self.MinQP == other.MinQP && self.MaxQP == other.MaxQP && self.MaxFrameBitSize == other.MaxFrameBitSize && self.TargetBitRate == other.TargetBitRate && self.VBVCapacity == other.VBVCapacity && self.InitialVBVFullness == other.InitialVBVFullness && self.QualityVsSpeed == other.QualityVsSpeed
-    }
-}
-impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {}
-impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
-    fn default() -> Self {
-        unsafe { ::core::mem::zeroed() }
-    }
-}
-#[repr(C)]
 pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS {
     pub DataSize: u32,
     pub Anonymous: D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS_0,
@@ -35007,11 +34929,7 @@ pub union D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS_0 {
     pub pConfiguration_CBR: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR,
     pub pConfiguration_VBR: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR,
     pub pConfiguration_QVBR: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR,
-    pub pConfiguration_CQP1: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1,
-    pub pConfiguration_CBR1: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1,
-    pub pConfiguration_VBR1: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1,
     pub pConfiguration_QVBR1: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1,
-    pub pConfiguration_AbsoluteQPMap: *const D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP,
 }
 impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS_0 {}
 impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS_0 {
@@ -35059,38 +34977,6 @@ impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP {
     }
 }
 #[repr(C)]
-pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    pub ConstantQP_FullIntracodedFrame: u32,
-    pub ConstantQP_InterPredictedFrame_PrevRefOnly: u32,
-    pub ConstantQP_InterPredictedFrame_BiDirectionalRef: u32,
-    pub QualityVsSpeed: u32,
-}
-impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {}
-impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
-impl ::core::fmt::Debug for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1").field("ConstantQP_FullIntracodedFrame", &self.ConstantQP_FullIntracodedFrame).field("ConstantQP_InterPredictedFrame_PrevRefOnly", &self.ConstantQP_InterPredictedFrame_PrevRefOnly).field("ConstantQP_InterPredictedFrame_BiDirectionalRef", &self.ConstantQP_InterPredictedFrame_BiDirectionalRef).field("QualityVsSpeed", &self.QualityVsSpeed).finish()
-    }
-}
-impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    type TypeKind = ::windows_core::CopyType;
-}
-impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    fn eq(&self, other: &Self) -> bool {
-        self.ConstantQP_FullIntracodedFrame == other.ConstantQP_FullIntracodedFrame && self.ConstantQP_InterPredictedFrame_PrevRefOnly == other.ConstantQP_InterPredictedFrame_PrevRefOnly && self.ConstantQP_InterPredictedFrame_BiDirectionalRef == other.ConstantQP_InterPredictedFrame_BiDirectionalRef && self.QualityVsSpeed == other.QualityVsSpeed
-    }
-}
-impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {}
-impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
-    fn default() -> Self {
-        unsafe { ::core::mem::zeroed() }
-    }
-}
-#[repr(C)]
 pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR {
     pub InitialQP: u32,
     pub MinQP: u32,
@@ -35133,10 +35019,9 @@ pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
     pub MaxFrameBitSize: u64,
     pub TargetAvgBitRate: u64,
     pub PeakBitRate: u64,
-    pub ConstantQualityTarget: u32,
     pub VBVCapacity: u64,
     pub InitialVBVFullness: u64,
-    pub QualityVsSpeed: u32,
+    pub ConstantQualityTarget: u32,
 }
 impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {}
 impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
@@ -35146,18 +35031,7 @@ impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
 }
 impl ::core::fmt::Debug for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
     fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1")
-            .field("InitialQP", &self.InitialQP)
-            .field("MinQP", &self.MinQP)
-            .field("MaxQP", &self.MaxQP)
-            .field("MaxFrameBitSize", &self.MaxFrameBitSize)
-            .field("TargetAvgBitRate", &self.TargetAvgBitRate)
-            .field("PeakBitRate", &self.PeakBitRate)
-            .field("ConstantQualityTarget", &self.ConstantQualityTarget)
-            .field("VBVCapacity", &self.VBVCapacity)
-            .field("InitialVBVFullness", &self.InitialVBVFullness)
-            .field("QualityVsSpeed", &self.QualityVsSpeed)
-            .finish()
+        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1").field("InitialQP", &self.InitialQP).field("MinQP", &self.MinQP).field("MaxQP", &self.MaxQP).field("MaxFrameBitSize", &self.MaxFrameBitSize).field("TargetAvgBitRate", &self.TargetAvgBitRate).field("PeakBitRate", &self.PeakBitRate).field("VBVCapacity", &self.VBVCapacity).field("InitialVBVFullness", &self.InitialVBVFullness).field("ConstantQualityTarget", &self.ConstantQualityTarget).finish()
     }
 }
 impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
@@ -35165,7 +35039,7 @@ impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
 }
 impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
     fn eq(&self, other: &Self) -> bool {
-        self.InitialQP == other.InitialQP && self.MinQP == other.MinQP && self.MaxQP == other.MaxQP && self.MaxFrameBitSize == other.MaxFrameBitSize && self.TargetAvgBitRate == other.TargetAvgBitRate && self.PeakBitRate == other.PeakBitRate && self.ConstantQualityTarget == other.ConstantQualityTarget && self.VBVCapacity == other.VBVCapacity && self.InitialVBVFullness == other.InitialVBVFullness && self.QualityVsSpeed == other.QualityVsSpeed
+        self.InitialQP == other.InitialQP && self.MinQP == other.MinQP && self.MaxQP == other.MaxQP && self.MaxFrameBitSize == other.MaxFrameBitSize && self.TargetAvgBitRate == other.TargetAvgBitRate && self.PeakBitRate == other.PeakBitRate && self.VBVCapacity == other.VBVCapacity && self.InitialVBVFullness == other.InitialVBVFullness && self.ConstantQualityTarget == other.ConstantQualityTarget
     }
 }
 impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {}
@@ -35206,43 +35080,6 @@ impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR {
 }
 impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR {}
 impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR {
-    fn default() -> Self {
-        unsafe { ::core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
-    pub InitialQP: u32,
-    pub MinQP: u32,
-    pub MaxQP: u32,
-    pub MaxFrameBitSize: u64,
-    pub TargetAvgBitRate: u64,
-    pub PeakBitRate: u64,
-    pub VBVCapacity: u64,
-    pub InitialVBVFullness: u64,
-    pub QualityVsSpeed: u32,
-}
-impl ::core::marker::Copy for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {}
-impl ::core::clone::Clone for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
-impl ::core::fmt::Debug for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-        f.debug_struct("D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1").field("InitialQP", &self.InitialQP).field("MinQP", &self.MinQP).field("MaxQP", &self.MaxQP).field("MaxFrameBitSize", &self.MaxFrameBitSize).field("TargetAvgBitRate", &self.TargetAvgBitRate).field("PeakBitRate", &self.PeakBitRate).field("VBVCapacity", &self.VBVCapacity).field("InitialVBVFullness", &self.InitialVBVFullness).field("QualityVsSpeed", &self.QualityVsSpeed).finish()
-    }
-}
-impl ::windows_core::TypeKind for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
-    type TypeKind = ::windows_core::CopyType;
-}
-impl ::core::cmp::PartialEq for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
-    fn eq(&self, other: &Self) -> bool {
-        self.InitialQP == other.InitialQP && self.MinQP == other.MinQP && self.MaxQP == other.MaxQP && self.MaxFrameBitSize == other.MaxFrameBitSize && self.TargetAvgBitRate == other.TargetAvgBitRate && self.PeakBitRate == other.PeakBitRate && self.VBVCapacity == other.VBVCapacity && self.InitialVBVFullness == other.InitialVBVFullness && self.QualityVsSpeed == other.QualityVsSpeed
-    }
-}
-impl ::core::cmp::Eq for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {}
-impl ::core::default::Default for D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 {
     fn default() -> Self {
         unsafe { ::core::mem::zeroed() }
     }

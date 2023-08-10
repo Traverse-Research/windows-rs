@@ -1431,6 +1431,67 @@ impl ID3D12DeviceConfiguration_Vtbl {
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D")]
+pub trait ID3D12DeviceConfiguration1_Impl: Sized + ID3D12DeviceConfiguration_Impl {
+    fn CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary(&self, plibraryblob: *const ::core::ffi::c_void, size: usize, rootsignaturesubobjectname: &::windows_core::PCWSTR, riid: *const ::windows_core::GUID, ppvdeserializer: *mut *mut ::core::ffi::c_void) -> ::windows_core::Result<()>;
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl ::windows_core::RuntimeName for ID3D12DeviceConfiguration1 {}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl ID3D12DeviceConfiguration1_Vtbl {
+    pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12DeviceConfiguration1_Impl, const OFFSET: isize>() -> ID3D12DeviceConfiguration1_Vtbl {
+        unsafe extern "system" fn CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12DeviceConfiguration1_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, plibraryblob: *const ::core::ffi::c_void, size: usize, rootsignaturesubobjectname: ::windows_core::PCWSTR, riid: *const ::windows_core::GUID, ppvdeserializer: *mut *mut ::core::ffi::c_void) -> ::windows_core::HRESULT {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary(::core::mem::transmute_copy(&plibraryblob), ::core::mem::transmute_copy(&size), ::core::mem::transmute(&rootsignaturesubobjectname), ::core::mem::transmute_copy(&riid), ::core::mem::transmute_copy(&ppvdeserializer)).into()
+        }
+        Self {
+            base__: ID3D12DeviceConfiguration_Vtbl::new::<Identity, Impl, OFFSET>(),
+            CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary: CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary::<Identity, Impl, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &::windows_core::GUID) -> bool {
+        iid == &<ID3D12DeviceConfiguration1 as ::windows_core::Interface>::IID || iid == &<ID3D12DeviceConfiguration as ::windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Dxgi_Common", feature = "Win32_Security"))]
+pub trait ID3D12DeviceExperimental_Impl: Sized + ID3D12Device13_Impl {
+    fn CreateRootSignatureFromSubobjectInLibrary(&self, nodemask: u32, plibraryblob: *const ::core::ffi::c_void, bloblengthinbytes: usize, subobjectname: &::windows_core::PCWSTR, riid: *const ::windows_core::GUID, ppvrootsignature: *mut *mut ::core::ffi::c_void) -> ::windows_core::Result<()>;
+}
+#[cfg(all(feature = "Win32_Graphics_Dxgi_Common", feature = "Win32_Security"))]
+impl ::windows_core::RuntimeName for ID3D12DeviceExperimental {}
+#[cfg(all(feature = "Win32_Graphics_Dxgi_Common", feature = "Win32_Security"))]
+impl ID3D12DeviceExperimental_Vtbl {
+    pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12DeviceExperimental_Impl, const OFFSET: isize>() -> ID3D12DeviceExperimental_Vtbl {
+        unsafe extern "system" fn CreateRootSignatureFromSubobjectInLibrary<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12DeviceExperimental_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, nodemask: u32, plibraryblob: *const ::core::ffi::c_void, bloblengthinbytes: usize, subobjectname: ::windows_core::PCWSTR, riid: *const ::windows_core::GUID, ppvrootsignature: *mut *mut ::core::ffi::c_void) -> ::windows_core::HRESULT {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.CreateRootSignatureFromSubobjectInLibrary(::core::mem::transmute_copy(&nodemask), ::core::mem::transmute_copy(&plibraryblob), ::core::mem::transmute_copy(&bloblengthinbytes), ::core::mem::transmute(&subobjectname), ::core::mem::transmute_copy(&riid), ::core::mem::transmute_copy(&ppvrootsignature)).into()
+        }
+        Self {
+            base__: ID3D12Device13_Vtbl::new::<Identity, Impl, OFFSET>(),
+            CreateRootSignatureFromSubobjectInLibrary: CreateRootSignatureFromSubobjectInLibrary::<Identity, Impl, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &::windows_core::GUID) -> bool {
+        iid == &<ID3D12DeviceExperimental as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Object as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device1 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device2 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device3 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device4 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device5 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device6 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device7 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device8 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device9 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device10 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device11 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device12 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Device13 as ::windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
 pub trait ID3D12DeviceFactory_Impl: Sized {
     fn InitializeFromGlobalState(&self) -> ::windows_core::Result<()>;
     fn ApplyToGlobalState(&self) -> ::windows_core::Result<()>;
@@ -2528,6 +2589,49 @@ impl ID3D12GraphicsCommandList9_Vtbl {
             || iid == &<ID3D12GraphicsCommandList8 as ::windows_core::Interface>::IID
     }
 }
+#[cfg(all(feature = "Win32_Graphics_Direct3D", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12GraphicsCommandListExperimental_Impl: Sized + ID3D12GraphicsCommandList9_Impl {
+    fn SetProgram(&self, pdesc: *const D3D12_SET_PROGRAM_DESC);
+    fn DispatchGraph(&self, pdesc: *const D3D12_DISPATCH_GRAPH_DESC);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ::windows_core::RuntimeName for ID3D12GraphicsCommandListExperimental {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12GraphicsCommandListExperimental_Vtbl {
+    pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12GraphicsCommandListExperimental_Impl, const OFFSET: isize>() -> ID3D12GraphicsCommandListExperimental_Vtbl {
+        unsafe extern "system" fn SetProgram<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12GraphicsCommandListExperimental_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, pdesc: *const D3D12_SET_PROGRAM_DESC) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.SetProgram(::core::mem::transmute_copy(&pdesc))
+        }
+        unsafe extern "system" fn DispatchGraph<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12GraphicsCommandListExperimental_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, pdesc: *const D3D12_DISPATCH_GRAPH_DESC) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.DispatchGraph(::core::mem::transmute_copy(&pdesc))
+        }
+        Self {
+            base__: ID3D12GraphicsCommandList9_Vtbl::new::<Identity, Impl, OFFSET>(),
+            SetProgram: SetProgram::<Identity, Impl, OFFSET>,
+            DispatchGraph: DispatchGraph::<Identity, Impl, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &::windows_core::GUID) -> bool {
+        iid == &<ID3D12GraphicsCommandListExperimental as ::windows_core::Interface>::IID
+            || iid == &<ID3D12Object as ::windows_core::Interface>::IID
+            || iid == &<ID3D12DeviceChild as ::windows_core::Interface>::IID
+            || iid == &<ID3D12CommandList as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList1 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList2 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList3 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList4 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList5 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList6 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList7 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList8 as ::windows_core::Interface>::IID
+            || iid == &<ID3D12GraphicsCommandList9 as ::windows_core::Interface>::IID
+    }
+}
 pub trait ID3D12Heap_Impl: Sized + ID3D12Pageable_Impl {
     fn GetDesc(&self) -> D3D12_HEAP_DESC;
 }
@@ -2821,13 +2925,13 @@ impl ID3D12InfoQueue_Vtbl {
     }
 }
 pub trait ID3D12InfoQueue1_Impl: Sized + ID3D12InfoQueue_Impl {
-    fn RegisterMessageCallback(&self, callbackfunc: D3D12MessageFunc, callbackfilterflags: D3D12_MESSAGE_CALLBACK_FLAGS, pcontext: *mut ::core::ffi::c_void, pcallbackcookie: *mut u32) -> ::windows_core::Result<()>;
+    fn RegisterMessageCallback(&self, callbackfunc: D3D12MessageFunc, callbackfilterflags: D3D12_MESSAGE_CALLBACK_FLAGS, pcontext: *const ::core::ffi::c_void, pcallbackcookie: *mut u32) -> ::windows_core::Result<()>;
     fn UnregisterMessageCallback(&self, callbackcookie: u32) -> ::windows_core::Result<()>;
 }
 impl ::windows_core::RuntimeName for ID3D12InfoQueue1 {}
 impl ID3D12InfoQueue1_Vtbl {
     pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12InfoQueue1_Impl, const OFFSET: isize>() -> ID3D12InfoQueue1_Vtbl {
-        unsafe extern "system" fn RegisterMessageCallback<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12InfoQueue1_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, callbackfunc: D3D12MessageFunc, callbackfilterflags: D3D12_MESSAGE_CALLBACK_FLAGS, pcontext: *mut ::core::ffi::c_void, pcallbackcookie: *mut u32) -> ::windows_core::HRESULT {
+        unsafe extern "system" fn RegisterMessageCallback<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12InfoQueue1_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, callbackfunc: D3D12MessageFunc, callbackfilterflags: D3D12_MESSAGE_CALLBACK_FLAGS, pcontext: *const ::core::ffi::c_void, pcallbackcookie: *mut u32) -> ::windows_core::HRESULT {
             let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
             let this = (*this).get_impl();
             this.RegisterMessageCallback(::core::mem::transmute_copy(&callbackfunc), ::core::mem::transmute_copy(&callbackfilterflags), ::core::mem::transmute_copy(&pcontext), ::core::mem::transmute_copy(&pcallbackcookie)).into()
@@ -3821,6 +3925,23 @@ impl ID3D12StateObjectProperties_Vtbl {
         iid == &<ID3D12StateObjectProperties as ::windows_core::Interface>::IID
     }
 }
+pub trait ID3D12StateObjectProperties1_Impl: Sized + ID3D12StateObjectProperties_Impl {
+    fn GetProgramIdentifier(&self, pprogramname: &::windows_core::PCWSTR) -> D3D12_PROGRAM_IDENTIFIER;
+}
+impl ::windows_core::RuntimeName for ID3D12StateObjectProperties1 {}
+impl ID3D12StateObjectProperties1_Vtbl {
+    pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12StateObjectProperties1_Impl, const OFFSET: isize>() -> ID3D12StateObjectProperties1_Vtbl {
+        unsafe extern "system" fn GetProgramIdentifier<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12StateObjectProperties1_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, result__: *mut D3D12_PROGRAM_IDENTIFIER, pprogramname: ::windows_core::PCWSTR) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            *result__ = this.GetProgramIdentifier(::core::mem::transmute(&pprogramname))
+        }
+        Self { base__: ID3D12StateObjectProperties_Vtbl::new::<Identity, Impl, OFFSET>(), GetProgramIdentifier: GetProgramIdentifier::<Identity, Impl, OFFSET> }
+    }
+    pub fn matches(iid: &::windows_core::GUID) -> bool {
+        iid == &<ID3D12StateObjectProperties1 as ::windows_core::Interface>::IID || iid == &<ID3D12StateObjectProperties as ::windows_core::Interface>::IID
+    }
+}
 pub trait ID3D12SwapChainAssistant_Impl: Sized {
     fn GetLUID(&self) -> super::super::Foundation::LUID;
     fn GetSwapChainObject(&self, riid: *const ::windows_core::GUID, ppv: *mut *mut ::core::ffi::c_void) -> ::windows_core::Result<()>;
@@ -3959,5 +4080,102 @@ impl ID3D12VirtualizationGuestDevice_Vtbl {
     }
     pub fn matches(iid: &::windows_core::GUID) -> bool {
         iid == &<ID3D12VirtualizationGuestDevice as ::windows_core::Interface>::IID
+    }
+}
+pub trait ID3D12WorkGraphProperties_Impl: Sized {
+    fn GetNumWorkGraphs(&self) -> u32;
+    fn GetProgramName(&self, workgraphindex: u32) -> ::windows_core::PCWSTR;
+    fn GetWorkGraphIndex(&self, pprogramname: &::windows_core::PCWSTR) -> u32;
+    fn GetNumNodes(&self, workgraphindex: u32) -> u32;
+    fn GetNodeID(&self, workgraphindex: u32, nodeindex: u32) -> D3D12_NODE_ID;
+    fn GetNodeIndex(&self, workgraphindex: u32, nodeid: &D3D12_NODE_ID) -> u32;
+    fn GetNodeLocalRootArgumentsTableIndex(&self, workgraphindex: u32, nodeindex: u32) -> u32;
+    fn GetNumEntrypoints(&self, workgraphindex: u32) -> u32;
+    fn GetEntrypointID(&self, workgraphindex: u32, entrypointindex: u32) -> D3D12_NODE_ID;
+    fn GetEntrypointIndex(&self, workgraphindex: u32, nodeid: &D3D12_NODE_ID) -> u32;
+    fn GetEntrypointRecordSizeInBytes(&self, workgraphindex: u32, entrypointindex: u32) -> u32;
+    fn GetWorkGraphMemoryRequirements(&self, workgraphindex: u32, pworkgraphmemoryrequirements: *mut D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS);
+}
+impl ::windows_core::RuntimeName for ID3D12WorkGraphProperties {}
+impl ID3D12WorkGraphProperties_Vtbl {
+    pub const fn new<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>() -> ID3D12WorkGraphProperties_Vtbl {
+        unsafe extern "system" fn GetNumWorkGraphs<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetNumWorkGraphs()
+        }
+        unsafe extern "system" fn GetProgramName<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32) -> ::windows_core::PCWSTR {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetProgramName(::core::mem::transmute_copy(&workgraphindex))
+        }
+        unsafe extern "system" fn GetWorkGraphIndex<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, pprogramname: ::windows_core::PCWSTR) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetWorkGraphIndex(::core::mem::transmute(&pprogramname))
+        }
+        unsafe extern "system" fn GetNumNodes<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetNumNodes(::core::mem::transmute_copy(&workgraphindex))
+        }
+        unsafe extern "system" fn GetNodeID<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, result__: *mut D3D12_NODE_ID, workgraphindex: u32, nodeindex: u32) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            *result__ = this.GetNodeID(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute_copy(&nodeindex))
+        }
+        unsafe extern "system" fn GetNodeIndex<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32, nodeid: D3D12_NODE_ID) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetNodeIndex(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute(&nodeid))
+        }
+        unsafe extern "system" fn GetNodeLocalRootArgumentsTableIndex<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32, nodeindex: u32) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetNodeLocalRootArgumentsTableIndex(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute_copy(&nodeindex))
+        }
+        unsafe extern "system" fn GetNumEntrypoints<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetNumEntrypoints(::core::mem::transmute_copy(&workgraphindex))
+        }
+        unsafe extern "system" fn GetEntrypointID<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, result__: *mut D3D12_NODE_ID, workgraphindex: u32, entrypointindex: u32) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            *result__ = this.GetEntrypointID(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute_copy(&entrypointindex))
+        }
+        unsafe extern "system" fn GetEntrypointIndex<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32, nodeid: D3D12_NODE_ID) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetEntrypointIndex(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute(&nodeid))
+        }
+        unsafe extern "system" fn GetEntrypointRecordSizeInBytes<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32, entrypointindex: u32) -> u32 {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetEntrypointRecordSizeInBytes(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute_copy(&entrypointindex))
+        }
+        unsafe extern "system" fn GetWorkGraphMemoryRequirements<Identity: ::windows_core::IUnknownImpl<Impl = Impl>, Impl: ID3D12WorkGraphProperties_Impl, const OFFSET: isize>(this: *mut ::core::ffi::c_void, workgraphindex: u32, pworkgraphmemoryrequirements: *mut D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS) {
+            let this = (this as *const *const ()).offset(OFFSET) as *const Identity;
+            let this = (*this).get_impl();
+            this.GetWorkGraphMemoryRequirements(::core::mem::transmute_copy(&workgraphindex), ::core::mem::transmute_copy(&pworkgraphmemoryrequirements))
+        }
+        Self {
+            base__: ::windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            GetNumWorkGraphs: GetNumWorkGraphs::<Identity, Impl, OFFSET>,
+            GetProgramName: GetProgramName::<Identity, Impl, OFFSET>,
+            GetWorkGraphIndex: GetWorkGraphIndex::<Identity, Impl, OFFSET>,
+            GetNumNodes: GetNumNodes::<Identity, Impl, OFFSET>,
+            GetNodeID: GetNodeID::<Identity, Impl, OFFSET>,
+            GetNodeIndex: GetNodeIndex::<Identity, Impl, OFFSET>,
+            GetNodeLocalRootArgumentsTableIndex: GetNodeLocalRootArgumentsTableIndex::<Identity, Impl, OFFSET>,
+            GetNumEntrypoints: GetNumEntrypoints::<Identity, Impl, OFFSET>,
+            GetEntrypointID: GetEntrypointID::<Identity, Impl, OFFSET>,
+            GetEntrypointIndex: GetEntrypointIndex::<Identity, Impl, OFFSET>,
+            GetEntrypointRecordSizeInBytes: GetEntrypointRecordSizeInBytes::<Identity, Impl, OFFSET>,
+            GetWorkGraphMemoryRequirements: GetWorkGraphMemoryRequirements::<Identity, Impl, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &::windows_core::GUID) -> bool {
+        iid == &<ID3D12WorkGraphProperties as ::windows_core::Interface>::IID
     }
 }
