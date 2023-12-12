@@ -17,3 +17,9 @@ exclude = [
 rust_2018_idioms = "warn"
 unused_qualifications = "warn"
 missing_docs = "warn"
+trivial_casts = "warn"
+trivial_numeric_casts = "warn"
+deprecated_in_future = "warn"
+
+[workspace.lints.clippy]
+use_self = "warn"

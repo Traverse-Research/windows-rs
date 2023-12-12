@@ -382,7 +382,7 @@ impl View for [u8] {
 
         unsafe {
             let mut data = std::mem::MaybeUninit::zeroed().assume_init();
-            std::ptr::copy_nonoverlapping(self[offset..].as_ptr(), &mut data as *mut T as *mut u8, std::mem::size_of::<T>());
+            std::ptr::copy_nonoverlapping(self[offset..].as_ptr(), <*mut _>::cast(&mut data), std::mem::size_of::<T>());
             Some(data)
         }
     }
@@ -403,7 +403,7 @@ impl View for [u8] {
 
     fn is_proper_length_and_alignment<T>(&self, offset: usize, count: usize) -> Option<*const T> {
         self.is_proper_length::<T>(offset * count)?;
-        let ptr = &self[offset] as *const u8 as *const T;
+        let ptr = <*const _>::cast::<T>(&self[offset]);
 
         if ptr.align_offset(std::mem::align_of::<T>()) == 0 {
             Some(ptr)

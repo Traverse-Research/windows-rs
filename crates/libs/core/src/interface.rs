@@ -83,7 +83,7 @@ pub unsafe trait Interface: Sized + Clone {
         // SAFETY: `result` is valid for writing an interface pointer and it is safe
         // to cast the `result` pointer as `T` on success because we are using the `IID` tied
         // to `T` which the implementor of `Interface` has guaranteed is correct
-        unsafe { _ = self.query(&T::IID, &mut result as *mut _ as _) };
+        unsafe { _ = self.query(&T::IID, <*mut _>::cast(&mut result)) };
 
         result.ok_or_else(|| Error { code: crate::imp::E_NOINTERFACE, info: None })
     }

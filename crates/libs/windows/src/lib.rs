@@ -8,9 +8,6 @@ Learn more about Rust for Windows here: <https://github.com/microsoft/windows-rs
 #![allow(non_snake_case, clashing_extern_declarations, non_upper_case_globals, non_camel_case_types, missing_docs, clippy::all)]
 #![cfg_attr(not(feature = "docs"), doc(hidden))]
 
-#[allow(unused_extern_crates)]
-extern crate self as windows;
-
 pub mod core {
     pub use windows_core::*;
 

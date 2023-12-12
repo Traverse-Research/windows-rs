@@ -121,9 +121,8 @@ impl Drop for HSTRING {
             // REFERENCE_FLAG indicates a string backed by static or stack memory that is
             // thus not reference-counted and does not need to be freed.
             unsafe {
-                let header = header.as_ref();
-                if header.flags & REFERENCE_FLAG == 0 && header.count.release() == 0 {
-                    crate::imp::heap_free(header as *const _ as *mut _);
+                if header.as_ref().flags & REFERENCE_FLAG == 0 && header.as_ref().count.release() == 0 {
+                    crate::imp::heap_free(header.as_ptr().cast());
                 }
             }
         }
@@ -439,7 +438,7 @@ impl Header {
         if self.flags & REFERENCE_FLAG == 0 {
             // If this is not a "fast pass" string then simply increment the reference count.
             self.count.add_ref();
-            Ok(self as *const Header as *mut Header)
+            Ok(<*const Header>::cast_mut(self))
         } else {
             // Otherwise, allocate a new string and copy the value into the new string.
             let copy = Header::alloc(self.len)?;

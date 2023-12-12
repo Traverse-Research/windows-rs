@@ -34,7 +34,7 @@ impl Reader {
         let reader: &'static mut Reader = Box::leak(Box::new(Self { items: Default::default(), nested: Default::default(), filter: Filter::new(include, exclude), sys: config.contains_key("sys") }));
 
         for mut file in files {
-            file.reader = reader as *mut Reader;
+            file.reader = reader;
             let file = Box::leak(Box::new(file));
 
             for def in file.table::<TypeDef>() {
