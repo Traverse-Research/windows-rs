@@ -125,7 +125,7 @@ impl Type {
             Self::MutPtr(kind, pointers) => Self::MutPtr(kind.clone(), pointers - 1),
             Self::PSTR | Self::PCSTR => Self::U8,
             Self::PWSTR | Self::PCWSTR => Self::U16,
-            _ => panic!("`deref` can only be called on pointer types"),
+            _ => panic!("`deref` can only be called on pointer types: {self:?}"),
         }
     }
 
