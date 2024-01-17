@@ -31,6 +31,8 @@ impl PCSTR {
     /// # Safety
     ///
     /// The `PCSTR`'s pointer needs to be valid for reads up until and including the next `\0`.
+    ///
+    /// The wrapped pointer should outlive the slice returned by this function.
     pub unsafe fn as_bytes(&self) -> &[u8] {
         let len = strlen(*self);
         std::slice::from_raw_parts(self.0, len)
@@ -41,8 +43,8 @@ impl PCSTR {
     /// # Safety
     ///
     /// See the safety information for `PCSTR::as_bytes`.
-    pub unsafe fn to_string(&self) -> std::result::Result<String, std::string::FromUtf8Error> {
-        String::from_utf8(self.as_bytes().into())
+    pub unsafe fn as_str(&self) -> std::result::Result<&str, std::str::Utf8Error> {
+        std::str::from_utf8(self.as_bytes())
     }
 
     /// Allow this string to be displayed.
