@@ -19530,11 +19530,11 @@ impl IShellFolder {
         (::windows_core::Interface::vtable(self).BindToStorage)(::windows_core::Interface::as_raw(self), pidl, pbc.into_param().abi(), &T::IID, &mut result__).and_then(|| ::windows_core::Type::from_abi(result__))
     }
     #[cfg(feature = "Win32_UI_Shell_Common")]
-    pub unsafe fn CompareIDs<P0>(&self, lparam: P0, pidl1: *const Common::ITEMIDLIST, pidl2: *const Common::ITEMIDLIST) -> ::windows_core::Result<()>
+    pub unsafe fn CompareIDs<P0>(&self, lparam: P0, pidl1: *const Common::ITEMIDLIST, pidl2: *const Common::ITEMIDLIST) -> ::windows_core::HRESULT
     where
         P0: ::windows_core::IntoParam<super::super::Foundation::LPARAM>,
     {
-        (::windows_core::Interface::vtable(self).CompareIDs)(::windows_core::Interface::as_raw(self), lparam.into_param().abi(), pidl1, pidl2).ok()
+        (::windows_core::Interface::vtable(self).CompareIDs)(::windows_core::Interface::as_raw(self), lparam.into_param().abi(), pidl1, pidl2)
     }
     pub unsafe fn CreateViewObject<P0, T>(&self, hwndowner: P0) -> ::windows_core::Result<T>
     where
@@ -19645,11 +19645,11 @@ impl IShellFolder2 {
         (::windows_core::Interface::vtable(self).base__.BindToStorage)(::windows_core::Interface::as_raw(self), pidl, pbc.into_param().abi(), &T::IID, &mut result__).and_then(|| ::windows_core::Type::from_abi(result__))
     }
     #[cfg(feature = "Win32_UI_Shell_Common")]
-    pub unsafe fn CompareIDs<P0>(&self, lparam: P0, pidl1: *const Common::ITEMIDLIST, pidl2: *const Common::ITEMIDLIST) -> ::windows_core::Result<()>
+    pub unsafe fn CompareIDs<P0>(&self, lparam: P0, pidl1: *const Common::ITEMIDLIST, pidl2: *const Common::ITEMIDLIST) -> ::windows_core::HRESULT
     where
         P0: ::windows_core::IntoParam<super::super::Foundation::LPARAM>,
     {
-        (::windows_core::Interface::vtable(self).base__.CompareIDs)(::windows_core::Interface::as_raw(self), lparam.into_param().abi(), pidl1, pidl2).ok()
+        (::windows_core::Interface::vtable(self).base__.CompareIDs)(::windows_core::Interface::as_raw(self), lparam.into_param().abi(), pidl1, pidl2)
     }
     pub unsafe fn CreateViewObject<P0, T>(&self, hwndowner: P0) -> ::windows_core::Result<T>
     where
@@ -19695,7 +19695,8 @@ impl IShellFolder2 {
     pub unsafe fn GetDefaultColumn(&self, dwres: u32, psort: *mut u32, pdisplay: *mut u32) -> ::windows_core::Result<()> {
         (::windows_core::Interface::vtable(self).GetDefaultColumn)(::windows_core::Interface::as_raw(self), dwres, psort, pdisplay).ok()
     }
-    pub unsafe fn GetDefaultColumnState(&self, icolumn: u32) -> ::windows_core::Result<u32> {
+    #[cfg(feature = "Win32_UI_Shell_Common")]
+    pub unsafe fn GetDefaultColumnState(&self, icolumn: u32) -> ::windows_core::Result<Common::SHCOLSTATE> {
         let mut result__ = ::std::mem::zeroed();
         (::windows_core::Interface::vtable(self).GetDefaultColumnState)(::windows_core::Interface::as_raw(self), icolumn, &mut result__).map(|| result__)
     }
@@ -19719,7 +19720,10 @@ pub struct IShellFolder2_Vtbl {
     pub GetDefaultSearchGUID: unsafe extern "system" fn(*mut ::core::ffi::c_void, *mut ::windows_core::GUID) -> ::windows_core::HRESULT,
     pub EnumSearches: unsafe extern "system" fn(*mut ::core::ffi::c_void, *mut *mut ::core::ffi::c_void) -> ::windows_core::HRESULT,
     pub GetDefaultColumn: unsafe extern "system" fn(*mut ::core::ffi::c_void, u32, *mut u32, *mut u32) -> ::windows_core::HRESULT,
-    pub GetDefaultColumnState: unsafe extern "system" fn(*mut ::core::ffi::c_void, u32, *mut u32) -> ::windows_core::HRESULT,
+    #[cfg(feature = "Win32_UI_Shell_Common")]
+    pub GetDefaultColumnState: unsafe extern "system" fn(*mut ::core::ffi::c_void, u32, *mut Common::SHCOLSTATE) -> ::windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_UI_Shell_Common"))]
+    GetDefaultColumnState: usize,
     #[cfg(all(feature = "Win32_UI_Shell_Common", feature = "Win32_UI_Shell_PropertiesSystem"))]
     pub GetDetailsEx: unsafe extern "system" fn(*mut ::core::ffi::c_void, *const Common::ITEMIDLIST, *const PropertiesSystem::PROPERTYKEY, *mut ::std::mem::MaybeUninit<::windows_core::VARIANT>) -> ::windows_core::HRESULT,
     #[cfg(not(all(feature = "Win32_UI_Shell_Common", feature = "Win32_UI_Shell_PropertiesSystem")))]

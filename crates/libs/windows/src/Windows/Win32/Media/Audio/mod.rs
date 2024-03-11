@@ -2484,8 +2484,9 @@ impl IMMDevice {
         let mut result__ = ::std::mem::zeroed();
         (::windows_core::Interface::vtable(self).GetId)(::windows_core::Interface::as_raw(self), &mut result__).map(|| result__)
     }
-    pub unsafe fn GetState(&self, pdwstate: *mut u32) -> DEVICE_STATE {
-        (::windows_core::Interface::vtable(self).GetState)(::windows_core::Interface::as_raw(self), pdwstate)
+    pub unsafe fn GetState(&self) -> ::windows_core::Result<DEVICE_STATE> {
+        let mut result__ = ::std::mem::zeroed();
+        (::windows_core::Interface::vtable(self).GetState)(::windows_core::Interface::as_raw(self), &mut result__).map(|| result__)
     }
 }
 #[repr(C)]
@@ -2500,7 +2501,7 @@ pub struct IMMDevice_Vtbl {
     #[cfg(not(all(feature = "Win32_System_Com", feature = "Win32_UI_Shell_PropertiesSystem")))]
     OpenPropertyStore: usize,
     pub GetId: unsafe extern "system" fn(*mut ::core::ffi::c_void, *mut ::windows_core::PWSTR) -> ::windows_core::HRESULT,
-    pub GetState: unsafe extern "system" fn(*mut ::core::ffi::c_void, *mut u32) -> DEVICE_STATE,
+    pub GetState: unsafe extern "system" fn(*mut ::core::ffi::c_void, *mut DEVICE_STATE) -> ::windows_core::HRESULT,
 }
 ::windows_core::imp::com_interface!(IMMDeviceActivator, IMMDeviceActivator_Vtbl, 0x3b0d0ea4_d0a9_4b0e_935b_09516746fac0);
 ::windows_core::imp::interface_hierarchy!(IMMDeviceActivator, ::windows_core::IUnknown);

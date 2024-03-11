@@ -5200,6 +5200,7 @@ pub const WINEVENT_SKIPOWNPROCESS: u32 = 2u32;
 pub const WINEVENT_SKIPOWNTHREAD: u32 = 1u32;
 pub const WINSTA_ACCESSCLIPBOARD: i32 = 4i32;
 pub const WINSTA_ACCESSGLOBALATOMS: i32 = 32i32;
+pub const WINSTA_ALL_ACCESS: i32 = 895i32;
 pub const WINSTA_CREATEDESKTOP: i32 = 8i32;
 pub const WINSTA_ENUMDESKTOPS: i32 = 1i32;
 pub const WINSTA_ENUMERATE: i32 = 256i32;
@@ -5545,6 +5546,7 @@ pub const WVR_ALIGNLEFT: u32 = 32u32;
 pub const WVR_ALIGNRIGHT: u32 = 128u32;
 pub const WVR_ALIGNTOP: u32 = 16u32;
 pub const WVR_HREDRAW: u32 = 256u32;
+pub const WVR_REDRAW: u32 = 768u32;
 pub const WVR_VALIDRECTS: u32 = 1024u32;
 pub const WVR_VREDRAW: u32 = 512u32;
 pub const XBUTTON1: u16 = 1u16;
@@ -7739,7 +7741,7 @@ pub struct CREATESTRUCTA {
     pub style: i32,
     pub lpszName: ::windows_core::PCSTR,
     pub lpszClass: ::windows_core::PCSTR,
-    pub dwExStyle: u32,
+    pub dwExStyle: WINDOW_EX_STYLE,
 }
 impl ::core::marker::Copy for CREATESTRUCTA {}
 impl ::core::clone::Clone for CREATESTRUCTA {
@@ -7779,7 +7781,7 @@ pub struct CREATESTRUCTW {
     pub style: i32,
     pub lpszName: ::windows_core::PCWSTR,
     pub lpszClass: ::windows_core::PCWSTR,
-    pub dwExStyle: u32,
+    pub dwExStyle: WINDOW_EX_STYLE,
 }
 impl ::core::marker::Copy for CREATESTRUCTW {}
 impl ::core::clone::Clone for CREATESTRUCTW {

@@ -928,8 +928,8 @@ pub unsafe fn SetCheckUserInterruptShared(lpstartaddress: LPCALL_BACK_USER_INTER
     SetCheckUserInterruptShared(lpstartaddress)
 }
 #[inline]
-pub unsafe fn SetErrorMode(umode: THREAD_ERROR_MODE) -> u32 {
-    ::windows_targets::link!("kernel32.dll" "system" fn SetErrorMode(umode : THREAD_ERROR_MODE) -> u32);
+pub unsafe fn SetErrorMode(umode: THREAD_ERROR_MODE) -> THREAD_ERROR_MODE {
+    ::windows_targets::link!("kernel32.dll" "system" fn SetErrorMode(umode : THREAD_ERROR_MODE) -> THREAD_ERROR_MODE);
     SetErrorMode(umode)
 }
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]

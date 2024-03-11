@@ -194,7 +194,7 @@ pub mod Extensions;
 ::windows_targets::link!("dbghelp.dll" "system" fn SearchTreeForFile(rootpath : ::windows_sys::core::PCSTR, inputpathname : ::windows_sys::core::PCSTR, outputpathbuffer : ::windows_sys::core::PSTR) -> super::super::super::Foundation:: BOOL);
 ::windows_targets::link!("dbghelp.dll" "system" fn SearchTreeForFileW(rootpath : ::windows_sys::core::PCWSTR, inputpathname : ::windows_sys::core::PCWSTR, outputpathbuffer : ::windows_sys::core::PWSTR) -> super::super::super::Foundation:: BOOL);
 ::windows_targets::link!("dbghelp.dll" "system" fn SetCheckUserInterruptShared(lpstartaddress : LPCALL_BACK_USER_INTERRUPT_ROUTINE));
-::windows_targets::link!("kernel32.dll" "system" fn SetErrorMode(umode : THREAD_ERROR_MODE) -> u32);
+::windows_targets::link!("kernel32.dll" "system" fn SetErrorMode(umode : THREAD_ERROR_MODE) -> THREAD_ERROR_MODE);
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
 #[cfg(all(feature = "Win32_System_Kernel", feature = "Win32_System_SystemInformation"))]
 ::windows_targets::link!("imagehlp.dll" "system" fn SetImageConfigInformation(loadedimage : *mut LOADED_IMAGE, imageconfiginformation : *const IMAGE_LOAD_CONFIG_DIRECTORY64) -> super::super::super::Foundation:: BOOL);

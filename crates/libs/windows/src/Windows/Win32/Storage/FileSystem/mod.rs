@@ -2256,13 +2256,12 @@ pub unsafe fn OpenTransactionManagerById(transactionmanagerid: *const ::windows_
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows_core::Error::from_win32)
 }
 #[inline]
-pub unsafe fn PopIoRingCompletion<P0>(ioring: P0) -> ::windows_core::Result<IORING_CQE>
+pub unsafe fn PopIoRingCompletion<P0>(ioring: P0, cqe: *mut IORING_CQE) -> ::windows_core::HRESULT
 where
     P0: ::windows_core::IntoParam<HIORING>,
 {
     ::windows_targets::link!("api-ms-win-core-ioring-l1-1-0.dll" "system" fn PopIoRingCompletion(ioring : HIORING, cqe : *mut IORING_CQE) -> ::windows_core::HRESULT);
-    let mut result__ = ::std::mem::zeroed();
-    PopIoRingCompletion(ioring.into_param().abi(), &mut result__).map(|| result__)
+    PopIoRingCompletion(ioring.into_param().abi(), cqe)
 }
 #[inline]
 pub unsafe fn PrePrepareComplete<P0>(enlistmenthandle: P0, tmvirtualclock: *mut i64) -> ::windows_core::Result<()>

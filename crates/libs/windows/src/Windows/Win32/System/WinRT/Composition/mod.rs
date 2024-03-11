@@ -203,7 +203,7 @@ impl ICompositorInterop2 {
         (::windows_core::Interface::vtable(self).CheckCompositionTextureSupport)(::windows_core::Interface::as_raw(self), renderingdevice.into_param().abi(), &mut result__).map(|| result__)
     }
     #[cfg(feature = "UI_Composition")]
-    pub unsafe fn CreateCompositionTexture<P0>(&self, d3dtexture: P0) -> ::windows_core::Result<super::super::super::super::UI::Composition::ICompositionTexture>
+    pub unsafe fn CreateCompositionTexture<P0>(&self, d3dtexture: P0) -> ::windows_core::Result<super::super::super::super::UI::Composition::CompositionTexture>
     where
         P0: ::windows_core::IntoParam<::windows_core::IUnknown>,
     {
