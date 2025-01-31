@@ -4156,6 +4156,7 @@ pub struct GdiplusStartupOutput {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct GdiplusStartupParams(pub i32);
+pub const GdiplusStartupReserved0: GdiplusStartupParams = GdiplusStartupParams(4i32);
 pub const GdiplusStartupSetPSValue: GdiplusStartupParams = GdiplusStartupParams(2i32);
 pub const GdiplusStartupTransparencyMask: GdiplusStartupParams = GdiplusStartupParams(-16777216i32);
 pub const GenericError: Status = Status(1i32);
