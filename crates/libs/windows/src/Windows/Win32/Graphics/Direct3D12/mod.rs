@@ -66,6 +66,13 @@ pub const D3D12_32BIT_INDEX_STRIP_CUT_VALUE: u32 = 4294967295u32;
 pub const D3D12_8BIT_INDEX_STRIP_CUT_VALUE: u32 = 255u32;
 pub const D3D12_ANISOTROPIC_FILTERING_BIT: u32 = 64u32;
 pub const D3D12_APPEND_ALIGNED_ELEMENT: u32 = 4294967295u32;
+pub const D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_IGNORED: D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS = D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS(3i32);
+pub const D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_NOT_SPECIFIED: D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS = D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS(4i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS(pub i32);
+pub const D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_UNKNOWN: D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS = D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS(1i32);
+pub const D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_USED: D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS = D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS(2i32);
 pub const D3D12_ARRAY_AXIS_ADDRESS_RANGE_BIT_COUNT: u32 = 9u32;
 #[repr(C)]
 #[derive(Clone, Debug, PartialEq)]
@@ -588,6 +595,7 @@ pub union D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_0 {
     pub InstanceDescs: u64,
     pub pGeometryDescs: *const D3D12_RAYTRACING_GEOMETRY_DESC,
     pub ppGeometryDescs: *const *const D3D12_RAYTRACING_GEOMETRY_DESC,
+    pub pOpacityMicromapArrayDesc: *const D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC,
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl Default for D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_0 {
@@ -2048,6 +2056,7 @@ pub const D3D12_EXPORT_FLAG_NONE: D3D12_EXPORT_FLAGS = D3D12_EXPORT_FLAGS(0i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_FEATURE(pub i32);
+pub const D3D12_FEATURE_APPLICATION_SPECIFIC_DRIVER_STATE: D3D12_FEATURE = D3D12_FEATURE(56i32);
 pub const D3D12_FEATURE_ARCHITECTURE: D3D12_FEATURE = D3D12_FEATURE(1i32);
 pub const D3D12_FEATURE_ARCHITECTURE1: D3D12_FEATURE = D3D12_FEATURE(16i32);
 pub const D3D12_FEATURE_BYTECODE_BYPASS_HASH_SUPPORTED: D3D12_FEATURE = D3D12_FEATURE(57i32);
@@ -2075,6 +2084,11 @@ pub const D3D12_FEATURE_D3D12_OPTIONS6: D3D12_FEATURE = D3D12_FEATURE(30i32);
 pub const D3D12_FEATURE_D3D12_OPTIONS7: D3D12_FEATURE = D3D12_FEATURE(32i32);
 pub const D3D12_FEATURE_D3D12_OPTIONS8: D3D12_FEATURE = D3D12_FEATURE(36i32);
 pub const D3D12_FEATURE_D3D12_OPTIONS9: D3D12_FEATURE = D3D12_FEATURE(37i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_APPLICATION_SPECIFIC_DRIVER_STATE {
+    pub Supported: windows_core::BOOL,
+}
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_FEATURE_DATA_ARCHITECTURE {
@@ -3912,7 +3926,7 @@ pub const D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_HEAP_UNSUPPORTED_PARAMETERS: D3D
 pub const D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_INVALID_PARAMETERS: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1309i32);
 pub const D3D12_MESSAGE_ID_CREATE_VIDEO_ENCODER_UNSUPPORTED_PARAMETERS: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1310i32);
 pub const D3D12_MESSAGE_ID_CREATE_VIDEO_PROCESSOR_CAPS_FAILURE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1108i32);
-pub const D3D12_MESSAGE_ID_D3D12_MESSAGES_END: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1424i32);
+pub const D3D12_MESSAGE_ID_D3D12_MESSAGES_END: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1426i32);
 pub const D3D12_MESSAGE_ID_DATA_STATIC_DESCRIPTOR_INVALID_DATA_CHANGE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1002i32);
 pub const D3D12_MESSAGE_ID_DATA_STATIC_WHILE_SET_AT_EXECUTE_DESCRIPTOR_INVALID_DATA_CHANGE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1003i32);
 pub const D3D12_MESSAGE_ID_DECODE_FRAME_INVALID_PARAMETERS: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(988i32);
@@ -4053,6 +4067,7 @@ pub const D3D12_MESSAGE_ID_EXECUTE_BUNDLE_TYPE: D3D12_MESSAGE_ID = D3D12_MESSAGE
 pub const D3D12_MESSAGE_ID_EXECUTE_INDIRECT_INVALID_PARAMETERS: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(744i32);
 pub const D3D12_MESSAGE_ID_EXECUTE_INDIRECT_ZERO_COMMAND_COUNT: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1357i32);
 pub const D3D12_MESSAGE_ID_FENCE_INVALIDOPERATION: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1078i32);
+pub const D3D12_MESSAGE_ID_FENCE_ZERO_WAIT: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1424i32);
 pub const D3D12_MESSAGE_ID_GENERIC_DEVICE_OPERATION_UNSUPPORTED: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1381i32);
 pub const D3D12_MESSAGE_ID_GEOMETRY_SHADER_OUTPUTTING_BOTH_VIEWPORT_ARRAY_INDEX_AND_SHADING_RATE_NOT_SUPPORTED_ON_DEVICE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1232i32);
 pub const D3D12_MESSAGE_ID_GETCOPYABLEFOOTPRINTS_INVALIDBASEOFFSET: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(740i32);
@@ -4178,6 +4193,7 @@ pub const D3D12_MESSAGE_ID_MULTIPLE_TRACKED_WORKLOAD_PAIRS: D3D12_MESSAGE_ID = D
 pub const D3D12_MESSAGE_ID_NODE_MASK_MISMATCH: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(902i32);
 pub const D3D12_MESSAGE_ID_NONNORMALIZED_COORDINATE_SAMPLING_NOT_SUPPORTED: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1370i32);
 pub const D3D12_MESSAGE_ID_NONZERO_SAMPLER_FEEDBACK_MIP_REGION_WITH_INCOMPATIBLE_FORMAT: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1252i32);
+pub const D3D12_MESSAGE_ID_NON_COMMON_RESOURCE_IN_COPY_QUEUE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1425i32);
 pub const D3D12_MESSAGE_ID_NON_OPTIMAL_BARRIER_ONLY_EXECUTE_COMMAND_LISTS: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1356i32);
 pub const D3D12_MESSAGE_ID_NON_RETAIL_SHADER_MODEL_WONT_VALIDATE: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(1243i32);
 pub const D3D12_MESSAGE_ID_NO_COMPUTE_API_SUPPORT: D3D12_MESSAGE_ID = D3D12_MESSAGE_ID(933i32);
@@ -4789,7 +4805,7 @@ pub struct D3D12_PLACED_SUBRESOURCE_FOOTPRINT {
 pub struct D3D12_PREDICATION_OP(pub i32);
 pub const D3D12_PREDICATION_OP_EQUAL_ZERO: D3D12_PREDICATION_OP = D3D12_PREDICATION_OP(0i32);
 pub const D3D12_PREDICATION_OP_NOT_EQUAL_ZERO: D3D12_PREDICATION_OP = D3D12_PREDICATION_OP(1i32);
-pub const D3D12_PREVIEW_SDK_VERSION: u32 = 716u32;
+pub const D3D12_PREVIEW_SDK_VERSION: u32 = 717u32;
 pub const D3D12_PRE_SCISSOR_PIXEL_ADDRESS_RANGE_BIT_COUNT: u32 = 16u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -5117,6 +5133,8 @@ impl core::ops::Not for D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS {
     }
 }
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(2i32);
+pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_DISABLE_OMMS: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(128i32);
+pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_OMM_UPDATE: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(64i32);
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(1i32);
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_MINIMIZE_MEMORY: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(16i32);
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_NONE: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS(0i32);
@@ -5152,10 +5170,26 @@ pub struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC {
 }
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE(2i32);
 #[repr(C)]
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
+#[derive(Clone, Copy)]
 pub struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC {
     pub SerializedSizeInBytes: u64,
+    pub Anonymous: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_0,
+}
+impl Default for D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_0 {
     pub NumBottomLevelAccelerationStructurePointers: u64,
+    pub NumBottomLevelAccelerationStructureHeaderAndPointerListPairs: u64,
+}
+impl Default for D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TYPE(1i32);
 #[repr(C)]
@@ -5182,6 +5216,7 @@ pub struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV {
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE(pub i32);
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE(1i32);
+pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_OPACITY_MICROMAP_ARRAY: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE(2i32);
 pub const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE = D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE(0i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -5209,6 +5244,7 @@ impl Default for D3D12_RAYTRACING_GEOMETRY_DESC {
 pub union D3D12_RAYTRACING_GEOMETRY_DESC_0 {
     pub Triangles: D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC,
     pub AABBs: D3D12_RAYTRACING_GEOMETRY_AABBS_DESC,
+    pub OmmTriangles: D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC,
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl Default for D3D12_RAYTRACING_GEOMETRY_DESC_0 {
@@ -5258,6 +5294,28 @@ pub const D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE: D3D12_RAYTRACING_GEOMETRY_FLAGS
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC {
+    pub OpacityMicromapIndexBuffer: D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE,
+    pub OpacityMicromapIndexFormat: super::Dxgi::Common::DXGI_FORMAT,
+    pub OpacityMicromapBaseLocation: u32,
+    pub OpacityMicromapArray: u64,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC {
+    pub pTriangles: *const D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC,
+    pub pOmmLinkage: *const D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC {
     pub Transform3x4: u64,
     pub IndexFormat: super::Dxgi::Common::DXGI_FORMAT,
@@ -5270,6 +5328,7 @@ pub struct D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_RAYTRACING_GEOMETRY_TYPE(pub i32);
+pub const D3D12_RAYTRACING_GEOMETRY_TYPE_OMM_TRIANGLES: D3D12_RAYTRACING_GEOMETRY_TYPE = D3D12_RAYTRACING_GEOMETRY_TYPE(2i32);
 pub const D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS: D3D12_RAYTRACING_GEOMETRY_TYPE = D3D12_RAYTRACING_GEOMETRY_TYPE(1i32);
 pub const D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES: D3D12_RAYTRACING_GEOMETRY_TYPE = D3D12_RAYTRACING_GEOMETRY_TYPE(0i32);
 #[repr(C)]
@@ -5322,7 +5381,9 @@ impl core::ops::Not for D3D12_RAYTRACING_INSTANCE_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_RAYTRACING_INSTANCE_FLAG_DISABLE_OMMS: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(32i32);
 pub const D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(8i32);
+pub const D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OMM_2_STATE: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(16i32);
 pub const D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OPAQUE: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(4i32);
 pub const D3D12_RAYTRACING_INSTANCE_FLAG_NONE: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(0i32);
 pub const D3D12_RAYTRACING_INSTANCE_FLAG_TRIANGLE_CULL_DISABLE: D3D12_RAYTRACING_INSTANCE_FLAGS = D3D12_RAYTRACING_INSTANCE_FLAGS(1i32);
@@ -5334,6 +5395,72 @@ pub const D3D12_RAYTRACING_MAX_INSTANCES_PER_TOP_LEVEL_ACCELERATION_STRUCTURE: u
 pub const D3D12_RAYTRACING_MAX_PRIMITIVES_PER_BOTTOM_LEVEL_ACCELERATION_STRUCTURE: u32 = 536870912u32;
 pub const D3D12_RAYTRACING_MAX_RAY_GENERATION_SHADER_THREADS: u32 = 1073741824u32;
 pub const D3D12_RAYTRACING_MAX_SHADER_RECORD_STRIDE: u32 = 4096u32;
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC {
+    pub NumOmmHistogramEntries: u32,
+    pub pOmmHistogram: *const D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY,
+    pub InputBuffer: u64,
+    pub PerOmmDescs: D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE,
+}
+impl Default for D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_CURRENT_SIZE: D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE = D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE(0i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_CURRENT_SIZE_DESC {
+    pub CurrentSizeInBytes: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_DESC {
+    pub DestBuffer: u64,
+    pub InfoType: D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE,
+}
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TOOLS_VISUALIZATION: D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE = D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE(1i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC {
+    pub DecodedSizeInBytes: u64,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_POSTBUILD_INFO_TYPE(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_DESC {
+    pub ByteOffset: u32,
+    pub _bitfield: u32,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT(pub i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT_OC1_2_STATE: D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT = D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT(1i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT_OC1_4_STATE: D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT = D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT(2i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY {
+    pub Count: u32,
+    pub SubdivisionLevel: u32,
+    pub Format: D3D12_RAYTRACING_OPACITY_MICROMAP_FORMAT,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX(pub i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE: D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX = D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX(-2i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT: D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX = D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX(-1i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE: D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX = D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX(-4i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT: D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX = D3D12_RAYTRACING_OPACITY_MICROMAP_SPECIAL_INDEX(-3i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_RAYTRACING_OPACITY_MICROMAP_STATE(pub i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_OPAQUE: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE = D3D12_RAYTRACING_OPACITY_MICROMAP_STATE(1i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_TRANSPARENT: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE = D3D12_RAYTRACING_OPACITY_MICROMAP_STATE(0i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_OPAQUE: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE = D3D12_RAYTRACING_OPACITY_MICROMAP_STATE(3i32);
+pub const D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_TRANSPARENT: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE = D3D12_RAYTRACING_OPACITY_MICROMAP_STATE(2i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_RAYTRACING_PIPELINE_CONFIG {
@@ -5381,9 +5508,17 @@ impl core::ops::Not for D3D12_RAYTRACING_PIPELINE_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_RAYTRACING_PIPELINE_FLAG_ALLOW_OPACITY_MICROMAPS: D3D12_RAYTRACING_PIPELINE_FLAGS = D3D12_RAYTRACING_PIPELINE_FLAGS(1024i32);
 pub const D3D12_RAYTRACING_PIPELINE_FLAG_NONE: D3D12_RAYTRACING_PIPELINE_FLAGS = D3D12_RAYTRACING_PIPELINE_FLAGS(0i32);
 pub const D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES: D3D12_RAYTRACING_PIPELINE_FLAGS = D3D12_RAYTRACING_PIPELINE_FLAGS(512i32);
 pub const D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES: D3D12_RAYTRACING_PIPELINE_FLAGS = D3D12_RAYTRACING_PIPELINE_FLAGS(256i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_RAYTRACING_SERIALIZED_BLOCK {
+    pub Type: D3D12_SERIALIZED_BLOCK_TYPE,
+    pub NumBlockPointersAfterHeader: u64,
+}
+pub const D3D12_RAYTRACING_SERIALIZED_BLOCK_TYPE_OPACITY_MICROMAPS: D3D12_SERIALIZED_BLOCK_TYPE = D3D12_SERIALIZED_BLOCK_TYPE(0i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_RAYTRACING_SHADER_CONFIG {
@@ -5397,6 +5532,7 @@ pub const D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT: u32 = 64u32;
 pub struct D3D12_RAYTRACING_TIER(pub i32);
 pub const D3D12_RAYTRACING_TIER_1_0: D3D12_RAYTRACING_TIER = D3D12_RAYTRACING_TIER(10i32);
 pub const D3D12_RAYTRACING_TIER_1_1: D3D12_RAYTRACING_TIER = D3D12_RAYTRACING_TIER(11i32);
+pub const D3D12_RAYTRACING_TIER_1_2: D3D12_RAYTRACING_TIER = D3D12_RAYTRACING_TIER(12i32);
 pub const D3D12_RAYTRACING_TIER_NOT_SUPPORTED: D3D12_RAYTRACING_TIER = D3D12_RAYTRACING_TIER(0i32);
 pub const D3D12_RAYTRACING_TRANSFORM3X4_BYTE_ALIGNMENT: u32 = 16u32;
 #[repr(transparent)]
@@ -5441,6 +5577,7 @@ pub const D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES: D3D12_RAY_FLAGS = D3D12_RA
 pub const D3D12_RAY_FLAG_CULL_NON_OPAQUE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(128i32);
 pub const D3D12_RAY_FLAG_CULL_OPAQUE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(64i32);
 pub const D3D12_RAY_FLAG_FORCE_NON_OPAQUE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(2i32);
+pub const D3D12_RAY_FLAG_FORCE_OMM_2_STATE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(1024i32);
 pub const D3D12_RAY_FLAG_FORCE_OPAQUE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(1i32);
 pub const D3D12_RAY_FLAG_NONE: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(0i32);
 pub const D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER: D3D12_RAY_FLAGS = D3D12_RAY_FLAGS(8i32);
@@ -6476,7 +6613,11 @@ pub struct D3D12_SAMPLE_POSITION {
     pub X: i8,
     pub Y: i8,
 }
-pub const D3D12_SDK_VERSION: u32 = 615u32;
+pub const D3D12_SDK_VERSION: u32 = 616u32;
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_SERIALIZED_BLOCK_TYPE(pub i32);
+pub const D3D12_SERIALIZED_DATA_APPLICATION_SPECIFIC_DRIVER_STATE: D3D12_SERIALIZED_DATA_TYPE = D3D12_SERIALIZED_DATA_TYPE(1i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER {
@@ -6500,6 +6641,37 @@ pub struct D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER {
     pub DeserializedSizeInBytes: u64,
     pub NumBottomLevelAccelerationStructurePointersAfterHeader: u64,
 }
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1 {
+    pub DriverMatchingIdentifier: D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER,
+    pub SerializedSizeInBytesIncludingHeader: u64,
+    pub DeserializedSizeInBytes: u64,
+    pub Anonymous: D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1_0,
+    pub HeaderPostambleType: D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE,
+}
+impl Default for D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1_0 {
+    pub NumBottomLevelAccelerationStructurePointersAfterHeader: u32,
+    pub NumBlocks: u32,
+}
+impl Default for D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE(pub i32);
+pub const D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE_BLOCKS: D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE = D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE(-1i32);
+pub const D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE_BOTTOM_LEVEL_POINTERS: D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE = D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE(0i32);
+pub const D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE_NONE: D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE = D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE(0i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_SET_GENERIC_PIPELINE_DESC {
@@ -7678,6 +7850,8 @@ impl Default for D3D12_THREAD_LAUNCH_OVERRIDES {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const D3D12_TIGHT_ALIGNMENT_MIN_COMMITTED_RESOURCE_ALIGNEMNT: u32 = 4096u32;
+pub const D3D12_TIGHT_ALIGNMENT_MIN_PLACED_RESOURCE_ALIGNEMNT: u32 = 8u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_TILED_RESOURCES_TIER(pub i32);
@@ -11789,6 +11963,76 @@ impl ID3D12DeviceTools_Vtbl {
     }
 }
 impl windows_core::RuntimeName for ID3D12DeviceTools {}
+windows_core::imp::define_interface!(ID3D12DeviceTools1, ID3D12DeviceTools1_Vtbl, 0xe30e9fc7_e641_4d6e_8a81_9dd9206ec47a);
+impl core::ops::Deref for ID3D12DeviceTools1 {
+    type Target = ID3D12DeviceTools;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12DeviceTools1, windows_core::IUnknown, ID3D12DeviceTools);
+impl ID3D12DeviceTools1 {
+    #[cfg(feature = "Win32_Graphics_Direct3D")]
+    pub unsafe fn GetApplicationSpecificDriverState(&self) -> windows_core::Result<super::Direct3D::ID3DBlob> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetApplicationSpecificDriverState)(windows_core::Interface::as_raw(self), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub unsafe fn GetApplicationSpecificDriverBlobStatus(&self) -> D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS {
+        unsafe { (windows_core::Interface::vtable(self).GetApplicationSpecificDriverBlobStatus)(windows_core::Interface::as_raw(self)) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12DeviceTools1_Vtbl {
+    pub base__: ID3D12DeviceTools_Vtbl,
+    #[cfg(feature = "Win32_Graphics_Direct3D")]
+    pub GetApplicationSpecificDriverState: unsafe extern "system" fn(*mut core::ffi::c_void, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_Graphics_Direct3D"))]
+    GetApplicationSpecificDriverState: usize,
+    pub GetApplicationSpecificDriverBlobStatus: unsafe extern "system" fn(*mut core::ffi::c_void) -> D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS,
+}
+unsafe impl Send for ID3D12DeviceTools1 {}
+unsafe impl Sync for ID3D12DeviceTools1 {}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+pub trait ID3D12DeviceTools1_Impl: ID3D12DeviceTools_Impl {
+    fn GetApplicationSpecificDriverState(&self) -> windows_core::Result<super::Direct3D::ID3DBlob>;
+    fn GetApplicationSpecificDriverBlobStatus(&self) -> D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS;
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl ID3D12DeviceTools1_Vtbl {
+    pub const fn new<Identity: ID3D12DeviceTools1_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetApplicationSpecificDriverState<Identity: ID3D12DeviceTools1_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, ppblob: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ID3D12DeviceTools1_Impl::GetApplicationSpecificDriverState(this) {
+                    Ok(ok__) => {
+                        ppblob.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn GetApplicationSpecificDriverBlobStatus<Identity: ID3D12DeviceTools1_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void) -> D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12DeviceTools1_Impl::GetApplicationSpecificDriverBlobStatus(this)
+            }
+        }
+        Self {
+            base__: ID3D12DeviceTools_Vtbl::new::<Identity, OFFSET>(),
+            GetApplicationSpecificDriverState: GetApplicationSpecificDriverState::<Identity, OFFSET>,
+            GetApplicationSpecificDriverBlobStatus: GetApplicationSpecificDriverBlobStatus::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12DeviceTools1 as windows_core::Interface>::IID || iid == &<ID3D12DeviceTools as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl windows_core::RuntimeName for ID3D12DeviceTools1 {}
 windows_core::imp::define_interface!(ID3D12Fence, ID3D12Fence_Vtbl, 0x0a753dcf_c4d8_4b91_adf6_be5a60d95a76);
 impl core::ops::Deref for ID3D12Fence {
     type Target = ID3D12Pageable;
@@ -16479,6 +16723,56 @@ impl ID3D12Tools1_Vtbl {
     }
 }
 impl windows_core::RuntimeName for ID3D12Tools1 {}
+windows_core::imp::define_interface!(ID3D12Tools2, ID3D12Tools2_Vtbl, 0x01d393c5_c9b0_42a1_958c_c26b02d4d097);
+impl core::ops::Deref for ID3D12Tools2 {
+    type Target = ID3D12Tools1;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12Tools2, windows_core::IUnknown, ID3D12Tools, ID3D12Tools1);
+impl ID3D12Tools2 {
+    #[cfg(feature = "Win32_Graphics_Direct3D")]
+    pub unsafe fn SetApplicationSpecificDriverState<P0, P1>(&self, padapter: P0, pblob: P1) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<windows_core::IUnknown>,
+        P1: windows_core::Param<super::Direct3D::ID3DBlob>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).SetApplicationSpecificDriverState)(windows_core::Interface::as_raw(self), padapter.param().abi(), pblob.param().abi()).ok() }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12Tools2_Vtbl {
+    pub base__: ID3D12Tools1_Vtbl,
+    #[cfg(feature = "Win32_Graphics_Direct3D")]
+    pub SetApplicationSpecificDriverState: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_Graphics_Direct3D"))]
+    SetApplicationSpecificDriverState: usize,
+}
+unsafe impl Send for ID3D12Tools2 {}
+unsafe impl Sync for ID3D12Tools2 {}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+pub trait ID3D12Tools2_Impl: ID3D12Tools1_Impl {
+    fn SetApplicationSpecificDriverState(&self, padapter: windows_core::Ref<'_, windows_core::IUnknown>, pblob: windows_core::Ref<'_, super::Direct3D::ID3DBlob>) -> windows_core::Result<()>;
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl ID3D12Tools2_Vtbl {
+    pub const fn new<Identity: ID3D12Tools2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn SetApplicationSpecificDriverState<Identity: ID3D12Tools2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, padapter: *mut core::ffi::c_void, pblob: *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12Tools2_Impl::SetApplicationSpecificDriverState(this, core::mem::transmute_copy(&padapter), core::mem::transmute_copy(&pblob)).into()
+            }
+        }
+        Self { base__: ID3D12Tools1_Vtbl::new::<Identity, OFFSET>(), SetApplicationSpecificDriverState: SetApplicationSpecificDriverState::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12Tools2 as windows_core::Interface>::IID || iid == &<ID3D12Tools as windows_core::Interface>::IID || iid == &<ID3D12Tools1 as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D")]
+impl windows_core::RuntimeName for ID3D12Tools2 {}
 windows_core::imp::define_interface!(ID3D12VersionedRootSignatureDeserializer, ID3D12VersionedRootSignatureDeserializer_Vtbl, 0x7f91ce67_090c_4bb7_b78e_ed8ff2e31da0);
 windows_core::imp::interface_hierarchy!(ID3D12VersionedRootSignatureDeserializer, windows_core::IUnknown);
 impl ID3D12VersionedRootSignatureDeserializer {
