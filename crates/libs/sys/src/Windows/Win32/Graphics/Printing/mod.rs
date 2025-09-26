@@ -199,9 +199,12 @@ windows_link::link!("spoolss.dll" "system" fn RevertToPrinterSelf() -> super::su
 windows_link::link!("spoolss.dll" "system" fn RouterAllocBidiMem(numbytes : usize) -> *mut core::ffi::c_void);
 windows_link::link!("spoolss.dll" "system" fn RouterAllocBidiResponseContainer(count : u32) -> *mut BIDI_RESPONSE_CONTAINER);
 windows_link::link!("spoolss.dll" "system" fn RouterAllocPrinterNotifyInfo(cprinternotifyinfodata : u32) -> *mut PRINTER_NOTIFY_INFO);
+windows_link::link!("spoolss.dll" "system" fn RouterCreatePrintAsyncNotificationChannel(pname : windows_sys::core::PCWSTR, pnotificationtype : *const windows_sys::core::GUID, enotifyfilter : PrintAsyncNotifyUserFilter, econversationstyle : PrintAsyncNotifyConversationStyle, pcallback : * mut core::ffi::c_void, ppiasynchnotification : *mut * mut core::ffi::c_void) -> windows_sys::core::HRESULT);
 windows_link::link!("spoolss.dll" "system" fn RouterFreeBidiMem(pmempointer : *const core::ffi::c_void));
 windows_link::link!("winspool.drv" "system" fn RouterFreeBidiResponseContainer(pdata : *const BIDI_RESPONSE_CONTAINER) -> u32);
 windows_link::link!("spoolss.dll" "system" fn RouterFreePrinterNotifyInfo(pinfo : *const PRINTER_NOTIFY_INFO) -> windows_sys::core::BOOL);
+windows_link::link!("spoolss.dll" "system" fn RouterGetPrintClassObject(pprinter : windows_sys::core::PCWSTR, riid : *const windows_sys::core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_sys::core::HRESULT);
+windows_link::link!("spoolss.dll" "system" fn RouterUnregisterForPrintAsyncNotifications(hnotify : super::super::Foundation:: HANDLE) -> windows_sys::core::HRESULT);
 windows_link::link!("winspool.drv" "system" fn ScheduleJob(hprinter : PRINTER_HANDLE, jobid : u32) -> windows_sys::core::BOOL);
 windows_link::link!("compstui.dll" "system" fn SetCPSUIUserData(hdlg : super::super::Foundation:: HWND, cpsuiuserdata : usize) -> windows_sys::core::BOOL);
 windows_link::link!("winspool.drv" "system" fn SetDefaultPrinterA(pszprinter : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);

@@ -1304,6 +1304,18 @@ pub unsafe fn RouterAllocPrinterNotifyInfo(cprinternotifyinfodata: u32) -> *mut 
     unsafe { RouterAllocPrinterNotifyInfo(cprinternotifyinfodata) }
 }
 #[inline]
+pub unsafe fn RouterCreatePrintAsyncNotificationChannel<P0, P4>(pname: P0, pnotificationtype: *const windows_core::GUID, enotifyfilter: PrintAsyncNotifyUserFilter, econversationstyle: PrintAsyncNotifyConversationStyle, pcallback: P4) -> windows_core::Result<IPrintAsyncNotifyChannel>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+    P4: windows_core::Param<IPrintAsyncNotifyCallback>,
+{
+    windows_core::link!("spoolss.dll" "system" fn RouterCreatePrintAsyncNotificationChannel(pname : windows_core::PCWSTR, pnotificationtype : *const windows_core::GUID, enotifyfilter : PrintAsyncNotifyUserFilter, econversationstyle : PrintAsyncNotifyConversationStyle, pcallback : * mut core::ffi::c_void, ppiasynchnotification : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        RouterCreatePrintAsyncNotificationChannel(pname.param().abi(), pnotificationtype, enotifyfilter, econversationstyle, pcallback.param().abi(), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+    }
+}
+#[inline]
 pub unsafe fn RouterFreeBidiMem(pmempointer: *const core::ffi::c_void) {
     windows_core::link!("spoolss.dll" "system" fn RouterFreeBidiMem(pmempointer : *const core::ffi::c_void));
     unsafe { RouterFreeBidiMem(pmempointer) }
@@ -1317,6 +1329,19 @@ pub unsafe fn RouterFreeBidiResponseContainer(pdata: *const BIDI_RESPONSE_CONTAI
 pub unsafe fn RouterFreePrinterNotifyInfo(pinfo: Option<*const PRINTER_NOTIFY_INFO>) -> windows_core::BOOL {
     windows_core::link!("spoolss.dll" "system" fn RouterFreePrinterNotifyInfo(pinfo : *const PRINTER_NOTIFY_INFO) -> windows_core::BOOL);
     unsafe { RouterFreePrinterNotifyInfo(pinfo.unwrap_or(core::mem::zeroed()) as _) }
+}
+#[inline]
+pub unsafe fn RouterGetPrintClassObject<P0>(pprinter: P0, riid: *const windows_core::GUID, ppv: *mut *mut core::ffi::c_void) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_core::link!("spoolss.dll" "system" fn RouterGetPrintClassObject(pprinter : windows_core::PCWSTR, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    unsafe { RouterGetPrintClassObject(pprinter.param().abi(), riid, ppv as _).ok() }
+}
+#[inline]
+pub unsafe fn RouterUnregisterForPrintAsyncNotifications(hnotify: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
+    windows_core::link!("spoolss.dll" "system" fn RouterUnregisterForPrintAsyncNotifications(hnotify : super::super::Foundation:: HANDLE) -> windows_core::HRESULT);
+    unsafe { RouterUnregisterForPrintAsyncNotifications(hnotify).ok() }
 }
 #[inline]
 pub unsafe fn ScheduleJob(hprinter: PRINTER_HANDLE, jobid: u32) -> windows_core::BOOL {
