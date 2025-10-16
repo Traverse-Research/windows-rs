@@ -106,13 +106,12 @@ where
     unsafe { AddPrintProvidorW(pname.param().abi(), level, pprovidorinfo) }
 }
 #[inline]
-pub unsafe fn AddPrinterA<P0>(pname: P0, level: u32, pprinter: *const u8) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AddPrinterA<P0>(pname: P0, level: u32, pprinter: *const u8) -> PRINTER_HANDLE
 where
     P0: windows_core::Param<windows_core::PCSTR>,
 {
-    windows_core::link!("winspool.drv" "system" fn AddPrinterA(pname : windows_core::PCSTR, level : u32, pprinter : *const u8) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AddPrinterA(pname.param().abi(), level, pprinter) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_thread)
+    windows_core::link!("winspool.drv" "system" fn AddPrinterA(pname : windows_core::PCSTR, level : u32, pprinter : *const u8) -> PRINTER_HANDLE);
+    unsafe { AddPrinterA(pname.param().abi(), level, pprinter) }
 }
 #[inline]
 pub unsafe fn AddPrinterConnection2A<P1>(hwnd: Option<super::super::Foundation::HWND>, pszname: P1, dwlevel: u32, pconnectioninfo: *const core::ffi::c_void) -> windows_core::BOOL
@@ -179,13 +178,12 @@ where
     unsafe { AddPrinterDriverW(pname.param().abi(), level, pdriverinfo).ok() }
 }
 #[inline]
-pub unsafe fn AddPrinterW<P0>(pname: P0, level: u32, pprinter: *const u8) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AddPrinterW<P0>(pname: P0, level: u32, pprinter: *const u8) -> PRINTER_HANDLE
 where
     P0: windows_core::Param<windows_core::PCWSTR>,
 {
-    windows_core::link!("winspool.drv" "system" fn AddPrinterW(pname : windows_core::PCWSTR, level : u32, pprinter : *const u8) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AddPrinterW(pname.param().abi(), level, pprinter) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_thread)
+    windows_core::link!("winspool.drv" "system" fn AddPrinterW(pname : windows_core::PCWSTR, level : u32, pprinter : *const u8) -> PRINTER_HANDLE);
+    unsafe { AddPrinterW(pname.param().abi(), level, pprinter) }
 }
 #[cfg(feature = "Win32_Graphics_Gdi")]
 #[inline]

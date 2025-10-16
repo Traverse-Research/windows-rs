@@ -56,13 +56,17 @@ pub const CLSID_D3D12Debug: windows_core::GUID = windows_core::GUID::from_u128(0
 pub const CLSID_D3D12DeviceFactory: windows_core::GUID = windows_core::GUID::from_u128(0x114863bf_c386_4aee_b39d_8f0bbb062955);
 pub const CLSID_D3D12DeviceRemovedExtendedData: windows_core::GUID = windows_core::GUID::from_u128(0x4a75bbc4_9ff4_4ad8_9f18_abae84dc5ff2);
 pub const CLSID_D3D12SDKConfiguration: windows_core::GUID = windows_core::GUID::from_u128(0x7cda6aca_a03e_49c8_9458_0334d20e07ce);
+pub const CLSID_D3D12StateObjectFactory: windows_core::GUID = windows_core::GUID::from_u128(0x54e1c9f3_1303_4112_bf8e_7bf2bb606a73);
 pub const CLSID_D3D12Tools: windows_core::GUID = windows_core::GUID::from_u128(0xe38216b1_3c8c_4833_aa09_0a06b65d96c8);
+pub type D3D12ApplicationDescFunc = Option<unsafe extern "system" fn(papplicationdesc: *const D3D12_APPLICATION_DESC, pcontext: *mut core::ffi::c_void)>;
 pub type D3D12CompilerCacheSessionAllocationFunc = Option<unsafe extern "system" fn(sizeinbytes: usize, pcontext: *mut core::ffi::c_void) -> *mut core::ffi::c_void>;
 pub type D3D12CompilerCacheSessionGroupValueKeysFunc = Option<unsafe extern "system" fn(pvaluekey: *const D3D12_COMPILER_CACHE_VALUE_KEY, pcontext: *mut core::ffi::c_void)>;
 pub type D3D12CompilerCacheSessionGroupValuesFunc = Option<unsafe extern "system" fn(valuekeyindex: u32, ptypedvalue: *const D3D12_COMPILER_CACHE_TYPED_CONST_VALUE, pcontext: *mut core::ffi::c_void)>;
 pub const D3D12ExperimentalShaderModels: windows_core::GUID = windows_core::GUID::from_u128(0x76f5573e_f13a_40f5_b297_81ce9e18933f);
 pub const D3D12GPUUploadHeapsOnUnsupportedOS: windows_core::GUID = windows_core::GUID::from_u128(0x45dc51f3_767f_4588_b206_0baa2b16fbae);
 pub type D3D12MessageFunc = Option<unsafe extern "system" fn(category: D3D12_MESSAGE_CATEGORY, severity: D3D12_MESSAGE_SEVERITY, id: D3D12_MESSAGE_ID, pdescription: windows_core::PCSTR, pcontext: *mut core::ffi::c_void)>;
+pub type D3D12PipelineStateFunc = Option<unsafe extern "system" fn(pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_PIPELINE_STATE_STREAM_DESC, pcontext: *mut core::ffi::c_void)>;
+pub type D3D12StateObjectFunc = Option<unsafe extern "system" fn(pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_STATE_OBJECT_DESC, pparentkey: *const core::ffi::c_void, parentkeysize: u32, pcontext: *mut core::ffi::c_void)>;
 pub const D3D12TiledResourceTier4: windows_core::GUID = windows_core::GUID::from_u128(0xc9c4725f_a81a_4f56_8c5b_c51039d694fb);
 pub const D3D12_16BIT_INDEX_STRIP_CUT_VALUE: u32 = 65535u32;
 pub const D3D12_32BIT_INDEX_STRIP_CUT_VALUE: u32 = 4294967295u32;
@@ -2183,6 +2187,19 @@ pub const D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS: D3D12_ELEMENTS_LAYOUT = D3D12
 pub struct D3D12_EXECUTE_INDIRECT_TIER(pub i32);
 pub const D3D12_EXECUTE_INDIRECT_TIER_1_0: D3D12_EXECUTE_INDIRECT_TIER = D3D12_EXECUTE_INDIRECT_TIER(10i32);
 pub const D3D12_EXECUTE_INDIRECT_TIER_1_1: D3D12_EXECUTE_INDIRECT_TIER = D3D12_EXECUTE_INDIRECT_TIER(11i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_EXISTING_COLLECTION_BY_KEY_DESC {
+    pub pKey: *const core::ffi::c_void,
+    pub KeySize: u32,
+    pub NumExports: u32,
+    pub pExports: *const D3D12_EXPORT_DESC,
+}
+impl Default for D3D12_EXISTING_COLLECTION_BY_KEY_DESC {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct D3D12_EXISTING_COLLECTION_DESC {
@@ -7592,6 +7609,44 @@ pub const D3D12_STANDARD_VERTEX_TOTAL_COMPONENT_COUNT: u32 = 64u32;
 pub struct D3D12_STATE_OBJECT_CONFIG {
     pub Flags: D3D12_STATE_OBJECT_FLAGS,
 }
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_STATE_OBJECT_DATABASE_FLAGS(pub i32);
+impl D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_STATE_OBJECT_DATABASE_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_STATE_OBJECT_DATABASE_FLAG_NONE: D3D12_STATE_OBJECT_DATABASE_FLAGS = D3D12_STATE_OBJECT_DATABASE_FLAGS(0i32);
+pub const D3D12_STATE_OBJECT_DATABASE_FLAG_READ_ONLY: D3D12_STATE_OBJECT_DATABASE_FLAGS = D3D12_STATE_OBJECT_DATABASE_FLAGS(1i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct D3D12_STATE_OBJECT_DESC {
@@ -7673,6 +7728,7 @@ pub const D3D12_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL_FORMAT: D3D12_STATE_SUBOBJECT
 pub const D3D12_STATE_SUBOBJECT_TYPE_DXIL_LIBRARY: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(5i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(8i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(6i32);
+pub const D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION_BY_KEY: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(36i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_FLAGS: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(26i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_GENERIC_PROGRAM: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(29i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_ROOT_SIGNATURE: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(1i32);
@@ -7682,7 +7738,7 @@ pub const D3D12_STATE_SUBOBJECT_TYPE_IB_STRIP_CUT_VALUE: D3D12_STATE_SUBOBJECT_T
 pub const D3D12_STATE_SUBOBJECT_TYPE_INPUT_LAYOUT: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(19i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_LOCAL_ROOT_SIGNATURE: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(2i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_LOCAL_SERIALIZED_ROOT_SIGNATURE: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(32i32);
-pub const D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(34i32);
+pub const D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(37i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(3i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(21i32);
 pub const D3D12_STATE_SUBOBJECT_TYPE_RASTERIZER: D3D12_STATE_SUBOBJECT_TYPE = D3D12_STATE_SUBOBJECT_TYPE(17i32);
@@ -17283,6 +17339,164 @@ impl ID3D12StateObject_Vtbl {
     }
 }
 impl windows_core::RuntimeName for ID3D12StateObject {}
+windows_core::imp::define_interface!(ID3D12StateObjectDatabase, ID3D12StateObjectDatabase_Vtbl, 0xc56060b7_b5fc_4135_98e0_a1e9997eace0);
+windows_core::imp::interface_hierarchy!(ID3D12StateObjectDatabase, windows_core::IUnknown);
+impl ID3D12StateObjectDatabase {
+    pub unsafe fn SetApplicationDesc(&self, papplicationdesc: *const D3D12_APPLICATION_DESC) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).SetApplicationDesc)(windows_core::Interface::as_raw(self), papplicationdesc).ok() }
+    }
+    pub unsafe fn GetApplicationDesc(&self, callbackfunc: D3D12ApplicationDescFunc, pcontext: Option<*mut core::ffi::c_void>) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).GetApplicationDesc)(windows_core::Interface::as_raw(self), callbackfunc, pcontext.unwrap_or(core::mem::zeroed()) as _).ok() }
+    }
+    pub unsafe fn StorePipelineStateDesc(&self, pkey: &[u8], version: u32, pdesc: *const D3D12_PIPELINE_STATE_STREAM_DESC) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).StorePipelineStateDesc)(windows_core::Interface::as_raw(self), core::mem::transmute(pkey.as_ptr()), pkey.len().try_into().unwrap(), version, pdesc).ok() }
+    }
+    pub unsafe fn FindPipelineStateDesc(&self, pkey: &[u8], callbackfunc: D3D12PipelineStateFunc, pcontext: Option<*mut core::ffi::c_void>) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).FindPipelineStateDesc)(windows_core::Interface::as_raw(self), core::mem::transmute(pkey.as_ptr()), pkey.len().try_into().unwrap(), callbackfunc, pcontext.unwrap_or(core::mem::zeroed()) as _).ok() }
+    }
+    pub unsafe fn StoreStateObjectDesc(&self, pkey: &[u8], version: u32, pdesc: *const D3D12_STATE_OBJECT_DESC, pstateobjecttogrowfromkey: Option<&[u8]>) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).StoreStateObjectDesc)(windows_core::Interface::as_raw(self), core::mem::transmute(pkey.as_ptr()), pkey.len().try_into().unwrap(), version, pdesc, core::mem::transmute(pstateobjecttogrowfromkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pstateobjecttogrowfromkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap())).ok() }
+    }
+    pub unsafe fn FindStateObjectDesc(&self, pkey: *const core::ffi::c_void, keysize: u32, callbackfunc: D3D12StateObjectFunc, pcontext: Option<*mut core::ffi::c_void>) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).FindStateObjectDesc)(windows_core::Interface::as_raw(self), pkey, keysize, callbackfunc, pcontext.unwrap_or(core::mem::zeroed()) as _).ok() }
+    }
+    pub unsafe fn FindObjectVersion(&self, pkey: *const core::ffi::c_void, keysize: u32) -> windows_core::Result<u32> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).FindObjectVersion)(windows_core::Interface::as_raw(self), pkey, keysize, &mut result__).map(|| result__)
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12StateObjectDatabase_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub SetApplicationDesc: unsafe extern "system" fn(*mut core::ffi::c_void, *const D3D12_APPLICATION_DESC) -> windows_core::HRESULT,
+    pub GetApplicationDesc: unsafe extern "system" fn(*mut core::ffi::c_void, D3D12ApplicationDescFunc, *mut core::ffi::c_void) -> windows_core::HRESULT,
+    pub StorePipelineStateDesc: unsafe extern "system" fn(*mut core::ffi::c_void, *const core::ffi::c_void, u32, u32, *const D3D12_PIPELINE_STATE_STREAM_DESC) -> windows_core::HRESULT,
+    pub FindPipelineStateDesc: unsafe extern "system" fn(*mut core::ffi::c_void, *const core::ffi::c_void, u32, D3D12PipelineStateFunc, *mut core::ffi::c_void) -> windows_core::HRESULT,
+    pub StoreStateObjectDesc: unsafe extern "system" fn(*mut core::ffi::c_void, *const core::ffi::c_void, u32, u32, *const D3D12_STATE_OBJECT_DESC, *const core::ffi::c_void, u32) -> windows_core::HRESULT,
+    pub FindStateObjectDesc: unsafe extern "system" fn(*mut core::ffi::c_void, *const core::ffi::c_void, u32, D3D12StateObjectFunc, *mut core::ffi::c_void) -> windows_core::HRESULT,
+    pub FindObjectVersion: unsafe extern "system" fn(*mut core::ffi::c_void, *const core::ffi::c_void, u32, *mut u32) -> windows_core::HRESULT,
+}
+unsafe impl Send for ID3D12StateObjectDatabase {}
+unsafe impl Sync for ID3D12StateObjectDatabase {}
+pub trait ID3D12StateObjectDatabase_Impl: windows_core::IUnknownImpl {
+    fn SetApplicationDesc(&self, papplicationdesc: *const D3D12_APPLICATION_DESC) -> windows_core::Result<()>;
+    fn GetApplicationDesc(&self, callbackfunc: D3D12ApplicationDescFunc, pcontext: *mut core::ffi::c_void) -> windows_core::Result<()>;
+    fn StorePipelineStateDesc(&self, pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_PIPELINE_STATE_STREAM_DESC) -> windows_core::Result<()>;
+    fn FindPipelineStateDesc(&self, pkey: *const core::ffi::c_void, keysize: u32, callbackfunc: D3D12PipelineStateFunc, pcontext: *mut core::ffi::c_void) -> windows_core::Result<()>;
+    fn StoreStateObjectDesc(&self, pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_STATE_OBJECT_DESC, pstateobjecttogrowfromkey: *const core::ffi::c_void, stateobjecttogrowfromkeysize: u32) -> windows_core::Result<()>;
+    fn FindStateObjectDesc(&self, pkey: *const core::ffi::c_void, keysize: u32, callbackfunc: D3D12StateObjectFunc, pcontext: *mut core::ffi::c_void) -> windows_core::Result<()>;
+    fn FindObjectVersion(&self, pkey: *const core::ffi::c_void, keysize: u32) -> windows_core::Result<u32>;
+}
+impl ID3D12StateObjectDatabase_Vtbl {
+    pub const fn new<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn SetApplicationDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, papplicationdesc: *const D3D12_APPLICATION_DESC) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::SetApplicationDesc(this, core::mem::transmute_copy(&papplicationdesc)).into()
+            }
+        }
+        unsafe extern "system" fn GetApplicationDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, callbackfunc: D3D12ApplicationDescFunc, pcontext: *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::GetApplicationDesc(this, core::mem::transmute_copy(&callbackfunc), core::mem::transmute_copy(&pcontext)).into()
+            }
+        }
+        unsafe extern "system" fn StorePipelineStateDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_PIPELINE_STATE_STREAM_DESC) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::StorePipelineStateDesc(this, core::mem::transmute_copy(&pkey), core::mem::transmute_copy(&keysize), core::mem::transmute_copy(&version), core::mem::transmute_copy(&pdesc)).into()
+            }
+        }
+        unsafe extern "system" fn FindPipelineStateDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pkey: *const core::ffi::c_void, keysize: u32, callbackfunc: D3D12PipelineStateFunc, pcontext: *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::FindPipelineStateDesc(this, core::mem::transmute_copy(&pkey), core::mem::transmute_copy(&keysize), core::mem::transmute_copy(&callbackfunc), core::mem::transmute_copy(&pcontext)).into()
+            }
+        }
+        unsafe extern "system" fn StoreStateObjectDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pkey: *const core::ffi::c_void, keysize: u32, version: u32, pdesc: *const D3D12_STATE_OBJECT_DESC, pstateobjecttogrowfromkey: *const core::ffi::c_void, stateobjecttogrowfromkeysize: u32) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::StoreStateObjectDesc(this, core::mem::transmute_copy(&pkey), core::mem::transmute_copy(&keysize), core::mem::transmute_copy(&version), core::mem::transmute_copy(&pdesc), core::mem::transmute_copy(&pstateobjecttogrowfromkey), core::mem::transmute_copy(&stateobjecttogrowfromkeysize)).into()
+            }
+        }
+        unsafe extern "system" fn FindStateObjectDesc<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pkey: *const core::ffi::c_void, keysize: u32, callbackfunc: D3D12StateObjectFunc, pcontext: *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabase_Impl::FindStateObjectDesc(this, core::mem::transmute_copy(&pkey), core::mem::transmute_copy(&keysize), core::mem::transmute_copy(&callbackfunc), core::mem::transmute_copy(&pcontext)).into()
+            }
+        }
+        unsafe extern "system" fn FindObjectVersion<Identity: ID3D12StateObjectDatabase_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pkey: *const core::ffi::c_void, keysize: u32, pversion: *mut u32) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ID3D12StateObjectDatabase_Impl::FindObjectVersion(this, core::mem::transmute_copy(&pkey), core::mem::transmute_copy(&keysize)) {
+                    Ok(ok__) => {
+                        pversion.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            SetApplicationDesc: SetApplicationDesc::<Identity, OFFSET>,
+            GetApplicationDesc: GetApplicationDesc::<Identity, OFFSET>,
+            StorePipelineStateDesc: StorePipelineStateDesc::<Identity, OFFSET>,
+            FindPipelineStateDesc: FindPipelineStateDesc::<Identity, OFFSET>,
+            StoreStateObjectDesc: StoreStateObjectDesc::<Identity, OFFSET>,
+            FindStateObjectDesc: FindStateObjectDesc::<Identity, OFFSET>,
+            FindObjectVersion: FindObjectVersion::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12StateObjectDatabase as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for ID3D12StateObjectDatabase {}
+windows_core::imp::define_interface!(ID3D12StateObjectDatabaseFactory, ID3D12StateObjectDatabaseFactory_Vtbl, 0xf5b066f0_648a_4611_bd41_27fd0948b9eb);
+windows_core::imp::interface_hierarchy!(ID3D12StateObjectDatabaseFactory, windows_core::IUnknown);
+impl ID3D12StateObjectDatabaseFactory {
+    pub unsafe fn CreateStateObjectDatabaseFromFile<P0, T>(&self, pdatabasefile: P0, flags: D3D12_STATE_OBJECT_DATABASE_FLAGS) -> windows_core::Result<T>
+    where
+        P0: windows_core::Param<windows_core::PCWSTR>,
+        T: windows_core::Interface,
+    {
+        let mut result__ = core::ptr::null_mut();
+        unsafe { (windows_core::Interface::vtable(self).CreateStateObjectDatabaseFromFile)(windows_core::Interface::as_raw(self), pdatabasefile.param().abi(), flags, &T::IID, &mut result__).and_then(|| windows_core::Type::from_abi(result__)) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12StateObjectDatabaseFactory_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub CreateStateObjectDatabaseFromFile: unsafe extern "system" fn(*mut core::ffi::c_void, windows_core::PCWSTR, D3D12_STATE_OBJECT_DATABASE_FLAGS, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+unsafe impl Send for ID3D12StateObjectDatabaseFactory {}
+unsafe impl Sync for ID3D12StateObjectDatabaseFactory {}
+pub trait ID3D12StateObjectDatabaseFactory_Impl: windows_core::IUnknownImpl {
+    fn CreateStateObjectDatabaseFromFile(&self, pdatabasefile: &windows_core::PCWSTR, flags: D3D12_STATE_OBJECT_DATABASE_FLAGS, riid: *const windows_core::GUID, ppvstateobjectdatabase: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+}
+impl ID3D12StateObjectDatabaseFactory_Vtbl {
+    pub const fn new<Identity: ID3D12StateObjectDatabaseFactory_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreateStateObjectDatabaseFromFile<Identity: ID3D12StateObjectDatabaseFactory_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pdatabasefile: windows_core::PCWSTR, flags: D3D12_STATE_OBJECT_DATABASE_FLAGS, riid: *const windows_core::GUID, ppvstateobjectdatabase: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12StateObjectDatabaseFactory_Impl::CreateStateObjectDatabaseFromFile(this, core::mem::transmute(&pdatabasefile), core::mem::transmute_copy(&flags), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&ppvstateobjectdatabase)).into()
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            CreateStateObjectDatabaseFromFile: CreateStateObjectDatabaseFromFile::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12StateObjectDatabaseFactory as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for ID3D12StateObjectDatabaseFactory {}
 windows_core::imp::define_interface!(ID3D12StateObjectProperties, ID3D12StateObjectProperties_Vtbl, 0xde5fa827_9bf9_4f26_89ff_d7f56fde3860);
 windows_core::imp::interface_hierarchy!(ID3D12StateObjectProperties, windows_core::IUnknown);
 impl ID3D12StateObjectProperties {

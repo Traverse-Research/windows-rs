@@ -2534,6 +2534,22 @@ pub const PropertyWBEMXmlFragment: PROPERTY_FLAGS = PROPERTY_FLAGS(8i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub struct REGHANDLE(pub i64);
+impl REGHANDLE {
+    pub fn is_invalid(&self) -> bool {
+        self.0 == 0
+    }
+}
+impl windows_core::Free for REGHANDLE {
+    #[inline]
+    unsafe fn free(&mut self) {
+        if !self.is_invalid() {
+            windows_core::link!("advapi32.dll" "system" fn EventUnregister(reghandle : i64) -> u32);
+            unsafe {
+                EventUnregister(self.0);
+            }
+        }
+    }
+}
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct RELOGSTREAM_HANDLE {

@@ -315,9 +315,6 @@ impl Default for CHAR_IMAGE_INFO {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const CHAR_TYPE_LEADING: u32 = 2u32;
-pub const CHAR_TYPE_SBCS: u32 = 0u32;
-pub const CHAR_TYPE_TRAILING: u32 = 3u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct CHROMATICITY_COORDINATE {

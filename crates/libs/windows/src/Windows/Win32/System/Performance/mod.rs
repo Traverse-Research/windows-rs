@@ -9746,7 +9746,7 @@ impl Default for PDH_HCOUNTER {
 pub struct PDH_HLOG(pub *mut core::ffi::c_void);
 impl PDH_HLOG {
     pub fn is_invalid(&self) -> bool {
-        self.0.is_null()
+        self.0 == -1 as _ || self.0 == 0 as _
     }
 }
 impl windows_core::Free for PDH_HLOG {
@@ -9770,7 +9770,7 @@ impl Default for PDH_HLOG {
 pub struct PDH_HQUERY(pub *mut core::ffi::c_void);
 impl PDH_HQUERY {
     pub fn is_invalid(&self) -> bool {
-        self.0.is_null()
+        self.0 == -1 as _ || self.0 == 0 as _
     }
 }
 impl windows_core::Free for PDH_HQUERY {
