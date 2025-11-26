@@ -7751,6 +7751,7 @@ pub const MS_KEY_STORAGE_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core
 pub const MS_NGC_KEY_STORAGE_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Passport Key Storage Provider");
 pub const MS_PLATFORM_CRYPTO_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Platform Crypto Provider");
 pub const MS_PLATFORM_KEY_STORAGE_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Platform Crypto Provider");
+pub const MS_PLUTON_CRYPTO_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Pluton Cryptographic Provider");
 pub const MS_PRIMITIVE_PROVIDER: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Primitive Provider");
 pub const MS_SCARD_PROV: windows_sys::core::PCWSTR = windows_sys::core::w!("Microsoft Base Smart Card Crypto Provider");
 pub const MS_SCARD_PROV_A: windows_sys::core::PCSTR = windows_sys::core::s!("Microsoft Base Smart Card Crypto Provider");
@@ -8188,6 +8189,15 @@ pub struct NCRYPT_PLATFORM_ATTEST_PADDING_INFO {
     pub magic: u32,
     pub pcrMask: u32,
 }
+pub const NCRYPT_PLUTON_ECC_EKCERT_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_ECC_EKCERT");
+pub const NCRYPT_PLUTON_ECC_EKPUB_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_ECC_EKPUB");
+pub const NCRYPT_PLUTON_EKCERT_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_EKCERT");
+pub const NCRYPT_PLUTON_EKPUB_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_EKPUB");
+pub const NCRYPT_PLUTON_KDF_PARAMS_BUFFER_DESC_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PlutonKdfParamsBufferDesc");
+pub const NCRYPT_PLUTON_KDF_PARENT_KEY_UNIQUE_NAME_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PlutonKdfParentKeyUniqueName");
+pub const NCRYPT_PLUTON_RSA_EKCERT_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_RSA_EKCERT");
+pub const NCRYPT_PLUTON_RSA_EKPUB_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_RSA_EKPUB");
+pub const NCRYPT_PLUTON_SESSION_ID_PROPERTY: windows_sys::core::PCWSTR = windows_sys::core::w!("PLUTON_SESSION_ID");
 pub const NCRYPT_PREFER_VBS_FLAG: u32 = 65536u32;
 pub const NCRYPT_PREFER_VIRTUAL_ISOLATION_FLAG: u32 = 65536u32;
 pub const NCRYPT_PROTECTED_KEY_BLOB: windows_sys::core::PCWSTR = windows_sys::core::w!("ProtectedKeyBlob");

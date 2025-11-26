@@ -1089,11 +1089,76 @@ pub const CTAPCBOR_HYBRID_STORAGE_LINKED_DATA_CURRENT_VERSION: u32 = 1u32;
 pub const CTAPCBOR_HYBRID_STORAGE_LINKED_DATA_VERSION_1: u32 = 1u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct EXPERIMENTAL2_PLUGIN_AUTHENTICATOR_STATE(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct EXPERIMENTAL2_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS {
+    pub pwszAuthenticatorName: windows_core::PCWSTR,
+    pub rclsid: *const windows_core::GUID,
+    pub pwszPluginRpId: windows_core::PCWSTR,
+    pub pwszLightThemeLogoSvg: windows_core::PCWSTR,
+    pub pwszDarkThemeLogoSvg: windows_core::PCWSTR,
+    pub cbAuthenticatorInfo: u32,
+    pub pbAuthenticatorInfo: *const u8,
+    pub cSupportedRpIds: u32,
+    pub ppwszSupportedRpIds: *const windows_core::PCWSTR,
+}
+impl Default for EXPERIMENTAL2_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct EXPERIMENTAL2_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS {
+    pub cbCredentialId: u32,
+    pub pbCredentialId: *const u8,
+    pub pwszRpId: windows_core::PCWSTR,
+    pub pwszRpName: windows_core::PCWSTR,
+    pub cbUserId: u32,
+    pub pbUserId: *const u8,
+    pub pwszUserName: windows_core::PCWSTR,
+    pub pwszUserDisplayName: windows_core::PCWSTR,
+}
+impl Default for EXPERIMENTAL2_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct EXPERIMENTAL2_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
+    pub pwszAuthenticatorName: windows_core::PCWSTR,
+    pub rclsid: *const windows_core::GUID,
+    pub rclsidNew: *const windows_core::GUID,
+    pub pwszLightThemeLogoSvg: windows_core::PCWSTR,
+    pub pwszDarkThemeLogoSvg: windows_core::PCWSTR,
+    pub cbAuthenticatorInfo: u32,
+    pub pbAuthenticatorInfo: *const u8,
+    pub cSupportedRpIds: u32,
+    pub ppwszSupportedRpIds: *const windows_core::PCWSTR,
+}
+impl Default for EXPERIMENTAL2_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct EXPERIMENTAL2_WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST {
+    pub hwnd: super::super::Foundation::HWND,
+    pub rguidTransactionId: *const windows_core::GUID,
+    pub pwszUsername: windows_core::PCWSTR,
+    pub pwszDisplayHint: windows_core::PCWSTR,
+}
+impl Default for EXPERIMENTAL2_WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE(pub i32);
-pub const EXPERIMENTAL_WEBAUTHN_API_VERSION_8: u32 = 1008u32;
-pub const EXPERIMENTAL_WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_8: u32 = 1008u32;
-pub const EXPERIMENTAL_WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_7: u32 = 1007u32;
-pub const EXPERIMENTAL_WEBAUTHN_CREDENTIAL_DETAILS_VERSION_3: u32 = 1003u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS {
@@ -1244,8 +1309,6 @@ pub struct EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS {
     pub pwszDarkThemeLogo: windows_core::PCWSTR,
     pub cbAuthenticatorInfo: u32,
     pub pbAuthenticatorInfo: *mut u8,
-    pub cbPluginIdKey: u32,
-    pub pbPluginIdKey: *mut u8,
 }
 impl Default for EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS {
     fn default() -> Self {
@@ -1286,10 +1349,6 @@ pub struct EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST {
     pub pwszPluginClsId: windows_core::PWSTR,
     pub cCredentialDetails: u32,
     pub pCredentialDetails: *mut *mut EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS,
-    pub cbNonce: u32,
-    pub pbNonce: *mut u8,
-    pub cbSignature: u32,
-    pub pbSignature: *mut u8,
 }
 impl Default for EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST {
     fn default() -> Self {
@@ -1326,40 +1385,21 @@ impl Default for EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_RESPONSE {
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS {
-    pub pwszPluginClsId: windows_core::PCWSTR,
-    pub cbNonce: u32,
-    pub pbNonce: *mut u8,
-    pub cbSignature: u32,
-    pub pbSignature: *mut u8,
-}
-impl Default for EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
     pub pwszAuthenticatorName: windows_core::PCWSTR,
     pub pwszPluginClsId: windows_core::PCWSTR,
     pub pwszNewPluginClsId: windows_core::PCWSTR,
     pub pwszLightThemeLogo: windows_core::PCWSTR,
     pub pwszDarkThemeLogo: windows_core::PCWSTR,
-    pub cbPluginIdKey: u32,
-    pub pbPluginIdKey: *mut u8,
     pub cbAuthenticatorInfo: u32,
     pub pbAuthenticatorInfo: *mut u8,
-    pub cbNonce: u32,
-    pub pbNonce: *mut u8,
-    pub cbSignature: u32,
-    pub pbSignature: *mut u8,
 }
 impl Default for EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
+pub type EXPERIMENTAL_WebAuthNPluginStatusChangeCallback = Option<unsafe extern "system" fn()>;
 pub const GetPubKey: EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE = EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE(3i32);
 pub const GetUvCount: EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE = EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE(2i32);
 windows_core::imp::define_interface!(IContentPrefetcherTaskTrigger, IContentPrefetcherTaskTrigger_Vtbl, 0x1b35a14a_6094_4799_a60e_e474e15d4dc9);
@@ -1425,9 +1465,11 @@ impl IContentPrefetcherTaskTrigger_Vtbl {
 impl windows_core::RuntimeName for IContentPrefetcherTaskTrigger {}
 pub const PerformUv: EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE = EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE(1i32);
 pub const PluginAuthenticatorState_Disabled: EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE = EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE(1i32);
+pub const PluginAuthenticatorState_Disabled_2: EXPERIMENTAL2_PLUGIN_AUTHENTICATOR_STATE = EXPERIMENTAL2_PLUGIN_AUTHENTICATOR_STATE(0i32);
 pub const PluginAuthenticatorState_Enabled: EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE = EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE(2i32);
+pub const PluginAuthenticatorState_Enabled_2: EXPERIMENTAL2_PLUGIN_AUTHENTICATOR_STATE = EXPERIMENTAL2_PLUGIN_AUTHENTICATOR_STATE(1i32);
 pub const PluginAuthenticatorState_Unknown: EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE = EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE(0i32);
-pub const WEBAUTHN_API_CURRENT_VERSION: u32 = 7u32;
+pub const WEBAUTHN_API_CURRENT_VERSION: u32 = 9u32;
 pub const WEBAUTHN_API_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_API_VERSION_2: u32 = 2u32;
 pub const WEBAUTHN_API_VERSION_3: u32 = 3u32;
@@ -1435,6 +1477,8 @@ pub const WEBAUTHN_API_VERSION_4: u32 = 4u32;
 pub const WEBAUTHN_API_VERSION_5: u32 = 5u32;
 pub const WEBAUTHN_API_VERSION_6: u32 = 6u32;
 pub const WEBAUTHN_API_VERSION_7: u32 = 7u32;
+pub const WEBAUTHN_API_VERSION_8: u32 = 8u32;
+pub const WEBAUTHN_API_VERSION_9: u32 = 9u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_ASSERTION {
@@ -1504,13 +1548,15 @@ pub struct WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS {
     pub bAutoFill: windows_core::BOOL,
     pub cbJsonExt: u32,
     pub pbJsonExt: *mut u8,
+    pub cCredentialHints: u32,
+    pub ppwszCredentialHints: *const windows_core::PCWSTR,
 }
 impl Default for WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_CURRENT_VERSION: u32 = 7u32;
+pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_CURRENT_VERSION: u32 = 8u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_2: u32 = 2u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_3: u32 = 3u32;
@@ -1518,6 +1564,7 @@ pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_4: u32 = 4u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_5: u32 = 5u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_6: u32 = 6u32;
 pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_7: u32 = 7u32;
+pub const WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_8: u32 = 8u32;
 pub const WEBAUTHN_AUTHENTICATOR_HMAC_SECRET_VALUES_FLAG: u32 = 1048576u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -1541,14 +1588,17 @@ pub struct WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS {
     pub pLinkedDevice: *mut CTAPCBOR_HYBRID_STORAGE_LINKED_DATA,
     pub cbJsonExt: u32,
     pub pbJsonExt: *mut u8,
-    pub EXPERIMENTAL_pPRFGlobalEval: *mut WEBAUTHN_HMAC_SECRET_SALT,
+    pub pPRFGlobalEval: *mut WEBAUTHN_HMAC_SECRET_SALT,
+    pub cCredentialHints: u32,
+    pub ppwszCredentialHints: *const windows_core::PCWSTR,
+    pub bThirdPartyPayment: windows_core::BOOL,
 }
 impl Default for WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION: u32 = 7u32;
+pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION: u32 = 8u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_2: u32 = 2u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_3: u32 = 3u32;
@@ -1556,6 +1606,7 @@ pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_4: u32 = 4u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_5: u32 = 5u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_6: u32 = 6u32;
 pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_7: u32 = 7u32;
+pub const WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_8: u32 = 8u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_CLIENT_DATA {
@@ -1667,20 +1718,24 @@ pub struct WEBAUTHN_CREDENTIAL_ATTESTATION {
     pub bPrfEnabled: windows_core::BOOL,
     pub cbUnsignedExtensionOutputs: u32,
     pub pbUnsignedExtensionOutputs: *mut u8,
-    pub EXPERIMENTAL_pHmacSecret: *mut WEBAUTHN_HMAC_SECRET_SALT,
+    pub pHmacSecret: *mut WEBAUTHN_HMAC_SECRET_SALT,
+    pub bThirdPartyPayment: windows_core::BOOL,
+    pub dwTransports: u32,
 }
 impl Default for WEBAUTHN_CREDENTIAL_ATTESTATION {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const WEBAUTHN_CREDENTIAL_ATTESTATION_CURRENT_VERSION: u32 = 6u32;
+pub const WEBAUTHN_CREDENTIAL_ATTESTATION_CURRENT_VERSION: u32 = 8u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_2: u32 = 2u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_3: u32 = 3u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_4: u32 = 4u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_5: u32 = 5u32;
 pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_6: u32 = 6u32;
+pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_7: u32 = 7u32;
+pub const WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_8: u32 = 8u32;
 pub const WEBAUTHN_CREDENTIAL_CURRENT_VERSION: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -1692,16 +1747,18 @@ pub struct WEBAUTHN_CREDENTIAL_DETAILS {
     pub pUserInformation: *mut WEBAUTHN_USER_ENTITY_INFORMATION,
     pub bRemovable: windows_core::BOOL,
     pub bBackedUp: windows_core::BOOL,
-    pub EXPERIMENTAL_pwszAuthenticatorName: windows_core::PCWSTR,
-    pub EXPERIMENTAL_cbAuthenticatorLogo: u32,
-    pub EXPERIMENTAL_pbAuthenticatorLogo: *mut u8,
+    pub pwszAuthenticatorName: windows_core::PCWSTR,
+    pub cbAuthenticatorLogo: u32,
+    pub pbAuthenticatorLogo: *mut u8,
+    pub bThirdPartyPayment: windows_core::BOOL,
+    pub dwTransports: u32,
 }
 impl Default for WEBAUTHN_CREDENTIAL_DETAILS {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const WEBAUTHN_CREDENTIAL_DETAILS_CURRENT_VERSION: u32 = 2u32;
+pub const WEBAUTHN_CREDENTIAL_DETAILS_CURRENT_VERSION: u32 = 4u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_CREDENTIAL_DETAILS_LIST {
@@ -1715,6 +1772,8 @@ impl Default for WEBAUTHN_CREDENTIAL_DETAILS_LIST {
 }
 pub const WEBAUTHN_CREDENTIAL_DETAILS_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_CREDENTIAL_DETAILS_VERSION_2: u32 = 2u32;
+pub const WEBAUTHN_CREDENTIAL_DETAILS_VERSION_3: u32 = 3u32;
+pub const WEBAUTHN_CREDENTIAL_DETAILS_VERSION_4: u32 = 4u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_CREDENTIAL_EX {
@@ -1730,6 +1789,9 @@ impl Default for WEBAUTHN_CREDENTIAL_EX {
     }
 }
 pub const WEBAUTHN_CREDENTIAL_EX_CURRENT_VERSION: u32 = 1u32;
+pub const WEBAUTHN_CREDENTIAL_HINT_CLIENT_DEVICE: windows_core::PCWSTR = windows_core::w!("client-device");
+pub const WEBAUTHN_CREDENTIAL_HINT_HYBRID: windows_core::PCWSTR = windows_core::w!("hybrid");
+pub const WEBAUTHN_CREDENTIAL_HINT_SECURITY_KEY: windows_core::PCWSTR = windows_core::w!("security-key");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_CREDENTIAL_LIST {
@@ -1787,12 +1849,19 @@ impl Default for WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT {
 }
 pub const WEBAUTHN_CTAP_ONE_HMAC_SECRET_LENGTH: u32 = 32u32;
 pub const WEBAUTHN_CTAP_TRANSPORT_BLE: u32 = 4u32;
-pub const WEBAUTHN_CTAP_TRANSPORT_FLAGS_MASK: u32 = 63u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_BLE_STRING: windows_core::PCSTR = windows_core::s!("ble");
+pub const WEBAUTHN_CTAP_TRANSPORT_FLAGS_MASK: u32 = 127u32;
 pub const WEBAUTHN_CTAP_TRANSPORT_HYBRID: u32 = 32u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_HYBRID_STRING: windows_core::PCSTR = windows_core::s!("hybrid");
 pub const WEBAUTHN_CTAP_TRANSPORT_INTERNAL: u32 = 16u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_INTERNAL_STRING: windows_core::PCSTR = windows_core::s!("internal");
 pub const WEBAUTHN_CTAP_TRANSPORT_NFC: u32 = 2u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_NFC_STRING: windows_core::PCSTR = windows_core::s!("nfc");
+pub const WEBAUTHN_CTAP_TRANSPORT_SMART_CARD: u32 = 64u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_SMART_CARD_STRING: windows_core::PCSTR = windows_core::s!("smart-card");
 pub const WEBAUTHN_CTAP_TRANSPORT_TEST: u32 = 8u32;
 pub const WEBAUTHN_CTAP_TRANSPORT_USB: u32 = 1u32;
+pub const WEBAUTHN_CTAP_TRANSPORT_USB_STRING: windows_core::PCSTR = windows_core::s!("usb");
 pub const WEBAUTHN_ENTERPRISE_ATTESTATION_NONE: u32 = 0u32;
 pub const WEBAUTHN_ENTERPRISE_ATTESTATION_PLATFORM_MANAGED: u32 = 2u32;
 pub const WEBAUTHN_ENTERPRISE_ATTESTATION_VENDOR_FACILITATED: u32 = 1u32;
@@ -1873,6 +1942,7 @@ pub struct WEBAUTHN_RP_ENTITY_INFORMATION {
     pub pwszIcon: windows_core::PCWSTR,
 }
 pub const WEBAUTHN_RP_ENTITY_INFORMATION_CURRENT_VERSION: u32 = 1u32;
+pub const WEBAUTHN_RP_ENTITY_INFORMATION_VERSION_1: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WEBAUTHN_USER_ENTITY_INFORMATION {
@@ -1889,6 +1959,7 @@ impl Default for WEBAUTHN_USER_ENTITY_INFORMATION {
     }
 }
 pub const WEBAUTHN_USER_ENTITY_INFORMATION_CURRENT_VERSION: u32 = 1u32;
+pub const WEBAUTHN_USER_ENTITY_INFORMATION_VERSION_1: u32 = 1u32;
 pub const WEBAUTHN_USER_VERIFICATION_ANY: u32 = 0u32;
 pub const WEBAUTHN_USER_VERIFICATION_OPTIONAL: u32 = 1u32;
 pub const WEBAUTHN_USER_VERIFICATION_OPTIONAL_WITH_CREDENTIAL_ID_LIST: u32 = 2u32;
@@ -4213,6 +4284,7 @@ pub const WS_SERVICE_ENDPOINT_PROPERTY_LISTENER_PROPERTIES: WS_SERVICE_ENDPOINT_
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_ACCEPTING_CHANNELS: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(2i32);
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_CALL_POOL_SIZE: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(7i32);
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(14i32);
+pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS_PER_IP: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(15i32);
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNEL_POOL_SIZE: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(8i32);
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MAX_CONCURRENCY: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(3i32);
 pub const WS_SERVICE_ENDPOINT_PROPERTY_MESSAGE_PROPERTIES: WS_SERVICE_ENDPOINT_PROPERTY_ID = WS_SERVICE_ENDPOINT_PROPERTY_ID(6i32);

@@ -213,6 +213,8 @@ pub const ACPI_TIME_IN_DAYLIGHT: u32 = 2u32;
 pub type ACPI_TIME_RESOLUTION = i32;
 pub const ACPI_TIME_ZONE_UNKNOWN: u32 = 2047u32;
 pub const ACTIVE_COOLING: u32 = 0u32;
+pub const ADAPTER_CLASS_MAJOR_VERSION: u32 = 1u32;
+pub const ADAPTER_CLASS_MINOR_VERSION: u32 = 0u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct ADMINISTRATOR_POWER_POLICY {
@@ -263,6 +265,7 @@ pub type BATTERY_CHARGING_SOURCE_TYPE = i32;
 pub const BATTERY_CLASS_MAJOR_VERSION: u32 = 1u32;
 pub const BATTERY_CLASS_MINOR_VERSION: u32 = 0u32;
 pub const BATTERY_CLASS_MINOR_VERSION_1: u32 = 1u32;
+pub const BATTERY_CLASS_MINOR_VERSION_2: u32 = 2u32;
 pub const BATTERY_CRITICAL: u32 = 8u32;
 pub const BATTERY_CYCLE_COUNT_WMI_GUID: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xef98db24_0014_4c25_a50b_c724ae5cd371);
 pub const BATTERY_DISCHARGING: u32 = 2u32;
@@ -296,6 +299,8 @@ pub struct BATTERY_MANUFACTURE_DATE {
 }
 pub const BATTERY_MINIPORT_UPDATE_DATA_VER_1: u32 = 1u32;
 pub const BATTERY_MINIPORT_UPDATE_DATA_VER_2: u32 = 2u32;
+pub const BATTERY_NOTIFY_VERSION_1: u32 = 1u32;
+pub const BATTERY_NOTIFY_VERSION_2: u32 = 2u32;
 pub const BATTERY_POWER_ON_LINE: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
@@ -400,6 +405,7 @@ pub const BatterySerialNumber: BATTERY_QUERY_INFORMATION_LEVEL = 8i32;
 pub const BatteryTemperature: BATTERY_QUERY_INFORMATION_LEVEL = 2i32;
 pub const BatteryUniqueID: BATTERY_QUERY_INFORMATION_LEVEL = 7i32;
 pub const BlackBoxRecorderDirectAccessBuffer: POWER_INFORMATION_LEVEL = 97i32;
+pub const CHARGE_REQUIREMENT_MAX_POWER_SOURCE_TYPES: u32 = 2u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct CM_POWER_DATA {
@@ -582,10 +588,13 @@ pub const GUID_DEVICE_FAN: windows_sys::core::GUID = windows_sys::core::GUID::fr
 pub const GUID_DEVICE_LID: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4afa3d52_74a7_11d0_be5e_00a0c9062857);
 pub const GUID_DEVICE_MEMORY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x3fd0f03d_92e0_45fb_b75c_5ed8ffb01021);
 pub const GUID_DEVICE_MESSAGE_INDICATOR: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xcd48a365_fa94_4ce2_a232_a1b764e5d8b4);
+pub const GUID_DEVICE_POWER_ADAPTER: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xf76c6c62_7dea_43cd_8689_d9a4af3d8557);
 pub const GUID_DEVICE_PROCESSOR: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x97fadb10_4e33_40ae_359c_8bef029dbdd0);
 pub const GUID_DEVICE_SYS_BUTTON: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4afa3d53_74a7_11d0_be5e_00a0c9062857);
 pub const GUID_DEVICE_THERMAL_ZONE: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4afa3d51_74a7_11d0_be5e_00a0c9062857);
+pub const GUID_DEVINTERFACE_CUSTOMIZED_IO: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x2ed8544a_8eef_4033_b2a0_04aaa507cecb);
 pub const GUID_DEVINTERFACE_POWER_LIMIT: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x8f366301_091e_4056_b92f_958b27625fce);
+pub const GUID_DEVINTERFACE_TEMPERATURE_SENSOR: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x2a6c8538_7895_4d56_8567_795d3844858a);
 pub const GUID_DEVINTERFACE_THERMAL_COOLING: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xdbe4373d_3c81_40cb_ace4_e0e5d05f0c9f);
 pub const GUID_DEVINTERFACE_THERMAL_MANAGER: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x927ec093_69a4_4bc0_bd02_711664714463);
 pub const GetPowerRequestList: POWER_INFORMATION_LEVEL = 45i32;
@@ -611,8 +620,11 @@ pub const IOCTL_GET_WAKE_ALARM_POLICY: u32 = 2736652u32;
 pub const IOCTL_GET_WAKE_ALARM_SYSTEM_POWERSTATE: u32 = 2703896u32;
 pub const IOCTL_GET_WAKE_ALARM_VALUE: u32 = 2736648u32;
 pub const IOCTL_NOTIFY_SWITCH_EVENT: u32 = 2703616u32;
+pub const IOCTL_QUERY_CUSTOMIZED_INPUT_FROM_PLATFORM: u32 = 2704004u32;
+pub const IOCTL_QUERY_CUSTOMIZED_IO_CAPABILITIES: u32 = 2704000u32;
 pub const IOCTL_QUERY_LID: u32 = 2703552u32;
 pub const IOCTL_RUN_ACTIVE_COOLING_METHOD: u32 = 2719880u32;
+pub const IOCTL_SEND_CUSTOMIZED_OUTPUT_TO_PLATFORM: u32 = 2720392u32;
 pub const IOCTL_SET_SYS_MESSAGE_INDICATOR: u32 = 2720192u32;
 pub const IOCTL_SET_WAKE_ALARM_POLICY: u32 = 2720260u32;
 pub const IOCTL_SET_WAKE_ALARM_VALUE: u32 = 2720256u32;
@@ -1519,6 +1531,8 @@ pub struct THERMAL_WAIT_READ {
     pub LowTemperature: u32,
     pub HighTemperature: u32,
 }
+pub const THERMAL_WAIT_READ_TIMEOUT_IMMEDIATE: u32 = 0u32;
+pub const THERMAL_WAIT_READ_TIMEOUT_NONE: u32 = 4294967295u32;
 pub const TZ_ACTIVATION_REASON_CURRENT: u32 = 2u32;
 pub const TZ_ACTIVATION_REASON_THERMAL: u32 = 1u32;
 pub const ThermalEvent: POWER_INFORMATION_LEVEL = 84i32;

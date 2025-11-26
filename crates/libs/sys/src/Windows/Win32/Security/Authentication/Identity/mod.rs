@@ -395,6 +395,7 @@ pub const Audit_DsAccess_AdAuditChanges: windows_sys::core::GUID = windows_sys::
 pub const Audit_Ds_DetailedReplication: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce923e_69ae_11d9_bed3_505054503030);
 pub const Audit_Ds_Replication: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce923d_69ae_11d9_bed3_505054503030);
 pub const Audit_Logon: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x69979849_797a_11d9_bed3_505054503030);
+pub const Audit_Logon_AccessRights: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce924b_69ae_11d9_bed3_505054503030);
 pub const Audit_Logon_AccountLockout: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce9217_69ae_11d9_bed3_505054503030);
 pub const Audit_Logon_Claims: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce9247_69ae_11d9_bed3_505054503030);
 pub const Audit_Logon_Groups: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0cce9249_69ae_11d9_bed3_505054503030);
@@ -1996,6 +1997,8 @@ pub struct LSA_SECPKG_FUNCTION_TABLE {
     pub GetAppModeInfo: PLSA_GET_APP_MODE_INFO,
     pub SetAppModeInfo: PLSA_SET_APP_MODE_INFO,
     pub GetClientInfoEx: PLSA_GET_CLIENT_INFO_EX,
+    pub GetSecpkgFailureReason: PLSA_GET_SECPKG_FAILURE_REASON,
+    pub SetSecpkgFailureReason: PLSA_SET_SECPKG_FAILURE_REASON,
 }
 pub const LSA_SECRET_MAXIMUM_COUNT: i32 = 4096i32;
 pub const LSA_SECRET_MAXIMUM_LENGTH: i32 = 512i32;
@@ -2832,6 +2835,7 @@ pub type PLSA_GET_CLIENT_INFO = Option<unsafe extern "system" fn(clientinfo: *mu
 pub type PLSA_GET_CLIENT_INFO_EX = Option<unsafe extern "system" fn(clientinfo: *mut SECPKG_CLIENT_INFO_EX, structsize: u32) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_GET_CREDENTIALS = Option<unsafe extern "system" fn(logonid: *const super::super::super::Foundation::LUID, authenticationpackage: u32, querycontext: *mut u32, retrieveallcredentials: bool, primarykeyvalue: *const LSA_STRING, primarykeylength: *mut u32, credentials: *const LSA_STRING) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_GET_EXTENDED_CALL_FLAGS = Option<unsafe extern "system" fn(flags: *mut u32) -> super::super::super::Foundation::NTSTATUS>;
+pub type PLSA_GET_SECPKG_FAILURE_REASON = Option<unsafe extern "system" fn(packageid: usize, reason: *mut SECPKG_FAILURE_REASON) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_GET_SERVICE_ACCOUNT_PASSWORD = Option<unsafe extern "system" fn(accountname: *const LSA_UNICODE_STRING, domainname: *const LSA_UNICODE_STRING, credfetch: CRED_FETCH, filetimeexpiry: *mut super::super::super::Foundation::FILETIME, currentpassword: *mut LSA_UNICODE_STRING, previouspassword: *mut LSA_UNICODE_STRING, filetimecurrpwdvalidforoutbound: *mut super::super::super::Foundation::FILETIME) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_GET_USER_AUTH_DATA = Option<unsafe extern "system" fn(userhandle: *const core::ffi::c_void, userauthdata: *mut *mut u8, userauthdatasize: *mut u32) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_GET_USER_CREDENTIALS = Option<unsafe extern "system" fn(userhandle: *const core::ffi::c_void, primarycreds: *mut *mut core::ffi::c_void, primarycredssize: *mut u32, supplementalcreds: *mut *mut core::ffi::c_void, supplementalcredssize: *mut u32) -> super::super::super::Foundation::NTSTATUS>;
@@ -2853,6 +2857,7 @@ pub type PLSA_REGISTER_CALLBACK = Option<unsafe extern "system" fn(callbackid: u
 pub type PLSA_REGISTER_NOTIFICATION = Option<unsafe extern "system" fn(startfunction: super::super::super::System::Threading::LPTHREAD_START_ROUTINE, parameter: *const core::ffi::c_void, notificationtype: u32, notificationclass: u32, notificationflags: u32, intervalminutes: u32, waitevent: super::super::super::Foundation::HANDLE) -> super::super::super::Foundation::HANDLE>;
 pub type PLSA_SAVE_SUPPLEMENTAL_CREDENTIALS = Option<unsafe extern "system" fn(logonid: *const super::super::super::Foundation::LUID, supplementalcredsize: u32, supplementalcreds: *const core::ffi::c_void, synchronous: bool) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_SET_APP_MODE_INFO = Option<unsafe extern "system" fn(userfunction: u32, argument1: usize, argument2: usize, userdata: *const SecBuffer, returntolsa: bool) -> super::super::super::Foundation::NTSTATUS>;
+pub type PLSA_SET_SECPKG_FAILURE_REASON = Option<unsafe extern "system" fn(reason: SECPKG_FAILURE_REASON) -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_UNLOAD_PACKAGE = Option<unsafe extern "system" fn() -> super::super::super::Foundation::NTSTATUS>;
 pub type PLSA_UPDATE_PRIMARY_CREDENTIALS = Option<unsafe extern "system" fn(primarycredentials: *const SECPKG_PRIMARY_CRED, credentials: *const SECPKG_SUPPLEMENTAL_CRED_ARRAY) -> super::super::super::Foundation::NTSTATUS>;
 #[repr(C)]
@@ -3015,6 +3020,7 @@ impl Default for POLICY_MACHINE_ACCT_INFO2 {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const POLICY_MODE_COUNT: u32 = 11u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct POLICY_MODIFICATION_INFO {
@@ -3073,6 +3079,7 @@ pub const PRIMARY_CRED_INTERACTIVE_FIDO_LOGON: u32 = 1048576u32;
 pub const PRIMARY_CRED_INTERACTIVE_NGC_LOGON: u32 = 524288u32;
 pub const PRIMARY_CRED_INTERACTIVE_SMARTCARD_LOGON: u32 = 64u32;
 pub const PRIMARY_CRED_INTERNET_USER: u32 = 256u32;
+pub const PRIMARY_CRED_LOCAL_USER: u32 = 16777216u32;
 pub const PRIMARY_CRED_LOGON_LUA: u32 = 32u32;
 pub const PRIMARY_CRED_LOGON_NO_TCB: u32 = 16u32;
 pub const PRIMARY_CRED_LOGON_PACKAGE_SHIFT: u32 = 24u32;
@@ -3817,6 +3824,13 @@ impl Default for SECPKG_EXTRA_OIDS {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct SECPKG_FAILURE_REASON {
+    pub Status: super::super::super::Foundation::NTSTATUS,
+    pub Reason: SECPKG_FAILURE_SPECIAL_REASON,
+}
+pub type SECPKG_FAILURE_SPECIAL_REASON = i32;
 pub const SECPKG_FLAG_ACCEPT_WIN32_NAME: u32 = 512u32;
 pub const SECPKG_FLAG_APPCONTAINER_CHECKS: u32 = 8388608u32;
 pub const SECPKG_FLAG_APPCONTAINER_PASSTHROUGH: u32 = 4194304u32;
@@ -6358,6 +6372,18 @@ pub const SecTrafficSecret_Server: SEC_TRAFFIC_SECRET_TYPE = 2i32;
 pub const SecTree: SecDelegationType = 2i32;
 pub const SecpkgContextThunks: SECPKG_EXTENDED_INFORMATION_CLASS = 2i32;
 pub const SecpkgExtraOids: SECPKG_EXTENDED_INFORMATION_CLASS = 5i32;
+pub const SecpkgFailureReason_CloudAccount: SECPKG_FAILURE_SPECIAL_REASON = 4i32;
+pub const SecpkgFailureReason_DomainAccount: SECPKG_FAILURE_SPECIAL_REASON = 3i32;
+pub const SecpkgFailureReason_DupTarget: SECPKG_FAILURE_SPECIAL_REASON = 8i32;
+pub const SecpkgFailureReason_IpAddress: SECPKG_FAILURE_SPECIAL_REASON = 7i32;
+pub const SecpkgFailureReason_LocalAccount: SECPKG_FAILURE_SPECIAL_REASON = 2i32;
+pub const SecpkgFailureReason_Loopback: SECPKG_FAILURE_SPECIAL_REASON = 10i32;
+pub const SecpkgFailureReason_NoFailure: SECPKG_FAILURE_SPECIAL_REASON = 1i32;
+pub const SecpkgFailureReason_NoLineOfSight: SECPKG_FAILURE_SPECIAL_REASON = 9i32;
+pub const SecpkgFailureReason_NullSession: SECPKG_FAILURE_SPECIAL_REASON = 11i32;
+pub const SecpkgFailureReason_NullTarget: SECPKG_FAILURE_SPECIAL_REASON = 5i32;
+pub const SecpkgFailureReason_Unknown: SECPKG_FAILURE_SPECIAL_REASON = 0i32;
+pub const SecpkgFailureReason_UnknownTarget: SECPKG_FAILURE_SPECIAL_REASON = 6i32;
 pub const SecpkgGssInfo: SECPKG_EXTENDED_INFORMATION_CLASS = 1i32;
 pub const SecpkgMaxInfo: SECPKG_EXTENDED_INFORMATION_CLASS = 6i32;
 pub const SecpkgMutualAuthLevel: SECPKG_EXTENDED_INFORMATION_CLASS = 3i32;

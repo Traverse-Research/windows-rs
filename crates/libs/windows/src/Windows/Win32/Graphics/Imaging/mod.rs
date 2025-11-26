@@ -119,6 +119,8 @@ pub const CLSID_WICFormatConverterNChannel: windows_core::GUID = windows_core::G
 pub const CLSID_WICFormatConverterWMPhoto: windows_core::GUID = windows_core::GUID::from_u128(0x9cb5172b_d600_46ba_ab77_77bb7e3a00d9);
 pub const CLSID_WICGCEMetadataReader: windows_core::GUID = windows_core::GUID::from_u128(0xb92e345d_f52d_41f3_b562_081bc772e3b9);
 pub const CLSID_WICGCEMetadataWriter: windows_core::GUID = windows_core::GUID::from_u128(0xaf95dc76_16b2_47f4_b3ea_3c31796693e7);
+pub const CLSID_WICGainMapMetadataReader: windows_core::GUID = windows_core::GUID::from_u128(0x3ac32daf_27b9_4af5_b0ab_d1189dcf34b3);
+pub const CLSID_WICGainMapMetadataWriter: windows_core::GUID = windows_core::GUID::from_u128(0x6f845268_a92e_4a02_b002_a67c362800b2);
 pub const CLSID_WICGifCommentMetadataReader: windows_core::GUID = windows_core::GUID::from_u128(0x32557d3b_69dc_4f95_836e_f5972b2f6159);
 pub const CLSID_WICGifCommentMetadataWriter: windows_core::GUID = windows_core::GUID::from_u128(0xa02797fc_c4ae_418c_af95_e637c7ead2a1);
 pub const CLSID_WICGifDecoder: windows_core::GUID = windows_core::GUID::from_u128(0x381dda3c_9ce9_4834_a23e_1f98f8fc52be);
@@ -243,6 +245,7 @@ pub const GUID_MetadataFormatChunktIME: windows_core::GUID = windows_core::GUID:
 pub const GUID_MetadataFormatDds: windows_core::GUID = windows_core::GUID::from_u128(0x4a064603_8c33_4e60_9c29_136231702d08);
 pub const GUID_MetadataFormatExif: windows_core::GUID = windows_core::GUID::from_u128(0x1c3c4f9d_b84a_467d_9493_36cfbd59ea57);
 pub const GUID_MetadataFormatGCE: windows_core::GUID = windows_core::GUID::from_u128(0x2a25cad8_deeb_4c69_a788_0ec2266dcafd);
+pub const GUID_MetadataFormatGainMap: windows_core::GUID = windows_core::GUID::from_u128(0x568d3138_c446_4ec2_a7a8_59abb16d21e3);
 pub const GUID_MetadataFormatGifComment: windows_core::GUID = windows_core::GUID::from_u128(0xc4b6e0e0_cfb4_4ad3_ab33_9aad2355a34a);
 pub const GUID_MetadataFormatGps: windows_core::GUID = windows_core::GUID::from_u128(0x7134ab8a_9351_44ad_af62_448db6b502ec);
 pub const GUID_MetadataFormatHeif: windows_core::GUID = windows_core::GUID::from_u128(0x817ef3e1_1288_45f4_a852_260d9e7cce83);
@@ -294,6 +297,7 @@ pub const GUID_WICPixelFormat1bppIndexed: windows_core::GUID = windows_core::GUI
 pub const GUID_WICPixelFormat24bpp3Channels: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc920);
 pub const GUID_WICPixelFormat24bppBGR: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc90c);
 pub const GUID_WICPixelFormat24bppRGB: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc90d);
+pub const GUID_WICPixelFormat24bppRGBGain: windows_core::GUID = windows_core::GUID::from_u128(0xa5022b24_7109_443b_9948_25b6ed8f39fd);
 pub const GUID_WICPixelFormat2bppGray: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc906);
 pub const GUID_WICPixelFormat2bppIndexed: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc902);
 pub const GUID_WICPixelFormat32bpp3ChannelsAlpha: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc92e);
@@ -301,6 +305,7 @@ pub const GUID_WICPixelFormat32bpp4Channels: windows_core::GUID = windows_core::
 pub const GUID_WICPixelFormat32bppBGR: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc90e);
 pub const GUID_WICPixelFormat32bppBGR101010: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc914);
 pub const GUID_WICPixelFormat32bppBGRA: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc90f);
+pub const GUID_WICPixelFormat32bppBGRGain: windows_core::GUID = windows_core::GUID::from_u128(0x837d6738_208a_43e0_8995_79ab74407402);
 pub const GUID_WICPixelFormat32bppCMYK: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc91c);
 pub const GUID_WICPixelFormat32bppGrayFixedPoint: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc93f);
 pub const GUID_WICPixelFormat32bppGrayFloat: windows_core::GUID = windows_core::GUID::from_u128(0x6fddc324_4e03_4bfe_b185_3d77768dc911);
@@ -1354,6 +1359,132 @@ impl IWICBitmapFlipRotator_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IWICBitmapFlipRotator {}
+windows_core::imp::define_interface!(IWICBitmapFrameChainReader, IWICBitmapFrameChainReader_Vtbl, 0x0c599495_a120_4222_9130_a8c29410bd0b);
+windows_core::imp::interface_hierarchy!(IWICBitmapFrameChainReader, windows_core::IUnknown);
+impl IWICBitmapFrameChainReader {
+    pub unsafe fn GetChainedFrameCount(&self, chaintype: WICBitmapChainType) -> windows_core::Result<u32> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetChainedFrameCount)(windows_core::Interface::as_raw(self), chaintype, &mut result__).map(|| result__)
+        }
+    }
+    pub unsafe fn GetChainedFrame(&self, chaintype: WICBitmapChainType, index: u32) -> windows_core::Result<IWICBitmapFrameDecode> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetChainedFrame)(windows_core::Interface::as_raw(self), chaintype, index, &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IWICBitmapFrameChainReader_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub GetChainedFrameCount: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapChainType, *mut u32) -> windows_core::HRESULT,
+    pub GetChainedFrame: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapChainType, u32, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+pub trait IWICBitmapFrameChainReader_Impl: windows_core::IUnknownImpl {
+    fn GetChainedFrameCount(&self, chaintype: WICBitmapChainType) -> windows_core::Result<u32>;
+    fn GetChainedFrame(&self, chaintype: WICBitmapChainType, index: u32) -> windows_core::Result<IWICBitmapFrameDecode>;
+}
+impl IWICBitmapFrameChainReader_Vtbl {
+    pub const fn new<Identity: IWICBitmapFrameChainReader_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetChainedFrameCount<Identity: IWICBitmapFrameChainReader_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, chaintype: WICBitmapChainType, pcount: *mut u32) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICBitmapFrameChainReader_Impl::GetChainedFrameCount(this, core::mem::transmute_copy(&chaintype)) {
+                    Ok(ok__) => {
+                        pcount.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn GetChainedFrame<Identity: IWICBitmapFrameChainReader_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, chaintype: WICBitmapChainType, index: u32, ppibitmapframe: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICBitmapFrameChainReader_Impl::GetChainedFrame(this, core::mem::transmute_copy(&chaintype), core::mem::transmute_copy(&index)) {
+                    Ok(ok__) => {
+                        ppibitmapframe.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            GetChainedFrameCount: GetChainedFrameCount::<Identity, OFFSET>,
+            GetChainedFrame: GetChainedFrame::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IWICBitmapFrameChainReader as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IWICBitmapFrameChainReader {}
+windows_core::imp::define_interface!(IWICBitmapFrameChainWriter, IWICBitmapFrameChainWriter_Vtbl, 0x40d9ea28_4768_47b3_8c12_558a48e98e38);
+windows_core::imp::interface_hierarchy!(IWICBitmapFrameChainWriter, windows_core::IUnknown);
+impl IWICBitmapFrameChainWriter {
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub unsafe fn AppendFrameToChain(&self, chaintype: WICBitmapChainType, ppiframeencode: *mut Option<IWICBitmapFrameEncode>, ppiencoderoptions: *mut Option<super::super::System::Com::StructuredStorage::IPropertyBag2>) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).AppendFrameToChain)(windows_core::Interface::as_raw(self), chaintype, core::mem::transmute(ppiframeencode), core::mem::transmute(ppiencoderoptions)).ok() }
+    }
+    pub unsafe fn DoesSupportChainType(&self, chaintype: WICBitmapChainType) -> windows_core::Result<windows_core::BOOL> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).DoesSupportChainType)(windows_core::Interface::as_raw(self), chaintype, &mut result__).map(|| result__)
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IWICBitmapFrameChainWriter_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub AppendFrameToChain: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapChainType, *mut *mut core::ffi::c_void, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_System_Com_StructuredStorage"))]
+    AppendFrameToChain: usize,
+    pub DoesSupportChainType: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapChainType, *mut windows_core::BOOL) -> windows_core::HRESULT,
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+pub trait IWICBitmapFrameChainWriter_Impl: windows_core::IUnknownImpl {
+    fn AppendFrameToChain(&self, chaintype: WICBitmapChainType, ppiframeencode: windows_core::OutRef<IWICBitmapFrameEncode>, ppiencoderoptions: windows_core::OutRef<super::super::System::Com::StructuredStorage::IPropertyBag2>) -> windows_core::Result<()>;
+    fn DoesSupportChainType(&self, chaintype: WICBitmapChainType) -> windows_core::Result<windows_core::BOOL>;
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+impl IWICBitmapFrameChainWriter_Vtbl {
+    pub const fn new<Identity: IWICBitmapFrameChainWriter_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn AppendFrameToChain<Identity: IWICBitmapFrameChainWriter_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, chaintype: WICBitmapChainType, ppiframeencode: *mut *mut core::ffi::c_void, ppiencoderoptions: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICBitmapFrameChainWriter_Impl::AppendFrameToChain(this, core::mem::transmute_copy(&chaintype), core::mem::transmute_copy(&ppiframeencode), core::mem::transmute_copy(&ppiencoderoptions)).into()
+            }
+        }
+        unsafe extern "system" fn DoesSupportChainType<Identity: IWICBitmapFrameChainWriter_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, chaintype: WICBitmapChainType, pfissupported: *mut windows_core::BOOL) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICBitmapFrameChainWriter_Impl::DoesSupportChainType(this, core::mem::transmute_copy(&chaintype)) {
+                    Ok(ok__) => {
+                        pfissupported.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            AppendFrameToChain: AppendFrameToChain::<Identity, OFFSET>,
+            DoesSupportChainType: DoesSupportChainType::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IWICBitmapFrameChainWriter as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+impl windows_core::RuntimeName for IWICBitmapFrameChainWriter {}
 windows_core::imp::define_interface!(IWICBitmapFrameDecode, IWICBitmapFrameDecode_Vtbl, 0x3b16811b_6a43_4ec9_a813_3d930c13b940);
 impl core::ops::Deref for IWICBitmapFrameDecode {
     type Target = IWICBitmapSource;
@@ -1968,6 +2099,64 @@ impl IWICBitmapSourceTransform2_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IWICBitmapSourceTransform2 {}
+windows_core::imp::define_interface!(IWICBitmapToneMapper, IWICBitmapToneMapper_Vtbl, 0x44728ded_1edf_4fe9_b50b_c89a264c9439);
+impl core::ops::Deref for IWICBitmapToneMapper {
+    type Target = IWICBitmapSource;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(IWICBitmapToneMapper, windows_core::IUnknown, IWICBitmapSource);
+impl IWICBitmapToneMapper {
+    pub unsafe fn InitializeForHdrTarget<P0>(&self, pisource: P0, guiddstformat: *const windows_core::GUID, fluminanceinnits: f32, fwhitelevelinnits: f32, mode: WICBitmapToneMappingMode) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<IWICBitmapSource>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).InitializeForHdrTarget)(windows_core::Interface::as_raw(self), pisource.param().abi(), guiddstformat, fluminanceinnits, fwhitelevelinnits, mode).ok() }
+    }
+    pub unsafe fn InitializeForSdrTarget<P0>(&self, pisource: P0, guiddstformat: *const windows_core::GUID, mode: WICBitmapToneMappingMode) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<IWICBitmapSource>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).InitializeForSdrTarget)(windows_core::Interface::as_raw(self), pisource.param().abi(), guiddstformat, mode).ok() }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IWICBitmapToneMapper_Vtbl {
+    pub base__: IWICBitmapSource_Vtbl,
+    pub InitializeForHdrTarget: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *const windows_core::GUID, f32, f32, WICBitmapToneMappingMode) -> windows_core::HRESULT,
+    pub InitializeForSdrTarget: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *const windows_core::GUID, WICBitmapToneMappingMode) -> windows_core::HRESULT,
+}
+pub trait IWICBitmapToneMapper_Impl: IWICBitmapSource_Impl {
+    fn InitializeForHdrTarget(&self, pisource: windows_core::Ref<IWICBitmapSource>, guiddstformat: *const windows_core::GUID, fluminanceinnits: f32, fwhitelevelinnits: f32, mode: WICBitmapToneMappingMode) -> windows_core::Result<()>;
+    fn InitializeForSdrTarget(&self, pisource: windows_core::Ref<IWICBitmapSource>, guiddstformat: *const windows_core::GUID, mode: WICBitmapToneMappingMode) -> windows_core::Result<()>;
+}
+impl IWICBitmapToneMapper_Vtbl {
+    pub const fn new<Identity: IWICBitmapToneMapper_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn InitializeForHdrTarget<Identity: IWICBitmapToneMapper_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pisource: *mut core::ffi::c_void, guiddstformat: *const windows_core::GUID, fluminanceinnits: f32, fwhitelevelinnits: f32, mode: WICBitmapToneMappingMode) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICBitmapToneMapper_Impl::InitializeForHdrTarget(this, core::mem::transmute_copy(&pisource), core::mem::transmute_copy(&guiddstformat), core::mem::transmute_copy(&fluminanceinnits), core::mem::transmute_copy(&fwhitelevelinnits), core::mem::transmute_copy(&mode)).into()
+            }
+        }
+        unsafe extern "system" fn InitializeForSdrTarget<Identity: IWICBitmapToneMapper_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pisource: *mut core::ffi::c_void, guiddstformat: *const windows_core::GUID, mode: WICBitmapToneMappingMode) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICBitmapToneMapper_Impl::InitializeForSdrTarget(this, core::mem::transmute_copy(&pisource), core::mem::transmute_copy(&guiddstformat), core::mem::transmute_copy(&mode)).into()
+            }
+        }
+        Self {
+            base__: IWICBitmapSource_Vtbl::new::<Identity, OFFSET>(),
+            InitializeForHdrTarget: InitializeForHdrTarget::<Identity, OFFSET>,
+            InitializeForSdrTarget: InitializeForSdrTarget::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IWICBitmapToneMapper as windows_core::Interface>::IID || iid == &<IWICBitmapSource as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IWICBitmapToneMapper {}
 windows_core::imp::define_interface!(IWICColorContext, IWICColorContext_Vtbl, 0x3c613a02_34b2_44ea_9a7c_45aea9c6fd6d);
 windows_core::imp::interface_hierarchy!(IWICColorContext, windows_core::IUnknown);
 impl IWICColorContext {
@@ -2484,6 +2673,117 @@ impl IWICComponentInfo_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IWICComponentInfo {}
+windows_core::imp::define_interface!(IWICD3DTextureSource, IWICD3DTextureSource_Vtbl, 0xcaf65cc4_8ebe_4718_a21f_8dbf40bb7e25);
+windows_core::imp::interface_hierarchy!(IWICD3DTextureSource, windows_core::IUnknown);
+impl IWICD3DTextureSource {
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub unsafe fn GetTexture<P0, P1>(&self, pd3ddevice: P0, pid3dtextureoptions: P1, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<windows_core::IUnknown>,
+        P1: windows_core::Param<super::super::System::Com::StructuredStorage::IPropertyBag2>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).GetTexture)(windows_core::Interface::as_raw(self), pd3ddevice.param().abi(), pid3dtextureoptions.param().abi(), riid, pptexture as _).ok() }
+    }
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub unsafe fn GetTransformedTexture<P5, P6>(&self, prc: Option<*const WICRect>, uiwidth: u32, uiheight: u32, pguiddstformat: Option<*const windows_core::GUID>, dsttransform: WICBitmapTransformOptions, pd3ddevice: P5, pid3dtextureoptions: P6, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::Result<()>
+    where
+        P5: windows_core::Param<windows_core::IUnknown>,
+        P6: windows_core::Param<super::super::System::Com::StructuredStorage::IPropertyBag2>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).GetTransformedTexture)(windows_core::Interface::as_raw(self), prc.unwrap_or(core::mem::zeroed()) as _, uiwidth, uiheight, pguiddstformat.unwrap_or(core::mem::zeroed()) as _, dsttransform, pd3ddevice.param().abi(), pid3dtextureoptions.param().abi(), riid, pptexture as _).ok() }
+    }
+    pub unsafe fn DoesSupportD3DDeviceType(&self, riid: *const windows_core::GUID) -> windows_core::Result<windows_core::BOOL> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).DoesSupportD3DDeviceType)(windows_core::Interface::as_raw(self), riid, &mut result__).map(|| result__)
+        }
+    }
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub unsafe fn GetD3DTextureOptions(&self) -> windows_core::Result<super::super::System::Com::StructuredStorage::IPropertyBag2> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetD3DTextureOptions)(windows_core::Interface::as_raw(self), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IWICD3DTextureSource_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub GetTexture: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *mut core::ffi::c_void, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_System_Com_StructuredStorage"))]
+    GetTexture: usize,
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub GetTransformedTexture: unsafe extern "system" fn(*mut core::ffi::c_void, *const WICRect, u32, u32, *const windows_core::GUID, WICBitmapTransformOptions, *mut core::ffi::c_void, *mut core::ffi::c_void, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_System_Com_StructuredStorage"))]
+    GetTransformedTexture: usize,
+    pub DoesSupportD3DDeviceType: unsafe extern "system" fn(*mut core::ffi::c_void, *const windows_core::GUID, *mut windows_core::BOOL) -> windows_core::HRESULT,
+    #[cfg(feature = "Win32_System_Com_StructuredStorage")]
+    pub GetD3DTextureOptions: unsafe extern "system" fn(*mut core::ffi::c_void, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_System_Com_StructuredStorage"))]
+    GetD3DTextureOptions: usize,
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+pub trait IWICD3DTextureSource_Impl: windows_core::IUnknownImpl {
+    fn GetTexture(&self, pd3ddevice: windows_core::Ref<windows_core::IUnknown>, pid3dtextureoptions: windows_core::Ref<super::super::System::Com::StructuredStorage::IPropertyBag2>, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+    fn GetTransformedTexture(&self, prc: *const WICRect, uiwidth: u32, uiheight: u32, pguiddstformat: *const windows_core::GUID, dsttransform: WICBitmapTransformOptions, pd3ddevice: windows_core::Ref<windows_core::IUnknown>, pid3dtextureoptions: windows_core::Ref<super::super::System::Com::StructuredStorage::IPropertyBag2>, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+    fn DoesSupportD3DDeviceType(&self, riid: *const windows_core::GUID) -> windows_core::Result<windows_core::BOOL>;
+    fn GetD3DTextureOptions(&self) -> windows_core::Result<super::super::System::Com::StructuredStorage::IPropertyBag2>;
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+impl IWICD3DTextureSource_Vtbl {
+    pub const fn new<Identity: IWICD3DTextureSource_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetTexture<Identity: IWICD3DTextureSource_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pd3ddevice: *mut core::ffi::c_void, pid3dtextureoptions: *mut core::ffi::c_void, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICD3DTextureSource_Impl::GetTexture(this, core::mem::transmute_copy(&pd3ddevice), core::mem::transmute_copy(&pid3dtextureoptions), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&pptexture)).into()
+            }
+        }
+        unsafe extern "system" fn GetTransformedTexture<Identity: IWICD3DTextureSource_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, prc: *const WICRect, uiwidth: u32, uiheight: u32, pguiddstformat: *const windows_core::GUID, dsttransform: WICBitmapTransformOptions, pd3ddevice: *mut core::ffi::c_void, pid3dtextureoptions: *mut core::ffi::c_void, riid: *const windows_core::GUID, pptexture: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICD3DTextureSource_Impl::GetTransformedTexture(this, core::mem::transmute_copy(&prc), core::mem::transmute_copy(&uiwidth), core::mem::transmute_copy(&uiheight), core::mem::transmute_copy(&pguiddstformat), core::mem::transmute_copy(&dsttransform), core::mem::transmute_copy(&pd3ddevice), core::mem::transmute_copy(&pid3dtextureoptions), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&pptexture)).into()
+            }
+        }
+        unsafe extern "system" fn DoesSupportD3DDeviceType<Identity: IWICD3DTextureSource_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, riid: *const windows_core::GUID, pfissupported: *mut windows_core::BOOL) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICD3DTextureSource_Impl::DoesSupportD3DDeviceType(this, core::mem::transmute_copy(&riid)) {
+                    Ok(ok__) => {
+                        pfissupported.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn GetD3DTextureOptions<Identity: IWICD3DTextureSource_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, ppid3dtextureoptions: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICD3DTextureSource_Impl::GetD3DTextureOptions(this) {
+                    Ok(ok__) => {
+                        ppid3dtextureoptions.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            GetTexture: GetTexture::<Identity, OFFSET>,
+            GetTransformedTexture: GetTransformedTexture::<Identity, OFFSET>,
+            DoesSupportD3DDeviceType: DoesSupportD3DDeviceType::<Identity, OFFSET>,
+            GetD3DTextureOptions: GetD3DTextureOptions::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IWICD3DTextureSource as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_System_Com_StructuredStorage")]
+impl windows_core::RuntimeName for IWICD3DTextureSource {}
 windows_core::imp::define_interface!(IWICDdsDecoder, IWICDdsDecoder_Vtbl, 0x409cd537_8532_40cb_9774_e2feb2df4e9c);
 windows_core::imp::interface_hierarchy!(IWICDdsDecoder, windows_core::IUnknown);
 impl IWICDdsDecoder {
@@ -3329,6 +3629,121 @@ impl IWICDisplayAdaptationControl_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IWICDisplayAdaptationControl {}
+windows_core::imp::define_interface!(IWICDisplayAdaptationControl2, IWICDisplayAdaptationControl2_Vtbl, 0xd7508d29_3ab7_447e_a676_4d80d7de726b);
+impl core::ops::Deref for IWICDisplayAdaptationControl2 {
+    type Target = IWICDisplayAdaptationControl;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(IWICDisplayAdaptationControl2, windows_core::IUnknown, IWICDisplayAdaptationControl);
+impl IWICDisplayAdaptationControl2 {
+    pub unsafe fn SetSdrWhiteLevel(&self, fwhitelevelinnits: f32) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).SetSdrWhiteLevel)(windows_core::Interface::as_raw(self), fwhitelevelinnits).ok() }
+    }
+    pub unsafe fn GetSdrWhiteLevel(&self) -> windows_core::Result<f32> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetSdrWhiteLevel)(windows_core::Interface::as_raw(self), &mut result__).map(|| result__)
+        }
+    }
+    pub unsafe fn SetToneMappingMode(&self, mode: WICBitmapToneMappingMode) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).SetToneMappingMode)(windows_core::Interface::as_raw(self), mode).ok() }
+    }
+    pub unsafe fn GetToneMappingMode(&self) -> windows_core::Result<WICBitmapToneMappingMode> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetToneMappingMode)(windows_core::Interface::as_raw(self), &mut result__).map(|| result__)
+        }
+    }
+    pub unsafe fn DoesSupportToneMappingMode(&self, mode: WICBitmapToneMappingMode) -> windows_core::Result<windows_core::BOOL> {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).DoesSupportToneMappingMode)(windows_core::Interface::as_raw(self), mode, &mut result__).map(|| result__)
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IWICDisplayAdaptationControl2_Vtbl {
+    pub base__: IWICDisplayAdaptationControl_Vtbl,
+    pub SetSdrWhiteLevel: unsafe extern "system" fn(*mut core::ffi::c_void, f32) -> windows_core::HRESULT,
+    pub GetSdrWhiteLevel: unsafe extern "system" fn(*mut core::ffi::c_void, *mut f32) -> windows_core::HRESULT,
+    pub SetToneMappingMode: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapToneMappingMode) -> windows_core::HRESULT,
+    pub GetToneMappingMode: unsafe extern "system" fn(*mut core::ffi::c_void, *mut WICBitmapToneMappingMode) -> windows_core::HRESULT,
+    pub DoesSupportToneMappingMode: unsafe extern "system" fn(*mut core::ffi::c_void, WICBitmapToneMappingMode, *mut windows_core::BOOL) -> windows_core::HRESULT,
+}
+pub trait IWICDisplayAdaptationControl2_Impl: IWICDisplayAdaptationControl_Impl {
+    fn SetSdrWhiteLevel(&self, fwhitelevelinnits: f32) -> windows_core::Result<()>;
+    fn GetSdrWhiteLevel(&self) -> windows_core::Result<f32>;
+    fn SetToneMappingMode(&self, mode: WICBitmapToneMappingMode) -> windows_core::Result<()>;
+    fn GetToneMappingMode(&self) -> windows_core::Result<WICBitmapToneMappingMode>;
+    fn DoesSupportToneMappingMode(&self, mode: WICBitmapToneMappingMode) -> windows_core::Result<windows_core::BOOL>;
+}
+impl IWICDisplayAdaptationControl2_Vtbl {
+    pub const fn new<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn SetSdrWhiteLevel<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, fwhitelevelinnits: f32) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICDisplayAdaptationControl2_Impl::SetSdrWhiteLevel(this, core::mem::transmute_copy(&fwhitelevelinnits)).into()
+            }
+        }
+        unsafe extern "system" fn GetSdrWhiteLevel<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pfwhitelevelinnits: *mut f32) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICDisplayAdaptationControl2_Impl::GetSdrWhiteLevel(this) {
+                    Ok(ok__) => {
+                        pfwhitelevelinnits.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetToneMappingMode<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, mode: WICBitmapToneMappingMode) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IWICDisplayAdaptationControl2_Impl::SetToneMappingMode(this, core::mem::transmute_copy(&mode)).into()
+            }
+        }
+        unsafe extern "system" fn GetToneMappingMode<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, mode: *mut WICBitmapToneMappingMode) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICDisplayAdaptationControl2_Impl::GetToneMappingMode(this) {
+                    Ok(ok__) => {
+                        mode.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn DoesSupportToneMappingMode<Identity: IWICDisplayAdaptationControl2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, mode: WICBitmapToneMappingMode, pfissupported: *mut windows_core::BOOL) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IWICDisplayAdaptationControl2_Impl::DoesSupportToneMappingMode(this, core::mem::transmute_copy(&mode)) {
+                    Ok(ok__) => {
+                        pfissupported.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: IWICDisplayAdaptationControl_Vtbl::new::<Identity, OFFSET>(),
+            SetSdrWhiteLevel: SetSdrWhiteLevel::<Identity, OFFSET>,
+            GetSdrWhiteLevel: GetSdrWhiteLevel::<Identity, OFFSET>,
+            SetToneMappingMode: SetToneMappingMode::<Identity, OFFSET>,
+            GetToneMappingMode: GetToneMappingMode::<Identity, OFFSET>,
+            DoesSupportToneMappingMode: DoesSupportToneMappingMode::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IWICDisplayAdaptationControl2 as windows_core::Interface>::IID || iid == &<IWICDisplayAdaptationControl as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IWICDisplayAdaptationControl2 {}
 windows_core::imp::define_interface!(IWICEnumMetadataItem, IWICEnumMetadataItem_Vtbl, 0xdc2bb46d_3f07_481e_8625_220c4aedbb33);
 windows_core::imp::interface_hierarchy!(IWICEnumMetadataItem, windows_core::IUnknown);
 impl IWICEnumMetadataItem {
@@ -6296,6 +6711,16 @@ pub const WICBitmapCacheOnDemand: WICBitmapCreateCacheOption = WICBitmapCreateCa
 pub const WICBitmapCacheOnLoad: WICBitmapCreateCacheOption = WICBitmapCreateCacheOption(2i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WICBitmapChainType(pub i32);
+pub const WICBitmapChainType_AlphaMap: WICBitmapChainType = WICBitmapChainType(5i32);
+pub const WICBitmapChainType_Alternate: WICBitmapChainType = WICBitmapChainType(1i32);
+pub const WICBitmapChainType_DepthMap: WICBitmapChainType = WICBitmapChainType(6i32);
+pub const WICBitmapChainType_GainMap: WICBitmapChainType = WICBitmapChainType(7i32);
+pub const WICBitmapChainType_Layer: WICBitmapChainType = WICBitmapChainType(2i32);
+pub const WICBitmapChainType_Preview: WICBitmapChainType = WICBitmapChainType(3i32);
+pub const WICBitmapChainType_Thumbnail: WICBitmapChainType = WICBitmapChainType(4i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WICBitmapCreateCacheOption(pub i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -6390,6 +6815,13 @@ pub struct WICBitmapPlaneDescription {
     pub Width: u32,
     pub Height: u32,
 }
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WICBitmapToneMappingMode(pub i32);
+pub const WICBitmapToneMappingMode_D2D: WICBitmapToneMappingMode = WICBitmapToneMappingMode(2i32);
+pub const WICBitmapToneMappingMode_Default: WICBitmapToneMappingMode = WICBitmapToneMappingMode(1i32);
+pub const WICBitmapToneMappingMode_GainMap: WICBitmapToneMappingMode = WICBitmapToneMappingMode(3i32);
+pub const WICBitmapToneMappingMode_None: WICBitmapToneMappingMode = WICBitmapToneMappingMode(0i32);
 pub const WICBitmapTransformFlipHorizontal: WICBitmapTransformOptions = WICBitmapTransformOptions(8i32);
 pub const WICBitmapTransformFlipVertical: WICBitmapTransformOptions = WICBitmapTransformOptions(16i32);
 #[repr(transparent)]
@@ -6469,6 +6901,10 @@ pub const WICDecodeMetadataCacheOnLoad: WICDecodeOptions = WICDecodeOptions(1i32
 pub struct WICDecodeOptions(pub i32);
 pub const WICDecoder: WICComponentType = WICComponentType(1i32);
 pub const WICEncoder: WICComponentType = WICComponentType(2i32);
+pub const WICGainMapMetadata: WICGainMapProperties = WICGainMapProperties(1i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WICGainMapProperties(pub i32);
 pub const WICGifApplicationExtensionApplication: WICGifApplicationExtensionProperties = WICGifApplicationExtensionProperties(1i32);
 pub const WICGifApplicationExtensionData: WICGifApplicationExtensionProperties = WICGifApplicationExtensionProperties(2i32);
 #[repr(transparent)]
@@ -6510,8 +6946,11 @@ pub const WICGifLogicalScreenDescriptorSortFlag: WICGifLogicalScreenDescriptorPr
 pub const WICGifLogicalScreenDescriptorWidth: WICGifLogicalScreenDescriptorProperties = WICGifLogicalScreenDescriptorProperties(2i32);
 pub const WICGifLogicalScreenSignature: WICGifLogicalScreenDescriptorProperties = WICGifLogicalScreenDescriptorProperties(1i32);
 pub const WICHeifCompressionAV1: WICHeifCompressionOption = WICHeifCompressionOption(3i32);
+pub const WICHeifCompressionBrotli: WICHeifCompressionOption = WICHeifCompressionOption(5i32);
+pub const WICHeifCompressionDeflate: WICHeifCompressionOption = WICHeifCompressionOption(6i32);
 pub const WICHeifCompressionDontCare: WICHeifCompressionOption = WICHeifCompressionOption(0i32);
 pub const WICHeifCompressionHEVC: WICHeifCompressionOption = WICHeifCompressionOption(2i32);
+pub const WICHeifCompressionJpegXL: WICHeifCompressionOption = WICHeifCompressionOption(4i32);
 pub const WICHeifCompressionNone: WICHeifCompressionOption = WICHeifCompressionOption(1i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -6524,6 +6963,8 @@ pub const WICHeifHdrMinimumMasteringDisplayLuminanceLevel: WICHeifHdrProperties 
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WICHeifHdrProperties(pub i32);
+pub const WICHeifLayeredImageCanvasColor: WICHeifProperties = WICHeifProperties(2i32);
+pub const WICHeifLayeredImageLayerPositions: WICHeifProperties = WICHeifProperties(3i32);
 pub const WICHeifOrientation: WICHeifProperties = WICHeifProperties(1i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

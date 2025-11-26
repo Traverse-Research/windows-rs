@@ -832,6 +832,7 @@ pub const FILE_DIR_DISALLOWED: u32 = 9u32;
 pub const FILE_DOES_NOT_EXIST: u32 = 5u32;
 pub const FILE_ENCRYPTABLE: u32 = 0u32;
 pub const FILE_EXISTS: u32 = 4u32;
+pub const FILE_FLAG_DISALLOW_PATH_REDIRECTS: u32 = 65536u32;
 pub const FILE_FLAG_IGNORE_IMPERSONATED_DEVICEMAP: u32 = 131072u32;
 pub const FILE_FLAG_OPEN_REQUIRING_OPLOCK: u32 = 262144u32;
 pub const FILE_IS_ENCRYPTED: u32 = 1u32;
@@ -1469,6 +1470,20 @@ impl Default for STRTABLEW {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct SYSTEM_BASICPROCESS_INFORMATION {
+    pub NextEntryOffset: u32,
+    pub UniqueProcessId: super::super::Foundation::HANDLE,
+    pub InheritedFromUniqueProcessId: super::super::Foundation::HANDLE,
+    pub SequenceNumber: u64,
+    pub ImageName: super::super::Foundation::UNICODE_STRING,
+}
+impl Default for SYSTEM_BASICPROCESS_INFORMATION {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct SYSTEM_BASIC_INFORMATION {
     pub Reserved1: [u8; 24],
     pub Reserved2: [*mut core::ffi::c_void; 4],
@@ -1494,6 +1509,13 @@ impl Default for SYSTEM_EXCEPTION_INFORMATION {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct SYSTEM_HANDLECOUNT_INFORMATION {
+    pub ProcessCount: u32,
+    pub ThreadCount: u32,
+    pub HandleCount: u32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

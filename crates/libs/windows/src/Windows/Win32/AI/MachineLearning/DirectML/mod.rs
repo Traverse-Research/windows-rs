@@ -2677,7 +2677,7 @@ impl Default for DML_SPLIT_OPERATOR_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const DML_TARGET_VERSION: u32 = 25088u32;
+pub const DML_TARGET_VERSION: u32 = 25600u32;
 pub const DML_TEMPORARY_BUFFER_ALIGNMENT: u32 = 256u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

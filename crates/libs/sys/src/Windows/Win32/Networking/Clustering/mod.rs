@@ -821,6 +821,7 @@ pub const CLUSAPI_NODE_PAUSE_RETRY_DRAIN_ON_FAILURE: u32 = 4u32;
 pub const CLUSAPI_NODE_RESUME_FAILBACK_PINNED_VMS_ONLY: u32 = 4u32;
 pub const CLUSAPI_NODE_RESUME_FAILBACK_STORAGE: u32 = 1u32;
 pub const CLUSAPI_NODE_RESUME_FAILBACK_VMS: u32 = 2u32;
+pub const CLUSAPI_NODE_RESUME_FAILBACK_VMS_FORCEFULLY: u32 = 8u32;
 pub const CLUSAPI_NO_ACCESS: i32 = 4i32;
 pub const CLUSAPI_READ_ACCESS: i32 = 1i32;
 #[repr(C)]
@@ -1612,6 +1613,7 @@ pub const CLUSREG_NAME_AFFINITYRULE_TYPE: windows_sys::core::PCWSTR = windows_sy
 pub const CLUSREG_NAME_CLOUDWITNESS_ACCOUNT_NAME: windows_sys::core::PCWSTR = windows_sys::core::w!("AccountName");
 pub const CLUSREG_NAME_CLOUDWITNESS_CONTAINER_NAME: windows_sys::core::PCWSTR = windows_sys::core::w!("ContainerName");
 pub const CLUSREG_NAME_CLOUDWITNESS_ENDPOINT_INFO: windows_sys::core::PCWSTR = windows_sys::core::w!("EndpointInfo");
+pub const CLUSREG_NAME_CLOUDWITNESS_MANAGED_IDENTITY: windows_sys::core::PCWSTR = windows_sys::core::w!("IsManagedIdentity");
 pub const CLUSREG_NAME_CLOUDWITNESS_PRIMARY_KEY: windows_sys::core::PCWSTR = windows_sys::core::w!("PrimaryKey");
 pub const CLUSREG_NAME_CLOUDWITNESS_PRIMARY_TOKEN: windows_sys::core::PCWSTR = windows_sys::core::w!("PrimaryToken");
 pub const CLUSREG_NAME_CLUS_DEFAULT_NETWORK_ROLE: windows_sys::core::PCWSTR = windows_sys::core::w!("DefaultNetworkRole");
@@ -1775,6 +1777,7 @@ pub const CLUSREG_NAME_NODE_DRAIN_ERROR_CODE: windows_sys::core::PCWSTR = window
 pub const CLUSREG_NAME_NODE_DRAIN_STATUS: windows_sys::core::PCWSTR = windows_sys::core::w!("NodeDrainStatus");
 pub const CLUSREG_NAME_NODE_DRAIN_TARGET: windows_sys::core::PCWSTR = windows_sys::core::w!("NodeDrainTarget");
 pub const CLUSREG_NAME_NODE_DYNAMIC_WEIGHT: windows_sys::core::PCWSTR = windows_sys::core::w!("DynamicWeight");
+pub const CLUSREG_NAME_NODE_FAILBACK_ERROR_CODE: windows_sys::core::PCWSTR = windows_sys::core::w!("FailbackErrorCode");
 pub const CLUSREG_NAME_NODE_FAILBACK_STATUS: windows_sys::core::PCWSTR = windows_sys::core::w!("NodeFailbackStatus");
 pub const CLUSREG_NAME_NODE_FAULT_DOMAIN: windows_sys::core::PCWSTR = windows_sys::core::w!("FaultDomain");
 pub const CLUSREG_NAME_NODE_FDID: windows_sys::core::PCWSTR = windows_sys::core::w!("FaultDomainId");
@@ -3529,6 +3532,14 @@ pub const NodeFailbackStatusCompleted: CLUSTER_NODE_FAILBACK_STATUS = 2i32;
 pub const NodeFailbackStatusFailed: CLUSTER_NODE_FAILBACK_STATUS = 3i32;
 pub const NodeFailbackStatusInProgress: CLUSTER_NODE_FAILBACK_STATUS = 1i32;
 pub const NodeFailbackStatusNotInitiated: CLUSTER_NODE_FAILBACK_STATUS = 0i32;
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct NodeSriovInfo {
+    pub VFTotal: u32,
+    pub VFUsed: u32,
+    pub QPTotal: u32,
+    pub QPUsed: u32,
+}
 pub const NodeStatusAvoidPlacement: CLUSTER_NODE_STATUS = 32i32;
 pub const NodeStatusDrainCompleted: CLUSTER_NODE_STATUS = 8i32;
 pub const NodeStatusDrainFailed: CLUSTER_NODE_STATUS = 16i32;
@@ -3543,12 +3554,6 @@ pub struct NodeUtilizationInfoElement {
     pub Id: u64,
     pub AvailableMemory: u64,
     pub AvailableMemoryAfterReclamation: u64,
-}
-#[repr(C)]
-#[derive(Clone, Copy, Default)]
-pub struct NodeVFInfo {
-    pub VFTotal: u32,
-    pub VFUsed: u32,
 }
 pub const OperationalQuorum: CLUSTER_QUORUM_TYPE = 0i32;
 pub type PARBITRATE_ROUTINE = Option<unsafe extern "system" fn(resource: *mut core::ffi::c_void, lostquorumresource: PQUORUM_RESOURCE_LOST) -> u32>;

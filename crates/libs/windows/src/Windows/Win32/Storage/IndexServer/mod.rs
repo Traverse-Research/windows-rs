@@ -222,6 +222,8 @@ pub const DBPROP_GENERICOPTIONS_STRING: u32 = 6u32;
 pub const DBPROP_IGNORENOISEONLYCLAUSES: u32 = 5u32;
 pub const DBPROP_IGNORESBRI: u32 = 14u32;
 pub const DBPROP_MACHINE: u32 = 2u32;
+pub const DBPROP_QUERY_ID: u32 = 18u32;
+pub const DBPROP_SESSION_ID: u32 = 17u32;
 pub const DBPROP_USECONTENTINDEX: u32 = 2u32;
 pub const DBPROP_USEEXTENDEDDBTYPES: u32 = 4u32;
 pub const DBSETFUNC_ALL: u32 = 1u32;
@@ -461,8 +463,8 @@ impl IPixelFilter {
             (windows_core::Interface::vtable(self).GetImageInfo)(windows_core::Interface::as_raw(self), &mut result__).map(|| result__)
         }
     }
-    pub unsafe fn GetPixelsForImage(&self, pixelbufferlength: *mut u32, pixelbuffer: *mut *mut u8) -> windows_core::Result<()> {
-        unsafe { (windows_core::Interface::vtable(self).GetPixelsForImage)(windows_core::Interface::as_raw(self), pixelbufferlength as _, pixelbuffer as _).ok() }
+    pub unsafe fn GetPixelsForImage(&self, scalingfactor: f32, sourcerect: *const super::super::Foundation::RECT, pixelbuffer: &mut [u8]) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).GetPixelsForImage)(windows_core::Interface::as_raw(self), scalingfactor, sourcerect, pixelbuffer.len().try_into().unwrap(), core::mem::transmute(pixelbuffer.as_ptr())).ok() }
     }
 }
 #[repr(C)]
@@ -470,12 +472,12 @@ impl IPixelFilter {
 pub struct IPixelFilter_Vtbl {
     pub base__: IFilter_Vtbl,
     pub GetImageInfo: unsafe extern "system" fn(*mut core::ffi::c_void, *mut IMAGE_INFO) -> windows_core::HRESULT,
-    pub GetPixelsForImage: unsafe extern "system" fn(*mut core::ffi::c_void, *mut u32, *mut *mut u8) -> windows_core::HRESULT,
+    pub GetPixelsForImage: unsafe extern "system" fn(*mut core::ffi::c_void, f32, *const super::super::Foundation::RECT, u32, *mut u8) -> windows_core::HRESULT,
 }
 #[cfg(all(feature = "Win32_System_Com_StructuredStorage", feature = "Win32_System_Variant"))]
 pub trait IPixelFilter_Impl: IFilter_Impl {
     fn GetImageInfo(&self) -> windows_core::Result<IMAGE_INFO>;
-    fn GetPixelsForImage(&self, pixelbufferlength: *mut u32, pixelbuffer: *mut *mut u8) -> windows_core::Result<()>;
+    fn GetPixelsForImage(&self, scalingfactor: f32, sourcerect: *const super::super::Foundation::RECT, pixelbuffersize: u32, pixelbuffer: *mut u8) -> windows_core::Result<()>;
 }
 #[cfg(all(feature = "Win32_System_Com_StructuredStorage", feature = "Win32_System_Variant"))]
 impl IPixelFilter_Vtbl {
@@ -492,10 +494,10 @@ impl IPixelFilter_Vtbl {
                 }
             }
         }
-        unsafe extern "system" fn GetPixelsForImage<Identity: IPixelFilter_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pixelbufferlength: *mut u32, pixelbuffer: *mut *mut u8) -> windows_core::HRESULT {
+        unsafe extern "system" fn GetPixelsForImage<Identity: IPixelFilter_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, scalingfactor: f32, sourcerect: *const super::super::Foundation::RECT, pixelbuffersize: u32, pixelbuffer: *mut u8) -> windows_core::HRESULT {
             unsafe {
                 let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IPixelFilter_Impl::GetPixelsForImage(this, core::mem::transmute_copy(&pixelbufferlength), core::mem::transmute_copy(&pixelbuffer)).into()
+                IPixelFilter_Impl::GetPixelsForImage(this, core::mem::transmute_copy(&scalingfactor), core::mem::transmute_copy(&sourcerect), core::mem::transmute_copy(&pixelbuffersize), core::mem::transmute_copy(&pixelbuffer)).into()
             }
         }
         Self {

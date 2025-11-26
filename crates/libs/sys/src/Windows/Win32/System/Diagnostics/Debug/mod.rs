@@ -1733,6 +1733,7 @@ pub const FACILITY_PIDGENX: FACILITY_CODE = 2561u32;
 pub const FACILITY_PIX: FACILITY_CODE = 2748u32;
 pub const FACILITY_PLA: FACILITY_CODE = 48u32;
 pub const FACILITY_POWERSHELL: FACILITY_CODE = 84u32;
+pub const FACILITY_PPF: FACILITY_CODE = 2344u32;
 pub const FACILITY_PRESENTATION: FACILITY_CODE = 2177u32;
 pub const FACILITY_QUIC: FACILITY_CODE = 65u32;
 pub const FACILITY_RAS: FACILITY_CODE = 83u32;
@@ -4691,10 +4692,12 @@ pub const MiniDumpFilterModulePaths: MINIDUMP_TYPE = 128i32;
 pub const MiniDumpFilterTriage: MINIDUMP_TYPE = 1048576i32;
 pub const MiniDumpFilterWriteCombinedMemory: MINIDUMP_TYPE = 16777216i32;
 pub const MiniDumpIgnoreInaccessibleMemory: MINIDUMP_TYPE = 131072i32;
+pub const MiniDumpNoIgnoreInaccessibleMemory: MINIDUMP_TYPE = 33554432i32;
 pub const MiniDumpNormal: MINIDUMP_TYPE = 0i32;
 pub const MiniDumpScanInaccessiblePartialPages: MINIDUMP_TYPE = 8388608i32;
 pub const MiniDumpScanMemory: MINIDUMP_TYPE = 16i32;
 pub const MiniDumpValidTypeFlags: MINIDUMP_TYPE = 33554431i32;
+pub const MiniDumpValidTypeFlagsEx: MINIDUMP_TYPE = 67108863i32;
 pub const MiniDumpWithAvxXStateContext: MINIDUMP_TYPE = 2097152i32;
 pub const MiniDumpWithCodeSegs: MINIDUMP_TYPE = 8192i32;
 pub const MiniDumpWithDataSegs: MINIDUMP_TYPE = 1i32;
@@ -5304,6 +5307,7 @@ impl Default for STACKFRAME_EX {
     }
 }
 pub const STORAGE_DEVICE_ABNORMALITY_DETECTED: BUGCHECK_ERROR = 320u32;
+pub const STORAGE_DRIVER_LIVEDUMP: BUGCHECK_ERROR = 519u32;
 pub const STORAGE_MINIPORT_ERROR: BUGCHECK_ERROR = 240u32;
 pub const STORAGE_STACK_FATAL_ERROR: BUGCHECK_ERROR = 374u32;
 pub const STORE_DATA_STRUCTURE_CORRUPTION: BUGCHECK_ERROR = 455u32;

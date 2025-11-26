@@ -2737,6 +2737,8 @@ pub const CODECAPI_AVEncVideoContentType: windows_core::GUID = windows_core::GUI
 pub const CODECAPI_AVEncVideoDefaultUpperFieldDominant: windows_core::GUID = windows_core::GUID::from_u128(0x810167c4_0bc1_47ca_8fc2_57055a1474a5);
 pub const CODECAPI_AVEncVideoDirtyRectEnabled: windows_core::GUID = windows_core::GUID::from_u128(0x8acb8fdd_5e0c_4c66_8729_b8f629ab04fb);
 pub const CODECAPI_AVEncVideoDisplayDimension: windows_core::GUID = windows_core::GUID::from_u128(0xde053668_f4ec_47a9_86d0_836770f0c1d5);
+pub const CODECAPI_AVEncVideoEnableFramePsnrYuv: windows_core::GUID = windows_core::GUID::from_u128(0x2bbcdd1d_bc47_430e_b2e8_64801b47f5f0);
+pub const CODECAPI_AVEncVideoEnableSpatialAdaptiveQuantization: windows_core::GUID = windows_core::GUID::from_u128(0x659cb943_15ca_448d_b99a_875619db4de4);
 pub const CODECAPI_AVEncVideoEncodeDimension: windows_core::GUID = windows_core::GUID::from_u128(0x1074df28_7e0f_47a4_a453_cdd73870f5ce);
 pub const CODECAPI_AVEncVideoEncodeFrameTypeQP: windows_core::GUID = windows_core::GUID::from_u128(0xaa70b610_e03f_450c_ad07_07314e639ce7);
 pub const CODECAPI_AVEncVideoEncodeOffsetOrigin: windows_core::GUID = windows_core::GUID::from_u128(0x6bc098fe_a71a_4454_852e_4d2ddeb2cd24);
@@ -2774,6 +2776,7 @@ pub const CODECAPI_AVEncVideoMinQP: windows_core::GUID = windows_core::GUID::fro
 pub const CODECAPI_AVEncVideoNoOfFieldsToEncode: windows_core::GUID = windows_core::GUID::from_u128(0x61e4bbe2_4ee0_40e7_80ab_51ddeebe6291);
 pub const CODECAPI_AVEncVideoNoOfFieldsToSkip: windows_core::GUID = windows_core::GUID::from_u128(0xa97e1240_1427_4c16_a7f7_3dcfd8ba4cc5);
 pub const CODECAPI_AVEncVideoNumGOPsPerIDR: windows_core::GUID = windows_core::GUID::from_u128(0x83bc5bdb_5b89_4521_8f66_33151c373176);
+pub const CODECAPI_AVEncVideoOutputBitsUsedMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x6c2cd11a_ca3b_44bd_9a9e_93b03634c36e);
 pub const CODECAPI_AVEncVideoOutputChromaResolution: windows_core::GUID = windows_core::GUID::from_u128(0x6097b4c9_7c1d_4e64_bfcc_9e9765318ae7);
 pub const CODECAPI_AVEncVideoOutputChromaSubsampling: windows_core::GUID = windows_core::GUID::from_u128(0xfa561c6c_7d17_44f0_83c9_32ed12e96343);
 pub const CODECAPI_AVEncVideoOutputColorLighting: windows_core::GUID = windows_core::GUID::from_u128(0x0e5aaac6_ace6_4c5c_998e_1a8c9c6c0f89);
@@ -2783,10 +2786,12 @@ pub const CODECAPI_AVEncVideoOutputColorTransferFunction: windows_core::GUID = w
 pub const CODECAPI_AVEncVideoOutputColorTransferMatrix: windows_core::GUID = windows_core::GUID::from_u128(0xa9b90444_af40_4310_8fbe_ed6d933f892b);
 pub const CODECAPI_AVEncVideoOutputFrameRate: windows_core::GUID = windows_core::GUID::from_u128(0xea85e7c3_9567_4d99_87c4_02c1c278ca7c);
 pub const CODECAPI_AVEncVideoOutputFrameRateConversion: windows_core::GUID = windows_core::GUID::from_u128(0x8c068bf4_369a_4ba3_82fd_b2518fb3396e);
+pub const CODECAPI_AVEncVideoOutputQPMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x97038743_4ae3_44c3_a0f2_5bd58a4634ef);
 pub const CODECAPI_AVEncVideoOutputScanType: windows_core::GUID = windows_core::GUID::from_u128(0x460b5576_842e_49ab_a62d_b36f7312c9db);
 pub const CODECAPI_AVEncVideoPixelAspectRatio: windows_core::GUID = windows_core::GUID::from_u128(0x3cdc718f_b3e9_4eb6_a57f_cf1f1b321b87);
 pub const CODECAPI_AVEncVideoROIEnabled: windows_core::GUID = windows_core::GUID::from_u128(0xd74f7f18_44dd_4b85_aba3_05d9f42a8280);
 pub const CODECAPI_AVEncVideoRateControlParams: windows_core::GUID = windows_core::GUID::from_u128(0x87d43767_7645_44ec_b438_d3322fbca29f);
+pub const CODECAPI_AVEncVideoSatdMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x596f1106_8ce0_4302_af79_c4ec67aadc6d);
 pub const CODECAPI_AVEncVideoSelectLayer: windows_core::GUID = windows_core::GUID::from_u128(0xeb1084f5_6aaa_4914_bb2f_6147227f12e7);
 pub const CODECAPI_AVEncVideoSourceFilmContent: windows_core::GUID = windows_core::GUID::from_u128(0x1791c64b_ccfc_4827_a0ed_2557793b2b1c);
 pub const CODECAPI_AVEncVideoSourceIsBW: windows_core::GUID = windows_core::GUID::from_u128(0x42ffc49b_1812_4fdc_8d24_7054c521e6eb);
@@ -45921,6 +45926,13 @@ pub const MFSampleAllocatorUsage_UsesProvidedAllocator: MFSampleAllocatorUsage =
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct MFSampleEncryptionProtectionScheme(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct MFSampleExtensionPsnrYuv {
+    pub psnrY: f32,
+    pub psnrU: f32,
+    pub psnrV: f32,
+}
 pub const MFSampleExtension_3DVideo: windows_core::GUID = windows_core::GUID::from_u128(0xf86f97a4_dd54_4e2e_9a5e_55fc2d74a005);
 pub const MFSampleExtension_3DVideo_MultiView: MFVideo3DSampleFormat = MFVideo3DSampleFormat(1i32);
 pub const MFSampleExtension_3DVideo_Packed: MFVideo3DSampleFormat = MFVideo3DSampleFormat(0i32);
@@ -45965,6 +45977,7 @@ pub const MFSampleExtension_FeatureMap: windows_core::GUID = windows_core::GUID:
 pub const MFSampleExtension_ForwardedDecodeUnitType: windows_core::GUID = windows_core::GUID::from_u128(0x089e57c7_47d3_4a26_bf9c_4b64fafb5d1e);
 pub const MFSampleExtension_ForwardedDecodeUnits: windows_core::GUID = windows_core::GUID::from_u128(0x424c754c_97c8_48d6_8777_fc41f7b60879);
 pub const MFSampleExtension_FrameCorruption: windows_core::GUID = windows_core::GUID::from_u128(0xb4dd4a8c_0beb_44c4_8b75_b02b913b04f0);
+pub const MFSampleExtension_FramePsnrYuv: windows_core::GUID = windows_core::GUID::from_u128(0x1c633a3d_566f_4752_833b_2907df5415e1);
 pub const MFSampleExtension_GenKeyCtx: windows_core::GUID = windows_core::GUID::from_u128(0x188120cb_d7da_4b59_9b3e_9252fd37301c);
 pub const MFSampleExtension_GenKeyFunc: windows_core::GUID = windows_core::GUID::from_u128(0x441ca1ee_6b1f_4501_903a_de87df42f6ed);
 pub const MFSampleExtension_HDCP_FrameCounter: windows_core::GUID = windows_core::GUID::from_u128(0x9d389c60_f507_4aa6_a40a_71027a02f3de);
@@ -45997,8 +46010,11 @@ pub const MFSampleExtension_TemporalLayerId: windows_core::GUID = windows_core::
 pub const MFSampleExtension_Timestamp: windows_core::GUID = windows_core::GUID::from_u128(0x1e436999_69be_4c7a_9369_70068c0260cb);
 pub const MFSampleExtension_Token: windows_core::GUID = windows_core::GUID::from_u128(0x8294da66_f328_4805_b551_00deb4c57a61);
 pub const MFSampleExtension_VideoDSPMode: windows_core::GUID = windows_core::GUID::from_u128(0xc12d55cb_d7d9_476d_81f3_69117f163ea0);
+pub const MFSampleExtension_VideoEncodeBitsUsedMap: windows_core::GUID = windows_core::GUID::from_u128(0x6894263d_e6e2_4bcc_849d_8570365f5114);
 pub const MFSampleExtension_VideoEncodePictureType: windows_core::GUID = windows_core::GUID::from_u128(0x973704e6_cd14_483c_8f20_c9fc0928bad5);
 pub const MFSampleExtension_VideoEncodeQP: windows_core::GUID = windows_core::GUID::from_u128(0xb2efe478_f979_4c66_b95e_ee2b82c82f36);
+pub const MFSampleExtension_VideoEncodeQPMap: windows_core::GUID = windows_core::GUID::from_u128(0x2c68a331_b712_49ca_860a_3a1d58237d88);
+pub const MFSampleExtension_VideoEncodeSatdMap: windows_core::GUID = windows_core::GUID::from_u128(0xadf61d96_c2d3_4b57_a138_dde4d351eaa9);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct MFSensorDeviceMode(pub i32);
@@ -46503,6 +46519,8 @@ pub const MFVideoFormat_HEVC: windows_core::GUID = windows_core::GUID::from_u128
 pub const MFVideoFormat_HEVC_ES: windows_core::GUID = windows_core::GUID::from_u128(0x53564548_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_HEVC_HDCP: windows_core::GUID = windows_core::GUID::from_u128(0x3cfe0fe6_05c4_47dc_9d70_4bdb2959720f);
 pub const MFVideoFormat_I420: windows_core::GUID = windows_core::GUID::from_u128(0x30323449_0000_0010_8000_00aa00389b71);
+pub const MFVideoFormat_I422: windows_core::GUID = windows_core::GUID::from_u128(0x32323449_0000_0010_8000_00aa00389b71);
+pub const MFVideoFormat_I444: windows_core::GUID = windows_core::GUID::from_u128(0x34343449_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_IYUV: windows_core::GUID = windows_core::GUID::from_u128(0x56555949_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_L16: windows_core::GUID = windows_core::GUID::from_u128(0x00000051_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_L8: windows_core::GUID = windows_core::GUID::from_u128(0x00000032_0000_0010_8000_00aa00389b71);
@@ -47108,6 +47126,7 @@ pub const MF_E_BANDWIDTH_OVERRUN: windows_core::HRESULT = windows_core::HRESULT(
 pub const MF_E_BUFFERTOOSMALL: windows_core::HRESULT = windows_core::HRESULT(0xC00D36B1_u32 as _);
 pub const MF_E_BYTESTREAM_NOT_SEEKABLE: windows_core::HRESULT = windows_core::HRESULT(0xC00D36EE_u32 as _);
 pub const MF_E_BYTESTREAM_UNKNOWN_LENGTH: windows_core::HRESULT = windows_core::HRESULT(0xC00D36FB_u32 as _);
+pub const MF_E_CAMERA_FSPROFILE_INVALID: windows_core::HRESULT = windows_core::HRESULT(0xC00DB79A_u32 as _);
 pub const MF_E_CAMERA_PRIVACY_NOT_ALLOWED: windows_core::HRESULT = windows_core::HRESULT(0xC00DB798_u32 as _);
 pub const MF_E_CANNOT_CREATE_SINK: windows_core::HRESULT = windows_core::HRESULT(0xC00D36FA_u32 as _);
 pub const MF_E_CANNOT_FIND_KEYFRAME_SAMPLE: windows_core::HRESULT = windows_core::HRESULT(0xC00D3E9D_u32 as _);

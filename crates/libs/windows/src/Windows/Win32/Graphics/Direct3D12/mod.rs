@@ -4805,6 +4805,7 @@ pub struct D3D12_MIP_REGION {
     pub Height: u32,
     pub Depth: u32,
 }
+pub const D3D12_MS_DISPATCH_MAX_THREAD_GROUPS_PER_GRID: u32 = 4194303u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_MULTIPLE_FENCE_WAIT_FLAGS(pub i32);
@@ -8563,6 +8564,7 @@ pub const D3D12_WHQL_CONTEXT_COUNT_FOR_RESOURCE_LIMIT: u32 = 10u32;
 pub const D3D12_WHQL_DRAWINDEXED_INDEX_COUNT_2_TO_EXP: u32 = 25u32;
 pub const D3D12_WHQL_DRAW_VERTEX_COUNT_2_TO_EXP: u32 = 25u32;
 pub const D3D12_WORK_GRAPHS_BACKING_MEMORY_ALIGNMENT_IN_BYTES: u32 = 8u32;
+pub const D3D12_WORK_GRAPHS_DISPATCH_MAX_THREAD_GROUPS_PER_GRID: u32 = 16777215u32;
 pub const D3D12_WORK_GRAPHS_MAX_NODE_DEPTH: u32 = 32u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

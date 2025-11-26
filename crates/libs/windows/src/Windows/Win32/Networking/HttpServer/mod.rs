@@ -338,6 +338,12 @@ pub struct HTTP_CACHE_POLICY {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct HTTP_CACHE_POLICY_TYPE(pub i32);
+pub const HTTP_CERT_CHECK_MODE_CACHED_REVOCATION: u32 = 2u32;
+pub const HTTP_CERT_CHECK_MODE_CACHED_URLS: u32 = 8u32;
+pub const HTTP_CERT_CHECK_MODE_NO_AIA: u32 = 16u32;
+pub const HTTP_CERT_CHECK_MODE_NO_REVOCATION: u32 = 1u32;
+pub const HTTP_CERT_CHECK_MODE_NO_USAGE_CHECK: u32 = 65536u32;
+pub const HTTP_CERT_CHECK_MODE_USE_REVOCATION_FRESHNESS: u32 = 4u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct HTTP_CERT_CONFIG_ENTRY {

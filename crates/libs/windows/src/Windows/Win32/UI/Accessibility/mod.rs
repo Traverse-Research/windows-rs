@@ -19522,6 +19522,7 @@ pub struct NotificationProcessing(pub i32);
 pub const NotificationProcessing_All: NotificationProcessing = NotificationProcessing(2i32);
 pub const NotificationProcessing_CurrentThenMostRecent: NotificationProcessing = NotificationProcessing(4i32);
 pub const NotificationProcessing_ImportantAll: NotificationProcessing = NotificationProcessing(0i32);
+pub const NotificationProcessing_ImportantCurrentThenMostRecent: NotificationProcessing = NotificationProcessing(5i32);
 pub const NotificationProcessing_ImportantMostRecent: NotificationProcessing = NotificationProcessing(1i32);
 pub const NotificationProcessing_MostRecent: NotificationProcessing = NotificationProcessing(3i32);
 pub const Notification_Event_GUID: windows_core::GUID = windows_core::GUID::from_u128(0x72c5a2f7_9788_480f_b8eb_4dee00f6186f);
