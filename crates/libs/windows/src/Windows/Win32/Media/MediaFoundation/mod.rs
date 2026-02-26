@@ -3626,6 +3626,24 @@ impl Default for D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1 {
     }
 }
 #[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE2 {
+    pub NodeMask: u32,
+    pub pOutputStreamDesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC,
+    pub NumInputStreamDescs: u32,
+    pub pInputStreamDescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1,
+    pub Protected: windows_core::BOOL,
+    pub MemoryPoolL0Size: u64,
+    pub MemoryPoolL1Size: u64,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE2 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_FEATURE_DATA_VIDEO_PROCESS_MAX_INPUT_STREAMS {
     pub NodeIndex: u32,
@@ -3673,6 +3691,33 @@ pub struct D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT {
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl Default for D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT1 {
+    pub NodeIndex: u32,
+    pub InputSample: D3D12_VIDEO_SAMPLE,
+    pub InputFieldType: D3D12_VIDEO_FIELD_TYPE,
+    pub InputStereoFormat: D3D12_VIDEO_FRAME_STEREO_FORMAT,
+    pub InputFrameRate: super::super::Graphics::Dxgi::Common::DXGI_RATIONAL,
+    pub OutputFormat: D3D12_VIDEO_FORMAT,
+    pub OutputStereoFormat: D3D12_VIDEO_FRAME_STEREO_FORMAT,
+    pub OutputFrameRate: super::super::Graphics::Dxgi::Common::DXGI_RATIONAL,
+    pub SupportFlags: D3D12_VIDEO_PROCESS_SUPPORT_FLAGS,
+    pub ScaleSupport: D3D12_VIDEO_SCALE_SUPPORT,
+    pub FeatureSupport: D3D12_VIDEO_PROCESS_FEATURE_FLAGS,
+    pub DeinterlaceSupport: D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS,
+    pub AutoProcessingSupport: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS,
+    pub FilterSupport: D3D12_VIDEO_PROCESS_FILTER_FLAGS,
+    pub FilterRangeSupport: [D3D12_VIDEO_PROCESS_FILTER_RANGE; 32],
+    pub SupportLUT: D3D12_VIDEO_PROCESS_LUT_SUPPORT,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT1 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -3726,10 +3771,12 @@ pub const D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES: D3D12_FEATUR
 pub const D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_SIZE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(21i32);
 pub const D3D12_FEATURE_VIDEO_PROCESSOR_SIZE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(9i32);
 pub const D3D12_FEATURE_VIDEO_PROCESSOR_SIZE1: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(32i32);
+pub const D3D12_FEATURE_VIDEO_PROCESSOR_SIZE2: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(54i32);
 pub const D3D12_FEATURE_VIDEO_PROCESS_MAX_INPUT_STREAMS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(6i32);
 pub const D3D12_FEATURE_VIDEO_PROCESS_PROTECTED_RESOURCES: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(29i32);
 pub const D3D12_FEATURE_VIDEO_PROCESS_REFERENCE_INFO: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(7i32);
 pub const D3D12_FEATURE_VIDEO_PROCESS_SUPPORT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(5i32);
+pub const D3D12_FEATURE_VIDEO_PROCESS_SUPPORT1: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(53i32);
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -7603,6 +7650,65 @@ pub struct D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC {
     pub Precision: D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION,
     pub SizeRange: D3D12_VIDEO_SIZE_RANGE,
 }
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE(pub i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS(pub i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAG_NONE: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAG_TETRAHEDRAL: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAG_TRILINEAR: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS(1i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_TETRAHEDRAL: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE = D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE(1i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_TRILINEAR: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE = D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE(0i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION(pub i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_17x17x17: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION(0i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_33x33x33: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION(1i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_45x45x45: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION(2i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_65x65x65: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION(3i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAG_17x17x17: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(1i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAG_33x33x33: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAG_45x45x45: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(4i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAG_65x65x65: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(8i32);
+pub const D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAG_NONE: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS(0i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_PROCESS_ALPHA_BLENDING {
@@ -7853,6 +7959,25 @@ impl Default for D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 {
     }
 }
 #[repr(C)]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+#[derive(Clone, Debug, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2 {
+    pub InputStream: [D3D12_VIDEO_PROCESS_INPUT_STREAM; 2],
+    pub Transform: D3D12_VIDEO_PROCESS_TRANSFORM,
+    pub Flags: D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS,
+    pub RateInfo: D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE,
+    pub FilterLevels: [i32; 32],
+    pub AlphaBlending: D3D12_VIDEO_PROCESS_ALPHA_BLENDING,
+    pub FieldType: D3D12_VIDEO_FIELD_TYPE,
+    pub LUTMode: D3D12_VIDEO_PROCESS_TRANSFORM_LUT,
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Default for D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC {
@@ -7873,6 +7998,29 @@ pub struct D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC {
     pub NumPastFrames: u32,
     pub NumFutureFrames: u32,
     pub EnableAutoProcessing: windows_core::BOOL,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1 {
+    pub Format: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub ColorSpace: super::super::Graphics::Dxgi::Common::DXGI_COLOR_SPACE_TYPE,
+    pub SourceAspectRatio: super::super::Graphics::Dxgi::Common::DXGI_RATIONAL,
+    pub DestinationAspectRatio: super::super::Graphics::Dxgi::Common::DXGI_RATIONAL,
+    pub FrameRate: super::super::Graphics::Dxgi::Common::DXGI_RATIONAL,
+    pub SourceSizeRange: D3D12_VIDEO_SIZE_RANGE,
+    pub DestinationSizeRange: D3D12_VIDEO_SIZE_RANGE,
+    pub EnableOrientation: windows_core::BOOL,
+    pub FilterFlags: D3D12_VIDEO_PROCESS_FILTER_FLAGS,
+    pub StereoFormat: D3D12_VIDEO_FRAME_STEREO_FORMAT,
+    pub FieldType: D3D12_VIDEO_FIELD_TYPE,
+    pub DeinterlaceMode: D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS,
+    pub EnableAlphaBlending: windows_core::BOOL,
+    pub LumaKey: D3D12_VIDEO_PROCESS_LUMA_KEY,
+    pub NumPastFrames: u32,
+    pub NumFutureFrames: u32,
+    pub EnableAutoProcessing: windows_core::BOOL,
+    pub ConfigurationLUT: D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION,
 }
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -7926,6 +8074,149 @@ pub struct D3D12_VIDEO_PROCESS_LUMA_KEY {
     pub Lower: f32,
     pub Upper: f32,
 }
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_LUT_SUPPORT {
+    pub Format1DLUT: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub Format3DLUT: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub ColorSpace3DLUTOutput: super::super::Graphics::Dxgi::Common::DXGI_COLOR_SPACE_TYPE,
+    pub Flags: D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS,
+    pub Native1DLUTSize: u32,
+    pub Interpolation3DLUTFlags: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE_SUPPORT_FLAGS,
+    pub Dimension3DLUTFlags: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION_SUPPORT_FLAGS,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAG_1DLUT_NON_MONOTONICALLY_INCREASING_CURVE: D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS(4i32);
+pub const D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAG_1DLUT_SPACING_CURVE: D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAG_NONE: D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAG_SUPPORTED: D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS = D3D12_VIDEO_PROCESS_LUT_SUPPORT_FLAGS(1i32);
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION {
+    pub ConfigFlags: D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS,
+    pub UpsampledChromaInput: super::super::Graphics::Dxgi::Common::DXGI_COLOR_SPACE_TYPE,
+    pub Format1DLUT: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub Format3DLUT: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub ColorSpace3DLUTOutput: super::super::Graphics::Dxgi::Common::DXGI_COLOR_SPACE_TYPE,
+    pub Interpolation3DLUT: D3D12_VIDEO_PROCESS_3DLUT_INTERPOLATION_MODE,
+    pub Dimension3DLUT: D3D12_VIDEO_PROCESS_3DLUT_TABLE_DIMENSION,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS(pub i32);
+impl D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAG_ENABLE: D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS = D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS(1i32);
+pub const D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAG_NONE: D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS = D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION_FLAGS(0i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(pub i32);
+impl D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAG_1DLUT: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS = D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(2i32);
+pub const D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAG_1DLUT_SPACING: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS = D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(4i32);
+pub const D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAG_3DLUT: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS = D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(8i32);
+pub const D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAG_CSC: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS = D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(1i32);
+pub const D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAG_NONE: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS = D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS(0i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_PROCESS_ORIENTATION(pub i32);
@@ -8036,6 +8327,25 @@ pub struct D3D12_VIDEO_PROCESS_TRANSFORM {
     pub SourceRectangle: super::super::Foundation::RECT,
     pub DestinationRectangle: super::super::Foundation::RECT,
     pub Orientation: D3D12_VIDEO_PROCESS_ORIENTATION,
+}
+#[repr(C)]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+#[derive(Clone, Debug, PartialEq)]
+pub struct D3D12_VIDEO_PROCESS_TRANSFORM_LUT {
+    pub Configuration: D3D12_VIDEO_PROCESS_LUT_TRANSFORM_CONFIGURATION,
+    pub UpdateFlags: D3D12_VIDEO_PROCESS_LUT_UPDATE_FLAGS,
+    pub pCSCMatrix: [f32; 12],
+    pub p1DLUTtransform: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub Subresource1DLUT: u32,
+    pub p1DLUTInputSpacing: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub Subresource1DLUTInputSpacing: u32,
+    pub p3DLUTTransform: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Default for D3D12_VIDEO_PROCESS_TRANSFORM_LUT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -10703,6 +11013,40 @@ impl ID3D12VideoDecodeCommandList3_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDecodeCommandList3 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoDecodeCommandListPreview, ID3D12VideoDecodeCommandListPreview_Vtbl, 0xb17b62d7_930c_4514_9093_2cc81ba15961);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoDecodeCommandListPreview {
+    type Target = ID3D12VideoDecodeCommandList3;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoDecodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoDecodeCommandList, ID3D12VideoDecodeCommandList1, ID3D12VideoDecodeCommandList2, ID3D12VideoDecodeCommandList3);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoDecodeCommandListPreview_Vtbl {
+    pub base__: ID3D12VideoDecodeCommandList3_Vtbl,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoDecodeCommandListPreview {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoDecodeCommandListPreview {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoDecodeCommandListPreview_Impl: ID3D12VideoDecodeCommandList3_Impl {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoDecodeCommandListPreview_Vtbl {
+    pub const fn new<Identity: ID3D12VideoDecodeCommandListPreview_Impl, const OFFSET: isize>() -> Self {
+        Self { base__: ID3D12VideoDecodeCommandList3_Vtbl::new::<Identity, OFFSET>() }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoDecodeCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoDecodeCommandListPreview {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoDecoder, ID3D12VideoDecoder_Vtbl, 0xc59b6bdc_7720_4074_a136_17a156037470);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl core::ops::Deref for ID3D12VideoDecoder {
@@ -11291,6 +11635,57 @@ impl ID3D12VideoDevice3_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDevice3 {}
+windows_core::imp::define_interface!(ID3D12VideoDevice3DLUT, ID3D12VideoDevice3DLUT_Vtbl, 0x4694a08b_63c8_45e2_88c8_4986acb13d64);
+impl core::ops::Deref for ID3D12VideoDevice3DLUT {
+    type Target = ID3D12VideoDevice4;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12VideoDevice3DLUT, windows_core::IUnknown, ID3D12VideoDevice, ID3D12VideoDevice1, ID3D12VideoDevice2, ID3D12VideoDevice3, ID3D12VideoDevice4);
+impl ID3D12VideoDevice3DLUT {
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub unsafe fn CreateVideoProcessor2<P4, T>(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, pinputstreamdescs: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1], pprotectedresourcesession: P4) -> windows_core::Result<T>
+    where
+        P4: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>,
+        T: windows_core::Interface,
+    {
+        let mut result__ = core::ptr::null_mut();
+        unsafe { (windows_core::Interface::vtable(self).CreateVideoProcessor2)(windows_core::Interface::as_raw(self), nodemask, poutputstreamdesc, pinputstreamdescs.len().try_into().unwrap(), core::mem::transmute(pinputstreamdescs.as_ptr()), pprotectedresourcesession.param().abi(), &T::IID, &mut result__).and_then(|| windows_core::Type::from_abi(result__)) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoDevice3DLUT_Vtbl {
+    pub base__: ID3D12VideoDevice4_Vtbl,
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub CreateVideoProcessor2: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, *mut core::ffi::c_void, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common")))]
+    CreateVideoProcessor2: usize,
+}
+unsafe impl Send for ID3D12VideoDevice3DLUT {}
+unsafe impl Sync for ID3D12VideoDevice3DLUT {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoDevice3DLUT_Impl: ID3D12VideoDevice4_Impl {
+    fn CreateVideoProcessor2(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoDevice3DLUT_Vtbl {
+    pub const fn new<Identity: ID3D12VideoDevice3DLUT_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreateVideoProcessor2<Identity: ID3D12VideoDevice3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: *mut core::ffi::c_void, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoDevice3DLUT_Impl::CreateVideoProcessor2(this, core::mem::transmute_copy(&nodemask), core::mem::transmute_copy(&poutputstreamdesc), core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs), core::mem::transmute_copy(&pprotectedresourcesession), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&ppvideoprocessor)).into()
+            }
+        }
+        Self { base__: ID3D12VideoDevice4_Vtbl::new::<Identity, OFFSET>(), CreateVideoProcessor2: CreateVideoProcessor2::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoDevice3DLUT as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice3 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice4 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoDevice3DLUT {}
 windows_core::imp::define_interface!(ID3D12VideoDevice4, ID3D12VideoDevice4_Vtbl, 0xe59ad09e_f1ae_42bb_8983_9f6e5586c4eb);
 impl core::ops::Deref for ID3D12VideoDevice4 {
     type Target = ID3D12VideoDevice3;
@@ -11881,6 +12276,40 @@ impl ID3D12VideoEncodeCommandList4_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoEncodeCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoEncodeCommandListPreview, ID3D12VideoEncodeCommandListPreview_Vtbl, 0xe4da2a33_2e43_43e7_8dd0_3133ad41c13d);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoEncodeCommandListPreview {
+    type Target = ID3D12VideoEncodeCommandList4;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoEncodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList1, ID3D12VideoEncodeCommandList2, ID3D12VideoEncodeCommandList3, ID3D12VideoEncodeCommandList4);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoEncodeCommandListPreview_Vtbl {
+    pub base__: ID3D12VideoEncodeCommandList4_Vtbl,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoEncodeCommandListPreview {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoEncodeCommandListPreview {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoEncodeCommandListPreview_Impl: ID3D12VideoEncodeCommandList4_Impl {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoEncodeCommandListPreview_Vtbl {
+    pub const fn new<Identity: ID3D12VideoEncodeCommandListPreview_Impl, const OFFSET: isize>() -> Self {
+        Self { base__: ID3D12VideoEncodeCommandList4_Vtbl::new::<Identity, OFFSET>() }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoEncodeCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList4 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoEncodeCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoEncoder, ID3D12VideoEncoder_Vtbl, 0x2e0d212d_8df9_44a6_a770_bb289b182737);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -12819,6 +13248,83 @@ impl ID3D12VideoProcessCommandList3_Vtbl {
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl windows_core::RuntimeName for ID3D12VideoProcessCommandList3 {}
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandList3DLUT, ID3D12VideoProcessCommandList3DLUT_Vtbl, 0x0b725df5_dd55_42ad_bb7b_3a8552194ae9);
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandList3DLUT, windows_core::IUnknown);
+impl ID3D12VideoProcessCommandList3DLUT {
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub unsafe fn ProcessFrames2<P0>(&self, pvideoprocessor: P0, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, pinputarguments: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2])
+    where
+        P0: windows_core::Param<ID3D12VideoProcessor3DLUT>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).ProcessFrames2)(windows_core::Interface::as_raw(self), pvideoprocessor.param().abi(), core::mem::transmute(poutputarguments), pinputarguments.len().try_into().unwrap(), core::mem::transmute(pinputarguments.as_ptr())) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoProcessCommandList3DLUT_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub ProcessFrames2: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2),
+    #[cfg(not(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common")))]
+    ProcessFrames2: usize,
+}
+unsafe impl Send for ID3D12VideoProcessCommandList3DLUT {}
+unsafe impl Sync for ID3D12VideoProcessCommandList3DLUT {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoProcessCommandList3DLUT_Impl: windows_core::IUnknownImpl {
+    fn ProcessFrames2(&self, pvideoprocessor: windows_core::Ref<'_, ID3D12VideoProcessor3DLUT>, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoProcessCommandList3DLUT_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessCommandList3DLUT_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn ProcessFrames2<Identity: ID3D12VideoProcessCommandList3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pvideoprocessor: *mut core::ffi::c_void, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoProcessCommandList3DLUT_Impl::ProcessFrames2(this, core::mem::transmute_copy(&pvideoprocessor), core::mem::transmute_copy(&poutputarguments), core::mem::transmute_copy(&numinputstreams), core::mem::transmute_copy(&pinputarguments))
+            }
+        }
+        Self { base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(), ProcessFrames2: ProcessFrames2::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoProcessCommandList3DLUT as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoProcessCommandList3DLUT {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandListPreview, ID3D12VideoProcessCommandListPreview_Vtbl, 0x04ed2b37_b6af_44c0_a20a_24c0df3d0c4f);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoProcessCommandListPreview {
+    type Target = ID3D12VideoProcessCommandList3;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoProcessCommandListPreview_Vtbl {
+    pub base__: ID3D12VideoProcessCommandList3_Vtbl,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoProcessCommandListPreview {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoProcessCommandListPreview {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub trait ID3D12VideoProcessCommandListPreview_Impl: ID3D12VideoProcessCommandList3_Impl {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoProcessCommandListPreview_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessCommandListPreview_Impl, const OFFSET: isize>() -> Self {
+        Self { base__: ID3D12VideoProcessCommandList3_Vtbl::new::<Identity, OFFSET>() }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoProcessCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl windows_core::RuntimeName for ID3D12VideoProcessCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoProcessor, ID3D12VideoProcessor_Vtbl, 0x304fdb32_bede_410a_8545_943ac6a46138);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -12971,6 +13477,59 @@ impl ID3D12VideoProcessor1_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoProcessor1 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoProcessor3DLUT, ID3D12VideoProcessor3DLUT_Vtbl, 0xe8f885e6_0e57_4954_84d7_38cfb1bc5684);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoProcessor3DLUT {
+    type Target = ID3D12VideoProcessor1;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessor3DLUT, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12Pageable, ID3D12VideoProcessor, ID3D12VideoProcessor1);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoProcessor3DLUT {
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub unsafe fn GetInputStreamDescs1(&self, pinputstreamdescs: &mut [D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1]) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).GetInputStreamDescs1)(windows_core::Interface::as_raw(self), pinputstreamdescs.len().try_into().unwrap(), core::mem::transmute(pinputstreamdescs.as_ptr())).ok() }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoProcessor3DLUT_Vtbl {
+    pub base__: ID3D12VideoProcessor1_Vtbl,
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub GetInputStreamDescs1: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::HRESULT,
+    #[cfg(not(feature = "Win32_Graphics_Dxgi_Common"))]
+    GetInputStreamDescs1: usize,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoProcessor3DLUT {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoProcessor3DLUT {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoProcessor3DLUT_Impl: ID3D12VideoProcessor1_Impl {
+    fn GetInputStreamDescs1(&self, numinputstreamdescs: u32, pinputstreamdescs: *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::Result<()>;
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoProcessor3DLUT_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessor3DLUT_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetInputStreamDescs1<Identity: ID3D12VideoProcessor3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numinputstreamdescs: u32, pinputstreamdescs: *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoProcessor3DLUT_Impl::GetInputStreamDescs1(this, core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs)).into()
+            }
+        }
+        Self { base__: ID3D12VideoProcessor1_Vtbl::new::<Identity, OFFSET>(), GetInputStreamDescs1: GetInputStreamDescs1::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoProcessor3DLUT as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Pageable as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor1 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoProcessor3DLUT {}
 windows_core::imp::define_interface!(IDXVAHD_Device, IDXVAHD_Device_Vtbl, 0x95f12dfd_d77e_49be_815f_57d579634d6d);
 windows_core::imp::interface_hierarchy!(IDXVAHD_Device, windows_core::IUnknown);
 impl IDXVAHD_Device {
