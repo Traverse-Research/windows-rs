@@ -3130,12 +3130,14 @@ pub const IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER: u32 = 2952208u32;
 pub const IOCTL_STORAGE_GET_MEDIA_TYPES: u32 = 2952192u32;
 pub const IOCTL_STORAGE_GET_MEDIA_TYPES_EX: u32 = 2952196u32;
 pub const IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS: u32 = 2956452u32;
+pub const IOCTL_STORAGE_GET_SYSTEM_FEATURE_SUPPORT: u32 = 2968604u32;
 pub const IOCTL_STORAGE_LOAD_MEDIA: u32 = 2967564u32;
 pub const IOCTL_STORAGE_LOAD_MEDIA2: u32 = 2951180u32;
 pub const IOCTL_STORAGE_MANAGE_BYPASS_IO: u32 = 2951360u32;
 pub const IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES: u32 = 2987012u32;
 pub const IOCTL_STORAGE_MCN_CONTROL: u32 = 2951492u32;
 pub const IOCTL_STORAGE_MEDIA_REMOVAL: u32 = 2967556u32;
+pub const IOCTL_STORAGE_MINIPORT_PASSTHROUGH_REQUEST: u32 = 3002448u32;
 pub const IOCTL_STORAGE_PERSISTENT_RESERVE_IN: u32 = 2969624u32;
 pub const IOCTL_STORAGE_PERSISTENT_RESERVE_OUT: u32 = 3002396u32;
 pub const IOCTL_STORAGE_POWER_ACTIVE: u32 = 2956424u32;
@@ -5225,28 +5227,12 @@ pub struct STORAGE_CRYPTO_CAPABILITY_V2 {
     pub DataUnitSizeBitmask: u32,
     pub MaxIVBitSize: u16,
     pub Reserved: u16,
-    pub SecurityComplianceBitmask: STORAGE_CRYPTO_CAPABILITY_V2_0,
+    pub SecurityComplianceBitmask: STORAGE_SECURITY_COMPLIANCE_BITMASK,
 }
 impl Default for STORAGE_CRYPTO_CAPABILITY_V2 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub union STORAGE_CRYPTO_CAPABILITY_V2_0 {
-    pub Anonymous: STORAGE_CRYPTO_CAPABILITY_V2_0_0,
-    pub AsUchar: u8,
-}
-impl Default for STORAGE_CRYPTO_CAPABILITY_V2_0 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy, Default)]
-pub struct STORAGE_CRYPTO_CAPABILITY_V2_0_0 {
-    pub _bitfield: u8,
 }
 pub const STORAGE_CRYPTO_CAPABILITY_VERSION_1: u32 = 1u32;
 pub const STORAGE_CRYPTO_CAPABILITY_VERSION_2: u32 = 2u32;
@@ -5272,7 +5258,8 @@ pub struct STORAGE_CRYPTO_DESCRIPTOR_V2 {
     pub NumKeysSupported: u32,
     pub NumCryptoCapabilities: u32,
     pub IceType: STORAGE_ICE_TYPE,
-    pub SecurityComplianceBitmask: STORAGE_CRYPTO_DESCRIPTOR_V2_0,
+    pub SecurityComplianceBitmask: STORAGE_SECURITY_COMPLIANCE_BITMASK,
+    pub KeyTypeBitmask: STORAGE_CRYPTO_KEY_TYPE,
     pub CryptoCapabilities: [STORAGE_CRYPTO_CAPABILITY_V2; 1],
 }
 impl Default for STORAGE_CRYPTO_DESCRIPTOR_V2 {
@@ -5280,25 +5267,25 @@ impl Default for STORAGE_CRYPTO_DESCRIPTOR_V2 {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const STORAGE_CRYPTO_DESCRIPTOR_VERSION_1: u32 = 1u32;
+pub const STORAGE_CRYPTO_DESCRIPTOR_VERSION_2: u32 = 2u32;
+pub type STORAGE_CRYPTO_KEY_SIZE = i32;
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub union STORAGE_CRYPTO_DESCRIPTOR_V2_0 {
-    pub Anonymous: STORAGE_CRYPTO_DESCRIPTOR_V2_0_0,
+pub union STORAGE_CRYPTO_KEY_TYPE {
+    pub Anonymous: STORAGE_CRYPTO_KEY_TYPE_0,
     pub AsUchar: u8,
 }
-impl Default for STORAGE_CRYPTO_DESCRIPTOR_V2_0 {
+impl Default for STORAGE_CRYPTO_KEY_TYPE {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
-pub struct STORAGE_CRYPTO_DESCRIPTOR_V2_0_0 {
+pub struct STORAGE_CRYPTO_KEY_TYPE_0 {
     pub _bitfield: u8,
 }
-pub const STORAGE_CRYPTO_DESCRIPTOR_VERSION_1: u32 = 1u32;
-pub const STORAGE_CRYPTO_DESCRIPTOR_VERSION_2: u32 = 2u32;
-pub type STORAGE_CRYPTO_KEY_SIZE = i32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct STORAGE_DESCRIPTOR_HEADER {
@@ -5563,6 +5550,36 @@ pub struct STORAGE_FAILURE_PREDICTION_CONFIG {
 pub const STORAGE_FAILURE_PREDICTION_CONFIG_V1: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct STORAGE_FEATURE_SUPPORT {
+    pub Size: u32,
+    pub Version: u32,
+    pub Flags: STORAGE_FEATURE_SUPPORT_0,
+    pub Reserved: [u64; 6],
+}
+impl Default for STORAGE_FEATURE_SUPPORT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union STORAGE_FEATURE_SUPPORT_0 {
+    pub Anonymous: STORAGE_FEATURE_SUPPORT_0_0,
+    pub AsUlonglong: u64,
+}
+impl Default for STORAGE_FEATURE_SUPPORT_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct STORAGE_FEATURE_SUPPORT_0_0 {
+    pub _bitfield: u64,
+}
+pub const STORAGE_FEATURE_SUPPORT_V1: u32 = 1u32;
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct STORAGE_FRU_ID_DESCRIPTOR {
     pub Version: u32,
     pub Size: u32,
@@ -5593,6 +5610,43 @@ pub struct STORAGE_HOTPLUG_INFO {
     pub DeviceHotplug: bool,
     pub WriteCacheEnableOverride: bool,
 }
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct STORAGE_HW_CRYPTO_CAPABILITY {
+    pub Version: u32,
+    pub Size: u32,
+    pub CryptoCapabilityIndex: u32,
+    pub AlgorithmId: STORAGE_CRYPTO_ALGORITHM_ID,
+    pub KeySize: STORAGE_CRYPTO_KEY_SIZE,
+    pub DataUnitSizeBitmask: u32,
+    pub MaxIVBitSize: u16,
+    pub Reserved: u16,
+    pub SecurityComplianceBitmask: STORAGE_SECURITY_COMPLIANCE_BITMASK,
+}
+impl Default for STORAGE_HW_CRYPTO_CAPABILITY {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub const STORAGE_HW_CRYPTO_CAPABILITY_VERSION_1: u32 = 1u32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct STORAGE_HW_CRYPTO_DESCRIPTOR {
+    pub Header: STORAGE_DESCRIPTOR_HEADER,
+    pub NumKeysSupported: u32,
+    pub NumCryptoCapabilities: u32,
+    pub OffsetToCryptoCapabilities: u32,
+    pub SizeOfCryptoCapability: u32,
+    pub IceType: STORAGE_ICE_TYPE,
+    pub SecurityComplianceBitmask: STORAGE_SECURITY_COMPLIANCE_BITMASK,
+    pub KeyTypeBitmask: STORAGE_CRYPTO_KEY_TYPE,
+}
+impl Default for STORAGE_HW_CRYPTO_DESCRIPTOR {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub const STORAGE_HW_CRYPTO_DESCRIPTOR_VERSION_1: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR {
@@ -6283,6 +6337,22 @@ pub const STORAGE_RPMB_DESCRIPTOR_VERSION_1: u32 = 1u32;
 pub type STORAGE_RPMB_FRAME_TYPE = i32;
 pub const STORAGE_RPMB_MINIMUM_RELIABLE_WRITE_SIZE: u32 = 512u32;
 pub type STORAGE_SANITIZE_METHOD = i32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union STORAGE_SECURITY_COMPLIANCE_BITMASK {
+    pub Anonymous: STORAGE_SECURITY_COMPLIANCE_BITMASK_0,
+    pub AsUchar: u8,
+}
+impl Default for STORAGE_SECURITY_COMPLIANCE_BITMASK {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct STORAGE_SECURITY_COMPLIANCE_BITMASK_0 {
+    pub _bitfield: u8,
+}
 pub type STORAGE_SET_TYPE = i32;
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -6727,6 +6797,16 @@ pub const SmrGcStatePaused: REFS_SMR_VOLUME_GC_STATE = 1i32;
 pub const StorAttributeMgmt_ClearAttribute: STORAGE_ATTRIBUTE_MGMT_ACTION = 0i32;
 pub const StorAttributeMgmt_ResetAttribute: STORAGE_ATTRIBUTE_MGMT_ACTION = 2i32;
 pub const StorAttributeMgmt_SetAttribute: STORAGE_ATTRIBUTE_MGMT_ACTION = 1i32;
+pub const StorCryptoAlgorithmAESECB: STORAGE_CRYPTO_ALGORITHM_ID = 3i32;
+pub const StorCryptoAlgorithmBitlockerAESCBC: STORAGE_CRYPTO_ALGORITHM_ID = 2i32;
+pub const StorCryptoAlgorithmESSIVAESCBC: STORAGE_CRYPTO_ALGORITHM_ID = 4i32;
+pub const StorCryptoAlgorithmUnknown: STORAGE_CRYPTO_ALGORITHM_ID = 0i32;
+pub const StorCryptoAlgorithmXTSAES: STORAGE_CRYPTO_ALGORITHM_ID = 1i32;
+pub const StorCryptoKeySize128Bits: STORAGE_CRYPTO_KEY_SIZE = 1i32;
+pub const StorCryptoKeySize192Bits: STORAGE_CRYPTO_KEY_SIZE = 2i32;
+pub const StorCryptoKeySize256Bits: STORAGE_CRYPTO_KEY_SIZE = 3i32;
+pub const StorCryptoKeySize512Bits: STORAGE_CRYPTO_KEY_SIZE = 4i32;
+pub const StorCryptoKeySizeUnknown: STORAGE_CRYPTO_KEY_SIZE = 0i32;
 pub const StorRpmbAuthenticatedDeviceConfigRead: STORAGE_RPMB_COMMAND_TYPE = 7i32;
 pub const StorRpmbAuthenticatedDeviceConfigWrite: STORAGE_RPMB_COMMAND_TYPE = 6i32;
 pub const StorRpmbAuthenticatedRead: STORAGE_RPMB_COMMAND_TYPE = 4i32;
@@ -6775,6 +6855,7 @@ pub const StorageCryptoKeySize128Bits: STORAGE_CRYPTO_KEY_SIZE = 1i32;
 pub const StorageCryptoKeySize192Bits: STORAGE_CRYPTO_KEY_SIZE = 2i32;
 pub const StorageCryptoKeySize256Bits: STORAGE_CRYPTO_KEY_SIZE = 3i32;
 pub const StorageCryptoKeySize512Bits: STORAGE_CRYPTO_KEY_SIZE = 4i32;
+pub const StorageCryptoKeySizeMax: STORAGE_CRYPTO_KEY_SIZE = 5i32;
 pub const StorageCryptoKeySizeUnknown: STORAGE_CRYPTO_KEY_SIZE = 0i32;
 pub const StorageDeviceAttributesProperty: STORAGE_PROPERTY_ID = 55i32;
 pub const StorageDeviceCopyOffloadProperty: STORAGE_PROPERTY_ID = 13i32;
@@ -6816,6 +6897,7 @@ pub const StorageEncryptionTypeEDrive: STORAGE_ENCRYPTION_TYPE = 1i32;
 pub const StorageEncryptionTypeTcgOpal: STORAGE_ENCRYPTION_TYPE = 2i32;
 pub const StorageEncryptionTypeUnknown: STORAGE_ENCRYPTION_TYPE = 0i32;
 pub const StorageFruIdProperty: STORAGE_PROPERTY_ID = 65i32;
+pub const StorageHwCryptoProperty: STORAGE_PROPERTY_ID = 69i32;
 pub const StorageIceTypeNvme: STORAGE_ICE_TYPE = 2i32;
 pub const StorageIceTypeUfs: STORAGE_ICE_TYPE = 1i32;
 pub const StorageIceTypeUnknown: STORAGE_ICE_TYPE = 0i32;

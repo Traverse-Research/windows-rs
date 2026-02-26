@@ -5644,6 +5644,7 @@ pub const GUID_DEVCLASS_SOFTWARECOMPONENT: windows_core::GUID = windows_core::GU
 pub const GUID_DEVCLASS_SOUND: windows_core::GUID = windows_core::GUID::from_u128(0x4d36e97c_e325_11ce_bfc1_08002be10318);
 pub const GUID_DEVCLASS_SYSTEM: windows_core::GUID = windows_core::GUID::from_u128(0x4d36e97d_e325_11ce_bfc1_08002be10318);
 pub const GUID_DEVCLASS_TAPEDRIVE: windows_core::GUID = windows_core::GUID::from_u128(0x6d807884_7d21_11cf_801c_08002be10318);
+pub const GUID_DEVCLASS_THERMAL: windows_core::GUID = windows_core::GUID::from_u128(0xca301ce1_74fc_45ea_a557_461ef48b9e37);
 pub const GUID_DEVCLASS_UCM: windows_core::GUID = windows_core::GUID::from_u128(0xe6f1aa1c_7f3b_4473_b2e8_c97d8ac71d53);
 pub const GUID_DEVCLASS_UNKNOWN: windows_core::GUID = windows_core::GUID::from_u128(0x4d36e97e_e325_11ce_bfc1_08002be10318);
 pub const GUID_DEVCLASS_USB: windows_core::GUID = windows_core::GUID::from_u128(0x36fc9e60_c465_11cf_8056_444553540000);

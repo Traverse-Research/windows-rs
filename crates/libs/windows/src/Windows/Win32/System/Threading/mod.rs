@@ -26,98 +26,94 @@ pub unsafe fn AttachThreadInput(idattach: u32, idattachto: u32, fattach: bool) -
     unsafe { AttachThreadInput(idattach, idattachto, fattach.into()) }
 }
 #[inline]
-pub unsafe fn AvQuerySystemResponsiveness(avrthandle: super::super::Foundation::HANDLE, systemresponsivenessvalue: *mut u32) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvQuerySystemResponsiveness(avrthandle : super::super::Foundation:: HANDLE, systemresponsivenessvalue : *mut u32) -> windows_core::BOOL);
-    unsafe { AvQuerySystemResponsiveness(avrthandle, systemresponsivenessvalue as _).ok() }
+pub unsafe fn AvQuerySystemResponsiveness(avrthandle: AVRT_TASK_HANDLE, systemresponsivenessvalue: *mut u32) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvQuerySystemResponsiveness(avrthandle : AVRT_TASK_HANDLE, systemresponsivenessvalue : *mut u32) -> windows_core::BOOL);
+    unsafe { AvQuerySystemResponsiveness(core::mem::transmute(avrthandle), systemresponsivenessvalue as _).ok() }
 }
 #[inline]
-pub unsafe fn AvRevertMmThreadCharacteristics(avrthandle: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRevertMmThreadCharacteristics(avrthandle : super::super::Foundation:: HANDLE) -> windows_core::BOOL);
-    unsafe { AvRevertMmThreadCharacteristics(avrthandle).ok() }
+pub unsafe fn AvRevertMmThreadCharacteristics(avrthandle: AVRT_TASK_HANDLE) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRevertMmThreadCharacteristics(avrthandle : AVRT_TASK_HANDLE) -> windows_core::BOOL);
+    unsafe { AvRevertMmThreadCharacteristics(core::mem::transmute(avrthandle)).ok() }
 }
 #[inline]
-pub unsafe fn AvRtCreateThreadOrderingGroup(context: *mut super::super::Foundation::HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroup(context : *mut super::super::Foundation:: HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64) -> windows_core::BOOL);
+pub unsafe fn AvRtCreateThreadOrderingGroup(context: *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroup(context : *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64) -> windows_core::BOOL);
     unsafe { AvRtCreateThreadOrderingGroup(context as _, period, threadorderingguid as _, timeout.unwrap_or(core::mem::zeroed()) as _).ok() }
 }
 #[inline]
-pub unsafe fn AvRtCreateThreadOrderingGroupExA<P4>(context: *mut super::super::Foundation::HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>, taskname: P4) -> windows_core::Result<()>
+pub unsafe fn AvRtCreateThreadOrderingGroupExA<P4>(context: *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>, taskname: P4) -> windows_core::Result<()>
 where
     P4: windows_core::Param<windows_core::PCSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroupExA(context : *mut super::super::Foundation:: HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64, taskname : windows_core::PCSTR) -> windows_core::BOOL);
+    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroupExA(context : *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64, taskname : windows_core::PCSTR) -> windows_core::BOOL);
     unsafe { AvRtCreateThreadOrderingGroupExA(context as _, period, threadorderingguid as _, timeout.unwrap_or(core::mem::zeroed()) as _, taskname.param().abi()).ok() }
 }
 #[inline]
-pub unsafe fn AvRtCreateThreadOrderingGroupExW<P4>(context: *mut super::super::Foundation::HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>, taskname: P4) -> windows_core::Result<()>
+pub unsafe fn AvRtCreateThreadOrderingGroupExW<P4>(context: *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period: *const i64, threadorderingguid: *mut windows_core::GUID, timeout: Option<*const i64>, taskname: P4) -> windows_core::Result<()>
 where
     P4: windows_core::Param<windows_core::PCWSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroupExW(context : *mut super::super::Foundation:: HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64, taskname : windows_core::PCWSTR) -> windows_core::BOOL);
+    windows_link::link!("avrt.dll" "system" fn AvRtCreateThreadOrderingGroupExW(context : *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, period : *const i64, threadorderingguid : *mut windows_core::GUID, timeout : *const i64, taskname : windows_core::PCWSTR) -> windows_core::BOOL);
     unsafe { AvRtCreateThreadOrderingGroupExW(context as _, period, threadorderingguid as _, timeout.unwrap_or(core::mem::zeroed()) as _, taskname.param().abi()).ok() }
 }
 #[inline]
-pub unsafe fn AvRtDeleteThreadOrderingGroup(context: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRtDeleteThreadOrderingGroup(context : super::super::Foundation:: HANDLE) -> windows_core::BOOL);
-    unsafe { AvRtDeleteThreadOrderingGroup(context).ok() }
+pub unsafe fn AvRtDeleteThreadOrderingGroup(context: AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRtDeleteThreadOrderingGroup(context : AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::BOOL);
+    unsafe { AvRtDeleteThreadOrderingGroup(core::mem::transmute(context)).ok() }
 }
 #[inline]
-pub unsafe fn AvRtJoinThreadOrderingGroup(context: *mut super::super::Foundation::HANDLE, threadorderingguid: *const windows_core::GUID, before: bool) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRtJoinThreadOrderingGroup(context : *mut super::super::Foundation:: HANDLE, threadorderingguid : *const windows_core::GUID, before : windows_core::BOOL) -> windows_core::BOOL);
+pub unsafe fn AvRtJoinThreadOrderingGroup(context: *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, threadorderingguid: *const windows_core::GUID, before: bool) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRtJoinThreadOrderingGroup(context : *mut AVRT_THREAD_ORDERING_GROUP_HANDLE, threadorderingguid : *const windows_core::GUID, before : windows_core::BOOL) -> windows_core::BOOL);
     unsafe { AvRtJoinThreadOrderingGroup(context as _, threadorderingguid, before.into()).ok() }
 }
 #[inline]
-pub unsafe fn AvRtLeaveThreadOrderingGroup(context: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRtLeaveThreadOrderingGroup(context : super::super::Foundation:: HANDLE) -> windows_core::BOOL);
-    unsafe { AvRtLeaveThreadOrderingGroup(context).ok() }
+pub unsafe fn AvRtLeaveThreadOrderingGroup(context: AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRtLeaveThreadOrderingGroup(context : AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::BOOL);
+    unsafe { AvRtLeaveThreadOrderingGroup(core::mem::transmute(context)).ok() }
 }
 #[inline]
-pub unsafe fn AvRtWaitOnThreadOrderingGroup(context: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvRtWaitOnThreadOrderingGroup(context : super::super::Foundation:: HANDLE) -> windows_core::BOOL);
-    unsafe { AvRtWaitOnThreadOrderingGroup(context).ok() }
+pub unsafe fn AvRtWaitOnThreadOrderingGroup(context: AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvRtWaitOnThreadOrderingGroup(context : AVRT_THREAD_ORDERING_GROUP_HANDLE) -> windows_core::BOOL);
+    unsafe { AvRtWaitOnThreadOrderingGroup(core::mem::transmute(context)).ok() }
 }
 #[inline]
-pub unsafe fn AvSetMmMaxThreadCharacteristicsA<P0, P1>(firsttask: P0, secondtask: P1, taskindex: *mut u32) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AvSetMmMaxThreadCharacteristicsA<P0, P1>(firsttask: P0, secondtask: P1, taskindex: *mut u32) -> AVRT_TASK_HANDLE
 where
     P0: windows_core::Param<windows_core::PCSTR>,
     P1: windows_core::Param<windows_core::PCSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvSetMmMaxThreadCharacteristicsA(firsttask : windows_core::PCSTR, secondtask : windows_core::PCSTR, taskindex : *mut u32) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AvSetMmMaxThreadCharacteristicsA(firsttask.param().abi(), secondtask.param().abi(), taskindex as _) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("avrt.dll" "system" fn AvSetMmMaxThreadCharacteristicsA(firsttask : windows_core::PCSTR, secondtask : windows_core::PCSTR, taskindex : *mut u32) -> AVRT_TASK_HANDLE);
+    unsafe { AvSetMmMaxThreadCharacteristicsA(firsttask.param().abi(), secondtask.param().abi(), taskindex as _) }
 }
 #[inline]
-pub unsafe fn AvSetMmMaxThreadCharacteristicsW<P0, P1>(firsttask: P0, secondtask: P1, taskindex: *mut u32) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AvSetMmMaxThreadCharacteristicsW<P0, P1>(firsttask: P0, secondtask: P1, taskindex: *mut u32) -> AVRT_TASK_HANDLE
 where
     P0: windows_core::Param<windows_core::PCWSTR>,
     P1: windows_core::Param<windows_core::PCWSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvSetMmMaxThreadCharacteristicsW(firsttask : windows_core::PCWSTR, secondtask : windows_core::PCWSTR, taskindex : *mut u32) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AvSetMmMaxThreadCharacteristicsW(firsttask.param().abi(), secondtask.param().abi(), taskindex as _) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("avrt.dll" "system" fn AvSetMmMaxThreadCharacteristicsW(firsttask : windows_core::PCWSTR, secondtask : windows_core::PCWSTR, taskindex : *mut u32) -> AVRT_TASK_HANDLE);
+    unsafe { AvSetMmMaxThreadCharacteristicsW(firsttask.param().abi(), secondtask.param().abi(), taskindex as _) }
 }
 #[inline]
-pub unsafe fn AvSetMmThreadCharacteristicsA<P0>(taskname: P0, taskindex: *mut u32) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AvSetMmThreadCharacteristicsA<P0>(taskname: P0, taskindex: *mut u32) -> AVRT_TASK_HANDLE
 where
     P0: windows_core::Param<windows_core::PCSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadCharacteristicsA(taskname : windows_core::PCSTR, taskindex : *mut u32) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AvSetMmThreadCharacteristicsA(taskname.param().abi(), taskindex as _) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadCharacteristicsA(taskname : windows_core::PCSTR, taskindex : *mut u32) -> AVRT_TASK_HANDLE);
+    unsafe { AvSetMmThreadCharacteristicsA(taskname.param().abi(), taskindex as _) }
 }
 #[inline]
-pub unsafe fn AvSetMmThreadCharacteristicsW<P0>(taskname: P0, taskindex: *mut u32) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AvSetMmThreadCharacteristicsW<P0>(taskname: P0, taskindex: *mut u32) -> AVRT_TASK_HANDLE
 where
     P0: windows_core::Param<windows_core::PCWSTR>,
 {
-    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadCharacteristicsW(taskname : windows_core::PCWSTR, taskindex : *mut u32) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AvSetMmThreadCharacteristicsW(taskname.param().abi(), taskindex as _) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadCharacteristicsW(taskname : windows_core::PCWSTR, taskindex : *mut u32) -> AVRT_TASK_HANDLE);
+    unsafe { AvSetMmThreadCharacteristicsW(taskname.param().abi(), taskindex as _) }
 }
 #[inline]
-pub unsafe fn AvSetMmThreadPriority(avrthandle: super::super::Foundation::HANDLE, priority: AVRT_PRIORITY) -> windows_core::Result<()> {
-    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadPriority(avrthandle : super::super::Foundation:: HANDLE, priority : AVRT_PRIORITY) -> windows_core::BOOL);
-    unsafe { AvSetMmThreadPriority(avrthandle, priority).ok() }
+pub unsafe fn AvSetMmThreadPriority(avrthandle: AVRT_TASK_HANDLE, priority: AVRT_PRIORITY) -> windows_core::Result<()> {
+    windows_link::link!("avrt.dll" "system" fn AvSetMmThreadPriority(avrthandle : AVRT_TASK_HANDLE, priority : AVRT_PRIORITY) -> windows_core::BOOL);
+    unsafe { AvSetMmThreadPriority(core::mem::transmute(avrthandle), priority).ok() }
 }
 #[inline]
 pub unsafe fn CallbackMayRunLong(pci: PTP_CALLBACK_INSTANCE) -> windows_core::BOOL {
@@ -2027,6 +2023,26 @@ pub const AVRT_PRIORITY_HIGH: AVRT_PRIORITY = AVRT_PRIORITY(1i32);
 pub const AVRT_PRIORITY_LOW: AVRT_PRIORITY = AVRT_PRIORITY(-1i32);
 pub const AVRT_PRIORITY_NORMAL: AVRT_PRIORITY = AVRT_PRIORITY(0i32);
 pub const AVRT_PRIORITY_VERYLOW: AVRT_PRIORITY = AVRT_PRIORITY(-2i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct AVRT_TASK_HANDLE {
+    pub Value: *mut core::ffi::c_void,
+}
+impl Default for AVRT_TASK_HANDLE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct AVRT_THREAD_ORDERING_GROUP_HANDLE {
+    pub Value: *mut core::ffi::c_void,
+}
+impl Default for AVRT_THREAD_ORDERING_GROUP_HANDLE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 pub const BELOW_NORMAL_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = PROCESS_CREATION_FLAGS(16384u32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -2525,7 +2541,29 @@ pub const PF_ARM_64BIT_LOADSTORE_ATOMIC: PROCESSOR_FEATURE_ID = PROCESSOR_FEATUR
 pub const PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(24u32);
 pub const PF_ARM_EXTERNAL_CACHE_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(26u32);
 pub const PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(27u32);
+pub const PF_ARM_LSE2_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(62u32);
 pub const PF_ARM_NEON_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(19u32);
+pub const PF_ARM_SHA3_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(64u32);
+pub const PF_ARM_SHA512_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(65u32);
+pub const PF_ARM_SME2_1_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(72u32);
+pub const PF_ARM_SME2_2_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(73u32);
+pub const PF_ARM_SME2_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(71u32);
+pub const PF_ARM_SME_AES_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(74u32);
+pub const PF_ARM_SME_B16B16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(84u32);
+pub const PF_ARM_SME_F16F16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(83u32);
+pub const PF_ARM_SME_F64F64_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(85u32);
+pub const PF_ARM_SME_F8F16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(82u32);
+pub const PF_ARM_SME_F8F32_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(81u32);
+pub const PF_ARM_SME_FA64_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(88u32);
+pub const PF_ARM_SME_I16I64_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(86u32);
+pub const PF_ARM_SME_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(70u32);
+pub const PF_ARM_SME_LUTv2_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(87u32);
+pub const PF_ARM_SME_SBITPERM_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(75u32);
+pub const PF_ARM_SME_SF8DP2_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(78u32);
+pub const PF_ARM_SME_SF8DP4_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(79u32);
+pub const PF_ARM_SME_SF8FMA_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(80u32);
+pub const PF_ARM_SME_SF8MM4_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(76u32);
+pub const PF_ARM_SME_SF8MM8_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(77u32);
 pub const PF_ARM_SVE2_1_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(48u32);
 pub const PF_ARM_SVE2_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(47u32);
 pub const PF_ARM_SVE_AES_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(49u32);
@@ -2542,8 +2580,12 @@ pub const PF_ARM_SVE_SHA3_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESS
 pub const PF_ARM_SVE_SM4_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(56u32);
 pub const PF_ARM_V81_ATOMIC_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(34u32);
 pub const PF_ARM_V82_DP_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(43u32);
+pub const PF_ARM_V82_FP16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(67u32);
+pub const PF_ARM_V82_I8MM_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(66u32);
 pub const PF_ARM_V83_JSCVT_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(44u32);
 pub const PF_ARM_V83_LRCPC_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(45u32);
+pub const PF_ARM_V86_BF16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(68u32);
+pub const PF_ARM_V86_EBF16_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(69u32);
 pub const PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(31u32);
 pub const PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(30u32);
 pub const PF_ARM_V8_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(29u32);
@@ -2571,6 +2613,7 @@ pub const PF_RDRAND_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEAT
 pub const PF_RDTSCP_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(32u32);
 pub const PF_RDTSC_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(8u32);
 pub const PF_RDWRFSGSBASE_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(22u32);
+pub const PF_RESERVED_FEATURE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(63u32);
 pub const PF_SECOND_LEVEL_ADDRESS_TRANSLATION: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(20u32);
 pub const PF_SSE3_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(13u32);
 pub const PF_SSE4_1_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = PROCESSOR_FEATURE_ID(37u32);

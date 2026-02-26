@@ -1288,9 +1288,47 @@ where
     }
 }
 #[inline]
+pub unsafe fn WldpGetApplicationSettingBoolean<P0, P1>(id: P0, setting: P1) -> windows_core::Result<windows_core::BOOL>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+    P1: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("wldp.dll" "system" fn WldpGetApplicationSettingBoolean(id : windows_core::PCWSTR, setting : windows_core::PCWSTR, result : *mut windows_core::BOOL) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpGetApplicationSettingBoolean(id.param().abi(), setting.param().abi(), &mut result__).map(|| result__)
+    }
+}
+#[inline]
+pub unsafe fn WldpGetApplicationSettingStringList<P0, P1>(id: P0, setting: P1, requiredcount: *mut usize, result: Option<&mut [u16]>) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+    P1: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("wldp.dll" "system" fn WldpGetApplicationSettingStringList(id : windows_core::PCWSTR, setting : windows_core::PCWSTR, datacount : usize, requiredcount : *mut usize, result : windows_core::PWSTR) -> windows_core::HRESULT);
+    unsafe { WldpGetApplicationSettingStringList(id.param().abi(), setting.param().abi(), result.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), requiredcount as _, core::mem::transmute(result.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr()))).ok() }
+}
+#[inline]
+pub unsafe fn WldpGetApplicationSettingStringSet<P0, P1>(id: P0, setting: P1, requiredcount: *mut usize, result: Option<&mut [u16]>) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+    P1: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("wldp.dll" "system" fn WldpGetApplicationSettingStringSet(id : windows_core::PCWSTR, setting : windows_core::PCWSTR, datacount : usize, requiredcount : *mut usize, result : windows_core::PWSTR) -> windows_core::HRESULT);
+    unsafe { WldpGetApplicationSettingStringSet(id.param().abi(), setting.param().abi(), result.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), requiredcount as _, core::mem::transmute(result.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr()))).ok() }
+}
+#[inline]
 pub unsafe fn WldpGetLockdownPolicy(hostinformation: Option<*const WLDP_HOST_INFORMATION>, lockdownstate: *mut u32, lockdownflags: u32) -> windows_core::Result<()> {
     windows_link::link!("wldp.dll" "system" fn WldpGetLockdownPolicy(hostinformation : *const WLDP_HOST_INFORMATION, lockdownstate : *mut u32, lockdownflags : u32) -> windows_core::HRESULT);
     unsafe { WldpGetLockdownPolicy(hostinformation.unwrap_or(core::mem::zeroed()) as _, lockdownstate as _, lockdownflags).ok() }
+}
+#[inline]
+pub unsafe fn WldpIsAppApprovedByPolicy<P0>(packagefamilyname: P0, packageversion: u64) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("wldp.dll" "system" fn WldpIsAppApprovedByPolicy(packagefamilyname : windows_core::PCWSTR, packageversion : u64) -> windows_core::HRESULT);
+    unsafe { WldpIsAppApprovedByPolicy(packagefamilyname.param().abi(), packageversion).ok() }
 }
 #[inline]
 pub unsafe fn WldpIsClassInApprovedList(classid: *const windows_core::GUID, hostinformation: *const WLDP_HOST_INFORMATION, isapproved: *mut windows_core::BOOL, optionalflags: u32) -> windows_core::Result<()> {
@@ -1306,6 +1344,22 @@ pub unsafe fn WldpIsDynamicCodePolicyEnabled() -> windows_core::Result<windows_c
     }
 }
 #[inline]
+pub unsafe fn WldpIsProductionConfiguration() -> windows_core::Result<windows_core::BOOL> {
+    windows_link::link!("wldp.dll" "system" fn WldpIsProductionConfiguration(isproductionconfiguration : *mut windows_core::BOOL) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpIsProductionConfiguration(&mut result__).map(|| result__)
+    }
+}
+#[inline]
+pub unsafe fn WldpIsWcosProductionConfiguration() -> windows_core::Result<windows_core::BOOL> {
+    windows_link::link!("wldp.dll" "system" fn WldpIsWcosProductionConfiguration(isproductionconfiguration : *mut windows_core::BOOL) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpIsWcosProductionConfiguration(&mut result__).map(|| result__)
+    }
+}
+#[inline]
 pub unsafe fn WldpQueryDeviceSecurityInformation(information: Option<&mut [WLDP_DEVICE_SECURITY_INFORMATION]>, returnlength: *mut u32) -> windows_core::Result<()> {
     windows_link::link!("wldp.dll" "system" fn WldpQueryDeviceSecurityInformation(information : *mut WLDP_DEVICE_SECURITY_INFORMATION, informationlength : u32, returnlength : *mut u32) -> windows_core::HRESULT);
     unsafe { WldpQueryDeviceSecurityInformation(core::mem::transmute(information.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), information.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), returnlength as _).ok() }
@@ -1316,14 +1370,64 @@ pub unsafe fn WldpQueryDynamicCodeTrust(filehandle: Option<super::super::Foundat
     unsafe { WldpQueryDynamicCodeTrust(filehandle.unwrap_or(core::mem::zeroed()) as _, baseimage.unwrap_or(core::mem::zeroed()) as _, imagesize).ok() }
 }
 #[inline]
+pub unsafe fn WldpQueryPolicySettingEnabled(setting: WLDP_POLICY_SETTING) -> windows_core::Result<windows_core::BOOL> {
+    windows_link::link!("wldp.dll" "system" fn WldpQueryPolicySettingEnabled(setting : WLDP_POLICY_SETTING, enabled : *mut windows_core::BOOL) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpQueryPolicySettingEnabled(setting, &mut result__).map(|| result__)
+    }
+}
+#[inline]
+pub unsafe fn WldpQueryPolicySettingEnabled2<P0>(settingstring: P0) -> windows_core::Result<windows_core::BOOL>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("wldp.dll" "system" fn WldpQueryPolicySettingEnabled2(settingstring : windows_core::PCWSTR, enabled : *mut windows_core::BOOL) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpQueryPolicySettingEnabled2(settingstring.param().abi(), &mut result__).map(|| result__)
+    }
+}
+#[inline]
 pub unsafe fn WldpQuerySecurityPolicy(providername: *const super::super::Foundation::UNICODE_STRING, keyname: *const super::super::Foundation::UNICODE_STRING, valuename: *const super::super::Foundation::UNICODE_STRING, valuetype: *mut WLDP_SECURE_SETTING_VALUE_TYPE, valueaddress: Option<*mut core::ffi::c_void>, valuesize: *mut u32) -> windows_core::Result<()> {
     windows_link::link!("wldp.dll" "system" fn WldpQuerySecurityPolicy(providername : *const super::super::Foundation:: UNICODE_STRING, keyname : *const super::super::Foundation:: UNICODE_STRING, valuename : *const super::super::Foundation:: UNICODE_STRING, valuetype : *mut WLDP_SECURE_SETTING_VALUE_TYPE, valueaddress : *mut core::ffi::c_void, valuesize : *mut u32) -> windows_core::HRESULT);
     unsafe { WldpQuerySecurityPolicy(providername, keyname, valuename, valuetype as _, valueaddress.unwrap_or(core::mem::zeroed()) as _, valuesize as _).ok() }
 }
 #[inline]
+pub unsafe fn WldpQueryWindowsLockdownMode() -> windows_core::Result<WLDP_WINDOWS_LOCKDOWN_MODE> {
+    windows_link::link!("wldp.dll" "system" fn WldpQueryWindowsLockdownMode(lockdownmode : *mut WLDP_WINDOWS_LOCKDOWN_MODE) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpQueryWindowsLockdownMode(&mut result__).map(|| result__)
+    }
+}
+#[inline]
+pub unsafe fn WldpQueryWindowsLockdownRestriction() -> windows_core::Result<WLDP_WINDOWS_LOCKDOWN_RESTRICTION> {
+    windows_link::link!("wldp.dll" "system" fn WldpQueryWindowsLockdownRestriction(lockdownrestriction : *mut WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        WldpQueryWindowsLockdownRestriction(&mut result__).map(|| result__)
+    }
+}
+#[inline]
+pub unsafe fn WldpResetProductionConfiguration() -> windows_core::Result<()> {
+    windows_link::link!("wldp.dll" "system" fn WldpResetProductionConfiguration() -> windows_core::HRESULT);
+    unsafe { WldpResetProductionConfiguration().ok() }
+}
+#[inline]
+pub unsafe fn WldpResetWcosProductionConfiguration() -> windows_core::Result<()> {
+    windows_link::link!("wldp.dll" "system" fn WldpResetWcosProductionConfiguration() -> windows_core::HRESULT);
+    unsafe { WldpResetWcosProductionConfiguration().ok() }
+}
+#[inline]
 pub unsafe fn WldpSetDynamicCodeTrust(filehandle: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
     windows_link::link!("wldp.dll" "system" fn WldpSetDynamicCodeTrust(filehandle : super::super::Foundation:: HANDLE) -> windows_core::HRESULT);
     unsafe { WldpSetDynamicCodeTrust(filehandle).ok() }
+}
+#[inline]
+pub unsafe fn WldpSetWindowsLockdownRestriction(lockdownrestriction: WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> windows_core::Result<()> {
+    windows_link::link!("wldp.dll" "system" fn WldpSetWindowsLockdownRestriction(lockdownrestriction : WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> windows_core::HRESULT);
+    unsafe { WldpSetWindowsLockdownRestriction(lockdownrestriction).ok() }
 }
 #[inline]
 pub unsafe fn WritePrivateProfileSectionA<P0, P1, P2>(lpappname: P0, lpstring: P1, lpfilename: P2) -> windows_core::Result<()>
@@ -2098,6 +2202,7 @@ pub const FILE_DIR_DISALLOWED: u32 = 9u32;
 pub const FILE_DOES_NOT_EXIST: u32 = 5u32;
 pub const FILE_ENCRYPTABLE: u32 = 0u32;
 pub const FILE_EXISTS: u32 = 4u32;
+pub const FILE_FLAG_DISALLOW_PATH_REDIRECTS: u32 = 65536u32;
 pub const FILE_FLAG_IGNORE_IMPERSONATED_DEVICEMAP: u32 = 131072u32;
 pub const FILE_FLAG_OPEN_REQUIRING_OPLOCK: u32 = 262144u32;
 pub const FILE_IS_ENCRYPTED: u32 = 1u32;
@@ -3376,6 +3481,15 @@ impl Default for STRTABLEW {
     }
 }
 #[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct SYSTEM_BASICPROCESS_INFORMATION {
+    pub NextEntryOffset: u32,
+    pub UniqueProcessId: super::super::Foundation::HANDLE,
+    pub InheritedFromUniqueProcessId: super::super::Foundation::HANDLE,
+    pub SequenceNumber: u64,
+    pub ImageName: super::super::Foundation::UNICODE_STRING,
+}
+#[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SYSTEM_BASIC_INFORMATION {
     pub Reserved1: [u8; 24],
@@ -3402,6 +3516,13 @@ impl Default for SYSTEM_EXCEPTION_INFORMATION {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct SYSTEM_HANDLECOUNT_INFORMATION {
+    pub ProcessCount: u32,
+    pub ThreadCount: u32,
+    pub HandleCount: u32,
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]

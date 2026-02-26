@@ -106,13 +106,12 @@ where
     unsafe { AddPrintProvidorW(pname.param().abi(), level, pprovidorinfo) }
 }
 #[inline]
-pub unsafe fn AddPrinterA<P0>(pname: P0, level: u32, pprinter: *const u8) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AddPrinterA<P0>(pname: P0, level: u32, pprinter: *const u8) -> PRINTER_HANDLE
 where
     P0: windows_core::Param<windows_core::PCSTR>,
 {
-    windows_link::link!("winspool.drv" "system" fn AddPrinterA(pname : windows_core::PCSTR, level : u32, pprinter : *const u8) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AddPrinterA(pname.param().abi(), level, pprinter) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("winspool.drv" "system" fn AddPrinterA(pname : windows_core::PCSTR, level : u32, pprinter : *const u8) -> PRINTER_HANDLE);
+    unsafe { AddPrinterA(pname.param().abi(), level, pprinter) }
 }
 #[inline]
 pub unsafe fn AddPrinterConnection2A<P1>(hwnd: Option<super::super::Foundation::HWND>, pszname: P1, dwlevel: u32, pconnectioninfo: *const core::ffi::c_void) -> windows_core::BOOL
@@ -179,13 +178,12 @@ where
     unsafe { AddPrinterDriverW(pname.param().abi(), level, pdriverinfo).ok() }
 }
 #[inline]
-pub unsafe fn AddPrinterW<P0>(pname: P0, level: u32, pprinter: *const u8) -> windows_core::Result<super::super::Foundation::HANDLE>
+pub unsafe fn AddPrinterW<P0>(pname: P0, level: u32, pprinter: *const u8) -> PRINTER_HANDLE
 where
     P0: windows_core::Param<windows_core::PCWSTR>,
 {
-    windows_link::link!("winspool.drv" "system" fn AddPrinterW(pname : windows_core::PCWSTR, level : u32, pprinter : *const u8) -> super::super::Foundation:: HANDLE);
-    let result__ = unsafe { AddPrinterW(pname.param().abi(), level, pprinter) };
-    (!result__.is_invalid()).then_some(result__).ok_or_else(windows_core::Error::from_win32)
+    windows_link::link!("winspool.drv" "system" fn AddPrinterW(pname : windows_core::PCWSTR, level : u32, pprinter : *const u8) -> PRINTER_HANDLE);
+    unsafe { AddPrinterW(pname.param().abi(), level, pprinter) }
 }
 #[cfg(feature = "Win32_Graphics_Gdi")]
 #[inline]
@@ -764,19 +762,19 @@ where
     unsafe { ExtDeviceMode(hwnd.unwrap_or(core::mem::zeroed()) as _, hinst.unwrap_or(core::mem::zeroed()) as _, pdevmodeoutput.unwrap_or(core::mem::zeroed()) as _, pdevicename.param().abi(), pport.param().abi(), pdevmodeinput.unwrap_or(core::mem::zeroed()) as _, pprofile.param().abi(), fmode) }
 }
 #[inline]
-pub unsafe fn FindClosePrinterChangeNotification(hchange: super::super::Foundation::HANDLE) -> windows_core::BOOL {
-    windows_link::link!("winspool.drv" "system" fn FindClosePrinterChangeNotification(hchange : super::super::Foundation:: HANDLE) -> windows_core::BOOL);
-    unsafe { FindClosePrinterChangeNotification(hchange) }
+pub unsafe fn FindClosePrinterChangeNotification(hchange: FINDPRINTERCHANGENOTIFICATION_HANDLE) -> windows_core::BOOL {
+    windows_link::link!("winspool.drv" "system" fn FindClosePrinterChangeNotification(hchange : FINDPRINTERCHANGENOTIFICATION_HANDLE) -> windows_core::BOOL);
+    unsafe { FindClosePrinterChangeNotification(core::mem::transmute(hchange)) }
 }
 #[inline]
-pub unsafe fn FindFirstPrinterChangeNotification(hprinter: PRINTER_HANDLE, fdwfilter: u32, fdwoptions: u32, pprinternotifyoptions: Option<*const core::ffi::c_void>) -> super::super::Foundation::HANDLE {
-    windows_link::link!("winspool.drv" "system" fn FindFirstPrinterChangeNotification(hprinter : PRINTER_HANDLE, fdwfilter : u32, fdwoptions : u32, pprinternotifyoptions : *const core::ffi::c_void) -> super::super::Foundation:: HANDLE);
+pub unsafe fn FindFirstPrinterChangeNotification(hprinter: PRINTER_HANDLE, fdwfilter: u32, fdwoptions: u32, pprinternotifyoptions: Option<*const core::ffi::c_void>) -> FINDPRINTERCHANGENOTIFICATION_HANDLE {
+    windows_link::link!("winspool.drv" "system" fn FindFirstPrinterChangeNotification(hprinter : PRINTER_HANDLE, fdwfilter : u32, fdwoptions : u32, pprinternotifyoptions : *const core::ffi::c_void) -> FINDPRINTERCHANGENOTIFICATION_HANDLE);
     unsafe { FindFirstPrinterChangeNotification(core::mem::transmute(hprinter), fdwfilter, fdwoptions, pprinternotifyoptions.unwrap_or(core::mem::zeroed()) as _) }
 }
 #[inline]
-pub unsafe fn FindNextPrinterChangeNotification(hchange: super::super::Foundation::HANDLE, pdwchange: Option<*mut u32>, pvreserved: Option<*const core::ffi::c_void>, ppprinternotifyinfo: Option<*mut *mut core::ffi::c_void>) -> windows_core::BOOL {
-    windows_link::link!("winspool.drv" "system" fn FindNextPrinterChangeNotification(hchange : super::super::Foundation:: HANDLE, pdwchange : *mut u32, pvreserved : *const core::ffi::c_void, ppprinternotifyinfo : *mut *mut core::ffi::c_void) -> windows_core::BOOL);
-    unsafe { FindNextPrinterChangeNotification(hchange, pdwchange.unwrap_or(core::mem::zeroed()) as _, pvreserved.unwrap_or(core::mem::zeroed()) as _, ppprinternotifyinfo.unwrap_or(core::mem::zeroed()) as _) }
+pub unsafe fn FindNextPrinterChangeNotification(hchange: FINDPRINTERCHANGENOTIFICATION_HANDLE, pdwchange: Option<*mut u32>, pvreserved: Option<*const core::ffi::c_void>, ppprinternotifyinfo: Option<*mut *mut core::ffi::c_void>) -> windows_core::BOOL {
+    windows_link::link!("winspool.drv" "system" fn FindNextPrinterChangeNotification(hchange : FINDPRINTERCHANGENOTIFICATION_HANDLE, pdwchange : *mut u32, pvreserved : *const core::ffi::c_void, ppprinternotifyinfo : *mut *mut core::ffi::c_void) -> windows_core::BOOL);
+    unsafe { FindNextPrinterChangeNotification(core::mem::transmute(hchange), pdwchange.unwrap_or(core::mem::zeroed()) as _, pvreserved.unwrap_or(core::mem::zeroed()) as _, ppprinternotifyinfo.unwrap_or(core::mem::zeroed()) as _) }
 }
 #[inline]
 pub unsafe fn FlushPrinter(hprinter: PRINTER_HANDLE, pbuf: Option<*const core::ffi::c_void>, cbbuf: u32, pcwritten: *mut u32, csleep: u32) -> windows_core::BOOL {
@@ -1304,6 +1302,18 @@ pub unsafe fn RouterAllocPrinterNotifyInfo(cprinternotifyinfodata: u32) -> *mut 
     unsafe { RouterAllocPrinterNotifyInfo(cprinternotifyinfodata) }
 }
 #[inline]
+pub unsafe fn RouterCreatePrintAsyncNotificationChannel<P0, P4>(pname: P0, pnotificationtype: *const windows_core::GUID, enotifyfilter: PrintAsyncNotifyUserFilter, econversationstyle: PrintAsyncNotifyConversationStyle, pcallback: P4) -> windows_core::Result<IPrintAsyncNotifyChannel>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+    P4: windows_core::Param<IPrintAsyncNotifyCallback>,
+{
+    windows_link::link!("spoolss.dll" "system" fn RouterCreatePrintAsyncNotificationChannel(pname : windows_core::PCWSTR, pnotificationtype : *const windows_core::GUID, enotifyfilter : PrintAsyncNotifyUserFilter, econversationstyle : PrintAsyncNotifyConversationStyle, pcallback : * mut core::ffi::c_void, ppiasynchnotification : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
+    unsafe {
+        let mut result__ = core::mem::zeroed();
+        RouterCreatePrintAsyncNotificationChannel(pname.param().abi(), pnotificationtype, enotifyfilter, econversationstyle, pcallback.param().abi(), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+    }
+}
+#[inline]
 pub unsafe fn RouterFreeBidiMem(pmempointer: *const core::ffi::c_void) {
     windows_link::link!("spoolss.dll" "system" fn RouterFreeBidiMem(pmempointer : *const core::ffi::c_void));
     unsafe { RouterFreeBidiMem(pmempointer) }
@@ -1317,6 +1327,19 @@ pub unsafe fn RouterFreeBidiResponseContainer(pdata: *const BIDI_RESPONSE_CONTAI
 pub unsafe fn RouterFreePrinterNotifyInfo(pinfo: Option<*const PRINTER_NOTIFY_INFO>) -> windows_core::BOOL {
     windows_link::link!("spoolss.dll" "system" fn RouterFreePrinterNotifyInfo(pinfo : *const PRINTER_NOTIFY_INFO) -> windows_core::BOOL);
     unsafe { RouterFreePrinterNotifyInfo(pinfo.unwrap_or(core::mem::zeroed()) as _) }
+}
+#[inline]
+pub unsafe fn RouterGetPrintClassObject<P0>(pprinter: P0, riid: *const windows_core::GUID, ppv: *mut *mut core::ffi::c_void) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("spoolss.dll" "system" fn RouterGetPrintClassObject(pprinter : windows_core::PCWSTR, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    unsafe { RouterGetPrintClassObject(pprinter.param().abi(), riid, ppv as _).ok() }
+}
+#[inline]
+pub unsafe fn RouterUnregisterForPrintAsyncNotifications(hnotify: super::super::Foundation::HANDLE) -> windows_core::Result<()> {
+    windows_link::link!("spoolss.dll" "system" fn RouterUnregisterForPrintAsyncNotifications(hnotify : super::super::Foundation:: HANDLE) -> windows_core::HRESULT);
+    unsafe { RouterUnregisterForPrintAsyncNotifications(hnotify).ok() }
 }
 #[inline]
 pub unsafe fn ScheduleJob(hprinter: PRINTER_HANDLE, jobid: u32) -> windows_core::BOOL {
@@ -2965,6 +2988,16 @@ pub struct EXpsJobConsumption(pub i32);
 pub const E_VERSION_NOT_SUPPORTED: u32 = 2147745793u32;
 pub const FG_CANCHANGE: u32 = 128u32;
 pub const FILL_WITH_DEFAULTS: u32 = 1u32;
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct FINDPRINTERCHANGENOTIFICATION_HANDLE {
+    pub Value: *mut core::ffi::c_void,
+}
+impl Default for FINDPRINTERCHANGENOTIFICATION_HANDLE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 pub const FMTID_PrinterPropertyBag: windows_core::GUID = windows_core::GUID::from_u128(0x75f9adca_097d_45c3_a6e4_bab29e276f3e);
 pub const FNT_INFO_CURRENTFONTID: u32 = 10u32;
 pub const FNT_INFO_FONTBOLD: u32 = 6u32;

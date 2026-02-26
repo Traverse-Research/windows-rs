@@ -208,13 +208,26 @@ windows_targets::link!("wldp.dll" "system" fn WldpCanExecuteFile(host : *const w
 windows_targets::link!("wldp.dll" "system" fn WldpCanExecuteFileFromDetachedSignature(host : *const windows_sys::core::GUID, options : WLDP_EXECUTION_EVALUATION_OPTIONS, contentfilehandle : super::super::Foundation:: HANDLE, signaturefilehandle : super::super::Foundation:: HANDLE, auditinfo : windows_sys::core::PCWSTR, result : *mut WLDP_EXECUTION_POLICY) -> windows_sys::core::HRESULT);
 #[cfg(feature = "Win32_System_Com")]
 windows_targets::link!("wldp.dll" "system" fn WldpCanExecuteStream(host : *const windows_sys::core::GUID, options : WLDP_EXECUTION_EVALUATION_OPTIONS, stream : * mut core::ffi::c_void, auditinfo : windows_sys::core::PCWSTR, result : *mut WLDP_EXECUTION_POLICY) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpGetApplicationSettingBoolean(id : windows_sys::core::PCWSTR, setting : windows_sys::core::PCWSTR, result : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpGetApplicationSettingStringList(id : windows_sys::core::PCWSTR, setting : windows_sys::core::PCWSTR, datacount : usize, requiredcount : *mut usize, result : windows_sys::core::PWSTR) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpGetApplicationSettingStringSet(id : windows_sys::core::PCWSTR, setting : windows_sys::core::PCWSTR, datacount : usize, requiredcount : *mut usize, result : windows_sys::core::PWSTR) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpGetLockdownPolicy(hostinformation : *const WLDP_HOST_INFORMATION, lockdownstate : *mut u32, lockdownflags : u32) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpIsAppApprovedByPolicy(packagefamilyname : windows_sys::core::PCWSTR, packageversion : u64) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpIsClassInApprovedList(classid : *const windows_sys::core::GUID, hostinformation : *const WLDP_HOST_INFORMATION, isapproved : *mut windows_sys::core::BOOL, optionalflags : u32) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpIsDynamicCodePolicyEnabled(isenabled : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpIsProductionConfiguration(isproductionconfiguration : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpIsWcosProductionConfiguration(isproductionconfiguration : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpQueryDeviceSecurityInformation(information : *mut WLDP_DEVICE_SECURITY_INFORMATION, informationlength : u32, returnlength : *mut u32) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpQueryDynamicCodeTrust(filehandle : super::super::Foundation:: HANDLE, baseimage : *const core::ffi::c_void, imagesize : u32) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpQueryPolicySettingEnabled(setting : WLDP_POLICY_SETTING, enabled : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpQueryPolicySettingEnabled2(settingstring : windows_sys::core::PCWSTR, enabled : *mut windows_sys::core::BOOL) -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpQuerySecurityPolicy(providername : *const super::super::Foundation:: UNICODE_STRING, keyname : *const super::super::Foundation:: UNICODE_STRING, valuename : *const super::super::Foundation:: UNICODE_STRING, valuetype : *mut WLDP_SECURE_SETTING_VALUE_TYPE, valueaddress : *mut core::ffi::c_void, valuesize : *mut u32) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpQueryWindowsLockdownMode(lockdownmode : *mut WLDP_WINDOWS_LOCKDOWN_MODE) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpQueryWindowsLockdownRestriction(lockdownrestriction : *mut WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpResetProductionConfiguration() -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpResetWcosProductionConfiguration() -> windows_sys::core::HRESULT);
 windows_targets::link!("wldp.dll" "system" fn WldpSetDynamicCodeTrust(filehandle : super::super::Foundation:: HANDLE) -> windows_sys::core::HRESULT);
+windows_targets::link!("wldp.dll" "system" fn WldpSetWindowsLockdownRestriction(lockdownrestriction : WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> windows_sys::core::HRESULT);
 windows_targets::link!("kernel32.dll" "system" fn WritePrivateProfileSectionA(lpappname : windows_sys::core::PCSTR, lpstring : windows_sys::core::PCSTR, lpfilename : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn WritePrivateProfileSectionW(lpappname : windows_sys::core::PCWSTR, lpstring : windows_sys::core::PCWSTR, lpfilename : windows_sys::core::PCWSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn WritePrivateProfileStringA(lpappname : windows_sys::core::PCSTR, lpkeyname : windows_sys::core::PCSTR, lpstring : windows_sys::core::PCSTR, lpfilename : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
@@ -819,6 +832,7 @@ pub const FILE_DIR_DISALLOWED: u32 = 9u32;
 pub const FILE_DOES_NOT_EXIST: u32 = 5u32;
 pub const FILE_ENCRYPTABLE: u32 = 0u32;
 pub const FILE_EXISTS: u32 = 4u32;
+pub const FILE_FLAG_DISALLOW_PATH_REDIRECTS: u32 = 65536u32;
 pub const FILE_FLAG_IGNORE_IMPERSONATED_DEVICEMAP: u32 = 131072u32;
 pub const FILE_FLAG_OPEN_REQUIRING_OPLOCK: u32 = 262144u32;
 pub const FILE_IS_ENCRYPTED: u32 = 1u32;
@@ -1456,6 +1470,20 @@ impl Default for STRTABLEW {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct SYSTEM_BASICPROCESS_INFORMATION {
+    pub NextEntryOffset: u32,
+    pub UniqueProcessId: super::super::Foundation::HANDLE,
+    pub InheritedFromUniqueProcessId: super::super::Foundation::HANDLE,
+    pub SequenceNumber: u64,
+    pub ImageName: super::super::Foundation::UNICODE_STRING,
+}
+impl Default for SYSTEM_BASICPROCESS_INFORMATION {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct SYSTEM_BASIC_INFORMATION {
     pub Reserved1: [u8; 24],
     pub Reserved2: [*mut core::ffi::c_void; 4],
@@ -1481,6 +1509,13 @@ impl Default for SYSTEM_EXCEPTION_INFORMATION {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct SYSTEM_HANDLECOUNT_INFORMATION {
+    pub ProcessCount: u32,
+    pub ThreadCount: u32,
+    pub HandleCount: u32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

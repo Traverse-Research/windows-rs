@@ -315,9 +315,6 @@ impl Default for CHAR_IMAGE_INFO {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const CHAR_TYPE_LEADING: u32 = 2u32;
-pub const CHAR_TYPE_SBCS: u32 = 0u32;
-pub const CHAR_TYPE_TRAILING: u32 = 3u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct CHROMATICITY_COORDINATE {
@@ -374,6 +371,13 @@ pub struct COLORINFO {
     pub YellowInMagentaDye: i32,
     pub CyanInYellowDye: i32,
     pub MagentaInYellowDye: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct COLORSPACE_SCALAR_MULTIPLIER_CAPS {
+    pub Valid: bool,
+    pub NumericRangeMin: f32,
+    pub NumericRangeMax: f32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -2346,6 +2350,8 @@ pub struct INDIRECT_DISPLAY_INFO {
     pub Flags: u32,
     pub NumMonitors: u32,
     pub DisplayAdapterTargetBase: u32,
+    pub DriverVersionMajor: u32,
+    pub DriverVersionMinor: u32,
 }
 pub const INDIRECT_DISPLAY_INFO_FLAGS_CREATED_IDDCX_ADAPTER: u32 = 1u32;
 pub const INDIRECT_DISPLAY_INFO_FLAGS_SUPPORT_FP16: u32 = 2u32;
@@ -2357,6 +2363,7 @@ pub const IOCTL_FSVIDEO_SET_CURRENT_MODE: u32 = 3409932u32;
 pub const IOCTL_FSVIDEO_SET_CURSOR_POSITION: u32 = 3409940u32;
 pub const IOCTL_FSVIDEO_SET_SCREEN_INFORMATION: u32 = 3409936u32;
 pub const IOCTL_FSVIDEO_WRITE_TO_FRAME_BUFFER: u32 = 3409924u32;
+pub const IOCTL_GET_SCALAR_MULTIPLIER_CAPS: u32 = 2297868u32;
 pub const IOCTL_MIPI_DSI_QUERY_CAPS: u32 = 2298880u32;
 pub const IOCTL_MIPI_DSI_RESET: u32 = 2298888u32;
 pub const IOCTL_MIPI_DSI_TRANSMISSION: u32 = 2298884u32;
@@ -2369,6 +2376,7 @@ pub const IOCTL_PANEL_SET_BACKLIGHT_OPTIMIZATION: u32 = 2296852u32;
 pub const IOCTL_PANEL_SET_BRIGHTNESS: u32 = 2296844u32;
 pub const IOCTL_PANEL_SET_BRIGHTNESS_STATE: u32 = 2296848u32;
 pub const IOCTL_SET_ACTIVE_COLOR_PROFILE_NAME: u32 = 2297864u32;
+pub const IOCTL_SET_SCALAR_MULTIPLIER: u32 = 2297872u32;
 pub const IOCTL_VIDEO_DISABLE_CURSOR: u32 = 2294820u32;
 pub const IOCTL_VIDEO_DISABLE_POINTER: u32 = 2294844u32;
 pub const IOCTL_VIDEO_DISABLE_VDM: u32 = 2293764u32;
@@ -3793,6 +3801,7 @@ pub const VideoDxgkFindAdapterTdrCallout: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 1
 pub const VideoDxgkHardwareProtectionTeardown: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 11i32;
 pub const VideoEnumChildPdoNotifyCallout: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 3i32;
 pub const VideoFindAdapterCallout: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 4i32;
+pub const VideoForceCompositionRender: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 17i32;
 pub const VideoNotBanked: VIDEO_BANK_TYPE = 0i32;
 pub const VideoPnpNotifyCallout: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 7i32;
 pub const VideoPowerHibernate: VIDEO_POWER_STATE = 5i32;

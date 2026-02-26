@@ -4455,6 +4455,7 @@ pub const LM20_SNLEN: u32 = 15u32;
 pub const LM20_STXTLEN: u32 = 63u32;
 pub const LM20_UNCLEN: u32 = 17u32;
 pub const LM20_UNLEN: u32 = 20u32;
+pub const LM_DNS_MAX_NAME_LENGTH: u32 = 255u32;
 pub const LM_REDIR_FAILURE: i32 = 1073756225i32;
 pub const LOCALGROUP_COMMENT_PARMNUM: u32 = 2u32;
 #[repr(C)]

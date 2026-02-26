@@ -474,7 +474,7 @@ pub const MandatoryLevelMedium: MANDATORY_LEVEL = 2i32;
 pub const MandatoryLevelSecureProcess: MANDATORY_LEVEL = 5i32;
 pub const MandatoryLevelSystem: MANDATORY_LEVEL = 4i32;
 pub const MandatoryLevelUntrusted: MANDATORY_LEVEL = 0i32;
-pub const MaxTokenInfoClass: TOKEN_INFORMATION_CLASS = 50i32;
+pub const MaxTokenInfoClass: TOKEN_INFORMATION_CLASS = 51i32;
 pub type NCRYPT_DESCRIPTOR_HANDLE = *mut core::ffi::c_void;
 pub type NCRYPT_STREAM_HANDLE = *mut core::ffi::c_void;
 pub const NO_INHERITANCE: ACE_FLAGS = 0u32;
@@ -955,7 +955,7 @@ pub const TOKEN_ASSIGN_PRIMARY: TOKEN_ACCESS_MASK = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct TOKEN_AUDIT_POLICY {
-    pub PerUserPolicy: [u8; 30],
+    pub PerUserPolicy: [u8; 31],
 }
 impl Default for TOKEN_AUDIT_POLICY {
     fn default() -> Self {
@@ -1168,6 +1168,7 @@ pub const TokenIsAppSilo: TOKEN_INFORMATION_CLASS = 48i32;
 pub const TokenIsLessPrivilegedAppContainer: TOKEN_INFORMATION_CLASS = 46i32;
 pub const TokenIsRestricted: TOKEN_INFORMATION_CLASS = 40i32;
 pub const TokenIsSandboxed: TOKEN_INFORMATION_CLASS = 47i32;
+pub const TokenLearningMode: TOKEN_INFORMATION_CLASS = 50i32;
 pub const TokenLinkedToken: TOKEN_INFORMATION_CLASS = 19i32;
 pub const TokenLoggingInformation: TOKEN_INFORMATION_CLASS = 49i32;
 pub const TokenLogonSid: TOKEN_INFORMATION_CLASS = 28i32;

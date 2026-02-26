@@ -2369,6 +2369,7 @@ pub struct KSATTRIBUTE {
 }
 pub const KSATTRIBUTEID_AUDIOLOOPBACK_TAPPOINT: windows_core::GUID = windows_core::GUID::from_u128(0x2795a0f7_1688_44fe_bc14_bf8273992141);
 pub const KSATTRIBUTEID_AUDIOSIGNALPROCESSING_MODE: windows_core::GUID = windows_core::GUID::from_u128(0xe1f89eb5_5f46_419b_967b_ff6770b98401);
+pub const KSATTRIBUTEID_VIDEOFORMAT_DX12: windows_core::GUID = windows_core::GUID::from_u128(0xfc9d87b5_0b02_438e_89b0_e241fce889ad);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct KSATTRIBUTE_AUDIOLOOPBACK_TAPPOINT {
@@ -3909,6 +3910,7 @@ pub const KSEVENT_PHOTO_SAMPLE_SCANNED: KSEVENT_CAMERAEVENT = KSEVENT_CAMERAEVEN
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct KSEVENT_PINCAPS_CHANGENOTIFICATIONS(pub i32);
 pub const KSEVENT_PINCAPS_FORMATCHANGE: KSEVENT_PINCAPS_CHANGENOTIFICATIONS = KSEVENT_PINCAPS_CHANGENOTIFICATIONS(0i32);
+pub const KSEVENT_PINCAPS_INVALIDATECLIENTS: KSEVENT_PINCAPS_CHANGENOTIFICATIONS = KSEVENT_PINCAPS_CHANGENOTIFICATIONS(2i32);
 pub const KSEVENT_PINCAPS_JACKINFOCHANGE: KSEVENT_PINCAPS_CHANGENOTIFICATIONS = KSEVENT_PINCAPS_CHANGENOTIFICATIONS(1i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -8667,6 +8669,14 @@ pub struct VBICODECFILTERING_STATISTICS_TELETEXT {
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct VBICODECFILTERING_STATISTICS_TELETEXT_PIN {
     pub Common: VBICODECFILTERING_STATISTICS_COMMON_PIN,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct VIDEOFORMAT_DX12 {
+    pub Header: KSATTRIBUTE,
+    pub resourceLayout: u32,
+    pub resourceFlags: u32,
+    pub customLayout: windows_core::GUID,
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]

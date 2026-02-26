@@ -509,18 +509,6 @@ impl Default for DML_CAST_OPERATOR_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
-#[repr(C)]
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct DML_CONSTANT_DATA_GRAPH_NODE_DESC {
-    pub Data: *const core::ffi::c_void,
-    pub DataSize: usize,
-    pub Name: windows_core::PCSTR,
-}
-impl Default for DML_CONSTANT_DATA_GRAPH_NODE_DESC {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct DML_CONVOLUTION_DIRECTION(pub i32);
@@ -1562,6 +1550,8 @@ pub const DML_FEATURE_LEVEL_5_2: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(20992i32)
 pub const DML_FEATURE_LEVEL_6_0: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(24576i32);
 pub const DML_FEATURE_LEVEL_6_1: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(24832i32);
 pub const DML_FEATURE_LEVEL_6_2: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(25088i32);
+pub const DML_FEATURE_LEVEL_6_3: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(25344i32);
+pub const DML_FEATURE_LEVEL_6_4: DML_FEATURE_LEVEL = DML_FEATURE_LEVEL(25600i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct DML_FEATURE_QUERY_FEATURE_LEVELS {
@@ -1729,7 +1719,6 @@ impl Default for DML_GRAPH_NODE_DESC {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct DML_GRAPH_NODE_TYPE(pub i32);
-pub const DML_GRAPH_NODE_TYPE_CONSTANT: DML_GRAPH_NODE_TYPE = DML_GRAPH_NODE_TYPE(2i32);
 pub const DML_GRAPH_NODE_TYPE_INVALID: DML_GRAPH_NODE_TYPE = DML_GRAPH_NODE_TYPE(0i32);
 pub const DML_GRAPH_NODE_TYPE_OPERATOR: DML_GRAPH_NODE_TYPE = DML_GRAPH_NODE_TYPE(1i32);
 #[repr(C)]
@@ -2677,7 +2666,7 @@ impl Default for DML_SPLIT_OPERATOR_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const DML_TARGET_VERSION: u32 = 25088u32;
+pub const DML_TARGET_VERSION: u32 = 25600u32;
 pub const DML_TEMPORARY_BUFFER_ALIGNMENT: u32 = 256u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

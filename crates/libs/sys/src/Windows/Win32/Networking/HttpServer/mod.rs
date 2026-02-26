@@ -4,12 +4,12 @@ windows_targets::link!("httpapi.dll" "system" fn HttpAddUrl(requestqueuehandle :
 windows_targets::link!("httpapi.dll" "system" fn HttpAddUrlToUrlGroup(urlgroupid : u64, pfullyqualifiedurl : windows_sys::core::PCWSTR, urlcontext : u64, reserved : u32) -> u32);
 #[cfg(feature = "Win32_System_IO")]
 windows_targets::link!("httpapi.dll" "system" fn HttpCancelHttpRequest(requestqueuehandle : super::super::Foundation:: HANDLE, requestid : u64, overlapped : *mut super::super::System::IO:: OVERLAPPED) -> u32);
-windows_targets::link!("httpapi.dll" "system" fn HttpCloseRequestQueue(requestqueuehandle : super::super::Foundation:: HANDLE) -> u32);
+windows_targets::link!("httpapi.dll" "system" fn HttpCloseRequestQueue(requestqueuehandle : HTTP_REQUEST_QUEUE_HANDLE) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpCloseServerSession(serversessionid : u64) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpCloseUrlGroup(urlgroupid : u64) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpCreateHttpHandle(requestqueuehandle : *mut super::super::Foundation:: HANDLE, reserved : u32) -> u32);
 #[cfg(feature = "Win32_Security")]
-windows_targets::link!("httpapi.dll" "system" fn HttpCreateRequestQueue(version : HTTPAPI_VERSION, name : windows_sys::core::PCWSTR, securityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES, flags : u32, requestqueuehandle : *mut super::super::Foundation:: HANDLE) -> u32);
+windows_targets::link!("httpapi.dll" "system" fn HttpCreateRequestQueue(version : HTTPAPI_VERSION, name : windows_sys::core::PCWSTR, securityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES, flags : u32, requestqueuehandle : *mut HTTP_REQUEST_QUEUE_HANDLE) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpCreateServerSession(version : HTTPAPI_VERSION, serversessionid : *mut u64, reserved : u32) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpCreateUrlGroup(serversessionid : u64, purlgroupid : *mut u64, reserved : u32) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpDeclarePush(requestqueuehandle : super::super::Foundation:: HANDLE, requestid : u64, verb : HTTP_VERB, path : windows_sys::core::PCWSTR, query : windows_sys::core::PCSTR, headers : *const HTTP_REQUEST_HEADERS) -> u32);
@@ -23,6 +23,8 @@ windows_targets::link!("httpapi.dll" "system" fn HttpGetExtension(version : HTTP
 windows_targets::link!("httpapi.dll" "system" fn HttpInitialize(version : HTTPAPI_VERSION, flags : HTTP_INITIALIZE, preserved : *mut core::ffi::c_void) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpIsFeatureSupported(featureid : HTTP_FEATURE_ID) -> windows_sys::core::BOOL);
 windows_targets::link!("httpapi.dll" "system" fn HttpPrepareUrl(reserved : *const core::ffi::c_void, flags : u32, url : windows_sys::core::PCWSTR, preparedurl : *mut windows_sys::core::PWSTR) -> u32);
+#[cfg(feature = "Win32_System_IO")]
+windows_targets::link!("httpapi.dll" "system" fn HttpQueryRequestProperty(requestqueuehandle : super::super::Foundation:: HANDLE, id : u64, propertyid : HTTP_REQUEST_PROPERTY, qualifier : *const core::ffi::c_void, qualifiersize : u32, output : *mut core::ffi::c_void, outputbuffersize : u32, bytesreturned : *mut u32, overlapped : *const super::super::System::IO:: OVERLAPPED) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpQueryRequestQueueProperty(requestqueuehandle : super::super::Foundation:: HANDLE, property : HTTP_SERVER_PROPERTY, propertyinformation : *mut core::ffi::c_void, propertyinformationlength : u32, reserved1 : u32, returnlength : *mut u32, reserved2 : *const core::ffi::c_void) -> u32);
 windows_targets::link!("httpapi.dll" "system" fn HttpQueryServerSessionProperty(serversessionid : u64, property : HTTP_SERVER_PROPERTY, propertyinformation : *mut core::ffi::c_void, propertyinformationlength : u32, returnlength : *mut u32) -> u32);
 #[cfg(feature = "Win32_System_IO")]
@@ -129,6 +131,12 @@ pub struct HTTP_CACHE_POLICY {
     pub SecondsToLive: u32,
 }
 pub type HTTP_CACHE_POLICY_TYPE = i32;
+pub const HTTP_CERT_CHECK_MODE_CACHED_REVOCATION: u32 = 2u32;
+pub const HTTP_CERT_CHECK_MODE_CACHED_URLS: u32 = 8u32;
+pub const HTTP_CERT_CHECK_MODE_NO_AIA: u32 = 16u32;
+pub const HTTP_CERT_CHECK_MODE_NO_REVOCATION: u32 = 1u32;
+pub const HTTP_CERT_CHECK_MODE_NO_USAGE_CHECK: u32 = 65536u32;
+pub const HTTP_CERT_CHECK_MODE_USE_REVOCATION_FRESHNESS: u32 = 4u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct HTTP_CERT_CONFIG_ENTRY {
@@ -631,6 +639,11 @@ impl Default for HTTP_REQUEST_CHANNEL_BIND_STATUS {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct HTTP_REQUEST_DSCP_INFO {
+    pub DscpTag: u8,
+}
 pub const HTTP_REQUEST_FLAG_FAST_FORWARDING_ALLOWED: u32 = 16u32;
 pub const HTTP_REQUEST_FLAG_FAST_FORWARDING_RESPONSE_ALLOWED: u32 = 16u32;
 pub const HTTP_REQUEST_FLAG_HTTP2: u32 = 4u32;
@@ -664,6 +677,11 @@ impl Default for HTTP_REQUEST_INFO {
     }
 }
 pub type HTTP_REQUEST_INFO_TYPE = i32;
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct HTTP_REQUEST_INITIAL_PACKET_TTL_INFO {
+    pub InitialPacketTtl: u8,
+}
 pub type HTTP_REQUEST_PROPERTY = i32;
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -683,6 +701,16 @@ pub const HTTP_REQUEST_PROPERTY_SNI_HOST_MAX_LENGTH: u32 = 255u32;
 #[derive(Clone, Copy, Default)]
 pub struct HTTP_REQUEST_PROPERTY_STREAM_ERROR {
     pub ErrorCode: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct HTTP_REQUEST_QUEUE_HANDLE {
+    pub Value: *mut core::ffi::c_void,
+}
+impl Default for HTTP_REQUEST_QUEUE_HANDLE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -727,6 +755,11 @@ impl Default for HTTP_REQUEST_TOKEN_BINDING_INFO {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct HTTP_REQUEST_TRANSPORT_IDLE_CONNECTION_TIMEOUT_INFO {
+    pub TransportIdleConnectionTimeout: u16,
 }
 #[repr(C)]
 #[cfg(feature = "Win32_Networking_WinSock")]
@@ -1372,10 +1405,15 @@ pub const HttpFeatureAutomaticChunkedEncoding: HTTP_FEATURE_ID = 8i32;
 pub const HttpFeatureCacheTlsClientHello: HTTP_FEATURE_ID = 11i32;
 pub const HttpFeatureDedicatedReqQueueDelegationType: HTTP_FEATURE_ID = 9i32;
 pub const HttpFeatureDelegateEx: HTTP_FEATURE_ID = 3i32;
+pub const HttpFeatureDisableAiaFlag: HTTP_FEATURE_ID = 13i32;
 pub const HttpFeatureDisableTlsSessionId: HTTP_FEATURE_ID = 6i32;
+pub const HttpFeatureDscp: HTTP_FEATURE_ID = 14i32;
 pub const HttpFeatureFastForwardResponse: HTTP_FEATURE_ID = 10i32;
 pub const HttpFeatureHttp3: HTTP_FEATURE_ID = 4i32;
-pub const HttpFeatureLast: HTTP_FEATURE_ID = 12i32;
+pub const HttpFeatureIdleConnectionTimeoutRequestProperty: HTTP_FEATURE_ID = 12i32;
+pub const HttpFeatureLast: HTTP_FEATURE_ID = 17i32;
+pub const HttpFeatureQueryCipherInfo: HTTP_FEATURE_ID = 15i32;
+pub const HttpFeatureQueryInitialPacketTtl: HTTP_FEATURE_ID = 16i32;
 pub const HttpFeatureResponseTrailers: HTTP_FEATURE_ID = 1i32;
 pub const HttpFeatureTlsDualCerts: HTTP_FEATURE_ID = 7i32;
 pub const HttpFeatureTlsSessionTickets: HTTP_FEATURE_ID = 5i32;
@@ -1460,6 +1498,8 @@ pub const HttpRequestAuthTypeNegotiate: HTTP_REQUEST_AUTH_TYPE = 4i32;
 pub const HttpRequestAuthTypeNone: HTTP_REQUEST_AUTH_TYPE = 0i32;
 pub const HttpRequestInfoTypeAuth: HTTP_REQUEST_INFO_TYPE = 0i32;
 pub const HttpRequestInfoTypeChannelBind: HTTP_REQUEST_INFO_TYPE = 1i32;
+pub const HttpRequestInfoTypeDscpTag: HTTP_REQUEST_INFO_TYPE = 13i32;
+pub const HttpRequestInfoTypeInitialPacketTtl: HTTP_REQUEST_INFO_TYPE = 14i32;
 pub const HttpRequestInfoTypeQuicStats: HTTP_REQUEST_INFO_TYPE = 8i32;
 pub const HttpRequestInfoTypeQuicStatsV2: HTTP_REQUEST_INFO_TYPE = 10i32;
 pub const HttpRequestInfoTypeRequestSizing: HTTP_REQUEST_INFO_TYPE = 7i32;
@@ -1470,6 +1510,8 @@ pub const HttpRequestInfoTypeSslTokenBindingDraft: HTTP_REQUEST_INFO_TYPE = 3i32
 pub const HttpRequestInfoTypeTcpInfoV0: HTTP_REQUEST_INFO_TYPE = 6i32;
 pub const HttpRequestInfoTypeTcpInfoV1: HTTP_REQUEST_INFO_TYPE = 9i32;
 pub const HttpRequestInfoTypeTcpInfoV2: HTTP_REQUEST_INFO_TYPE = 11i32;
+pub const HttpRequestInfoTypeTransportIdleConnectionTimeout: HTTP_REQUEST_INFO_TYPE = 12i32;
+pub const HttpRequestPropertyDscpTag: HTTP_REQUEST_PROPERTY = 13i32;
 pub const HttpRequestPropertyIsb: HTTP_REQUEST_PROPERTY = 0i32;
 pub const HttpRequestPropertyQuicApiTimings: HTTP_REQUEST_PROPERTY = 7i32;
 pub const HttpRequestPropertyQuicStats: HTTP_REQUEST_PROPERTY = 2i32;
@@ -1480,7 +1522,9 @@ pub const HttpRequestPropertyStreamError: HTTP_REQUEST_PROPERTY = 5i32;
 pub const HttpRequestPropertyTcpInfoV0: HTTP_REQUEST_PROPERTY = 1i32;
 pub const HttpRequestPropertyTcpInfoV1: HTTP_REQUEST_PROPERTY = 3i32;
 pub const HttpRequestPropertyTcpInfoV2: HTTP_REQUEST_PROPERTY = 10i32;
+pub const HttpRequestPropertyTlsCipherInfo: HTTP_REQUEST_PROPERTY = 14i32;
 pub const HttpRequestPropertyTlsClientHello: HTTP_REQUEST_PROPERTY = 11i32;
+pub const HttpRequestPropertyTransportIdleConnectionTimeout: HTTP_REQUEST_PROPERTY = 12i32;
 pub const HttpRequestPropertyWskApiTimings: HTTP_REQUEST_PROPERTY = 6i32;
 pub const HttpRequestSizingTypeHeaders: HTTP_REQUEST_SIZING_TYPE = 4i32;
 pub const HttpRequestSizingTypeMax: HTTP_REQUEST_SIZING_TYPE = 5i32;

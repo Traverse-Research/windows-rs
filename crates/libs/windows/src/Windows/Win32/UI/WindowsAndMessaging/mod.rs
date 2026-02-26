@@ -40,6 +40,11 @@ where
     unsafe { AppendMenuW(hmenu, uflags, uidnewitem, lpnewitem.param().abi()).ok() }
 }
 #[inline]
+pub unsafe fn ApplyWindowAction(hwnd: super::super::Foundation::HWND, paction: *mut WINDOW_ACTION) -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn ApplyWindowAction(hwnd : super::super::Foundation:: HWND, paction : *mut WINDOW_ACTION) -> windows_core::BOOL);
+    unsafe { ApplyWindowAction(hwnd, paction as _) }
+}
+#[inline]
 pub unsafe fn ArrangeIconicWindows(hwnd: super::super::Foundation::HWND) -> u32 {
     windows_link::link!("user32.dll" "system" fn ArrangeIconicWindows(hwnd : super::super::Foundation:: HWND) -> u32);
     unsafe { ArrangeIconicWindows(hwnd) }
@@ -273,6 +278,11 @@ pub unsafe fn ClipCursor(lprect: Option<*const super::super::Foundation::RECT>) 
 pub unsafe fn CloseWindow(hwnd: super::super::Foundation::HWND) -> windows_core::Result<()> {
     windows_link::link!("user32.dll" "system" fn CloseWindow(hwnd : super::super::Foundation:: HWND) -> windows_core::BOOL);
     unsafe { CloseWindow(hwnd).ok() }
+}
+#[inline]
+pub unsafe fn ConvertToInterceptWindow(toplevelwindow: super::super::Foundation::HWND) -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn ConvertToInterceptWindow(toplevelwindow : super::super::Foundation:: HWND) -> windows_core::BOOL);
+    unsafe { ConvertToInterceptWindow(toplevelwindow) }
 }
 #[inline]
 pub unsafe fn CopyAcceleratorTableA(haccelsrc: HACCEL, lpacceldst: Option<&mut [ACCEL]>) -> i32 {
@@ -617,6 +627,11 @@ pub unsafe fn EndDialog(hdlg: super::super::Foundation::HWND, nresult: isize) ->
 pub unsafe fn EndMenu() -> windows_core::Result<()> {
     windows_link::link!("user32.dll" "system" fn EndMenu() -> windows_core::BOOL);
     unsafe { EndMenu().ok() }
+}
+#[inline]
+pub unsafe fn EnterMoveSizeLoop(hwnd: super::super::Foundation::HWND, ptcursor: super::super::Foundation::POINT, movesizecode: MOVESIZE_OPERATION) -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn EnterMoveSizeLoop(hwnd : super::super::Foundation:: HWND, ptcursor : super::super::Foundation:: POINT, movesizecode : MOVESIZE_OPERATION) -> windows_core::BOOL);
+    unsafe { EnterMoveSizeLoop(hwnd, core::mem::transmute(ptcursor), movesizecode) }
 }
 #[inline]
 pub unsafe fn EnumChildWindows(hwndparent: Option<super::super::Foundation::HWND>, lpenumfunc: WNDENUMPROC, lparam: super::super::Foundation::LPARAM) -> windows_core::BOOL {
@@ -1332,6 +1347,11 @@ pub unsafe fn IsIconic(hwnd: super::super::Foundation::HWND) -> windows_core::BO
     unsafe { IsIconic(hwnd) }
 }
 #[inline]
+pub unsafe fn IsInterceptWindow(toplevelwindow: super::super::Foundation::HWND, isintercept: *mut windows_core::BOOL) -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn IsInterceptWindow(toplevelwindow : super::super::Foundation:: HWND, isintercept : *mut windows_core::BOOL) -> windows_core::BOOL);
+    unsafe { IsInterceptWindow(toplevelwindow, isintercept as _) }
+}
+#[inline]
 pub unsafe fn IsMenu(hmenu: HMENU) -> windows_core::BOOL {
     windows_link::link!("user32.dll" "system" fn IsMenu(hmenu : HMENU) -> windows_core::BOOL);
     unsafe { IsMenu(hmenu) }
@@ -1931,6 +1951,11 @@ pub unsafe fn RegisterClassExW(param0: *const WNDCLASSEXW) -> u16 {
 pub unsafe fn RegisterClassW(lpwndclass: *const WNDCLASSW) -> u16 {
     windows_link::link!("user32.dll" "system" fn RegisterClassW(lpwndclass : *const WNDCLASSW) -> u16);
     unsafe { RegisterClassW(lpwndclass) }
+}
+#[inline]
+pub unsafe fn RegisterCloakedNotification(hwnd: super::super::Foundation::HWND, fregister: bool) -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn RegisterCloakedNotification(hwnd : super::super::Foundation:: HWND, fregister : windows_core::BOOL) -> windows_core::BOOL);
+    unsafe { RegisterCloakedNotification(hwnd, fregister.into()) }
 }
 #[inline]
 pub unsafe fn RegisterDeviceNotificationA(hrecipient: super::super::Foundation::HANDLE, notificationfilter: *const core::ffi::c_void, flags: REGISTER_NOTIFICATION_FLAGS) -> windows_core::Result<HDEVNOTIFY> {
@@ -2928,6 +2953,7 @@ pub struct CURSORSHAPE {
 }
 pub const CURSOR_CREATION_SCALING_DEFAULT: u32 = 2u32;
 pub const CURSOR_CREATION_SCALING_NONE: u32 = 1u32;
+pub const CURSOR_INVISIBLE: u32 = 0u32;
 pub const CURSOR_SHOWING: CURSORINFO_FLAGS = CURSORINFO_FLAGS(1u32);
 pub const CURSOR_SUPPRESSED: CURSORINFO_FLAGS = CURSORINFO_FLAGS(2u32);
 pub const CWF_CREATE_ONLY: u32 = 1u32;
@@ -3569,6 +3595,14 @@ pub const FNOINVERT: ACCEL_VIRT_FLAGS = ACCEL_VIRT_FLAGS(2u8);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct FOREGROUND_WINDOW_LOCK_CODE(pub u32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct FRAME_MARGIN {
+    pub left: i16,
+    pub right: i16,
+    pub top: i16,
+    pub bottom: i16,
+}
 pub const FSHIFT: ACCEL_VIRT_FLAGS = ACCEL_VIRT_FLAGS(4u8);
 pub const FVIRTKEY: ACCEL_VIRT_FLAGS = ACCEL_VIRT_FLAGS(1u8);
 pub const GA_PARENT: GET_ANCESTOR_FLAGS = GET_ANCESTOR_FLAGS(1u32);
@@ -5154,6 +5188,9 @@ pub struct MOUSEHOOKSTRUCTEX {
 pub const MOUSEWHEEL_ROUTING_FOCUS: u32 = 0u32;
 pub const MOUSEWHEEL_ROUTING_HYBRID: u32 = 1u32;
 pub const MOUSEWHEEL_ROUTING_MOUSE_POS: u32 = 2u32;
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct MOVESIZE_OPERATION(pub i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct MSG {
@@ -5260,6 +5297,15 @@ pub struct MSLLHOOKSTRUCT {
     pub time: u32,
     pub dwExtraInfo: usize,
 }
+pub const MSO_MOVE: MOVESIZE_OPERATION = MOVESIZE_OPERATION(9i32);
+pub const MSO_SIZE_BOTTOM: MOVESIZE_OPERATION = MOVESIZE_OPERATION(6i32);
+pub const MSO_SIZE_BOTTOMLEFT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(7i32);
+pub const MSO_SIZE_BOTTOMRIGHT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(8i32);
+pub const MSO_SIZE_LEFT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(1i32);
+pub const MSO_SIZE_RIGHT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(2i32);
+pub const MSO_SIZE_TOP: MOVESIZE_OPERATION = MOVESIZE_OPERATION(3i32);
+pub const MSO_SIZE_TOPLEFT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(4i32);
+pub const MSO_SIZE_TOPRIGHT: MOVESIZE_OPERATION = MOVESIZE_OPERATION(5i32);
 pub const MWMO_ALERTABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS(2u32);
 pub const MWMO_INPUTAVAILABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS(4u32);
 pub const MWMO_NONE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS(0u32);
@@ -6778,6 +6824,31 @@ pub struct VolLockBroadcast {
     pub vlb_drive: u8,
     pub vlb_flags: u8,
 }
+pub const WAK_ACTIVATE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(16i32);
+pub const WAK_COALESCEABLE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(31i32);
+pub const WAK_DISPLAY_CHANGE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(512i32);
+pub const WAK_FIT_TO_MONITOR: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(256i32);
+pub const WAK_INSERT_AFTER: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(8i32);
+pub const WAK_MOVE_TO_MONITOR: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(128i32);
+pub const WAK_NONE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(0i32);
+pub const WAK_NORMAL_RECT: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(64i32);
+pub const WAK_PLACEMENT_STATE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(32i32);
+pub const WAK_POSITION: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(2i32);
+pub const WAK_SIZE: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(4i32);
+pub const WAK_SYSTEM_OPERATION: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(1024i32);
+pub const WAK_VISIBILITY: WINDOW_ACTION_KINDS = WINDOW_ACTION_KINDS(1i32);
+pub const WAM_ACTIVATE_FOREGROUND: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(2i32);
+pub const WAM_ACTIVATE_INPUT: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(4i32);
+pub const WAM_ACTIVATE_NO_ZORDER: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(8i32);
+pub const WAM_DPI: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(512i32);
+pub const WAM_FRAME_BOUNDS: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(1i32);
+pub const WAM_INSERT_AFTER_NO_OWNER: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(16i32);
+pub const WAM_NONE: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(0i32);
+pub const WAM_RESTORE_TO_ARRANGED: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(128i32);
+pub const WAM_RESTORE_TO_MAXIMIZED: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(64i32);
+pub const WAM_RESTORE_TO_NORMAL: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(32i32);
+pub const WAM_SCALED_TO_MONITOR: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(1024i32);
+pub const WAM_WORK_AREA: WINDOW_ACTION_MODIFIERS = WINDOW_ACTION_MODIFIERS(256i32);
 pub const WA_ACTIVE: u32 = 1u32;
 pub const WA_CLICKACTIVE: u32 = 2u32;
 pub const WA_INACTIVE: u32 = 0u32;
@@ -6879,6 +6950,94 @@ pub struct WINDOWPOS {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WINDOWS_HOOK_ID(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct WINDOW_ACTION {
+    pub kinds: WINDOW_ACTION_KINDS,
+    pub modifiers: WINDOW_ACTION_MODIFIERS,
+    pub visible: windows_core::BOOL,
+    pub position: super::super::Foundation::POINT,
+    pub size: super::super::Foundation::SIZE,
+    pub insertAfter: super::super::Foundation::HWND,
+    pub placementState: WINDOW_PLACEMENT_STATE,
+    pub normalRect: super::super::Foundation::RECT,
+    pub workArea: super::super::Foundation::RECT,
+    pub dpi: u32,
+    pub pointOnMonitor: super::super::Foundation::POINT,
+    pub monitorTopologyId: u32,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WINDOW_ACTION_KINDS(pub i32);
+impl WINDOW_ACTION_KINDS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for WINDOW_ACTION_KINDS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for WINDOW_ACTION_KINDS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for WINDOW_ACTION_KINDS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for WINDOW_ACTION_KINDS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for WINDOW_ACTION_KINDS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WINDOW_ACTION_MODIFIERS(pub i32);
+impl WINDOW_ACTION_MODIFIERS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for WINDOW_ACTION_MODIFIERS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for WINDOW_ACTION_MODIFIERS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for WINDOW_ACTION_MODIFIERS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for WINDOW_ACTION_MODIFIERS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for WINDOW_ACTION_MODIFIERS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WINDOW_DISPLAY_AFFINITY(pub u32);
@@ -6924,6 +7083,9 @@ pub struct WINDOW_LONG_PTR_INDEX(pub i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WINDOW_MESSAGE_FILTER_ACTION(pub u32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct WINDOW_PLACEMENT_STATE(pub i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct WINDOW_STYLE(pub u32);
@@ -6999,6 +7161,7 @@ pub const WM_CHARTOITEM: u32 = 47u32;
 pub const WM_CHILDACTIVATE: u32 = 34u32;
 pub const WM_CLEAR: u32 = 771u32;
 pub const WM_CLIPBOARDUPDATE: u32 = 797u32;
+pub const WM_CLOAKED_STATE_CHANGED: u32 = 839u32;
 pub const WM_CLOSE: u32 = 16u32;
 pub const WM_COMMAND: u32 = 273u32;
 pub const WM_COMMNOTIFY: u32 = 68u32;
@@ -7083,6 +7246,7 @@ pub const WM_INPUT: u32 = 255u32;
 pub const WM_INPUTLANGCHANGE: u32 = 81u32;
 pub const WM_INPUTLANGCHANGEREQUEST: u32 = 80u32;
 pub const WM_INPUT_DEVICE_CHANGE: u32 = 254u32;
+pub const WM_INTERCEPTED_WINDOW_ACTION: u32 = 838u32;
 pub const WM_KEYDOWN: u32 = 256u32;
 pub const WM_KEYFIRST: u32 = 256u32;
 pub const WM_KEYLAST: u32 = 265u32;
@@ -7342,6 +7506,10 @@ pub type WNDPROC = Option<unsafe extern "system" fn(param0: super::super::Founda
 pub const WPF_ASYNCWINDOWPLACEMENT: WINDOWPLACEMENT_FLAGS = WINDOWPLACEMENT_FLAGS(4u32);
 pub const WPF_RESTORETOMAXIMIZED: WINDOWPLACEMENT_FLAGS = WINDOWPLACEMENT_FLAGS(2u32);
 pub const WPF_SETMINPOSITION: WINDOWPLACEMENT_FLAGS = WINDOWPLACEMENT_FLAGS(1u32);
+pub const WPS_ARRANGED: WINDOW_PLACEMENT_STATE = WINDOW_PLACEMENT_STATE(3i32);
+pub const WPS_MAXIMIZED: WINDOW_PLACEMENT_STATE = WINDOW_PLACEMENT_STATE(1i32);
+pub const WPS_MINIMIZED: WINDOW_PLACEMENT_STATE = WINDOW_PLACEMENT_STATE(2i32);
+pub const WPS_NORMAL: WINDOW_PLACEMENT_STATE = WINDOW_PLACEMENT_STATE(0i32);
 pub const WSF_VISIBLE: i32 = 1i32;
 pub const WS_ACTIVECAPTION: WINDOW_STYLE = WINDOW_STYLE(1u32);
 pub const WS_BORDER: WINDOW_STYLE = WINDOW_STYLE(8388608u32);
@@ -7403,6 +7571,7 @@ pub const WTS_CONSOLE_DISCONNECT: u32 = 2u32;
 pub const WTS_REMOTE_CONNECT: u32 = 3u32;
 pub const WTS_REMOTE_DISCONNECT: u32 = 4u32;
 pub const WTS_SESSION_CREATE: u32 = 10u32;
+pub const WTS_SESSION_DESKTOP_READY: u32 = 15u32;
 pub const WTS_SESSION_LOCK: u32 = 7u32;
 pub const WTS_SESSION_LOGOFF: u32 = 6u32;
 pub const WTS_SESSION_LOGON: u32 = 5u32;

@@ -547,6 +547,7 @@ pub const FAST_FAIL_INVALID_SYSCALL_NUMBER: u32 = 41u32;
 pub const FAST_FAIL_INVALID_THREAD: u32 = 40u32;
 pub const FAST_FAIL_INVALID_THREAD_STATE: u32 = 74u32;
 pub const FAST_FAIL_KERNEL_CET_SHADOW_STACK_ASSIST: u32 = 67u32;
+pub const FAST_FAIL_KERNEL_POINTER_EXPECTED: u32 = 77u32;
 pub const FAST_FAIL_LEGACY_GS_VIOLATION: u32 = 0u32;
 pub const FAST_FAIL_LOADER_CONTINUITY_FAILURE: u32 = 45u32;
 pub const FAST_FAIL_LOW_LABEL_ACCESS_DENIED: u32 = 52u32;
@@ -850,9 +851,12 @@ pub const GUID_PROCESSOR_DISTRIBUTE_UTILITY: windows_sys::core::GUID = windows_s
 pub const GUID_PROCESSOR_DUTY_CYCLING: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4e4450b3_6179_4e91_b8f1_5bb9938f81a1);
 pub const GUID_PROCESSOR_FREQUENCY_LIMIT: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x75b0ae3f_bce0_45a7_8c89_c9611c25e100);
 pub const GUID_PROCESSOR_FREQUENCY_LIMIT_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x75b0ae3f_bce0_45a7_8c89_c9611c25e101);
+pub const GUID_PROCESSOR_FREQUENCY_LIMIT_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x75b0ae3f_bce0_45a7_8c89_c9611c25e102);
 pub const GUID_PROCESSOR_HETEROGENEOUS_POLICY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x7f2f5cfa_f10c_4823_b5e1_e93ae85f46b5);
 pub const GUID_PROCESSOR_HETERO_CONTAINMENT_DECREASE_TIME: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x6ff13aeb_7897_4356_9999_dd9930af065f);
+pub const GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_IMP_UTIL_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x6ece9e1f_b6dd_42bf_b1b7_5a512b10c092);
 pub const GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x69439b22_221b_4830_bd34_f7bcece24583);
+pub const GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_IMP_UTIL_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x12fd031f_53d2_4bf4_ac6d_c699fc9538c7);
 pub const GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x6788488b_1b90_4d11_8fa7_973e470dff47);
 pub const GUID_PROCESSOR_HETERO_CONTAINMENT_INCREASE_TIME: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x64fcee6b_5b1f_45a4_a76a_19b2c36ee290);
 pub const GUID_PROCESSOR_HETERO_CONTAINMENT_POLICY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x60fbe21b_efd9_49f2_b066_8674d8e9f423);
@@ -895,6 +899,7 @@ pub const GUID_PROCESSOR_PERF_DECREASE_TIME: windows_sys::core::GUID = windows_s
 pub const GUID_PROCESSOR_PERF_DECREASE_TIME_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xd8edeb9b_95cf_4f95_a73c_b061973693c9);
 pub const GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x36687f9e_e3a5_4dbf_b1dc_15eb381c6863);
 pub const GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x36687f9e_e3a5_4dbf_b1dc_15eb381c6864);
+pub const GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x36687f9e_e3a5_4dbf_b1dc_15eb381c6865);
 pub const GUID_PROCESSOR_PERF_HISTORY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x7d24baa7_0b84_480f_840c_1b0743c00f5f);
 pub const GUID_PROCESSOR_PERF_HISTORY_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x7d24baa7_0b84_480f_840c_1b0743c00f60);
 pub const GUID_PROCESSOR_PERF_INCREASE_HISTORY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x99b3ef01_752f_46a1_80fb_7730011f2354);
@@ -907,11 +912,14 @@ pub const GUID_PROCESSOR_PERF_INCREASE_TIME_1: windows_sys::core::GUID = windows
 pub const GUID_PROCESSOR_PERF_LATENCY_HINT: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x0822df31_9c83_441c_a079_0de4cf009c7b);
 pub const GUID_PROCESSOR_PERF_LATENCY_HINT_EPP: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4b70f900_cdd9_4e66_aa26_ae8417f98173);
 pub const GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4b70f900_cdd9_4e66_aa26_ae8417f98174);
+pub const GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4b70f900_cdd9_4e66_aa26_ae8417f98175);
 pub const GUID_PROCESSOR_PERF_LATENCY_HINT_PERF: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x619b7505_003b_4e82_b7a6_4dd29c300971);
 pub const GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x619b7505_003b_4e82_b7a6_4dd29c300972);
+pub const GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x619b7505_003b_4e82_b7a6_4dd29c300973);
 pub const GUID_PROCESSOR_PERF_TIME_CHECK: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x4d2b0152_7d5c_498b_88e2_34345392a2c5);
 pub const GUID_PROCESSOR_RESOURCE_PRIORITY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x603fe9ce_8d01_4b48_a968_1d706c28fd5c);
 pub const GUID_PROCESSOR_RESOURCE_PRIORITY_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x603fe9ce_8d01_4b48_a968_1d706c28fd5d);
+pub const GUID_PROCESSOR_RESOURCE_PRIORITY_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x603fe9ce_8d01_4b48_a968_1d706c28fd5e);
 pub const GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x38b8383d_cce0_4c79_9e3e_56a4f17cc480);
 pub const GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x38b8383d_cce0_4c79_9e3e_56a4f17cc481);
 pub const GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xf565999f_3fb0_411a_a226_3f0198dec130);
@@ -935,9 +943,12 @@ pub const GUID_PROCESSOR_SOFT_PARKING_LATENCY: windows_sys::core::GUID = windows
 pub const GUID_PROCESSOR_THREAD_SCHEDULING_POLICY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x93b8b6dc_0698_4d1c_9ee4_0644e900c85d);
 pub const GUID_PROCESSOR_THROTTLE_MAXIMUM: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xbc5038f7_23e0_4960_96da_33abaf5935ec);
 pub const GUID_PROCESSOR_THROTTLE_MAXIMUM_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xbc5038f7_23e0_4960_96da_33abaf5935ed);
+pub const GUID_PROCESSOR_THROTTLE_MAXIMUM_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xbc5038f7_23e0_4960_96da_33abaf5935ee);
 pub const GUID_PROCESSOR_THROTTLE_MINIMUM: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x893dee8e_2bef_41e0_89c6_b55d0929964c);
 pub const GUID_PROCESSOR_THROTTLE_MINIMUM_1: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x893dee8e_2bef_41e0_89c6_b55d0929964d);
+pub const GUID_PROCESSOR_THROTTLE_MINIMUM_2: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x893dee8e_2bef_41e0_89c6_b55d0929964e);
 pub const GUID_PROCESSOR_THROTTLE_POLICY: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x57027304_4af6_4104_9260_e3d95248fc36);
+pub const GUID_PROCESSOR_WPS_MIN_EFFICIENCY_THRESHOLD: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x5ba7419a_295c_4b02_841b_66799388d6da);
 pub const GUID_SESSION_DISPLAY_STATUS: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x2b84c20e_ad23_4ddf_93db_05ffbd7efca5);
 pub const GUID_SESSION_USER_PRESENCE: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x3c0f4548_c03f_4c4d_b9f2_237ede686376);
 pub const GUID_SLEEPBUTTON_ACTION: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x96996bc0_ad50_47ec_923b_6f41874dd9eb);
@@ -1488,6 +1499,7 @@ pub const IMAGE_ENCLAVE_IMPORT_MATCH_NONE: u32 = 0u32;
 pub const IMAGE_ENCLAVE_IMPORT_MATCH_UNIQUE_ID: u32 = 1u32;
 pub const IMAGE_ENCLAVE_LONG_ID_LENGTH: u32 = 32u32;
 pub const IMAGE_ENCLAVE_POLICY_DEBUGGABLE: u32 = 1u32;
+pub const IMAGE_ENCLAVE_POLICY_STRICT_MEMORY: u32 = 2u32;
 pub const IMAGE_ENCLAVE_SHORT_ID_LENGTH: u32 = 16u32;
 #[repr(C, packed(1))]
 #[derive(Clone, Copy, Default)]
@@ -2590,9 +2602,10 @@ pub const JOB_OBJECT_QUERY: u32 = 4u32;
 pub const JOB_OBJECT_SET_ATTRIBUTES: u32 = 2u32;
 pub const JOB_OBJECT_SET_SECURITY_ATTRIBUTES: u32 = 16u32;
 pub const JOB_OBJECT_TERMINATE: u32 = 8u32;
-pub const JOB_OBJECT_UILIMIT_ALL: u32 = 511u32;
+pub const JOB_OBJECT_UILIMIT_ALL: u32 = 1023u32;
 pub const JOB_OBJECT_UILIMIT_IME: u32 = 256u32;
-pub const JOB_OBJECT_UI_VALID_FLAGS: u32 = 511u32;
+pub const JOB_OBJECT_UILIMIT_INJECTION: u32 = 512u32;
+pub const JOB_OBJECT_UI_VALID_FLAGS: u32 = 1023u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct KERNEL_CET_CONTEXT {
@@ -2794,6 +2807,7 @@ pub const LOCALE_TRANSIENT_KEYBOARD1: u32 = 8192u32;
 pub const LOCALE_TRANSIENT_KEYBOARD2: u32 = 9216u32;
 pub const LOCALE_TRANSIENT_KEYBOARD3: u32 = 10240u32;
 pub const LOCALE_TRANSIENT_KEYBOARD4: u32 = 11264u32;
+pub const LOCALE_UNASSIGNED_LCID: u32 = 4096u32;
 pub const LTP_PC_SMT: u32 = 1u32;
 pub const LX_FILE_CASE_SENSITIVE_DIR: u32 = 16u32;
 pub const LX_FILE_METADATA_HAS_DEVICE_ID: u32 = 8u32;
@@ -2989,7 +3003,7 @@ pub const PF_TEMPORAL_LEVEL_1: u32 = 1u32;
 pub const PF_TEMPORAL_LEVEL_2: u32 = 2u32;
 pub const PF_TEMPORAL_LEVEL_3: u32 = 3u32;
 pub type PIMAGE_TLS_CALLBACK = Option<unsafe extern "system" fn(dllhandle: *mut core::ffi::c_void, reason: u32, reserved: *mut core::ffi::c_void)>;
-pub const POLICY_AUDIT_SUBCATEGORY_COUNT: u32 = 59u32;
+pub const POLICY_AUDIT_SUBCATEGORY_COUNT: u32 = 60u32;
 #[cfg(any(target_arch = "arm64ec", target_arch = "x86_64"))]
 #[cfg(feature = "Win32_System_Diagnostics_Debug")]
 pub type POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK = Option<unsafe extern "system" fn(process: super::super::Foundation::HANDLE, tableaddress: *const core::ffi::c_void, entries: *mut u32, functions: *mut *mut super::Diagnostics::Debug::IMAGE_RUNTIME_FUNCTION_ENTRY) -> u32>;
@@ -3698,90 +3712,6 @@ pub struct PROCESS_NETWORK_COUNTERS {
 pub const PROCESS_TRUST_LABEL_SECURITY_INFORMATION: i32 = 128i32;
 pub const PROC_IDLE_BUCKET_COUNT: u32 = 6u32;
 pub const PROC_IDLE_BUCKET_COUNT_EX: u32 = 16u32;
-pub const PRODUCT_ARM64_SERVER: u32 = 120u32;
-pub const PRODUCT_AZURESTACKHCI_SERVER_CORE: u32 = 406u32;
-pub const PRODUCT_AZURE_NANO_SERVER: u32 = 169u32;
-pub const PRODUCT_AZURE_SERVER_AGENTBRIDGE: u32 = 208u32;
-pub const PRODUCT_AZURE_SERVER_CLOUDHOST: u32 = 199u32;
-pub const PRODUCT_AZURE_SERVER_CLOUDMOS: u32 = 200u32;
-pub const PRODUCT_AZURE_SERVER_CORE: u32 = 168u32;
-pub const PRODUCT_AZURE_SERVER_NANOHOST: u32 = 209u32;
-pub const PRODUCT_CLOUD: u32 = 178u32;
-pub const PRODUCT_CLOUDE: u32 = 183u32;
-pub const PRODUCT_CLOUDEDITION: u32 = 203u32;
-pub const PRODUCT_CLOUDEDITIONN: u32 = 202u32;
-pub const PRODUCT_CLOUDEN: u32 = 186u32;
-pub const PRODUCT_CLOUDN: u32 = 179u32;
-pub const PRODUCT_CLOUD_HOST_INFRASTRUCTURE_SERVER: u32 = 124u32;
-pub const PRODUCT_CLOUD_STORAGE_SERVER: u32 = 110u32;
-pub const PRODUCT_CONNECTED_CAR: u32 = 117u32;
-pub const PRODUCT_CORE_ARM: u32 = 97u32;
-pub const PRODUCT_CORE_CONNECTED: u32 = 111u32;
-pub const PRODUCT_CORE_CONNECTED_COUNTRYSPECIFIC: u32 = 116u32;
-pub const PRODUCT_CORE_CONNECTED_N: u32 = 113u32;
-pub const PRODUCT_CORE_CONNECTED_SINGLELANGUAGE: u32 = 115u32;
-pub const PRODUCT_DATACENTER_EVALUATION_SERVER_CORE: u32 = 159u32;
-pub const PRODUCT_DATACENTER_NANO_SERVER: u32 = 143u32;
-pub const PRODUCT_DATACENTER_SERVER_AZURE_EDITION: u32 = 407u32;
-pub const PRODUCT_DATACENTER_SERVER_CORE_AZURE_EDITION: u32 = 408u32;
-pub const PRODUCT_DATACENTER_WS_SERVER_CORE: u32 = 147u32;
-pub const PRODUCT_EMBEDDED: u32 = 65u32;
-pub const PRODUCT_EMBEDDED_A: u32 = 88u32;
-pub const PRODUCT_EMBEDDED_AUTOMOTIVE: u32 = 85u32;
-pub const PRODUCT_EMBEDDED_E: u32 = 90u32;
-pub const PRODUCT_EMBEDDED_EVAL: u32 = 107u32;
-pub const PRODUCT_EMBEDDED_E_EVAL: u32 = 108u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY: u32 = 89u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY_A: u32 = 86u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY_A_E: u32 = 92u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY_E: u32 = 91u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY_EVAL: u32 = 105u32;
-pub const PRODUCT_EMBEDDED_INDUSTRY_E_EVAL: u32 = 106u32;
-pub const PRODUCT_ENTERPRISEG: u32 = 171u32;
-pub const PRODUCT_ENTERPRISEGN: u32 = 172u32;
-pub const PRODUCT_ENTERPRISE_SUBSCRIPTION: u32 = 140u32;
-pub const PRODUCT_ENTERPRISE_SUBSCRIPTION_N: u32 = 141u32;
-pub const PRODUCT_HOLOGRAPHIC: u32 = 135u32;
-pub const PRODUCT_HOLOGRAPHIC_BUSINESS: u32 = 136u32;
-pub const PRODUCT_HUBOS: u32 = 180u32;
-pub const PRODUCT_INDUSTRY_HANDHELD: u32 = 118u32;
-pub const PRODUCT_IOTEDGEOS: u32 = 187u32;
-pub const PRODUCT_IOTENTERPRISE: u32 = 188u32;
-pub const PRODUCT_IOTENTERPRISEK: u32 = 206u32;
-pub const PRODUCT_IOTENTERPRISES: u32 = 191u32;
-pub const PRODUCT_IOTENTERPRISESEVAL: u32 = 207u32;
-pub const PRODUCT_IOTENTERPRISESK: u32 = 205u32;
-pub const PRODUCT_IOTOS: u32 = 185u32;
-pub const PRODUCT_LITE: u32 = 189u32;
-pub const PRODUCT_NANO_SERVER: u32 = 109u32;
-pub const PRODUCT_ONECOREUPDATEOS: u32 = 182u32;
-pub const PRODUCT_PPI_PRO: u32 = 119u32;
-pub const PRODUCT_PROFESSIONAL_EMBEDDED: u32 = 58u32;
-pub const PRODUCT_PROFESSIONAL_S: u32 = 127u32;
-pub const PRODUCT_PROFESSIONAL_STUDENT: u32 = 112u32;
-pub const PRODUCT_PROFESSIONAL_STUDENT_N: u32 = 114u32;
-pub const PRODUCT_PROFESSIONAL_S_N: u32 = 128u32;
-pub const PRODUCT_PRO_CHINA: u32 = 139u32;
-pub const PRODUCT_PRO_FOR_EDUCATION: u32 = 164u32;
-pub const PRODUCT_PRO_FOR_EDUCATION_N: u32 = 165u32;
-pub const PRODUCT_PRO_SINGLE_LANGUAGE: u32 = 138u32;
-pub const PRODUCT_SERVERRDSH: u32 = 175u32;
-pub const PRODUCT_SOLUTION_EMBEDDEDSERVER_CORE: u32 = 57u32;
-pub const PRODUCT_STANDARD_EVALUATION_SERVER_CORE: u32 = 160u32;
-pub const PRODUCT_STANDARD_NANO_SERVER: u32 = 144u32;
-pub const PRODUCT_STANDARD_SERVER_CORE: u32 = 13u32;
-pub const PRODUCT_STANDARD_WS_SERVER_CORE: u32 = 148u32;
-pub const PRODUCT_THINPC: u32 = 87u32;
-pub const PRODUCT_UNLICENSED: u32 = 2882382797u32;
-pub const PRODUCT_UTILITY_VM: u32 = 149u32;
-pub const PRODUCT_VALIDATION: u32 = 204u32;
-pub const PRODUCT_WNC: u32 = 210u32;
-pub const PRODUCT_XBOX_DURANGOHOSTOS: u32 = 196u32;
-pub const PRODUCT_XBOX_ERAOS: u32 = 195u32;
-pub const PRODUCT_XBOX_GAMEOS: u32 = 194u32;
-pub const PRODUCT_XBOX_KEYSTONE: u32 = 198u32;
-pub const PRODUCT_XBOX_SCARLETTHOSTOS: u32 = 197u32;
-pub const PRODUCT_XBOX_SYSTEMOS: u32 = 192u32;
 #[cfg(any(target_arch = "arm64ec", target_arch = "x86_64"))]
 pub type PTERMINATION_HANDLER = Option<unsafe extern "system" fn(_abnormal_termination: bool, establisherframe: *mut core::ffi::c_void)>;
 #[cfg(target_arch = "aarch64")]
@@ -3800,6 +3730,10 @@ pub const PowerLimitContinuous: POWER_LIMIT_TYPES = 0i32;
 pub const PowerLimitPreemptive: POWER_LIMIT_TYPES = 3i32;
 pub const PowerLimitPreemptiveOffset: POWER_LIMIT_TYPES = 4i32;
 pub const PowerLimitRapid: POWER_LIMIT_TYPES = 2i32;
+pub const PowerLimitType1: POWER_LIMIT_TYPES = 0i32;
+pub const PowerLimitType2: POWER_LIMIT_TYPES = 1i32;
+pub const PowerLimitType3: POWER_LIMIT_TYPES = 2i32;
+pub const PowerLimitType4: POWER_LIMIT_TYPES = 3i32;
 pub const PowerLimitTypeMax: POWER_LIMIT_TYPES = 5i32;
 pub const PowerMonitorDim: MONITOR_DISPLAY_STATE = 2i32;
 pub const PowerMonitorOff: MONITOR_DISPLAY_STATE = 0i32;
@@ -4848,6 +4782,21 @@ pub const SYSTEM_MANDATORY_LABEL_ACE_TYPE: u32 = 17u32;
 pub const SYSTEM_MANDATORY_LABEL_NO_EXECUTE_UP: u32 = 4u32;
 pub const SYSTEM_MANDATORY_LABEL_NO_READ_UP: u32 = 2u32;
 pub const SYSTEM_MANDATORY_LABEL_NO_WRITE_UP: u32 = 1u32;
+#[repr(C)]
+#[cfg(feature = "Win32_System_Power")]
+#[derive(Clone, Copy, Default)]
+pub struct SYSTEM_POWER_SOURCE_STATE {
+    pub BatteryState: super::Power::SYSTEM_BATTERY_STATE,
+    pub InstantaneousPeakPower: u32,
+    pub InstantaneousPeakPeriod: u32,
+    pub SustainablePeakPower: u32,
+    pub SustainablePeakPeriod: u32,
+    pub PeakPower: u32,
+    pub MaxOutputPower: u32,
+    pub MaxInputPower: u32,
+    pub BatteryRateInCurrent: i32,
+    pub BatteryVoltage: u32,
+}
 pub const SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE: u32 = 20u32;
 pub const SYSTEM_PROCESS_TRUST_LABEL_VALID_MASK: u32 = 16777215u32;
 pub const SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK: u32 = 4294967295u32;

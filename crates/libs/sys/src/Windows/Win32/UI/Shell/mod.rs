@@ -2022,6 +2022,7 @@ pub const COPYENGINE_E_SRC_IS_RW_DVD: windows_sys::core::HRESULT = 0x80270019_u3
 pub const COPYENGINE_E_SRC_IS_R_CD: windows_sys::core::HRESULT = 0x80270017_u32 as _;
 pub const COPYENGINE_E_SRC_IS_R_DVD: windows_sys::core::HRESULT = 0x8027001A_u32 as _;
 pub const COPYENGINE_E_STREAM_LOSS: windows_sys::core::HRESULT = 0x8027002D_u32 as _;
+pub const COPYENGINE_E_SUPPRESS_DIALOG: windows_sys::core::HRESULT = 0x80270050_u32 as _;
 pub const COPYENGINE_E_USER_CANCELLED: windows_sys::core::HRESULT = 0x80270000_u32 as _;
 pub const COPYENGINE_E_WARNED_BY_DLP_POLICY: windows_sys::core::HRESULT = 0x8027004D_u32 as _;
 pub const COPYENGINE_S_ALREADY_DONE: windows_sys::core::HRESULT = 0x27000A_u32 as _;

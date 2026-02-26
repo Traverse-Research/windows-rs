@@ -245,6 +245,7 @@ impl Default for POINTER_TYPE_INFO {
 #[cfg(feature = "Win32_UI_WindowsAndMessaging")]
 #[derive(Clone, Copy)]
 pub union POINTER_TYPE_INFO_0 {
+    pub pointerInfo: POINTER_INFO,
     pub touchInfo: POINTER_TOUCH_INFO,
     pub penInfo: POINTER_PEN_INFO,
 }

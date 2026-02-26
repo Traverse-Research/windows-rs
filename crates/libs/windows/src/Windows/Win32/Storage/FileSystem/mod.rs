@@ -245,6 +245,24 @@ where
 }
 #[cfg(feature = "Win32_Security")]
 #[inline]
+pub unsafe fn CreateDirectory2A<P0>(lppathname: P0, dwdesiredaccess: u32, dwsharemode: u32, directoryflags: DIRECTORY_FLAGS, lpsecurityattributes: Option<*const super::super::Security::SECURITY_ATTRIBUTES>) -> super::super::Foundation::HANDLE
+where
+    P0: windows_core::Param<windows_core::PCSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn CreateDirectory2A(lppathname : windows_core::PCSTR, dwdesiredaccess : u32, dwsharemode : u32, directoryflags : DIRECTORY_FLAGS, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> super::super::Foundation:: HANDLE);
+    unsafe { CreateDirectory2A(lppathname.param().abi(), dwdesiredaccess, dwsharemode, directoryflags, lpsecurityattributes.unwrap_or(core::mem::zeroed()) as _) }
+}
+#[cfg(feature = "Win32_Security")]
+#[inline]
+pub unsafe fn CreateDirectory2W<P0>(lppathname: P0, dwdesiredaccess: u32, dwsharemode: u32, directoryflags: DIRECTORY_FLAGS, lpsecurityattributes: Option<*const super::super::Security::SECURITY_ATTRIBUTES>) -> super::super::Foundation::HANDLE
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn CreateDirectory2W(lppathname : windows_core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, directoryflags : DIRECTORY_FLAGS, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> super::super::Foundation:: HANDLE);
+    unsafe { CreateDirectory2W(lppathname.param().abi(), dwdesiredaccess, dwsharemode, directoryflags, lpsecurityattributes.unwrap_or(core::mem::zeroed()) as _) }
+}
+#[cfg(feature = "Win32_Security")]
+#[inline]
 pub unsafe fn CreateDirectoryA<P0>(lppathname: P0, lpsecurityattributes: Option<*const super::super::Security::SECURITY_ATTRIBUTES>) -> windows_core::Result<()>
 where
     P0: windows_core::Param<windows_core::PCSTR>,
@@ -335,6 +353,15 @@ where
 {
     windows_link::link!("api-ms-win-core-file-fromapp-l1-1-0.dll" "system" fn CreateFile2FromAppW(lpfilename : windows_core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, dwcreationdisposition : u32, pcreateexparams : *const CREATEFILE2_EXTENDED_PARAMETERS) -> super::super::Foundation:: HANDLE);
     unsafe { CreateFile2FromAppW(lpfilename.param().abi(), dwdesiredaccess, dwsharemode, dwcreationdisposition, pcreateexparams.unwrap_or(core::mem::zeroed()) as _) }
+}
+#[cfg(feature = "Win32_Security")]
+#[inline]
+pub unsafe fn CreateFile3<P0>(lpfilename: P0, dwdesiredaccess: u32, dwsharemode: u32, dwcreationdisposition: u32, pcreateexparams: Option<*const CREATEFILE3_EXTENDED_PARAMETERS>) -> super::super::Foundation::HANDLE
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn CreateFile3(lpfilename : windows_core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, dwcreationdisposition : u32, pcreateexparams : *const CREATEFILE3_EXTENDED_PARAMETERS) -> super::super::Foundation:: HANDLE);
+    unsafe { CreateFile3(lpfilename.param().abi(), dwdesiredaccess, dwsharemode, dwcreationdisposition, pcreateexparams.unwrap_or(core::mem::zeroed()) as _) }
 }
 #[cfg(feature = "Win32_Security")]
 #[inline]
@@ -558,6 +585,22 @@ where
 {
     windows_link::link!("kernel32.dll" "system" fn DefineDosDeviceW(dwflags : DEFINE_DOS_DEVICE_FLAGS, lpdevicename : windows_core::PCWSTR, lptargetpath : windows_core::PCWSTR) -> windows_core::BOOL);
     unsafe { DefineDosDeviceW(dwflags, lpdevicename.param().abi(), lptargetpath.param().abi()).ok() }
+}
+#[inline]
+pub unsafe fn DeleteFile2A<P0>(lpfilename: P0, flags: u32) -> windows_core::BOOL
+where
+    P0: windows_core::Param<windows_core::PCSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn DeleteFile2A(lpfilename : windows_core::PCSTR, flags : u32) -> windows_core::BOOL);
+    unsafe { DeleteFile2A(lpfilename.param().abi(), flags) }
+}
+#[inline]
+pub unsafe fn DeleteFile2W<P0>(lpfilename: P0, flags: u32) -> windows_core::BOOL
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn DeleteFile2W(lpfilename : windows_core::PCWSTR, flags : u32) -> windows_core::BOOL);
+    unsafe { DeleteFile2W(lpfilename.param().abi(), flags) }
 }
 #[inline]
 pub unsafe fn DeleteFileA<P0>(lpfilename: P0) -> windows_core::Result<()>
@@ -2228,6 +2271,22 @@ where
     unsafe { RemoveBindLink(virtualpath.param().abi()).ok() }
 }
 #[inline]
+pub unsafe fn RemoveDirectory2A<P0>(lppathname: P0, directoryflags: DIRECTORY_FLAGS) -> windows_core::BOOL
+where
+    P0: windows_core::Param<windows_core::PCSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn RemoveDirectory2A(lppathname : windows_core::PCSTR, directoryflags : DIRECTORY_FLAGS) -> windows_core::BOOL);
+    unsafe { RemoveDirectory2A(lppathname.param().abi(), directoryflags) }
+}
+#[inline]
+pub unsafe fn RemoveDirectory2W<P0>(lppathname: P0, directoryflags: DIRECTORY_FLAGS) -> windows_core::BOOL
+where
+    P0: windows_core::Param<windows_core::PCWSTR>,
+{
+    windows_link::link!("kernel32.dll" "system" fn RemoveDirectory2W(lppathname : windows_core::PCWSTR, directoryflags : DIRECTORY_FLAGS) -> windows_core::BOOL);
+    unsafe { RemoveDirectory2W(lppathname.param().abi(), directoryflags) }
+}
+#[inline]
 pub unsafe fn RemoveDirectoryA<P0>(lppathname: P0) -> windows_core::Result<()>
 where
     P0: windows_core::Param<windows_core::PCSTR>,
@@ -3660,6 +3719,23 @@ impl Default for CREATEFILE2_EXTENDED_PARAMETERS {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[cfg(feature = "Win32_Security")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct CREATEFILE3_EXTENDED_PARAMETERS {
+    pub dwSize: u32,
+    pub dwFileAttributes: u32,
+    pub dwFileFlags: u32,
+    pub dwSecurityQosFlags: u32,
+    pub lpSecurityAttributes: *mut super::super::Security::SECURITY_ATTRIBUTES,
+    pub hTemplateFile: super::super::Foundation::HANDLE,
+}
+#[cfg(feature = "Win32_Security")]
+impl Default for CREATEFILE3_EXTENDED_PARAMETERS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 pub const CREATE_ALWAYS: FILE_CREATION_DISPOSITION = FILE_CREATION_DISPOSITION(2u32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -3808,6 +3884,44 @@ impl core::ops::Not for DEFINE_DOS_DEVICE_FLAGS {
     }
 }
 pub const DELETE: FILE_ACCESS_RIGHTS = FILE_ACCESS_RIGHTS(65536u32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct DIRECTORY_FLAGS(pub i32);
+impl DIRECTORY_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for DIRECTORY_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for DIRECTORY_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for DIRECTORY_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for DIRECTORY_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for DIRECTORY_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const DIRECTORY_FLAGS_DISALLOW_PATH_REDIRECTS: DIRECTORY_FLAGS = DIRECTORY_FLAGS(1i32);
+pub const DIRECTORY_FLAGS_NONE: DIRECTORY_FLAGS = DIRECTORY_FLAGS(0i32);
 pub const DISKQUOTA_FILESTATE_INCOMPLETE: u32 = 256u32;
 pub const DISKQUOTA_FILESTATE_MASK: u32 = 768u32;
 pub const DISKQUOTA_FILESTATE_REBUILDING: u32 = 512u32;

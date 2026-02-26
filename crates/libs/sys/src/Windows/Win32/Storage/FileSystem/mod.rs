@@ -40,6 +40,10 @@ windows_targets::link!("kernel32.dll" "system" fn CopyFileW(lpexistingfilename :
 windows_targets::link!("kernel32.dll" "system" fn CopyLZFile(hfsource : i32, hfdest : i32) -> i32);
 windows_targets::link!("bindfltapi.dll" "system" fn CreateBindLink(virtualpath : windows_sys::core::PCWSTR, backingpath : windows_sys::core::PCWSTR, createbindlinkflags : CREATE_BIND_LINK_FLAGS, exceptioncount : u32, exceptionpaths : *const windows_sys::core::PCWSTR) -> windows_sys::core::HRESULT);
 #[cfg(feature = "Win32_Security")]
+windows_targets::link!("kernel32.dll" "system" fn CreateDirectory2A(lppathname : windows_sys::core::PCSTR, dwdesiredaccess : u32, dwsharemode : u32, directoryflags : DIRECTORY_FLAGS, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> super::super::Foundation:: HANDLE);
+#[cfg(feature = "Win32_Security")]
+windows_targets::link!("kernel32.dll" "system" fn CreateDirectory2W(lppathname : windows_sys::core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, directoryflags : DIRECTORY_FLAGS, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> super::super::Foundation:: HANDLE);
+#[cfg(feature = "Win32_Security")]
 windows_targets::link!("kernel32.dll" "system" fn CreateDirectoryA(lppathname : windows_sys::core::PCSTR, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> windows_sys::core::BOOL);
 #[cfg(feature = "Win32_Security")]
 windows_targets::link!("kernel32.dll" "system" fn CreateDirectoryExA(lptemplatedirectory : windows_sys::core::PCSTR, lpnewdirectory : windows_sys::core::PCSTR, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES) -> windows_sys::core::BOOL);
@@ -59,6 +63,8 @@ windows_targets::link!("ktmw32.dll" "system" fn CreateEnlistment(lpenlistmentatt
 windows_targets::link!("kernel32.dll" "system" fn CreateFile2(lpfilename : windows_sys::core::PCWSTR, dwdesiredaccess : u32, dwsharemode : FILE_SHARE_MODE, dwcreationdisposition : FILE_CREATION_DISPOSITION, pcreateexparams : *const CREATEFILE2_EXTENDED_PARAMETERS) -> super::super::Foundation:: HANDLE);
 #[cfg(feature = "Win32_Security")]
 windows_targets::link!("api-ms-win-core-file-fromapp-l1-1-0.dll" "system" fn CreateFile2FromAppW(lpfilename : windows_sys::core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, dwcreationdisposition : u32, pcreateexparams : *const CREATEFILE2_EXTENDED_PARAMETERS) -> super::super::Foundation:: HANDLE);
+#[cfg(feature = "Win32_Security")]
+windows_targets::link!("kernel32.dll" "system" fn CreateFile3(lpfilename : windows_sys::core::PCWSTR, dwdesiredaccess : u32, dwsharemode : u32, dwcreationdisposition : u32, pcreateexparams : *const CREATEFILE3_EXTENDED_PARAMETERS) -> super::super::Foundation:: HANDLE);
 #[cfg(feature = "Win32_Security")]
 windows_targets::link!("kernel32.dll" "system" fn CreateFileA(lpfilename : windows_sys::core::PCSTR, dwdesiredaccess : u32, dwsharemode : FILE_SHARE_MODE, lpsecurityattributes : *const super::super::Security:: SECURITY_ATTRIBUTES, dwcreationdisposition : FILE_CREATION_DISPOSITION, dwflagsandattributes : FILE_FLAGS_AND_ATTRIBUTES, htemplatefile : super::super::Foundation:: HANDLE) -> super::super::Foundation:: HANDLE);
 #[cfg(feature = "Win32_Security")]
@@ -98,6 +104,8 @@ windows_targets::link!("advapi32.dll" "system" fn DecryptFileA(lpfilename : wind
 windows_targets::link!("advapi32.dll" "system" fn DecryptFileW(lpfilename : windows_sys::core::PCWSTR, dwreserved : u32) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn DefineDosDeviceA(dwflags : DEFINE_DOS_DEVICE_FLAGS, lpdevicename : windows_sys::core::PCSTR, lptargetpath : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn DefineDosDeviceW(dwflags : DEFINE_DOS_DEVICE_FLAGS, lpdevicename : windows_sys::core::PCWSTR, lptargetpath : windows_sys::core::PCWSTR) -> windows_sys::core::BOOL);
+windows_targets::link!("kernel32.dll" "system" fn DeleteFile2A(lpfilename : windows_sys::core::PCSTR, flags : u32) -> windows_sys::core::BOOL);
+windows_targets::link!("kernel32.dll" "system" fn DeleteFile2W(lpfilename : windows_sys::core::PCWSTR, flags : u32) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn DeleteFileA(lpfilename : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("api-ms-win-core-file-fromapp-l1-1-0.dll" "system" fn DeleteFileFromAppW(lpfilename : windows_sys::core::PCWSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn DeleteFileTransactedA(lpfilename : windows_sys::core::PCSTR, htransaction : super::super::Foundation:: HANDLE) -> windows_sys::core::BOOL);
@@ -356,6 +364,8 @@ windows_targets::link!("ktmw32.dll" "system" fn RecoverTransactionManager(transa
 windows_targets::link!("clfsw32.dll" "system" fn RegisterForLogWriteNotification(hlog : super::super::Foundation:: HANDLE, cbthreshold : u32, fenable : windows_sys::core::BOOL) -> windows_sys::core::BOOL);
 windows_targets::link!("clfsw32.dll" "system" fn RegisterManageableLogClient(hlog : super::super::Foundation:: HANDLE, pcallbacks : *mut LOG_MANAGEMENT_CALLBACKS) -> windows_sys::core::BOOL);
 windows_targets::link!("bindfltapi.dll" "system" fn RemoveBindLink(virtualpath : windows_sys::core::PCWSTR) -> windows_sys::core::HRESULT);
+windows_targets::link!("kernel32.dll" "system" fn RemoveDirectory2A(lppathname : windows_sys::core::PCSTR, directoryflags : DIRECTORY_FLAGS) -> windows_sys::core::BOOL);
+windows_targets::link!("kernel32.dll" "system" fn RemoveDirectory2W(lppathname : windows_sys::core::PCWSTR, directoryflags : DIRECTORY_FLAGS) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn RemoveDirectoryA(lppathname : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("api-ms-win-core-file-fromapp-l1-1-0.dll" "system" fn RemoveDirectoryFromAppW(lppathname : windows_sys::core::PCWSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("kernel32.dll" "system" fn RemoveDirectoryTransactedA(lppathname : windows_sys::core::PCSTR, htransaction : super::super::Foundation:: HANDLE) -> windows_sys::core::BOOL);
@@ -1064,6 +1074,23 @@ impl Default for CREATEFILE2_EXTENDED_PARAMETERS {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[cfg(feature = "Win32_Security")]
+#[derive(Clone, Copy)]
+pub struct CREATEFILE3_EXTENDED_PARAMETERS {
+    pub dwSize: u32,
+    pub dwFileAttributes: u32,
+    pub dwFileFlags: u32,
+    pub dwSecurityQosFlags: u32,
+    pub lpSecurityAttributes: *mut super::super::Security::SECURITY_ATTRIBUTES,
+    pub hTemplateFile: super::super::Foundation::HANDLE,
+}
+#[cfg(feature = "Win32_Security")]
+impl Default for CREATEFILE3_EXTENDED_PARAMETERS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 pub const CREATE_ALWAYS: FILE_CREATION_DISPOSITION = 2u32;
 pub type CREATE_BIND_LINK_FLAGS = i32;
 pub const CREATE_BIND_LINK_FLAG_MERGED: CREATE_BIND_LINK_FLAGS = 2i32;
@@ -1140,6 +1167,9 @@ pub const DDD_RAW_TARGET_PATH: DEFINE_DOS_DEVICE_FLAGS = 1u32;
 pub const DDD_REMOVE_DEFINITION: DEFINE_DOS_DEVICE_FLAGS = 2u32;
 pub type DEFINE_DOS_DEVICE_FLAGS = u32;
 pub const DELETE: FILE_ACCESS_RIGHTS = 65536u32;
+pub type DIRECTORY_FLAGS = i32;
+pub const DIRECTORY_FLAGS_DISALLOW_PATH_REDIRECTS: DIRECTORY_FLAGS = 1i32;
+pub const DIRECTORY_FLAGS_NONE: DIRECTORY_FLAGS = 0i32;
 pub const DISKQUOTA_FILESTATE_INCOMPLETE: u32 = 256u32;
 pub const DISKQUOTA_FILESTATE_MASK: u32 = 768u32;
 pub const DISKQUOTA_FILESTATE_REBUILDING: u32 = 512u32;

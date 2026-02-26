@@ -163,6 +163,117 @@ pub struct NVMEOF_ADDRESS_FAMILY(pub i32);
 pub const NVMEOF_ADMINQ_MAX_DEPTH: u32 = 4096u32;
 pub const NVMEOF_ADMINQ_MIN_DEPTH: u32 = 32u32;
 #[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_CHALLENGE {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub HL: u8,
+    pub Reserved1: u8,
+    pub HashID: u8,
+    pub DHgID: u8,
+    pub DHVLEN: u16,
+    pub SEQNUM: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_DESCRIPTOR {
+    pub AuthId: u8,
+    pub Reserved0: u8,
+    pub HALEN: u8,
+    pub DHLEN: u8,
+    pub IdList: [u8; 60],
+}
+impl Default for NVMEOF_AUTH_DHCHAP_DESCRIPTOR {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_GROUP_ID(pub i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_HASH_ID(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_REPLY {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub HL: u8,
+    pub Reserved1: u8,
+    pub CVALID: u8,
+    pub Reserved2: u8,
+    pub DHVLEN: u16,
+    pub SEQNUM: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_SUCCESS1 {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub HL: u8,
+    pub Reserved1: u8,
+    pub RVALID: u8,
+    pub Reserved2: [u8; 7],
+}
+impl Default for NVMEOF_AUTH_DHCHAP_SUCCESS1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct NVMEOF_AUTH_DHCHAP_SUCCESS2 {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub Reserved1: [u8; 10],
+}
+impl Default for NVMEOF_AUTH_DHCHAP_SUCCESS2 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVMEOF_AUTH_FAILURE {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub ReasonCode: u8,
+    pub ReasonExplanation: u8,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_FAIL_REASON_CODE(pub i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_FAIL_REASON_EXPLANATION(pub i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_ID(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVMEOF_AUTH_NEGOTIATE {
+    pub AUTH_TYPE: u8,
+    pub AUTH_ID: u8,
+    pub Reserved0: u16,
+    pub T_ID: u16,
+    pub SC_C: u8,
+    pub NAPD: u8,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_PROTOCOL(pub i32);
+#[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVMEOF_AUTH_RECEIVE_COMMAND {
     pub OPC: u8,
@@ -192,6 +303,9 @@ pub struct NVMEOF_AUTH_RECEIVE_RESPONSE {
     pub CID: u16,
     pub STS: u16,
 }
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_SECURE_CHANNEL(pub i32);
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVMEOF_AUTH_SEND_COMMAND {
@@ -222,6 +336,9 @@ pub struct NVMEOF_AUTH_SEND_RESPONSE {
     pub CID: u16,
     pub STS: u16,
 }
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_AUTH_TYPE(pub i32);
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVMEOF_CONNECT_COMMAND {
@@ -328,6 +445,12 @@ impl Default for NVMEOF_CONNECT_RESPONSE_0_0_0 {
 pub struct NVMEOF_CONNECT_RESPONSE_0_0_0_0 {
     pub _bitfield: u16,
 }
+pub const NVMEOF_DHCHAP_PREFIX_V1: windows_core::PCSTR = windows_core::s!("DHHC-1:");
+pub const NVMEOF_DHCHAP_PROTOCOL_ID: u32 = 1u32;
+pub const NVMEOF_DHCHAP_REPLY_CVAL_NOTVALID: u32 = 0u32;
+pub const NVMEOF_DHCHAP_REPLY_CVAL_VALID: u32 = 1u32;
+pub const NVMEOF_DHCHAP_SUCCESS1_RVAL_NOTVALID: u32 = 0u32;
+pub const NVMEOF_DHCHAP_SUCCESS1_RVAL_VALID: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVMEOF_DISCONNECT_COMMAND {
@@ -356,58 +479,6 @@ pub struct NVMEOF_DISCONNECT_RESPONSE {
 }
 pub const NVMEOF_DISCOVERY_LOG_VERSION_0: u32 = 0u32;
 pub const NVMEOF_DISCOVERY_NQN: windows_core::PCSTR = windows_core::s!("nqn.2014-08.org.nvmexpress.discovery");
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVMEOF_DISC_LOGPAGE {
-    pub GENCTR: u64,
-    pub NUMREC: u64,
-    pub RECFMT: u16,
-    pub Reserved0: [u8; 1006],
-    pub Entries: [NVMEOF_DISC_LPE; 1],
-}
-impl Default for NVMEOF_DISC_LOGPAGE {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVMEOF_DISC_LPE {
-    pub TRTYPE: u8,
-    pub ADRFAM: u8,
-    pub SUBTYPE: u8,
-    pub TREQ: NVMEOF_DISC_LPE_0,
-    pub PORTID: u16,
-    pub CNTLID: u16,
-    pub ASQSZ: u16,
-    pub Reserved0: [u8; 22],
-    pub TRSVCID: [u8; 32],
-    pub Reserved1: [u8; 192],
-    pub SUBNQN: [u8; 256],
-    pub TRADDR: [u8; 256],
-    pub TSAS: [u8; 256],
-}
-impl Default for NVMEOF_DISC_LPE {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub union NVMEOF_DISC_LPE_0 {
-    pub Anonymous: NVMEOF_DISC_LPE_0_0,
-    pub AsUchar: u8,
-}
-impl Default for NVMEOF_DISC_LPE_0 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
-pub struct NVMEOF_DISC_LPE_0_0 {
-    pub _bitfield: u8,
-}
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NVMEOF_FABRICS_COMMAND {
@@ -439,8 +510,6 @@ impl Default for NVMEOF_FABRICS_RESPONSE {
 }
 pub const NVMEOF_IOQ_MAX_DEPTH: u32 = 65536u32;
 pub const NVMEOF_IOQ_MIN_DEPTH: u32 = 2u32;
-pub const NVMEOF_NUM_AEN_DISC_CTRL: u32 = 1u32;
-pub const NVMEOF_NUM_AEN_IO_CTRL: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NVMEOF_PROPERTY_GET_COMMAND {
@@ -552,6 +621,9 @@ pub const NVMEOF_PROPERTY_SIZE_8Bytes: u32 = 1u32;
 pub struct NVMEOF_SECURE_CHANNEL(pub i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVMEOF_SECURE_CHANNEL_PROTOCOL(pub i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct NVMEOF_SUBSYSTEM_TYPE(pub i32);
 pub const NVMEOF_TRANSPORT_ADDR_MAX_LEN: u32 = 256u32;
 pub const NVMEOF_TRANSPORT_SAS_MAX_LEN: u32 = 256u32;
@@ -601,7 +673,9 @@ pub const NVME_ADMIN_COMMAND_DELETE_IO_SQ: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMM
 pub const NVME_ADMIN_COMMAND_DEVICE_SELF_TEST: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(20i32);
 pub const NVME_ADMIN_COMMAND_DIRECTIVE_RECEIVE: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(26i32);
 pub const NVME_ADMIN_COMMAND_DIRECTIVE_SEND: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(25i32);
+pub const NVME_ADMIN_COMMAND_DISCOVERY_INFO_MGMT: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(33i32);
 pub const NVME_ADMIN_COMMAND_DOORBELL_BUFFER_CONFIG: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(124i32);
+pub const NVME_ADMIN_COMMAND_FABRICS: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(127i32);
 pub const NVME_ADMIN_COMMAND_FIRMWARE_ACTIVATE: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(16i32);
 pub const NVME_ADMIN_COMMAND_FIRMWARE_COMMIT: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(16i32);
 pub const NVME_ADMIN_COMMAND_FIRMWARE_IMAGE_DOWNLOAD: NVME_ADMIN_COMMANDS = NVME_ADMIN_COMMANDS(17i32);
@@ -676,9 +750,9 @@ pub const NVME_AMS_WEIGHTED_ROUND_ROBIN_URGENT: NVME_AMS_OPTION = NVME_AMS_OPTIO
 pub const NVME_ASYNC_ERROR_DIAG_FAILURE: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(2i32);
 pub const NVME_ASYNC_ERROR_FIRMWARE_IMAGE_LOAD_ERROR: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(5i32);
 pub const NVME_ASYNC_ERROR_INVALID_DOORBELL_WRITE_VALUE: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(1i32);
-pub const NVME_ASYNC_ERROR_INVALID_SUBMISSION_QUEUE: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(0i32);
 pub const NVME_ASYNC_ERROR_PERSISTENT_INTERNAL_DEVICE_ERROR: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(3i32);
 pub const NVME_ASYNC_ERROR_TRANSIENT_INTERNAL_DEVICE_ERROR: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(4i32);
+pub const NVME_ASYNC_ERROR_WRITE_TO_INVALID_DOORBELL_REGISTER: NVME_ASYNC_EVENT_ERROR_STATUS_CODES = NVME_ASYNC_EVENT_ERROR_STATUS_CODES(0i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct NVME_ASYNC_EVENT_ERROR_STATUS_CODES(pub i32);
@@ -855,6 +929,22 @@ pub struct NVME_CDW10_DATASET_MANAGEMENT_0 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub union NVME_CDW10_DELETE_IO_QUEUE {
+    pub Anonymous: NVME_CDW10_DELETE_IO_QUEUE_0,
+    pub AsUlong: u32,
+}
+impl Default for NVME_CDW10_DELETE_IO_QUEUE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_CDW10_DELETE_IO_QUEUE_0 {
+    pub _bitfield: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub union NVME_CDW10_DEVICE_SELF_TEST {
     pub Anonymous: NVME_CDW10_DEVICE_SELF_TEST_0,
     pub AsUlong: u32,
@@ -878,6 +968,22 @@ pub struct NVME_CDW10_DIRECTIVE_RECEIVE {
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct NVME_CDW10_DIRECTIVE_SEND {
     pub NUMD: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_CDW10_DISCOVERY_INFO_MGMT {
+    pub Anonymous: NVME_CDW10_DISCOVERY_INFO_MGMT_0,
+    pub AsUlong: u32,
+}
+impl Default for NVME_CDW10_DISCOVERY_INFO_MGMT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_CDW10_DISCOVERY_INFO_MGMT_0 {
+    pub _bitfield: u32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -1817,6 +1923,22 @@ pub struct NVME_CDW12_READ_WRITE_0 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub union NVME_CDW12_VERIFYCOMMAND {
+    pub Anonymous: NVME_CDW12_VERIFYCOMMAND_0,
+    pub AsUlong: u32,
+}
+impl Default for NVME_CDW12_VERIFYCOMMAND {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_CDW12_VERIFYCOMMAND_0 {
+    pub _bitfield: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub union NVME_CDW12_ZONE_APPEND {
     pub Anonymous: NVME_CDW12_ZONE_APPEND_0,
     pub AsUlong: u32,
@@ -2044,6 +2166,22 @@ pub struct NVME_CDW15_READ_WRITE_0 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub union NVME_CDW15_VERIFY_COMMAND {
+    pub Anonymous: NVME_CDW15_VERIFY_COMMAND_0,
+    pub AsUlong: u32,
+}
+impl Default for NVME_CDW15_VERIFY_COMMAND {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_CDW15_VERIFY_COMMAND_0 {
+    pub _bitfield: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub union NVME_CDW15_ZONE_APPEND {
     pub Anonymous: NVME_CDW15_ZONE_APPEND_0,
     pub AsUlong: u32,
@@ -2133,25 +2271,28 @@ pub union NVME_COMMAND_1 {
     pub GETLOGPAGE: NVME_COMMAND_1_5,
     pub CREATEIOCQ: NVME_COMMAND_1_6,
     pub CREATEIOSQ: NVME_COMMAND_1_7,
-    pub DATASETMANAGEMENT: NVME_COMMAND_1_8,
-    pub SECURITYSEND: NVME_COMMAND_1_9,
-    pub SECURITYRECEIVE: NVME_COMMAND_1_10,
-    pub FIRMWAREDOWNLOAD: NVME_COMMAND_1_11,
-    pub FIRMWAREACTIVATE: NVME_COMMAND_1_12,
-    pub FORMATNVM: NVME_COMMAND_1_13,
-    pub DIRECTIVERECEIVE: NVME_COMMAND_1_14,
-    pub DIRECTIVESEND: NVME_COMMAND_1_15,
-    pub SANITIZE: NVME_COMMAND_1_16,
-    pub READWRITE: NVME_COMMAND_1_17,
-    pub RESERVATIONACQUIRE: NVME_COMMAND_1_18,
-    pub RESERVATIONREGISTER: NVME_COMMAND_1_19,
-    pub RESERVATIONRELEASE: NVME_COMMAND_1_20,
-    pub RESERVATIONREPORT: NVME_COMMAND_1_21,
-    pub ZONEMANAGEMENTSEND: NVME_COMMAND_1_22,
-    pub ZONEMANAGEMENTRECEIVE: NVME_COMMAND_1_23,
-    pub ZONEAPPEND: NVME_COMMAND_1_24,
-    pub DEVICESELFTEST: NVME_COMMAND_1_25,
-    pub VENDORSPECIFIC: NVME_COMMAND_1_26,
+    pub DELETEIOQUEUE: NVME_COMMAND_1_8,
+    pub DATASETMANAGEMENT: NVME_COMMAND_1_9,
+    pub SECURITYSEND: NVME_COMMAND_1_10,
+    pub SECURITYRECEIVE: NVME_COMMAND_1_11,
+    pub FIRMWAREDOWNLOAD: NVME_COMMAND_1_12,
+    pub FIRMWAREACTIVATE: NVME_COMMAND_1_13,
+    pub FORMATNVM: NVME_COMMAND_1_14,
+    pub DIRECTIVERECEIVE: NVME_COMMAND_1_15,
+    pub DIRECTIVESEND: NVME_COMMAND_1_16,
+    pub SANITIZE: NVME_COMMAND_1_17,
+    pub READWRITE: NVME_COMMAND_1_18,
+    pub RESERVATIONACQUIRE: NVME_COMMAND_1_19,
+    pub RESERVATIONREGISTER: NVME_COMMAND_1_20,
+    pub RESERVATIONRELEASE: NVME_COMMAND_1_21,
+    pub RESERVATIONREPORT: NVME_COMMAND_1_22,
+    pub ZONEMANAGEMENTSEND: NVME_COMMAND_1_23,
+    pub ZONEMANAGEMENTRECEIVE: NVME_COMMAND_1_24,
+    pub ZONEAPPEND: NVME_COMMAND_1_25,
+    pub DEVICESELFTEST: NVME_COMMAND_1_26,
+    pub DISCOVERYINFOMGMT: NVME_COMMAND_1_27,
+    pub VENDORSPECIFIC: NVME_COMMAND_1_28,
+    pub VERIFYCOMMAND: NVME_COMMAND_1_29,
 }
 impl Default for NVME_COMMAND_1 {
     fn default() -> Self {
@@ -2205,13 +2346,23 @@ impl Default for NVME_COMMAND_1_7 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_8 {
+pub struct NVME_COMMAND_1_9 {
     pub CDW10: NVME_CDW10_DATASET_MANAGEMENT,
     pub CDW11: NVME_CDW11_DATASET_MANAGEMENT,
     pub CDW12: u32,
     pub CDW13: u32,
     pub CDW14: u32,
     pub CDW15: u32,
+}
+impl Default for NVME_COMMAND_1_9 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_8 {
+    pub CDW10: NVME_CDW10_DELETE_IO_QUEUE,
 }
 impl Default for NVME_COMMAND_1_8 {
     fn default() -> Self {
@@ -2220,7 +2371,7 @@ impl Default for NVME_COMMAND_1_8 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_25 {
+pub struct NVME_COMMAND_1_26 {
     pub CDW10: NVME_CDW10_DEVICE_SELF_TEST,
     pub CDW11: u32,
     pub CDW12: u32,
@@ -2228,22 +2379,7 @@ pub struct NVME_COMMAND_1_25 {
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_25 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_14 {
-    pub CDW10: NVME_CDW10_DIRECTIVE_RECEIVE,
-    pub CDW11: NVME_CDW11_DIRECTIVE_RECEIVE,
-    pub CDW12: NVME_CDW12_DIRECTIVE_RECEIVE,
-    pub CDW13: u32,
-    pub CDW14: u32,
-    pub CDW15: u32,
-}
-impl Default for NVME_COMMAND_1_14 {
+impl Default for NVME_COMMAND_1_26 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -2251,9 +2387,9 @@ impl Default for NVME_COMMAND_1_14 {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_15 {
-    pub CDW10: NVME_CDW10_DIRECTIVE_SEND,
-    pub CDW11: NVME_CDW11_DIRECTIVE_SEND,
-    pub CDW12: NVME_CDW12_DIRECTIVE_SEND,
+    pub CDW10: NVME_CDW10_DIRECTIVE_RECEIVE,
+    pub CDW11: NVME_CDW11_DIRECTIVE_RECEIVE,
+    pub CDW12: NVME_CDW12_DIRECTIVE_RECEIVE,
     pub CDW13: u32,
     pub CDW14: u32,
     pub CDW15: u32,
@@ -2265,7 +2401,37 @@ impl Default for NVME_COMMAND_1_15 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_12 {
+pub struct NVME_COMMAND_1_16 {
+    pub CDW10: NVME_CDW10_DIRECTIVE_SEND,
+    pub CDW11: NVME_CDW11_DIRECTIVE_SEND,
+    pub CDW12: NVME_CDW12_DIRECTIVE_SEND,
+    pub CDW13: u32,
+    pub CDW14: u32,
+    pub CDW15: u32,
+}
+impl Default for NVME_COMMAND_1_16 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_27 {
+    pub CDW10: NVME_CDW10_DISCOVERY_INFO_MGMT,
+    pub CDW11: u32,
+    pub CDW12: u32,
+    pub CDW13: u32,
+    pub CDW14: u32,
+    pub CDW15: u32,
+}
+impl Default for NVME_COMMAND_1_27 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_13 {
     pub CDW10: NVME_CDW10_FIRMWARE_ACTIVATE,
     pub CDW11: u32,
     pub CDW12: u32,
@@ -2273,14 +2439,14 @@ pub struct NVME_COMMAND_1_12 {
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_12 {
+impl Default for NVME_COMMAND_1_13 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
-pub struct NVME_COMMAND_1_11 {
+pub struct NVME_COMMAND_1_12 {
     pub CDW10: NVME_CDW10_FIRMWARE_DOWNLOAD,
     pub CDW11: NVME_CDW11_FIRMWARE_DOWNLOAD,
     pub CDW12: u32,
@@ -2290,7 +2456,7 @@ pub struct NVME_COMMAND_1_11 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_13 {
+pub struct NVME_COMMAND_1_14 {
     pub CDW10: NVME_CDW10_FORMAT_NVM,
     pub CDW11: u32,
     pub CDW12: u32,
@@ -2298,7 +2464,7 @@ pub struct NVME_COMMAND_1_13 {
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_13 {
+impl Default for NVME_COMMAND_1_14 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -2395,28 +2561,13 @@ impl Default for NVME_COMMAND_1_1_0 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_17 {
+pub struct NVME_COMMAND_1_18 {
     pub LBALOW: u32,
     pub LBAHIGH: u32,
     pub CDW12: NVME_CDW12_READ_WRITE,
     pub CDW13: NVME_CDW13_READ_WRITE,
     pub CDW14: u32,
     pub CDW15: NVME_CDW15_READ_WRITE,
-}
-impl Default for NVME_COMMAND_1_17 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_18 {
-    pub CDW10: NVME_CDW10_RESERVATION_ACQUIRE,
-    pub CDW11: u32,
-    pub CDW12: u32,
-    pub CDW13: u32,
-    pub CDW14: u32,
-    pub CDW15: u32,
 }
 impl Default for NVME_COMMAND_1_18 {
     fn default() -> Self {
@@ -2426,7 +2577,7 @@ impl Default for NVME_COMMAND_1_18 {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_19 {
-    pub CDW10: NVME_CDW10_RESERVATION_REGISTER,
+    pub CDW10: NVME_CDW10_RESERVATION_ACQUIRE,
     pub CDW11: u32,
     pub CDW12: u32,
     pub CDW13: u32,
@@ -2441,7 +2592,7 @@ impl Default for NVME_COMMAND_1_19 {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_20 {
-    pub CDW10: NVME_CDW10_RESERVATION_RELEASE,
+    pub CDW10: NVME_CDW10_RESERVATION_REGISTER,
     pub CDW11: u32,
     pub CDW12: u32,
     pub CDW13: u32,
@@ -2456,8 +2607,8 @@ impl Default for NVME_COMMAND_1_20 {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_21 {
-    pub CDW10: NVME_CDW10_RESERVATION_REPORT,
-    pub CDW11: NVME_CDW11_RESERVATION_REPORT,
+    pub CDW10: NVME_CDW10_RESERVATION_RELEASE,
+    pub CDW11: u32,
     pub CDW12: u32,
     pub CDW13: u32,
     pub CDW14: u32,
@@ -2470,7 +2621,22 @@ impl Default for NVME_COMMAND_1_21 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_16 {
+pub struct NVME_COMMAND_1_22 {
+    pub CDW10: NVME_CDW10_RESERVATION_REPORT,
+    pub CDW11: NVME_CDW11_RESERVATION_REPORT,
+    pub CDW12: u32,
+    pub CDW13: u32,
+    pub CDW14: u32,
+    pub CDW15: u32,
+}
+impl Default for NVME_COMMAND_1_22 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_17 {
     pub CDW10: NVME_CDW10_SANITIZE,
     pub CDW11: NVME_CDW11_SANITIZE,
     pub CDW12: u32,
@@ -2478,7 +2644,22 @@ pub struct NVME_COMMAND_1_16 {
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_16 {
+impl Default for NVME_COMMAND_1_17 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_11 {
+    pub CDW10: NVME_CDW10_SECURITY_SEND_RECEIVE,
+    pub CDW11: NVME_CDW11_SECURITY_RECEIVE,
+    pub CDW12: u32,
+    pub CDW13: u32,
+    pub CDW14: u32,
+    pub CDW15: u32,
+}
+impl Default for NVME_COMMAND_1_11 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -2487,28 +2668,13 @@ impl Default for NVME_COMMAND_1_16 {
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_10 {
     pub CDW10: NVME_CDW10_SECURITY_SEND_RECEIVE,
-    pub CDW11: NVME_CDW11_SECURITY_RECEIVE,
-    pub CDW12: u32,
-    pub CDW13: u32,
-    pub CDW14: u32,
-    pub CDW15: u32,
-}
-impl Default for NVME_COMMAND_1_10 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_9 {
-    pub CDW10: NVME_CDW10_SECURITY_SEND_RECEIVE,
     pub CDW11: NVME_CDW11_SECURITY_SEND,
     pub CDW12: u32,
     pub CDW13: u32,
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_9 {
+impl Default for NVME_COMMAND_1_10 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -2530,7 +2696,7 @@ impl Default for NVME_COMMAND_1_4 {
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
-pub struct NVME_COMMAND_1_26 {
+pub struct NVME_COMMAND_1_28 {
     pub NDT: u32,
     pub NDM: u32,
     pub CDW12: u32,
@@ -2540,12 +2706,41 @@ pub struct NVME_COMMAND_1_26 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_24 {
+pub struct NVME_COMMAND_1_29 {
+    pub LBALOW: u32,
+    pub LBAHIGH: u32,
+    pub CDW12: NVME_CDW12_VERIFYCOMMAND,
+    pub CDW13: u32,
+    pub EILBRT: u32,
+    pub CDW15: NVME_CDW15_VERIFY_COMMAND,
+}
+impl Default for NVME_COMMAND_1_29 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_25 {
     pub CDW1011: NVME_CDW10_ZONE_APPEND,
     pub CDW12: NVME_CDW12_ZONE_APPEND,
     pub CDW13: u32,
     pub ILBRT: u32,
     pub CDW15: NVME_CDW15_ZONE_APPEND,
+}
+impl Default for NVME_COMMAND_1_25 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_COMMAND_1_24 {
+    pub CDW1011: NVME_CDW10_ZONE_MANAGEMENT_RECEIVE,
+    pub DWORDCOUNT: u32,
+    pub CDW13: NVME_CDW13_ZONE_MANAGEMENT_RECEIVE,
+    pub CDW14: u32,
+    pub CDW15: u32,
 }
 impl Default for NVME_COMMAND_1_24 {
     fn default() -> Self {
@@ -2555,27 +2750,13 @@ impl Default for NVME_COMMAND_1_24 {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct NVME_COMMAND_1_23 {
-    pub CDW1011: NVME_CDW10_ZONE_MANAGEMENT_RECEIVE,
-    pub DWORDCOUNT: u32,
-    pub CDW13: NVME_CDW13_ZONE_MANAGEMENT_RECEIVE,
-    pub CDW14: u32,
-    pub CDW15: u32,
-}
-impl Default for NVME_COMMAND_1_23 {
-    fn default() -> Self {
-        unsafe { core::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct NVME_COMMAND_1_22 {
     pub CDW1011: NVME_CDW10_ZONE_MANAGEMENT_SEND,
     pub CDW12: u32,
     pub CDW13: NVME_CDW13_ZONE_MANAGEMENT_SEND,
     pub CDW14: u32,
     pub CDW15: u32,
 }
-impl Default for NVME_COMMAND_1_22 {
+impl Default for NVME_COMMAND_1_23 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -2787,6 +2968,7 @@ pub struct NVME_CONTROLLER_CONFIGURATION_0 {
 pub const NVME_CONTROLLER_ID_DYN: u32 = 65535u32;
 pub const NVME_CONTROLLER_ID_MAX: u32 = 65519u32;
 pub const NVME_CONTROLLER_ID_MIN: u32 = 0u32;
+pub const NVME_CONTROLLER_ID_STAT_PERSIST: u32 = 65534u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NVME_CONTROLLER_LIST {
@@ -3057,6 +3239,154 @@ impl Default for NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS {
 pub struct NVME_DIRECTIVE_TYPES(pub i32);
 pub const NVME_DIRECTIVE_TYPE_IDENTIFY: NVME_DIRECTIVE_TYPES = NVME_DIRECTIVE_TYPES(0i32);
 pub const NVME_DIRECTIVE_TYPE_STREAMS: NVME_DIRECTIVE_TYPES = NVME_DIRECTIVE_TYPES(1i32);
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_DISCOVERY_ENTRY {
+    pub TRTYPE: u8,
+    pub ADRFAM: u8,
+    pub SUBTYPE: u8,
+    pub TREQ: NVME_DISCOVERY_ENTRY_0,
+    pub PORTID: u16,
+    pub CNTLID: u16,
+    pub ASQSZ: u16,
+    pub EFLAGS: NVME_DISCOVERY_ENTRY_1,
+    pub Reserved0: [u8; 20],
+    pub TRSVCID: [u8; 32],
+    pub Reserved1: [u8; 192],
+    pub NQN: [u8; 256],
+    pub TRADDR: [u8; 256],
+    pub TSAS: [u8; 256],
+}
+impl Default for NVME_DISCOVERY_ENTRY {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_DISCOVERY_ENTRY_1 {
+    pub Anonymous: NVME_DISCOVERY_ENTRY_1_0,
+    pub AsUshort: u16,
+}
+impl Default for NVME_DISCOVERY_ENTRY_1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_DISCOVERY_ENTRY_1_0 {
+    pub _bitfield: u16,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_DISCOVERY_ENTRY_0 {
+    pub Anonymous: NVME_DISCOVERY_ENTRY_0_0,
+    pub AsUchar: u8,
+}
+impl Default for NVME_DISCOVERY_ENTRY_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_DISCOVERY_ENTRY_0_0 {
+    pub _bitfield: u8,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_DISCOVERY_HEADER {
+    pub GENCTR: u64,
+    pub NUMREC: u64,
+    pub RECFMT: u16,
+    pub DLPF: NVME_DISCOVERY_HEADER_0,
+    pub Reserved0: u8,
+    pub TDLPL: u32,
+    pub Reserved1: [u8; 1000],
+}
+impl Default for NVME_DISCOVERY_HEADER {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_DISCOVERY_HEADER_0 {
+    pub Anonymous: NVME_DISCOVERY_HEADER_0_0,
+    pub AsUchar: u8,
+}
+impl Default for NVME_DISCOVERY_HEADER_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_DISCOVERY_HEADER_0_0 {
+    pub _bitfield: u8,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_DISCOVERY_INFO_ENTITY_TYPES(pub i32);
+pub const NVME_DISCOVERY_INFO_ENTITY_TYPE_CDC: NVME_DISCOVERY_INFO_ENTITY_TYPES = NVME_DISCOVERY_INFO_ENTITY_TYPES(3i32);
+pub const NVME_DISCOVERY_INFO_ENTITY_TYPE_DDC: NVME_DISCOVERY_INFO_ENTITY_TYPES = NVME_DISCOVERY_INFO_ENTITY_TYPES(2i32);
+pub const NVME_DISCOVERY_INFO_ENTITY_TYPE_HOST: NVME_DISCOVERY_INFO_ENTITY_TYPES = NVME_DISCOVERY_INFO_ENTITY_TYPES(1i32);
+pub const NVME_DISCOVERY_INFO_ENTITY_TYPE_RESERVED: NVME_DISCOVERY_INFO_ENTITY_TYPES = NVME_DISCOVERY_INFO_ENTITY_TYPES(0i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_DISCOVERY_INFO_ENTRY_FORMATS(pub i32);
+pub const NVME_DISCOVERY_INFO_ENTRY_FORMAT_BASIC: NVME_DISCOVERY_INFO_ENTRY_FORMATS = NVME_DISCOVERY_INFO_ENTRY_FORMATS(1i32);
+pub const NVME_DISCOVERY_INFO_ENTRY_FORMAT_EXTENDED: NVME_DISCOVERY_INFO_ENTRY_FORMATS = NVME_DISCOVERY_INFO_ENTRY_FORMATS(2i32);
+pub const NVME_DISCOVERY_INFO_ENTRY_FORMAT_RESERVED: NVME_DISCOVERY_INFO_ENTRY_FORMATS = NVME_DISCOVERY_INFO_ENTRY_FORMATS(0i32);
+pub const NVME_DISCOVERY_INFO_MGMT_EKTYPE_PORTID: u32 = 63u32;
+pub const NVME_DISCOVERY_INFO_MGMT_EKTYPE_TRADDR: u32 = 95u32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_DISCOVERY_INFO_MGMT_HEADER {
+    pub TDL: u32,
+    pub Reserved0: u32,
+    pub NUMENT: u64,
+    pub ENTFMT: u16,
+    pub ETYPE: u16,
+    pub PORTLCL: u8,
+    pub Reserved1: u8,
+    pub EKTYPE: NVME_DISCOVERY_INFO_MGMT_HEADER_0,
+    pub EID: [u8; 256],
+    pub ENAME: [u8; 256],
+    pub EVER: [u8; 64],
+    pub Reserved2: [u8; 424],
+}
+impl Default for NVME_DISCOVERY_INFO_MGMT_HEADER {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_DISCOVERY_INFO_MGMT_HEADER_0 {
+    pub Anonymous: NVME_DISCOVERY_INFO_MGMT_HEADER_0_0,
+    pub AsUshort: u16,
+}
+impl Default for NVME_DISCOVERY_INFO_MGMT_HEADER_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_DISCOVERY_INFO_MGMT_HEADER_0_0 {
+    pub _bitfield: u16,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_DISCOVERY_INFO_MGMT_TASK(pub i32);
+pub const NVME_DISCOVERY_INFO_MGMT_TASK_DEREGISTER: NVME_DISCOVERY_INFO_MGMT_TASK = NVME_DISCOVERY_INFO_MGMT_TASK(1i32);
+pub const NVME_DISCOVERY_INFO_MGMT_TASK_REGISTER: NVME_DISCOVERY_INFO_MGMT_TASK = NVME_DISCOVERY_INFO_MGMT_TASK(0i32);
+pub const NVME_DISCOVERY_INFO_MGMT_TASK_UPDATE: NVME_DISCOVERY_INFO_MGMT_TASK = NVME_DISCOVERY_INFO_MGMT_TASK(2i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_DISC_CTRL_TYPE(pub i32);
 #[repr(C, packed(1))]
 #[derive(Clone, Copy)]
 pub struct NVME_ENDURANCE_GROUP_LOG {
@@ -3146,6 +3476,79 @@ pub const NVME_ERROR_INJECTION_TYPE_DEVICE_PANIC_SRAM_CORRUPTION: NVME_ERROR_INJ
 pub const NVME_ERROR_INJECTION_TYPE_MAX: NVME_ERROR_INJECTION_TYPES = NVME_ERROR_INJECTION_TYPES(65535i32);
 pub const NVME_ERROR_INJECTION_TYPE_RESERVED0: NVME_ERROR_INJECTION_TYPES = NVME_ERROR_INJECTION_TYPES(0i32);
 pub const NVME_ERROR_INJECTION_TYPE_RESERVED1: NVME_ERROR_INJECTION_TYPES = NVME_ERROR_INJECTION_TYPES(10i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct NVME_EXTENDED_ATTR {
+    pub EXATTYPE: u16,
+    pub EXATLEN: u16,
+    pub EXATVAL: [u8; 1],
+}
+impl Default for NVME_EXTENDED_ATTR {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_EXTENDED_ATTR_TYPE(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct NVME_EXTENDED_DISCOVERY_ENTRY {
+    pub TRTYPE: u8,
+    pub ADRFAM: u8,
+    pub SUBTYPE: u8,
+    pub TREQ: NVME_EXTENDED_DISCOVERY_ENTRY_0,
+    pub PORTID: u16,
+    pub CNTLID: u16,
+    pub ASQSZ: u16,
+    pub EFLAGS: NVME_EXTENDED_DISCOVERY_ENTRY_1,
+    pub Reserved0: [u8; 20],
+    pub TRSVCID: [u8; 32],
+    pub Reserved1: [u8; 192],
+    pub NQN: [u8; 256],
+    pub TRADDR: [u8; 256],
+    pub TSAS: [u8; 256],
+    pub TEL: u32,
+    pub NUMEXAT: u16,
+    pub Reserved2: u16,
+}
+impl Default for NVME_EXTENDED_DISCOVERY_ENTRY {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_EXTENDED_DISCOVERY_ENTRY_1 {
+    pub Anonymous: NVME_EXTENDED_DISCOVERY_ENTRY_1_0,
+    pub AsUshort: u16,
+}
+impl Default for NVME_EXTENDED_DISCOVERY_ENTRY_1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_EXTENDED_DISCOVERY_ENTRY_1_0 {
+    pub _bitfield: u16,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union NVME_EXTENDED_DISCOVERY_ENTRY_0 {
+    pub Anonymous: NVME_EXTENDED_DISCOVERY_ENTRY_0_0,
+    pub AsUchar: u8,
+}
+impl Default for NVME_EXTENDED_DISCOVERY_ENTRY_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NVME_EXTENDED_DISCOVERY_ENTRY_0_0 {
+    pub _bitfield: u8,
+}
 pub const NVME_EXTENDED_HOST_IDENTIFIER_SIZE: u32 = 16u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -3159,7 +3562,6 @@ impl Default for NVME_EXTENDED_REPORT_ZONE_INFO {
         unsafe { core::mem::zeroed() }
     }
 }
-pub const NVME_FABRICS_COMMAND: u32 = 127u32;
 pub const NVME_FABRICS_COMMAND_AUTH_RECV: NVME_FABRICS_COMMAND_TYPE = NVME_FABRICS_COMMAND_TYPE(6i32);
 pub const NVME_FABRICS_COMMAND_AUTH_SEND: NVME_FABRICS_COMMAND_TYPE = NVME_FABRICS_COMMAND_TYPE(5i32);
 pub const NVME_FABRICS_COMMAND_CONNECT: NVME_FABRICS_COMMAND_TYPE = NVME_FABRICS_COMMAND_TYPE(1i32);
@@ -3495,7 +3897,10 @@ pub struct NVME_IDENTIFY_CONTROLLER_DATA {
     pub DomainId: u16,
     pub Reserved2: [u8; 10],
     pub MEGCAP: [u8; 16],
-    pub Reserved3: [u8; 128],
+    pub TMPTHHA: u8,
+    pub Reserved3: u8,
+    pub CQT: u16,
+    pub Reserved4: [u8; 124],
     pub SQES: NVME_IDENTIFY_CONTROLLER_DATA_13,
     pub CQES: NVME_IDENTIFY_CONTROLLER_DATA_14,
     pub MAXCMD: u16,
@@ -3523,7 +3928,8 @@ pub struct NVME_IDENTIFY_CONTROLLER_DATA {
     pub FCATT: NVME_IDENTIFY_CONTROLLER_DATA_22,
     pub MSDBD: u8,
     pub OFCS: NVME_IDENTIFY_CONTROLLER_DATA_23,
-    pub Reserved8: [u8; 242],
+    pub DCTYPE: u8,
+    pub Reserved8: [u8; 241],
     pub PDS: [NVME_POWER_STATE_DESC; 32],
     pub VS: [u8; 1024],
 }
@@ -4559,6 +4965,9 @@ pub const NVME_PSDT_XFER_PRP: u32 = 0u32;
 pub const NVME_PSDT_XFER_RESERVED: u32 = 3u32;
 pub const NVME_PSDT_XFER_SGL_BYTE: u32 = 1u32;
 pub const NVME_PSDT_XFER_SGL_QWORD: u32 = 2u32;
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct NVME_RDMA_KEYED_SGL_DESC_SUBTYPE(pub i32);
 pub const NVME_READ_BEHAVIOR_NOT_REPORTED: NVME_DEALLOCATE_READ_BEHAVIOR = NVME_DEALLOCATE_READ_BEHAVIOR(0i32);
 pub const NVME_READ_BEHAVIOR_RETURN_ONES: NVME_DEALLOCATE_READ_BEHAVIOR = NVME_DEALLOCATE_READ_BEHAVIOR(2i32);
 pub const NVME_READ_BEHAVIOR_RETURN_ZERO: NVME_DEALLOCATE_READ_BEHAVIOR = NVME_DEALLOCATE_READ_BEHAVIOR(1i32);
@@ -5071,11 +5480,13 @@ pub const NVME_STATUS_HOST_IDENTIFIER_INCONSISTENT_FORMAT: NVME_STATUS_GENERIC_C
 pub const NVME_STATUS_HOST_PATHING_ERROR: NVME_STATUS_PATH_ERROR_CODES = NVME_STATUS_PATH_ERROR_CODES(112i32);
 pub const NVME_STATUS_INCOMPATIBLE_FORMAT: NVME_STATUS_FABRIC_COMMAND_CODES = NVME_STATUS_FABRIC_COMMAND_CODES(128i32);
 pub const NVME_STATUS_INSUFFICIENT_CAPACITY: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(38i32);
+pub const NVME_STATUS_INSUFFICIENT_DISCOVERY_RESOURCES: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(50i32);
 pub const NVME_STATUS_INTERNAL_DEVICE_ERROR: NVME_STATUS_GENERIC_COMMAND_CODES = NVME_STATUS_GENERIC_COMMAND_CODES(6i32);
 pub const NVME_STATUS_INTERNAL_PATH_ERROR: NVME_STATUS_PATH_ERROR_CODES = NVME_STATUS_PATH_ERROR_CODES(0i32);
 pub const NVME_STATUS_INVALID_ANA_GROUP_IDENTIFIER: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(36i32);
 pub const NVME_STATUS_INVALID_COMMAND_OPCODE: NVME_STATUS_GENERIC_COMMAND_CODES = NVME_STATUS_GENERIC_COMMAND_CODES(1i32);
 pub const NVME_STATUS_INVALID_CONTROLLER_IDENTIFIER: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(31i32);
+pub const NVME_STATUS_INVALID_DISCOVERY_INFORMATION: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(47i32);
 pub const NVME_STATUS_INVALID_FIELD_IN_COMMAND: NVME_STATUS_GENERIC_COMMAND_CODES = NVME_STATUS_GENERIC_COMMAND_CODES(2i32);
 pub const NVME_STATUS_INVALID_FIRMWARE_IMAGE: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(7i32);
 pub const NVME_STATUS_INVALID_FIRMWARE_SLOT: NVME_STATUS_COMMAND_SPECIFIC_CODES = NVME_STATUS_COMMAND_SPECIFIC_CODES(6i32);
@@ -5586,6 +5997,19 @@ pub const NvmeCtrlIO: NVME_CONTROLLER_TYPE = NVME_CONTROLLER_TYPE(1i32);
 pub const NvmeCtrlNotReported: NVME_CONTROLLER_TYPE = NVME_CONTROLLER_TYPE(0i32);
 pub const NvmeCtrlReservedMax: NVME_CONTROLLER_TYPE = NVME_CONTROLLER_TYPE(255i32);
 pub const NvmeCtrlReservedMin: NVME_CONTROLLER_TYPE = NVME_CONTROLLER_TYPE(4i32);
+pub const NvmeDiscCtrlTypeCDC: NVME_DISC_CTRL_TYPE = NVME_DISC_CTRL_TYPE(2i32);
+pub const NvmeDiscCtrlTypeDDC: NVME_DISC_CTRL_TYPE = NVME_DISC_CTRL_TYPE(1i32);
+pub const NvmeDiscCtrlTypeReserved1: NVME_DISC_CTRL_TYPE = NVME_DISC_CTRL_TYPE(3i32);
+pub const NvmeDiscCtrlTypeReservedMax: NVME_DISC_CTRL_TYPE = NVME_DISC_CTRL_TYPE(255i32);
+pub const NvmeDiscCtrlTypeUnspecified: NVME_DISC_CTRL_TYPE = NVME_DISC_CTRL_TYPE(0i32);
+pub const NvmeExtAttrAdminLabelAscii: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(2i32);
+pub const NvmeExtAttrAdminLabelUtf8: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(3i32);
+pub const NvmeExtAttrHostId: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(1i32);
+pub const NvmeExtAttrReserved0: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(0i32);
+pub const NvmeExtAttrReservedEnd: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(65279i32);
+pub const NvmeExtAttrReservedStart: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(4i32);
+pub const NvmeExtAttrVendorEnd: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(65535i32);
+pub const NvmeExtAttrVendorStart: NVME_EXTENDED_ATTR_TYPE = NVME_EXTENDED_ATTR_TYPE(65280i32);
 pub const NvmePropACQ: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(48i32);
 pub const NvmePropAQA: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(36i32);
 pub const NvmePropASQ: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(40i32);
@@ -5614,6 +6038,7 @@ pub const NvmePropPMRMSCU: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(3608i32);
 pub const NvmePropPMRSTS: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(3592i32);
 pub const NvmePropPMRSWTP: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(3600i32);
 pub const NvmePropVS: NVME_PROPERTY_OFFSET = NVME_PROPERTY_OFFSET(8i32);
+pub const NvmeRdmaKeyedSglDescSubtypeInvalidate: NVME_RDMA_KEYED_SGL_DESC_SUBTYPE = NVME_RDMA_KEYED_SGL_DESC_SUBTYPE(15i32);
 pub const NvmeSglDescSubtypeAddress: NVME_SGL_DESC_SUBTYPE = NVME_SGL_DESC_SUBTYPE(0i32);
 pub const NvmeSglDescSubtypeOffset: NVME_SGL_DESC_SUBTYPE = NVME_SGL_DESC_SUBTYPE(1i32);
 pub const NvmeSglDescSubtypeTransportA: NVME_SGL_DESC_SUBTYPE = NVME_SGL_DESC_SUBTYPE(10i32);
@@ -5636,11 +6061,50 @@ pub const NvmeofAddressIPv6: NVMEOF_ADDRESS_FAMILY = NVMEOF_ADDRESS_FAMILY(2i32)
 pub const NvmeofAddressLoopback: NVMEOF_ADDRESS_FAMILY = NVMEOF_ADDRESS_FAMILY(254i32);
 pub const NvmeofAddressMax: NVMEOF_ADDRESS_FAMILY = NVMEOF_ADDRESS_FAMILY(255i32);
 pub const NvmeofAddressUnknown: NVMEOF_ADDRESS_FAMILY = NVMEOF_ADDRESS_FAMILY(0i32);
-pub const NvmeofFSCNotRequired: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(2i32);
-pub const NvmeofFSCRequired: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(1i32);
-pub const NvmeofFSCReserved: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(3i32);
-pub const NvmeofFSCUnspecified: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(0i32);
-pub const NvmeofSubsysTypeDiscovery: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(1i32);
+pub const NvmeofAuthDHCHAPGroup2048: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(1i32);
+pub const NvmeofAuthDHCHAPGroup3072: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(2i32);
+pub const NvmeofAuthDHCHAPGroup4096: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(3i32);
+pub const NvmeofAuthDHCHAPGroup6144: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(4i32);
+pub const NvmeofAuthDHCHAPGroup8192: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(5i32);
+pub const NvmeofAuthDHCHAPGroupMax: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(255i32);
+pub const NvmeofAuthDHCHAPGroupNull: NVMEOF_AUTH_DHCHAP_GROUP_ID = NVMEOF_AUTH_DHCHAP_GROUP_ID(0i32);
+pub const NvmeofAuthDHCHAPHashMax: NVMEOF_AUTH_DHCHAP_HASH_ID = NVMEOF_AUTH_DHCHAP_HASH_ID(255i32);
+pub const NvmeofAuthDHCHAPHashReserved: NVMEOF_AUTH_DHCHAP_HASH_ID = NVMEOF_AUTH_DHCHAP_HASH_ID(0i32);
+pub const NvmeofAuthDHCHAPHashSha256: NVMEOF_AUTH_DHCHAP_HASH_ID = NVMEOF_AUTH_DHCHAP_HASH_ID(1i32);
+pub const NvmeofAuthDHCHAPHashSha384: NVMEOF_AUTH_DHCHAP_HASH_ID = NVMEOF_AUTH_DHCHAP_HASH_ID(2i32);
+pub const NvmeofAuthDHCHAPHashSha512: NVMEOF_AUTH_DHCHAP_HASH_ID = NVMEOF_AUTH_DHCHAP_HASH_ID(3i32);
+pub const NvmeofAuthDHGroupNotUsable: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(5i32);
+pub const NvmeofAuthFailed: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(1i32);
+pub const NvmeofAuthFailureReasonFailed: NVMEOF_AUTH_FAIL_REASON_CODE = NVMEOF_AUTH_FAIL_REASON_CODE(1i32);
+pub const NvmeofAuthHashFunctionNotUsable: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(4i32);
+pub const NvmeofAuthIdChallenge: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(1i32);
+pub const NvmeofAuthIdFailure1: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(241i32);
+pub const NvmeofAuthIdFailure2: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(240i32);
+pub const NvmeofAuthIdNegotiate: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(0i32);
+pub const NvmeofAuthIdReply: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(2i32);
+pub const NvmeofAuthIdSuccess1: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(3i32);
+pub const NvmeofAuthIdSuccess2: NVMEOF_AUTH_ID = NVMEOF_AUTH_ID(4i32);
+pub const NvmeofAuthIncorrectPayload: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(6i32);
+pub const NvmeofAuthIncorrectProtocolMessage: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(7i32);
+pub const NvmeofAuthProtocolDHCHAP: NVMEOF_AUTH_PROTOCOL = NVMEOF_AUTH_PROTOCOL(233i32);
+pub const NvmeofAuthProtocolNotUsable: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(2i32);
+pub const NvmeofAuthSCAuthConcatSCRequired: NVMEOF_AUTH_SECURE_CHANNEL = NVMEOF_AUTH_SECURE_CHANNEL(2i32);
+pub const NvmeofAuthSCAuthRequired: NVMEOF_AUTH_SECURE_CHANNEL = NVMEOF_AUTH_SECURE_CHANNEL(1i32);
+pub const NvmeofAuthSCReserved: NVMEOF_AUTH_SECURE_CHANNEL = NVMEOF_AUTH_SECURE_CHANNEL(3i32);
+pub const NvmeofAuthSCUnspecified: NVMEOF_AUTH_SECURE_CHANNEL = NVMEOF_AUTH_SECURE_CHANNEL(0i32);
+pub const NvmeofAuthSecureChannelConcatMismatch: NVMEOF_AUTH_FAIL_REASON_EXPLANATION = NVMEOF_AUTH_FAIL_REASON_EXPLANATION(3i32);
+pub const NvmeofAuthTypeCommonMessages: NVMEOF_AUTH_TYPE = NVMEOF_AUTH_TYPE(0i32);
+pub const NvmeofAuthTypeDHCHAPMessages: NVMEOF_AUTH_TYPE = NVMEOF_AUTH_TYPE(1i32);
+pub const NvmeofSCNotRequired: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(2i32);
+pub const NvmeofSCRequired: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(1i32);
+pub const NvmeofSCReserved: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(3i32);
+pub const NvmeofSCUnspecified: NVMEOF_SECURE_CHANNEL = NVMEOF_SECURE_CHANNEL(0i32);
+pub const NvmeofSecureChannelConcatNone: NVMEOF_SECURE_CHANNEL_PROTOCOL = NVMEOF_SECURE_CHANNEL_PROTOCOL(0i32);
+pub const NvmeofSecureChannelConcatWithTLS: NVMEOF_SECURE_CHANNEL_PROTOCOL = NVMEOF_SECURE_CHANNEL_PROTOCOL(1i32);
+pub const NvmeofSecureChannelNewTLSPSK: NVMEOF_SECURE_CHANNEL_PROTOCOL = NVMEOF_SECURE_CHANNEL_PROTOCOL(2i32);
+pub const NvmeofSecureChannelReplaceTLSPSK: NVMEOF_SECURE_CHANNEL_PROTOCOL = NVMEOF_SECURE_CHANNEL_PROTOCOL(2i32);
+pub const NvmeofSubsysTypeDiscCurrent: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(3i32);
+pub const NvmeofSubsysTypeDiscReferral: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(1i32);
 pub const NvmeofSubsysTypeIo: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(2i32);
 pub const NvmeofSubsysTypeMax: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(255i32);
 pub const NvmeofSubsysTypeUnknown: NVMEOF_SUBSYSTEM_TYPE = NVMEOF_SUBSYSTEM_TYPE(0i32);

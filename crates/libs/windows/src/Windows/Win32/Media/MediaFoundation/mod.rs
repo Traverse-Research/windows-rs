@@ -2737,6 +2737,8 @@ pub const CODECAPI_AVEncVideoContentType: windows_core::GUID = windows_core::GUI
 pub const CODECAPI_AVEncVideoDefaultUpperFieldDominant: windows_core::GUID = windows_core::GUID::from_u128(0x810167c4_0bc1_47ca_8fc2_57055a1474a5);
 pub const CODECAPI_AVEncVideoDirtyRectEnabled: windows_core::GUID = windows_core::GUID::from_u128(0x8acb8fdd_5e0c_4c66_8729_b8f629ab04fb);
 pub const CODECAPI_AVEncVideoDisplayDimension: windows_core::GUID = windows_core::GUID::from_u128(0xde053668_f4ec_47a9_86d0_836770f0c1d5);
+pub const CODECAPI_AVEncVideoEnableFramePsnrYuv: windows_core::GUID = windows_core::GUID::from_u128(0x2bbcdd1d_bc47_430e_b2e8_64801b47f5f0);
+pub const CODECAPI_AVEncVideoEnableSpatialAdaptiveQuantization: windows_core::GUID = windows_core::GUID::from_u128(0x659cb943_15ca_448d_b99a_875619db4de4);
 pub const CODECAPI_AVEncVideoEncodeDimension: windows_core::GUID = windows_core::GUID::from_u128(0x1074df28_7e0f_47a4_a453_cdd73870f5ce);
 pub const CODECAPI_AVEncVideoEncodeFrameTypeQP: windows_core::GUID = windows_core::GUID::from_u128(0xaa70b610_e03f_450c_ad07_07314e639ce7);
 pub const CODECAPI_AVEncVideoEncodeOffsetOrigin: windows_core::GUID = windows_core::GUID::from_u128(0x6bc098fe_a71a_4454_852e_4d2ddeb2cd24);
@@ -2774,6 +2776,7 @@ pub const CODECAPI_AVEncVideoMinQP: windows_core::GUID = windows_core::GUID::fro
 pub const CODECAPI_AVEncVideoNoOfFieldsToEncode: windows_core::GUID = windows_core::GUID::from_u128(0x61e4bbe2_4ee0_40e7_80ab_51ddeebe6291);
 pub const CODECAPI_AVEncVideoNoOfFieldsToSkip: windows_core::GUID = windows_core::GUID::from_u128(0xa97e1240_1427_4c16_a7f7_3dcfd8ba4cc5);
 pub const CODECAPI_AVEncVideoNumGOPsPerIDR: windows_core::GUID = windows_core::GUID::from_u128(0x83bc5bdb_5b89_4521_8f66_33151c373176);
+pub const CODECAPI_AVEncVideoOutputBitsUsedMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x6c2cd11a_ca3b_44bd_9a9e_93b03634c36e);
 pub const CODECAPI_AVEncVideoOutputChromaResolution: windows_core::GUID = windows_core::GUID::from_u128(0x6097b4c9_7c1d_4e64_bfcc_9e9765318ae7);
 pub const CODECAPI_AVEncVideoOutputChromaSubsampling: windows_core::GUID = windows_core::GUID::from_u128(0xfa561c6c_7d17_44f0_83c9_32ed12e96343);
 pub const CODECAPI_AVEncVideoOutputColorLighting: windows_core::GUID = windows_core::GUID::from_u128(0x0e5aaac6_ace6_4c5c_998e_1a8c9c6c0f89);
@@ -2783,10 +2786,12 @@ pub const CODECAPI_AVEncVideoOutputColorTransferFunction: windows_core::GUID = w
 pub const CODECAPI_AVEncVideoOutputColorTransferMatrix: windows_core::GUID = windows_core::GUID::from_u128(0xa9b90444_af40_4310_8fbe_ed6d933f892b);
 pub const CODECAPI_AVEncVideoOutputFrameRate: windows_core::GUID = windows_core::GUID::from_u128(0xea85e7c3_9567_4d99_87c4_02c1c278ca7c);
 pub const CODECAPI_AVEncVideoOutputFrameRateConversion: windows_core::GUID = windows_core::GUID::from_u128(0x8c068bf4_369a_4ba3_82fd_b2518fb3396e);
+pub const CODECAPI_AVEncVideoOutputQPMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x97038743_4ae3_44c3_a0f2_5bd58a4634ef);
 pub const CODECAPI_AVEncVideoOutputScanType: windows_core::GUID = windows_core::GUID::from_u128(0x460b5576_842e_49ab_a62d_b36f7312c9db);
 pub const CODECAPI_AVEncVideoPixelAspectRatio: windows_core::GUID = windows_core::GUID::from_u128(0x3cdc718f_b3e9_4eb6_a57f_cf1f1b321b87);
 pub const CODECAPI_AVEncVideoROIEnabled: windows_core::GUID = windows_core::GUID::from_u128(0xd74f7f18_44dd_4b85_aba3_05d9f42a8280);
 pub const CODECAPI_AVEncVideoRateControlParams: windows_core::GUID = windows_core::GUID::from_u128(0x87d43767_7645_44ec_b438_d3322fbca29f);
+pub const CODECAPI_AVEncVideoSatdMapBlockSize: windows_core::GUID = windows_core::GUID::from_u128(0x596f1106_8ce0_4302_af79_c4ec67aadc6d);
 pub const CODECAPI_AVEncVideoSelectLayer: windows_core::GUID = windows_core::GUID::from_u128(0xeb1084f5_6aaa_4914_bb2f_6147227f12e7);
 pub const CODECAPI_AVEncVideoSourceFilmContent: windows_core::GUID = windows_core::GUID::from_u128(0x1791c64b_ccfc_4827_a0ed_2557793b2b1c);
 pub const CODECAPI_AVEncVideoSourceIsBW: windows_core::GUID = windows_core::GUID::from_u128(0x42ffc49b_1812_4fdc_8d24_7054c521e6eb);
@@ -3059,6 +3064,23 @@ impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT 
     }
 }
 #[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_DIRTY_REGIONS {
+    pub NodeIndex: u32,
+    pub SessionInfo: D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub MapValuesType: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE,
+    pub SupportFlags: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS,
+    pub MapSourcePreferenceRanking: u32,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_DIRTY_REGIONS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[derive(Clone, Copy)]
 pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG {
     pub NodeIndex: u32,
@@ -3104,6 +3126,19 @@ impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE {
     }
 }
 #[repr(C)]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE1 {
+    pub HeapDesc: D3D12_VIDEO_ENCODER_HEAP_DESC1,
+    pub IsSupported: windows_core::BOOL,
+    pub MemoryPoolL0Size: u64,
+    pub MemoryPoolL1Size: u64,
+}
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy)]
 pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT {
@@ -3130,6 +3165,28 @@ pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE {
     pub IsSupported: windows_core::BOOL,
 }
 impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH {
+    pub NodeIndex: u32,
+    pub SessionInfo: D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO,
+    pub MotionSearchMode: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub BidirectionalRefFrameEnabled: windows_core::BOOL,
+    pub SupportFlags: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS,
+    pub MaxMotionHints: u32,
+    pub MinDeviation: u32,
+    pub MaxDeviation: u32,
+    pub MapSourcePreferenceRanking: u32,
+    pub MotionUnitPrecisionSupport: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -3175,6 +3232,48 @@ impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL {
     }
 }
 #[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_QPMAP_INPUT {
+    pub NodeIndex: u32,
+    pub SessionInfo: D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub IsSupported: windows_core::BOOL,
+    pub MapSourcePreferenceRanking: u32,
+    pub BlockSize: u32,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_QPMAP_INPUT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS {
+    pub NodeIndex: u32,
+    pub Codec: D3D12_VIDEO_ENCODER_CODEC,
+    pub Profile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub Level: D3D12_VIDEO_ENCODER_LEVEL_SETTING,
+    pub InputFormat: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub InputResolution: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub CodecConfiguration: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION,
+    pub SubregionFrameEncoding: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE,
+    pub SubregionFrameEncodingData: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA,
+    pub QPMap: D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION,
+    pub DirtyRegions: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION,
+    pub MotionSearch: D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION,
+    pub Pow2DownscaleFactor: u32,
+    pub SupportFlags: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE {
     pub NodeIndex: u32,
@@ -3184,11 +3283,65 @@ pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE {
 }
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS {
+    pub DirtyRegionsSupportFlags: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS,
+    pub MapSourcePreferenceRanking: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS {
+    pub SupportFlags: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS {
     pub MaxSubregionsNumber: u32,
     pub MaxIntraRefreshFrameDuration: u32,
     pub SubregionBlockPixelsSize: u32,
     pub QPMapRegionPixelsSize: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 {
+    pub MaxSubregionsNumber: u32,
+    pub MaxIntraRefreshFrameDuration: u32,
+    pub SubregionBlockPixelsSize: u32,
+    pub QPMapRegionPixelsSize: u32,
+    pub QPMap: D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP,
+    pub DirtyRegions: D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS,
+    pub MotionSearch: D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH,
+    pub FrameAnalysis: D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH {
+    pub MaxMotionHints: u32,
+    pub MinDeviation: u32,
+    pub MaxDeviation: u32,
+    pub MapSourcePreferenceRanking: u32,
+    pub MotionUnitPrecisionSupportFlags: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS,
+    pub SupportFlags: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP {
+    pub MapSourcePreferenceRanking: u32,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT {
+    pub NodeIndex: u32,
+    pub SessionInfo: D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO,
+    pub MapType: D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE,
+    pub IsSupported: windows_core::BOOL,
+    pub MaxResolvedBufferAllocationSize: u64,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
@@ -3206,6 +3359,34 @@ pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS {
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 {
+    pub NodeIndex: u32,
+    pub Codec: D3D12_VIDEO_ENCODER_CODEC,
+    pub Profile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub InputFormat: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub PictureTargetResolution: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub IsSupported: windows_core::BOOL,
+    pub CompressedBitstreamBufferAccessAlignment: u32,
+    pub EncoderMetadataBufferAccessAlignment: u32,
+    pub MaxEncoderOutputMetadataBufferSize: u32,
+    pub OptionalMetadata: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS,
+    pub CodecConfiguration: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION,
+    pub EncoderOutputMetadataQPMapTextureDimensions: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub EncoderOutputMetadataSATDMapTextureDimensions: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub EncoderOutputMetadataBitAllocationMapTextureDimensions: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub EncoderOutputMetadataFramePSNRComponentsNumber: u32,
+    pub EncoderOutputMetadataSubregionsPSNRComponentsNumber: u32,
+    pub EncoderOutputMetadataSubregionsPSNRResolvedMetadataBufferSize: u32,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -3262,6 +3443,39 @@ pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 {
 }
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 {
+    pub NodeIndex: u32,
+    pub Codec: D3D12_VIDEO_ENCODER_CODEC,
+    pub InputFormat: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub CodecConfiguration: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION,
+    pub CodecGopSequence: D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE,
+    pub RateControl: D3D12_VIDEO_ENCODER_RATE_CONTROL,
+    pub IntraRefresh: D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE,
+    pub SubregionFrameEncoding: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE,
+    pub ResolutionsListCount: u32,
+    pub pResolutionList: *const D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub MaxReferenceFramesInDPB: u32,
+    pub ValidationFlags: D3D12_VIDEO_ENCODER_VALIDATION_FLAGS,
+    pub SupportFlags: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS,
+    pub SuggestedProfile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub SuggestedLevel: D3D12_VIDEO_ENCODER_LEVEL_SETTING,
+    pub pResolutionDependentSupport: *mut D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1,
+    pub SubregionFrameEncodingData: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA,
+    pub MaxQualityVsSpeed: u32,
+    pub QPMap: D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION,
+    pub DirtyRegions: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION,
+    pub MotionSearch: D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION,
+    pub FrameAnalysis: D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -3480,18 +3694,26 @@ pub const D3D12_FEATURE_VIDEO_DECODE_SUPPORT: D3D12_FEATURE_VIDEO = D3D12_FEATUR
 pub const D3D12_FEATURE_VIDEO_ENCODER_CODEC: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(33i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(42i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(44i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_DIRTY_REGIONS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(51i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(46i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(40i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(41i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE1: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(56i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_INPUT_FORMAT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(37i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(39i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_MOTION_SEARCH: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(52i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(36i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(35i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_PROFILE_LEVEL: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(34i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_QPMAP_INPUT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(50i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(57i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_MODE: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(38i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(49i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(45i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(48i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_SUPPORT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(43i32);
 pub const D3D12_FEATURE_VIDEO_ENCODER_SUPPORT1: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(47i32);
+pub const D3D12_FEATURE_VIDEO_ENCODER_SUPPORT2: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(55i32);
 pub const D3D12_FEATURE_VIDEO_EXTENSION_COMMANDS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(23i32);
 pub const D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_COUNT: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(22i32);
 pub const D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS: D3D12_FEATURE_VIDEO = D3D12_FEATURE_VIDEO(25i32);
@@ -3986,6 +4208,7 @@ pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_AUTO_SEGMENTATION: D3D12_VIDEO_EN
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_CDEF_FILTERING: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(4096i32);
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_CUSTOM_SEGMENTATION: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(131072i32);
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DELTA_LF_PARAMS: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(33554432i32);
+pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DISABLE_CDF_UPDATE_UNSUPPORTED: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(67108864i32);
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DUAL_FILTER: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(64i32);
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_FILTER_INTRA: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(2i32);
 pub const D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_FORCED_INTEGER_MOTION_VECTORS: D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS(256i32);
@@ -4921,6 +5144,8 @@ pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_INTRA_SMOOTHING_DISA
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_NONE: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(0i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_PERSISTENT_RICE_ADAPTATION: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(16384i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_SEPARATE_COLOUR_PLANE: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(65536i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_STRONG_INTRA_SMOOTHING_ENABLED: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(262144i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_TEMPORAL_MVP_ENABLED: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(131072i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_TRANSFORM_SKIP_CONTEXT: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(256i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_TRANSFORM_SKIP_ROTATION: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(128i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_USE_ASYMETRIC_MOTION_PARTITION: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS(16i32);
@@ -5045,6 +5270,10 @@ impl Default for D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 {
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_NONE: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(0i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_SEPARATE_COLOUR_PLANE_REQUIRED: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(2i32);
 pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_SEPARATE_COLOUR_PLANE_SUPPORT: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(1i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_STRONG_INTRA_SMOOTHING_ENABLED_REQUIRED: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(32i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_STRONG_INTRA_SMOOTHING_ENABLED_SUPPORT: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(16i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_TEMPORAL_MVP_ENABLED_REQUIRED: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(8i32);
+pub const D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_TEMPORAL_MVP_ENABLED_SUPPORT: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1(4i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS(pub i32);
@@ -5201,6 +5430,47 @@ pub struct D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM {
     pub FrameStartOffset: u64,
 }
 #[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 {
+    pub NotificationMode: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE,
+    pub Anonymous: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1_0,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub union D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1_0 {
+    pub FrameOutputBuffer: core::mem::ManuallyDrop<D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM>,
+    pub SubregionOutputBuffers: D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1_0 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE(pub i32);
+pub const D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE_FULL_FRAME: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE = D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE(0i32);
+pub const D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE_SUBREGIONS: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE = D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE(1i32);
+#[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy)]
 pub struct D3D12_VIDEO_ENCODER_DESC {
@@ -5218,6 +5488,108 @@ impl Default for D3D12_VIDEO_ENCODER_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO {
+    pub FullFrameIdentical: windows_core::BOOL,
+    pub MapValuesType: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE,
+    pub NumDirtyRects: u32,
+    pub pDirtyRects: *mut super::super::Foundation::RECT,
+    pub SourceDPBFrameReference: u32,
+}
+impl Default for D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_DIRTY_REGIONS {
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub Anonymous: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_0,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_DIRTY_REGIONS {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_DIRTY_REGIONS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub union D3D12_VIDEO_ENCODER_DIRTY_REGIONS_0 {
+    pub pOpaqueLayoutBuffer: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub pCPUBuffer: *mut D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_0 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION {
+    pub Enabled: windows_core::BOOL,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub MapValuesType: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE(pub i32);
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_DIRTY: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE(0i32);
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_SKIP: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE(1i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAG_DIRTY_REGIONS: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAG_DIRTY_REGIONS_REQUIRE_FULL_ROW: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAG_REPEAT_FRAME: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS(1i32);
 #[repr(C)]
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 pub struct D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS {
@@ -5240,12 +5612,54 @@ impl Default for D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS {
     }
 }
 #[repr(C)]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub struct D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1 {
+    pub SequenceControlDesc: D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC,
+    pub PictureControlDesc: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1,
+    pub pInputFrame: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub InputFrameSubresource: u32,
+    pub CurrentFrameBitstreamMetadataSize: u32,
+    pub OptionalMetadata: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS,
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Clone for D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Default for D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS {
     pub Bitstream: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM,
     pub ReconstructedPicture: D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE,
     pub EncoderOutputMetadata: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 {
+    pub Bitstream: D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1,
+    pub ReconstructedPicture: D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE,
+    pub EncoderOutputMetadata: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+    pub FrameAnalysisReconstructedPicture: D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -5334,6 +5748,114 @@ impl core::ops::Not for D3D12_VIDEO_ENCODER_FLAGS {
 }
 pub const D3D12_VIDEO_ENCODER_FLAG_NONE: D3D12_VIDEO_ENCODER_FLAGS = D3D12_VIDEO_ENCODER_FLAGS(0i32);
 #[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_ANALYSIS {
+    pub pDownscaledFrame: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub Subresource: u64,
+    pub DownscaledReferences: D3D12_VIDEO_ENCODE_REFERENCE_FRAMES,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION {
+    pub Enabled: windows_core::BOOL,
+    pub Pow2DownscaleFactor: u32,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION(pub i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_FULL_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION(0i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_HALF_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION(1i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_QUARTER_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION(2i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAG_FULL_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAG_HALF_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAG_QUARTER_PIXEL: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS(4i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG {
+    pub MotionSearchMode: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE,
+    pub SearchDeviationLimit: u32,
+}
+pub const D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_FULL_SEARCH: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE = D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE(0i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_START_HINT: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE = D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE(1i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_START_HINT_LIMITED_DISTANCE: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE = D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE(2i32);
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS {
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub Anonymous: D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS_0,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub union D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS_0 {
+    pub pOpaqueLayoutBuffer: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub pCPUBuffer: *mut D3D12_VIDEO_ENCODER_MOVEREGION_INFO,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS_0 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[derive(Clone, Copy)]
 pub struct D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT {
     pub DataSize: u32,
@@ -5357,6 +5879,7 @@ impl Default for D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT_0 {
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(pub i32);
+pub const D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_AUTO: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(7i32);
 pub const D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_BYTES_PER_SUBREGION: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(1i32);
 pub const D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_CONFIGURABLE_GRID_PARTITION: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(6i32);
 pub const D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_FULL_FRAME: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(0i32);
@@ -5401,6 +5924,23 @@ impl Default for D3D12_VIDEO_ENCODER_HEAP_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct D3D12_VIDEO_ENCODER_HEAP_DESC1 {
+    pub NodeMask: u32,
+    pub Flags: D3D12_VIDEO_ENCODER_HEAP_FLAGS,
+    pub EncodeCodec: D3D12_VIDEO_ENCODER_CODEC,
+    pub EncodeProfile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub EncodeLevel: D3D12_VIDEO_ENCODER_LEVEL_SETTING,
+    pub ResolutionsListCount: u32,
+    pub pResolutionList: *const D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub Pow2DownscaleFactor: u32,
+}
+impl Default for D3D12_VIDEO_ENCODER_HEAP_DESC1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_HEAP_FLAGS(pub i32);
@@ -5437,7 +5977,112 @@ impl core::ops::Not for D3D12_VIDEO_ENCODER_HEAP_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_DIRTY_REGIONS: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_RATE_CONTROL_FRAME_ANALYSIS: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(8i32);
+pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_SUBREGION_NOTIFICATION_SINGLE_BUFFER: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(2i32);
 pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_NONE: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(0i32);
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_DATA {
+    pub MapType: D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE,
+    pub Anonymous: D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_0,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_INPUT_MAP_DATA {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_INPUT_MAP_DATA {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub union D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_0 {
+    pub Quantization: core::mem::ManuallyDrop<D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX>,
+    pub DirtyRegions: core::mem::ManuallyDrop<D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS>,
+    pub MotionVectors: D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_0 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS {
+    pub FullFrameIdentical: windows_core::BOOL,
+    pub MapValuesType: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE,
+    pub pDirtyRegionsMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub SourceDPBFrameReference: u32,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Copy)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS {
+    pub MotionSearchModeConfiguration: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG,
+    pub NumHintsPerPixel: u32,
+    pub ppMotionVectorMaps: *mut Option<super::super::Graphics::Direct3D12::ID3D12Resource>,
+    pub pMotionVectorMapsSubresources: *mut u32,
+    pub ppMotionVectorMapsMetadata: *mut Option<super::super::Graphics::Direct3D12::ID3D12Resource>,
+    pub pMotionVectorMapsMetadataSubresources: *mut u32,
+    pub MotionUnitPrecision: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION,
+    pub PictureControlConfiguration: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX {
+    pub pQuantizationMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+#[derive(Clone, Copy)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO {
+    pub Codec: D3D12_VIDEO_ENCODER_CODEC,
+    pub Profile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub Level: D3D12_VIDEO_ENCODER_LEVEL_SETTING,
+    pub InputFormat: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub InputResolution: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub CodecConfiguration: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION,
+    pub SubregionFrameEncoding: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE,
+    pub SubregionFrameEncodingData: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA,
+}
+#[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+impl Default for D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE(pub i32);
+pub const D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_CPU_BUFFER: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE = D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE(0i32);
+pub const D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_GPU_TEXTURE: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE = D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE(1i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE(pub i32);
+pub const D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE_DIRTY_REGIONS: D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE = D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE(1i32);
+pub const D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE_MOTION_VECTORS: D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE = D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE(2i32);
+pub const D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE_QUANTIZATION_MATRIX: D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE = D3D12_VIDEO_ENCODER_INPUT_MAP_TYPE(0i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_INTRA_REFRESH {
@@ -5527,6 +6172,122 @@ pub const D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_MAXIMUM: D3D12_VI
 pub const D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_QUARTER_PIXEL: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE = D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE(3i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION {
+    pub Enabled: windows_core::BOOL,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+    pub MotionSearchMode: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE,
+    pub BidirectionalRefFrameEnabled: windows_core::BOOL,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAG_GPU_TEXTURE_MULTIPLE_REFERENCES: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAG_MULTIPLE_HINTS: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAG_SUPPORTED: D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS(1i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_MOVEREGION_INFO {
+    pub NumMoveRegions: u32,
+    pub pMoveRegions: *mut D3D12_VIDEO_ENCODER_MOVE_RECT,
+    pub MotionSearchModeConfiguration: D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG,
+    pub SourceDPBFrameReference: u32,
+    pub MotionUnitPrecision: D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION,
+    pub Flags: D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS,
+}
+impl Default for D3D12_VIDEO_ENCODER_MOVEREGION_INFO {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS(pub i32);
+pub const D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_MULTIPLE_HINTS: D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS = D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_NONE: D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS = D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS(0i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_MOVE_RECT {
+    pub SourcePoint: super::super::Foundation::POINT,
+    pub DestRect: super::super::Foundation::RECT,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(pub i32);
+impl D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_FRAME_PSNR: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(8i32);
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_NONE: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_QP_MAP: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_RC_BIT_ALLOCATION_MAP: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_SATD_MAP: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAG_SUBREGIONS_PSNR: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS = D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS(16i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_OUTPUT_METADATA {
     pub EncodeErrorFlags: u64,
     pub EncodeStats: D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS,
@@ -5563,6 +6324,29 @@ pub union D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_0 {
     pub pAV1PicData: *mut D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA,
 }
 impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1 {
+    pub DataSize: u32,
+    pub Anonymous: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1_0,
+}
+impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1_0 {
+    pub pH264PicData: *mut D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264,
+    pub pHEVCPicData: *mut D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2,
+    pub pAV1PicData: *mut D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA,
+}
+impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1_0 {
     fn default() -> Self {
         unsafe { core::mem::zeroed() }
     }
@@ -5712,6 +6496,41 @@ impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1 {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 {
+    pub Flags: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS,
+    pub FrameType: D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC,
+    pub slice_pic_parameter_set_id: u32,
+    pub PictureOrderCountNumber: u32,
+    pub TemporalLayerIndex: u32,
+    pub List0ReferenceFramesCount: u32,
+    pub pList0ReferenceFrames: *mut u32,
+    pub List1ReferenceFramesCount: u32,
+    pub pList1ReferenceFrames: *mut u32,
+    pub ReferenceFramesReconPictureDescriptorsCount: u32,
+    pub pReferenceFramesReconPictureDescriptors: *mut D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC,
+    pub List0RefPicModificationsCount: u32,
+    pub pList0RefPicModifications: *mut u32,
+    pub List1RefPicModificationsCount: u32,
+    pub pList1RefPicModifications: *mut u32,
+    pub QPMapValuesCount: u32,
+    pub pRateControlQPMap: *mut i8,
+    pub diff_cu_chroma_qp_offset_depth: u8,
+    pub log2_sao_offset_scale_luma: u8,
+    pub log2_sao_offset_scale_chroma: u8,
+    pub log2_max_transform_skip_block_size_minus2: u8,
+    pub chroma_qp_offset_list_len_minus1: u8,
+    pub cb_qp_offset_list: [i8; 6],
+    pub cr_qp_offset_list: [i8; 6],
+    pub num_ref_idx_l0_active_minus1: u32,
+    pub num_ref_idx_l1_active_minus1: u32,
+}
+impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS(pub i32);
@@ -5768,6 +6587,30 @@ impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 {
+    pub IntraRefreshFrameIndex: u32,
+    pub Flags: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS,
+    pub PictureControlCodecData: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1,
+    pub ReferenceFrames: D3D12_VIDEO_ENCODE_REFERENCE_FRAMES,
+    pub MotionVectors: D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS,
+    pub DirtyRects: D3D12_VIDEO_ENCODER_DIRTY_REGIONS,
+    pub QuantizationTextureMap: D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP,
+    pub FrameAnalysis: D3D12_VIDEO_ENCODER_FRAME_ANALYSIS,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Clone for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(pub i32);
@@ -5804,6 +6647,9 @@ impl core::ops::Not for D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_DIRTY_REGIONS_INPUT: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_MOTION_VECTORS_INPUT: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(8i32);
+pub const D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_QUANTIZATION_MATRIX_INPUT: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(2i32);
 pub const D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_NONE: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(0i32);
 pub const D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS(1i32);
 #[repr(C)]
@@ -5905,6 +6751,18 @@ pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_422: D3D12_VIDEO_ENCODER_PROFI
 pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_444: D3D12_VIDEO_ENCODER_PROFILE_HEVC = D3D12_VIDEO_ENCODER_PROFILE_HEVC(7i32);
 pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN16_444: D3D12_VIDEO_ENCODER_PROFILE_HEVC = D3D12_VIDEO_ENCODER_PROFILE_HEVC(8i32);
 pub const D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN_444: D3D12_VIDEO_ENCODER_PROFILE_HEVC = D3D12_VIDEO_ENCODER_PROFILE_HEVC(5i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION {
+    pub Enabled: windows_core::BOOL,
+    pub MapSource: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP {
+    pub pOpaqueQuantizationMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+}
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
 #[derive(Clone, Copy)]
@@ -6035,8 +6893,53 @@ pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_INITIAL_QP: D3D12_VIDEO_E
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_MAX_FRAME_SIZE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(16i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QP_RANGE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(4i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QUALITY_VS_SPEED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(128i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_SPATIAL_ADAPTIVE_QP: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(256i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_VBV_SIZES: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(32i32);
 pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_NONE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS(0i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(pub i32);
+impl D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    pub const fn contains(&self, other: Self) -> bool {
+        self.0 & other.0 == other.0
+    }
+}
+impl core::ops::BitOr for D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitor(self, other: Self) -> Self {
+        Self(self.0 | other.0)
+    }
+}
+impl core::ops::BitAnd for D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn bitand(self, other: Self) -> Self {
+        Self(self.0 & other.0)
+    }
+}
+impl core::ops::BitOrAssign for D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    fn bitor_assign(&mut self, other: Self) {
+        self.0.bitor_assign(other.0)
+    }
+}
+impl core::ops::BitAndAssign for D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    fn bitand_assign(&mut self, other: Self) {
+        self.0.bitand_assign(other.0)
+    }
+}
+impl core::ops::Not for D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS {
+    type Output = Self;
+    fn not(self) -> Self {
+        Self(self.0.not())
+    }
+}
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_BIDIR_INTER_FRAME_SUPPORTED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(4i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_DYNAMIC_1ST_PASS_SKIP: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(16i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_DYNAMIC_DOWNSCALE_FACTOR_CHANGE_KEY_FRAME: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(32i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_EXTERNAL_DPB_DOWNSCALING: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(8i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_INTRACODED_FRAME_SUPPORTED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_SUPPORTED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(7i32);
+pub const D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAG_UNIDIR_INTER_FRAME_SUPPORTED: D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS(2i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE(pub i32);
@@ -6123,6 +7026,30 @@ pub struct D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC {
 }
 #[repr(C)]
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub struct D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS {
+    pub SessionInfo: D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO,
+    pub InputData: D3D12_VIDEO_ENCODER_INPUT_MAP_DATA,
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Clone for D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Default for D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS {
+    pub pOpaqueLayoutBuffer: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+}
+#[repr(C)]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 pub struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS {
     pub EncoderCodec: D3D12_VIDEO_ENCODER_CODEC,
     pub EncoderProfile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
@@ -6143,10 +7070,51 @@ impl Default for D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS {
     }
 }
 #[repr(C)]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 {
+    pub EncoderCodec: D3D12_VIDEO_ENCODER_CODEC,
+    pub EncoderProfile: D3D12_VIDEO_ENCODER_PROFILE_DESC,
+    pub EncoderInputFormat: super::super::Graphics::Dxgi::Common::DXGI_FORMAT,
+    pub EncodedPictureEffectiveResolution: D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC,
+    pub HWLayoutMetadata: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+    pub OptionalMetadata: D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS,
+    pub CodecConfiguration: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION,
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Clone for D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 {
+    fn clone(&self) -> Self {
+        unsafe { core::mem::transmute_copy(self) }
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl Default for D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS {
     pub ResolvedLayoutMetadata: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+}
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 {
+    pub ResolvedLayoutMetadata: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+    pub pOutputQPMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub pOutputSATDMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub pOutputBitAllocationMap: core::mem::ManuallyDrop<Option<super::super::Graphics::Direct3D12::ID3D12Resource>>,
+    pub ResolvedFramePSNRData: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+    pub ResolvedSubregionsPSNRData: D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_PSNR_RESOLVED_LAYOUT {
+    pub PSNRY: f32,
+    pub PSNRU: f32,
+    pub PSNRV: f32,
 }
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
@@ -6247,6 +7215,30 @@ pub struct D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC {
     pub PPicturePeriod: u32,
     pub log2_max_pic_order_cnt_lsb_minus4: u8,
 }
+#[repr(C)]
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM {
+    pub BufferMode: D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE,
+    pub ExpectedSubregionCount: u32,
+    pub pSubregionBitstreamsBaseOffsets: *mut u64,
+    pub ppSubregionBitstreams: *mut Option<super::super::Graphics::Direct3D12::ID3D12Resource>,
+    pub ppSubregionSizes: *mut Option<super::super::Graphics::Direct3D12::ID3D12Resource>,
+    pub ppSubregionOffsets: *mut Option<super::super::Graphics::Direct3D12::ID3D12Resource>,
+    pub ppSubregionFences: *mut Option<super::super::Graphics::Direct3D12::ID3D12Fence>,
+    pub pSubregionFenceValues: *mut u64,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl Default for D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE(pub i32);
+pub const D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE_ARRAY_OF_BUFFERS: D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE = D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE(0i32);
+pub const D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE_SINGLE_BUFFER: D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE = D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE(1i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(pub i32);
@@ -6283,9 +7275,14 @@ impl core::ops::Not for D3D12_VIDEO_ENCODER_SUPPORT_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_FRAME_PSNR_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(2097152i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_GENERAL_SUPPORT_OK: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(1i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_INTRA_REFRESH_NO_SUBREGION_LAYOUT_CONSTRAINTS_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(16777216i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_MOTION_ESTIMATION_PRECISION_MODE_LIMIT_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(4096i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_NONE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(0i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_QP_MAP_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(65536i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_RC_BIT_ALLOCATION_MAP_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(262144i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_SATD_MAP_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(131072i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_ADJUSTABLE_QP_RANGE_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(256i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_DELTA_QP_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(64i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_EXTENSION1_SUPPORT: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8192i32);
@@ -6294,12 +7291,16 @@ pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_INITIAL_QP_AVAILABLE: D3
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_MAX_FRAME_SIZE_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(1024i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_QUALITY_VS_SPEED_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(16384i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_SPATIAL_ADAPTIVE_QP_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8388608i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(8i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_READABLE_RECONSTRUCTED_PICTURE_LAYOUT_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(32768i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RECONSTRUCTED_FRAMES_REQUIRE_TEXTURE_ARRAYS: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(32i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RESOLUTION_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(4i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(2048i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGIONS_PSNR_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(4194304i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(128i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(524288i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_SINGLE_BUFFER_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(1048576i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_VIDEO_ENCODER_TIER_HEVC(pub i32);
@@ -7124,6 +8125,7 @@ impl core::ops::Not for D3D12_VIDEO_SCALE_SUPPORT_FLAGS {
         Self(self.0.not())
     }
 }
+pub const D3D12_VIDEO_SCALE_SUPPORT_FLAG_DPB_ENCODER_RESOURCES: D3D12_VIDEO_SCALE_SUPPORT_FLAGS = D3D12_VIDEO_SCALE_SUPPORT_FLAGS(4i32);
 pub const D3D12_VIDEO_SCALE_SUPPORT_FLAG_EVEN_DIMENSIONS_ONLY: D3D12_VIDEO_SCALE_SUPPORT_FLAGS = D3D12_VIDEO_SCALE_SUPPORT_FLAGS(2i32);
 pub const D3D12_VIDEO_SCALE_SUPPORT_FLAG_NONE: D3D12_VIDEO_SCALE_SUPPORT_FLAGS = D3D12_VIDEO_SCALE_SUPPORT_FLAGS(0i32);
 pub const D3D12_VIDEO_SCALE_SUPPORT_FLAG_POW2_ONLY: D3D12_VIDEO_SCALE_SUPPORT_FLAGS = D3D12_VIDEO_SCALE_SUPPORT_FLAGS(1i32);
@@ -10289,6 +11291,52 @@ impl ID3D12VideoDevice3_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDevice3 {}
+windows_core::imp::define_interface!(ID3D12VideoDevice4, ID3D12VideoDevice4_Vtbl, 0xe59ad09e_f1ae_42bb_8983_9f6e5586c4eb);
+impl core::ops::Deref for ID3D12VideoDevice4 {
+    type Target = ID3D12VideoDevice3;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12VideoDevice4, windows_core::IUnknown, ID3D12VideoDevice, ID3D12VideoDevice1, ID3D12VideoDevice2, ID3D12VideoDevice3);
+impl ID3D12VideoDevice4 {
+    pub unsafe fn CreateVideoEncoderHeap1<T>(&self, pdesc: *const D3D12_VIDEO_ENCODER_HEAP_DESC1) -> windows_core::Result<T>
+    where
+        T: windows_core::Interface,
+    {
+        let mut result__ = core::ptr::null_mut();
+        unsafe { (windows_core::Interface::vtable(self).CreateVideoEncoderHeap1)(windows_core::Interface::as_raw(self), pdesc, &T::IID, &mut result__).and_then(|| windows_core::Type::from_abi(result__)) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoDevice4_Vtbl {
+    pub base__: ID3D12VideoDevice3_Vtbl,
+    pub CreateVideoEncoderHeap1: unsafe extern "system" fn(*mut core::ffi::c_void, *const D3D12_VIDEO_ENCODER_HEAP_DESC1, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+unsafe impl Send for ID3D12VideoDevice4 {}
+unsafe impl Sync for ID3D12VideoDevice4 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoDevice4_Impl: ID3D12VideoDevice3_Impl {
+    fn CreateVideoEncoderHeap1(&self, pdesc: *const D3D12_VIDEO_ENCODER_HEAP_DESC1, riid: *const windows_core::GUID, ppvideoencoderheap: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoDevice4_Vtbl {
+    pub const fn new<Identity: ID3D12VideoDevice4_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreateVideoEncoderHeap1<Identity: ID3D12VideoDevice4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pdesc: *const D3D12_VIDEO_ENCODER_HEAP_DESC1, riid: *const windows_core::GUID, ppvideoencoderheap: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoDevice4_Impl::CreateVideoEncoderHeap1(this, core::mem::transmute_copy(&pdesc), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&ppvideoencoderheap)).into()
+            }
+        }
+        Self { base__: ID3D12VideoDevice3_Vtbl::new::<Identity, OFFSET>(), CreateVideoEncoderHeap1: CreateVideoEncoderHeap1::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoDevice4 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoDevice4 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList_Vtbl, 0x8455293a_0cbd_4831_9b39_fbdbab724723);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -10742,6 +11790,98 @@ impl ID3D12VideoEncodeCommandList3_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoEncodeCommandList3 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoEncodeCommandList4, ID3D12VideoEncodeCommandList4_Vtbl, 0x69aeb5b7_55f2_4012_8b73_3a88d65a204c);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoEncodeCommandList4 {
+    type Target = ID3D12VideoEncodeCommandList3;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoEncodeCommandList4, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList1, ID3D12VideoEncodeCommandList2, ID3D12VideoEncodeCommandList3);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoEncodeCommandList4 {
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub unsafe fn EncodeFrame1<P0, P1>(&self, pencoder: P0, pheap: P1, pinputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1)
+    where
+        P0: windows_core::Param<ID3D12VideoEncoder>,
+        P1: windows_core::Param<ID3D12VideoEncoderHeap1>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).EncodeFrame1)(windows_core::Interface::as_raw(self), pencoder.param().abi(), pheap.param().abi(), core::mem::transmute(pinputarguments), core::mem::transmute(poutputarguments)) }
+    }
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub unsafe fn ResolveEncoderOutputMetadata1(&self, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1) {
+        unsafe { (windows_core::Interface::vtable(self).ResolveEncoderOutputMetadata1)(windows_core::Interface::as_raw(self), core::mem::transmute(pinputarguments), core::mem::transmute(poutputarguments)) }
+    }
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub unsafe fn ResolveInputParamLayout(&self, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS) {
+        unsafe { (windows_core::Interface::vtable(self).ResolveInputParamLayout)(windows_core::Interface::as_raw(self), core::mem::transmute(pinputarguments), core::mem::transmute(poutputarguments)) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoEncodeCommandList4_Vtbl {
+    pub base__: ID3D12VideoEncodeCommandList3_Vtbl,
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub EncodeFrame1: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *mut core::ffi::c_void, *const D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1, *const D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1),
+    #[cfg(not(feature = "Win32_Graphics_Dxgi_Common"))]
+    EncodeFrame1: usize,
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub ResolveEncoderOutputMetadata1: unsafe extern "system" fn(*mut core::ffi::c_void, *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1, *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1),
+    #[cfg(not(feature = "Win32_Graphics_Dxgi_Common"))]
+    ResolveEncoderOutputMetadata1: usize,
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub ResolveInputParamLayout: unsafe extern "system" fn(*mut core::ffi::c_void, *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS, *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS),
+    #[cfg(not(feature = "Win32_Graphics_Dxgi_Common"))]
+    ResolveInputParamLayout: usize,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoEncodeCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoEncodeCommandList4 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoEncodeCommandList4_Impl: ID3D12VideoEncodeCommandList3_Impl {
+    fn EncodeFrame1(&self, pencoder: windows_core::Ref<'_, ID3D12VideoEncoder>, pheap: windows_core::Ref<'_, ID3D12VideoEncoderHeap1>, pinputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1);
+    fn ResolveEncoderOutputMetadata1(&self, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1);
+    fn ResolveInputParamLayout(&self, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoEncodeCommandList4_Vtbl {
+    pub const fn new<Identity: ID3D12VideoEncodeCommandList4_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn EncodeFrame1<Identity: ID3D12VideoEncodeCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pencoder: *mut core::ffi::c_void, pheap: *mut core::ffi::c_void, pinputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncodeCommandList4_Impl::EncodeFrame1(this, core::mem::transmute_copy(&pencoder), core::mem::transmute_copy(&pheap), core::mem::transmute_copy(&pinputarguments), core::mem::transmute_copy(&poutputarguments))
+            }
+        }
+        unsafe extern "system" fn ResolveEncoderOutputMetadata1<Identity: ID3D12VideoEncodeCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncodeCommandList4_Impl::ResolveEncoderOutputMetadata1(this, core::mem::transmute_copy(&pinputarguments), core::mem::transmute_copy(&poutputarguments))
+            }
+        }
+        unsafe extern "system" fn ResolveInputParamLayout<Identity: ID3D12VideoEncodeCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pinputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS, poutputarguments: *const D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncodeCommandList4_Impl::ResolveInputParamLayout(this, core::mem::transmute_copy(&pinputarguments), core::mem::transmute_copy(&poutputarguments))
+            }
+        }
+        Self {
+            base__: ID3D12VideoEncodeCommandList3_Vtbl::new::<Identity, OFFSET>(),
+            EncodeFrame1: EncodeFrame1::<Identity, OFFSET>,
+            ResolveEncoderOutputMetadata1: ResolveEncoderOutputMetadata1::<Identity, OFFSET>,
+            ResolveInputParamLayout: ResolveInputParamLayout::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoEncodeCommandList4 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoEncodeCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoEncoder, ID3D12VideoEncoder_Vtbl, 0x2e0d212d_8df9_44a6_a770_bb289b182737);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl core::ops::Deref for ID3D12VideoEncoder {
@@ -10993,6 +12133,55 @@ impl ID3D12VideoEncoderHeap_Vtbl {
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl windows_core::RuntimeName for ID3D12VideoEncoderHeap {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoEncoderHeap1, ID3D12VideoEncoderHeap1_Vtbl, 0xea8f1968_4aa0_43a4_9d30_ba86ec84d4f9);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoEncoderHeap1 {
+    type Target = ID3D12VideoEncoderHeap;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoEncoderHeap1, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12Pageable, ID3D12VideoEncoderHeap);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoEncoderHeap1 {
+    pub unsafe fn GetPow2DownscaleFactor(&self) -> u32 {
+        unsafe { (windows_core::Interface::vtable(self).GetPow2DownscaleFactor)(windows_core::Interface::as_raw(self)) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoEncoderHeap1_Vtbl {
+    pub base__: ID3D12VideoEncoderHeap_Vtbl,
+    pub GetPow2DownscaleFactor: unsafe extern "system" fn(*mut core::ffi::c_void) -> u32,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoEncoderHeap1 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoEncoderHeap1 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub trait ID3D12VideoEncoderHeap1_Impl: ID3D12VideoEncoderHeap_Impl {
+    fn GetPow2DownscaleFactor(&self) -> u32;
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoEncoderHeap1_Vtbl {
+    pub const fn new<Identity: ID3D12VideoEncoderHeap1_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetPow2DownscaleFactor<Identity: ID3D12VideoEncoderHeap1_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void) -> u32 {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncoderHeap1_Impl::GetPow2DownscaleFactor(this)
+            }
+        }
+        Self { base__: ID3D12VideoEncoderHeap_Vtbl::new::<Identity, OFFSET>(), GetPow2DownscaleFactor: GetPow2DownscaleFactor::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoEncoderHeap1 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Pageable as windows_core::Interface>::IID || iid == &<ID3D12VideoEncoderHeap as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl windows_core::RuntimeName for ID3D12VideoEncoderHeap1 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoExtensionCommand, ID3D12VideoExtensionCommand_Vtbl, 0x554e41e8_ae8e_4a8c_b7d2_5b4f274a30e4);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -44745,6 +45934,13 @@ pub const MFSampleAllocatorUsage_UsesProvidedAllocator: MFSampleAllocatorUsage =
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct MFSampleEncryptionProtectionScheme(pub i32);
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct MFSampleExtensionPsnrYuv {
+    pub psnrY: f32,
+    pub psnrU: f32,
+    pub psnrV: f32,
+}
 pub const MFSampleExtension_3DVideo: windows_core::GUID = windows_core::GUID::from_u128(0xf86f97a4_dd54_4e2e_9a5e_55fc2d74a005);
 pub const MFSampleExtension_3DVideo_MultiView: MFVideo3DSampleFormat = MFVideo3DSampleFormat(1i32);
 pub const MFSampleExtension_3DVideo_Packed: MFVideo3DSampleFormat = MFVideo3DSampleFormat(0i32);
@@ -44789,6 +45985,7 @@ pub const MFSampleExtension_FeatureMap: windows_core::GUID = windows_core::GUID:
 pub const MFSampleExtension_ForwardedDecodeUnitType: windows_core::GUID = windows_core::GUID::from_u128(0x089e57c7_47d3_4a26_bf9c_4b64fafb5d1e);
 pub const MFSampleExtension_ForwardedDecodeUnits: windows_core::GUID = windows_core::GUID::from_u128(0x424c754c_97c8_48d6_8777_fc41f7b60879);
 pub const MFSampleExtension_FrameCorruption: windows_core::GUID = windows_core::GUID::from_u128(0xb4dd4a8c_0beb_44c4_8b75_b02b913b04f0);
+pub const MFSampleExtension_FramePsnrYuv: windows_core::GUID = windows_core::GUID::from_u128(0x1c633a3d_566f_4752_833b_2907df5415e1);
 pub const MFSampleExtension_GenKeyCtx: windows_core::GUID = windows_core::GUID::from_u128(0x188120cb_d7da_4b59_9b3e_9252fd37301c);
 pub const MFSampleExtension_GenKeyFunc: windows_core::GUID = windows_core::GUID::from_u128(0x441ca1ee_6b1f_4501_903a_de87df42f6ed);
 pub const MFSampleExtension_HDCP_FrameCounter: windows_core::GUID = windows_core::GUID::from_u128(0x9d389c60_f507_4aa6_a40a_71027a02f3de);
@@ -44821,8 +46018,11 @@ pub const MFSampleExtension_TemporalLayerId: windows_core::GUID = windows_core::
 pub const MFSampleExtension_Timestamp: windows_core::GUID = windows_core::GUID::from_u128(0x1e436999_69be_4c7a_9369_70068c0260cb);
 pub const MFSampleExtension_Token: windows_core::GUID = windows_core::GUID::from_u128(0x8294da66_f328_4805_b551_00deb4c57a61);
 pub const MFSampleExtension_VideoDSPMode: windows_core::GUID = windows_core::GUID::from_u128(0xc12d55cb_d7d9_476d_81f3_69117f163ea0);
+pub const MFSampleExtension_VideoEncodeBitsUsedMap: windows_core::GUID = windows_core::GUID::from_u128(0x6894263d_e6e2_4bcc_849d_8570365f5114);
 pub const MFSampleExtension_VideoEncodePictureType: windows_core::GUID = windows_core::GUID::from_u128(0x973704e6_cd14_483c_8f20_c9fc0928bad5);
 pub const MFSampleExtension_VideoEncodeQP: windows_core::GUID = windows_core::GUID::from_u128(0xb2efe478_f979_4c66_b95e_ee2b82c82f36);
+pub const MFSampleExtension_VideoEncodeQPMap: windows_core::GUID = windows_core::GUID::from_u128(0x2c68a331_b712_49ca_860a_3a1d58237d88);
+pub const MFSampleExtension_VideoEncodeSatdMap: windows_core::GUID = windows_core::GUID::from_u128(0xadf61d96_c2d3_4b57_a138_dde4d351eaa9);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct MFSensorDeviceMode(pub i32);
@@ -45327,6 +46527,8 @@ pub const MFVideoFormat_HEVC: windows_core::GUID = windows_core::GUID::from_u128
 pub const MFVideoFormat_HEVC_ES: windows_core::GUID = windows_core::GUID::from_u128(0x53564548_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_HEVC_HDCP: windows_core::GUID = windows_core::GUID::from_u128(0x3cfe0fe6_05c4_47dc_9d70_4bdb2959720f);
 pub const MFVideoFormat_I420: windows_core::GUID = windows_core::GUID::from_u128(0x30323449_0000_0010_8000_00aa00389b71);
+pub const MFVideoFormat_I422: windows_core::GUID = windows_core::GUID::from_u128(0x32323449_0000_0010_8000_00aa00389b71);
+pub const MFVideoFormat_I444: windows_core::GUID = windows_core::GUID::from_u128(0x34343449_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_IYUV: windows_core::GUID = windows_core::GUID::from_u128(0x56555949_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_L16: windows_core::GUID = windows_core::GUID::from_u128(0x00000051_0000_0010_8000_00aa00389b71);
 pub const MFVideoFormat_L8: windows_core::GUID = windows_core::GUID::from_u128(0x00000032_0000_0010_8000_00aa00389b71);
@@ -45932,6 +47134,7 @@ pub const MF_E_BANDWIDTH_OVERRUN: windows_core::HRESULT = windows_core::HRESULT(
 pub const MF_E_BUFFERTOOSMALL: windows_core::HRESULT = windows_core::HRESULT(0xC00D36B1_u32 as _);
 pub const MF_E_BYTESTREAM_NOT_SEEKABLE: windows_core::HRESULT = windows_core::HRESULT(0xC00D36EE_u32 as _);
 pub const MF_E_BYTESTREAM_UNKNOWN_LENGTH: windows_core::HRESULT = windows_core::HRESULT(0xC00D36FB_u32 as _);
+pub const MF_E_CAMERA_FSPROFILE_INVALID: windows_core::HRESULT = windows_core::HRESULT(0xC00DB79A_u32 as _);
 pub const MF_E_CAMERA_PRIVACY_NOT_ALLOWED: windows_core::HRESULT = windows_core::HRESULT(0xC00DB798_u32 as _);
 pub const MF_E_CANNOT_CREATE_SINK: windows_core::HRESULT = windows_core::HRESULT(0xC00D36FA_u32 as _);
 pub const MF_E_CANNOT_FIND_KEYFRAME_SAMPLE: windows_core::HRESULT = windows_core::HRESULT(0xC00D3E9D_u32 as _);

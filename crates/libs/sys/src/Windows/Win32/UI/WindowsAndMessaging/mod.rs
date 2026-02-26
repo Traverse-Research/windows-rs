@@ -5,6 +5,7 @@ windows_targets::link!("user32.dll" "system" fn AnimateWindow(hwnd : super::supe
 windows_targets::link!("user32.dll" "system" fn AnyPopup() -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn AppendMenuA(hmenu : HMENU, uflags : MENU_ITEM_FLAGS, uidnewitem : usize, lpnewitem : windows_sys::core::PCSTR) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn AppendMenuW(hmenu : HMENU, uflags : MENU_ITEM_FLAGS, uidnewitem : usize, lpnewitem : windows_sys::core::PCWSTR) -> windows_sys::core::BOOL);
+windows_targets::link!("user32.dll" "system" fn ApplyWindowAction(hwnd : super::super::Foundation:: HWND, paction : *mut WINDOW_ACTION) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn ArrangeIconicWindows(hwnd : super::super::Foundation:: HWND) -> u32);
 windows_targets::link!("user32.dll" "system" fn BeginDeferWindowPos(nnumwindows : i32) -> HDWP);
 windows_targets::link!("user32.dll" "system" fn BringWindowToTop(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
@@ -44,6 +45,7 @@ windows_targets::link!("user32.dll" "system" fn ChildWindowFromPoint(hwndparent 
 windows_targets::link!("user32.dll" "system" fn ChildWindowFromPointEx(hwnd : super::super::Foundation:: HWND, pt : super::super::Foundation:: POINT, flags : CWP_FLAGS) -> super::super::Foundation:: HWND);
 windows_targets::link!("user32.dll" "system" fn ClipCursor(lprect : *const super::super::Foundation:: RECT) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn CloseWindow(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
+windows_targets::link!("user32.dll" "system" fn ConvertToInterceptWindow(toplevelwindow : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn CopyAcceleratorTableA(haccelsrc : HACCEL, lpacceldst : *mut ACCEL, caccelentries : i32) -> i32);
 windows_targets::link!("user32.dll" "system" fn CopyAcceleratorTableW(haccelsrc : HACCEL, lpacceldst : *mut ACCEL, caccelentries : i32) -> i32);
 windows_targets::link!("user32.dll" "system" fn CopyIcon(hicon : HICON) -> HICON);
@@ -105,6 +107,7 @@ windows_targets::link!("user32.dll" "system" fn EnableMenuItem(hmenu : HMENU, ui
 windows_targets::link!("user32.dll" "system" fn EndDeferWindowPos(hwinposinfo : HDWP) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn EndDialog(hdlg : super::super::Foundation:: HWND, nresult : isize) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn EndMenu() -> windows_sys::core::BOOL);
+windows_targets::link!("user32.dll" "system" fn EnterMoveSizeLoop(hwnd : super::super::Foundation:: HWND, ptcursor : super::super::Foundation:: POINT, movesizecode : MOVESIZE_OPERATION) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn EnumChildWindows(hwndparent : super::super::Foundation:: HWND, lpenumfunc : WNDENUMPROC, lparam : super::super::Foundation:: LPARAM) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn EnumPropsA(hwnd : super::super::Foundation:: HWND, lpenumfunc : PROPENUMPROCA) -> i32);
 windows_targets::link!("user32.dll" "system" fn EnumPropsExA(hwnd : super::super::Foundation:: HWND, lpenumfunc : PROPENUMPROCEXA, lparam : super::super::Foundation:: LPARAM) -> i32);
@@ -253,6 +256,7 @@ windows_targets::link!("user32.dll" "system" fn IsDialogMessageW(hdlg : super::s
 windows_targets::link!("user32.dll" "system" fn IsGUIThread(bconvert : windows_sys::core::BOOL) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn IsHungAppWindow(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn IsIconic(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
+windows_targets::link!("user32.dll" "system" fn IsInterceptWindow(toplevelwindow : super::super::Foundation:: HWND, isintercept : *mut windows_sys::core::BOOL) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn IsMenu(hmenu : HMENU) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn IsProcessDPIAware() -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn IsWindow(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
@@ -346,6 +350,7 @@ windows_targets::link!("user32.dll" "system" fn RegisterClassExA(param0 : *const
 windows_targets::link!("user32.dll" "system" fn RegisterClassExW(param0 : *const WNDCLASSEXW) -> u16);
 #[cfg(feature = "Win32_Graphics_Gdi")]
 windows_targets::link!("user32.dll" "system" fn RegisterClassW(lpwndclass : *const WNDCLASSW) -> u16);
+windows_targets::link!("user32.dll" "system" fn RegisterCloakedNotification(hwnd : super::super::Foundation:: HWND, fregister : windows_sys::core::BOOL) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn RegisterDeviceNotificationA(hrecipient : super::super::Foundation:: HANDLE, notificationfilter : *const core::ffi::c_void, flags : REGISTER_NOTIFICATION_FLAGS) -> HDEVNOTIFY);
 windows_targets::link!("user32.dll" "system" fn RegisterDeviceNotificationW(hrecipient : super::super::Foundation:: HANDLE, notificationfilter : *const core::ffi::c_void, flags : REGISTER_NOTIFICATION_FLAGS) -> HDEVNOTIFY);
 windows_targets::link!("user32.dll" "system" fn RegisterForTooltipDismissNotification(hwnd : super::super::Foundation:: HWND, tdflags : TOOLTIP_DISMISS_FLAGS) -> windows_sys::core::BOOL);
@@ -793,6 +798,7 @@ pub struct CURSORSHAPE {
 }
 pub const CURSOR_CREATION_SCALING_DEFAULT: u32 = 2u32;
 pub const CURSOR_CREATION_SCALING_NONE: u32 = 1u32;
+pub const CURSOR_INVISIBLE: u32 = 0u32;
 pub const CURSOR_SHOWING: CURSORINFO_FLAGS = 1u32;
 pub const CURSOR_SUPPRESSED: CURSORINFO_FLAGS = 2u32;
 pub const CWF_CREATE_ONLY: u32 = 1u32;
@@ -1346,6 +1352,14 @@ pub const FLASHW_TIMERNOFG: FLASHWINFO_FLAGS = 12u32;
 pub const FLASHW_TRAY: FLASHWINFO_FLAGS = 2u32;
 pub const FNOINVERT: ACCEL_VIRT_FLAGS = 2u8;
 pub type FOREGROUND_WINDOW_LOCK_CODE = u32;
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct FRAME_MARGIN {
+    pub left: i16,
+    pub right: i16,
+    pub top: i16,
+    pub bottom: i16,
+}
 pub const FSHIFT: ACCEL_VIRT_FLAGS = 4u8;
 pub const FVIRTKEY: ACCEL_VIRT_FLAGS = 1u8;
 pub const GA_PARENT: GET_ANCESTOR_FLAGS = 1u32;
@@ -2368,6 +2382,7 @@ pub struct MOUSEHOOKSTRUCTEX {
 pub const MOUSEWHEEL_ROUTING_FOCUS: u32 = 0u32;
 pub const MOUSEWHEEL_ROUTING_HYBRID: u32 = 1u32;
 pub const MOUSEWHEEL_ROUTING_MOUSE_POS: u32 = 2u32;
+pub type MOVESIZE_OPERATION = i32;
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct MSG {
@@ -2454,6 +2469,15 @@ pub struct MSLLHOOKSTRUCT {
     pub time: u32,
     pub dwExtraInfo: usize,
 }
+pub const MSO_MOVE: MOVESIZE_OPERATION = 9i32;
+pub const MSO_SIZE_BOTTOM: MOVESIZE_OPERATION = 6i32;
+pub const MSO_SIZE_BOTTOMLEFT: MOVESIZE_OPERATION = 7i32;
+pub const MSO_SIZE_BOTTOMRIGHT: MOVESIZE_OPERATION = 8i32;
+pub const MSO_SIZE_LEFT: MOVESIZE_OPERATION = 1i32;
+pub const MSO_SIZE_RIGHT: MOVESIZE_OPERATION = 2i32;
+pub const MSO_SIZE_TOP: MOVESIZE_OPERATION = 3i32;
+pub const MSO_SIZE_TOPLEFT: MOVESIZE_OPERATION = 4i32;
+pub const MSO_SIZE_TOPRIGHT: MOVESIZE_OPERATION = 5i32;
 pub const MWMO_ALERTABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2u32;
 pub const MWMO_INPUTAVAILABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4u32;
 pub const MWMO_NONE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 0u32;
@@ -3563,6 +3587,31 @@ pub struct VolLockBroadcast {
     pub vlb_drive: u8,
     pub vlb_flags: u8,
 }
+pub const WAK_ACTIVATE: WINDOW_ACTION_KINDS = 16i32;
+pub const WAK_COALESCEABLE: WINDOW_ACTION_KINDS = 31i32;
+pub const WAK_DISPLAY_CHANGE: WINDOW_ACTION_KINDS = 512i32;
+pub const WAK_FIT_TO_MONITOR: WINDOW_ACTION_KINDS = 256i32;
+pub const WAK_INSERT_AFTER: WINDOW_ACTION_KINDS = 8i32;
+pub const WAK_MOVE_TO_MONITOR: WINDOW_ACTION_KINDS = 128i32;
+pub const WAK_NONE: WINDOW_ACTION_KINDS = 0i32;
+pub const WAK_NORMAL_RECT: WINDOW_ACTION_KINDS = 64i32;
+pub const WAK_PLACEMENT_STATE: WINDOW_ACTION_KINDS = 32i32;
+pub const WAK_POSITION: WINDOW_ACTION_KINDS = 2i32;
+pub const WAK_SIZE: WINDOW_ACTION_KINDS = 4i32;
+pub const WAK_SYSTEM_OPERATION: WINDOW_ACTION_KINDS = 1024i32;
+pub const WAK_VISIBILITY: WINDOW_ACTION_KINDS = 1i32;
+pub const WAM_ACTIVATE_FOREGROUND: WINDOW_ACTION_MODIFIERS = 2i32;
+pub const WAM_ACTIVATE_INPUT: WINDOW_ACTION_MODIFIERS = 4i32;
+pub const WAM_ACTIVATE_NO_ZORDER: WINDOW_ACTION_MODIFIERS = 8i32;
+pub const WAM_DPI: WINDOW_ACTION_MODIFIERS = 512i32;
+pub const WAM_FRAME_BOUNDS: WINDOW_ACTION_MODIFIERS = 1i32;
+pub const WAM_INSERT_AFTER_NO_OWNER: WINDOW_ACTION_MODIFIERS = 16i32;
+pub const WAM_NONE: WINDOW_ACTION_MODIFIERS = 0i32;
+pub const WAM_RESTORE_TO_ARRANGED: WINDOW_ACTION_MODIFIERS = 128i32;
+pub const WAM_RESTORE_TO_MAXIMIZED: WINDOW_ACTION_MODIFIERS = 64i32;
+pub const WAM_RESTORE_TO_NORMAL: WINDOW_ACTION_MODIFIERS = 32i32;
+pub const WAM_SCALED_TO_MONITOR: WINDOW_ACTION_MODIFIERS = 1024i32;
+pub const WAM_WORK_AREA: WINDOW_ACTION_MODIFIERS = 256i32;
 pub const WA_ACTIVE: u32 = 1u32;
 pub const WA_CLICKACTIVE: u32 = 2u32;
 pub const WA_INACTIVE: u32 = 0u32;
@@ -3632,10 +3681,34 @@ impl Default for WINDOWPOS {
     }
 }
 pub type WINDOWS_HOOK_ID = i32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct WINDOW_ACTION {
+    pub kinds: WINDOW_ACTION_KINDS,
+    pub modifiers: WINDOW_ACTION_MODIFIERS,
+    pub visible: windows_sys::core::BOOL,
+    pub position: super::super::Foundation::POINT,
+    pub size: super::super::Foundation::SIZE,
+    pub insertAfter: super::super::Foundation::HWND,
+    pub placementState: WINDOW_PLACEMENT_STATE,
+    pub normalRect: super::super::Foundation::RECT,
+    pub workArea: super::super::Foundation::RECT,
+    pub dpi: u32,
+    pub pointOnMonitor: super::super::Foundation::POINT,
+    pub monitorTopologyId: u32,
+}
+impl Default for WINDOW_ACTION {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub type WINDOW_ACTION_KINDS = i32;
+pub type WINDOW_ACTION_MODIFIERS = i32;
 pub type WINDOW_DISPLAY_AFFINITY = u32;
 pub type WINDOW_EX_STYLE = u32;
 pub type WINDOW_LONG_PTR_INDEX = i32;
 pub type WINDOW_MESSAGE_FILTER_ACTION = u32;
+pub type WINDOW_PLACEMENT_STATE = i32;
 pub type WINDOW_STYLE = u32;
 pub const WINEVENT_INCONTEXT: u32 = 4u32;
 pub const WINEVENT_OUTOFCONTEXT: u32 = 0u32;
@@ -3676,6 +3749,7 @@ pub const WM_CHARTOITEM: u32 = 47u32;
 pub const WM_CHILDACTIVATE: u32 = 34u32;
 pub const WM_CLEAR: u32 = 771u32;
 pub const WM_CLIPBOARDUPDATE: u32 = 797u32;
+pub const WM_CLOAKED_STATE_CHANGED: u32 = 839u32;
 pub const WM_CLOSE: u32 = 16u32;
 pub const WM_COMMAND: u32 = 273u32;
 pub const WM_COMMNOTIFY: u32 = 68u32;
@@ -3760,6 +3834,7 @@ pub const WM_INPUT: u32 = 255u32;
 pub const WM_INPUTLANGCHANGE: u32 = 81u32;
 pub const WM_INPUTLANGCHANGEREQUEST: u32 = 80u32;
 pub const WM_INPUT_DEVICE_CHANGE: u32 = 254u32;
+pub const WM_INTERCEPTED_WINDOW_ACTION: u32 = 838u32;
 pub const WM_KEYDOWN: u32 = 256u32;
 pub const WM_KEYFIRST: u32 = 256u32;
 pub const WM_KEYLAST: u32 = 265u32;
@@ -4008,6 +4083,10 @@ pub type WNDPROC = Option<unsafe extern "system" fn(param0: super::super::Founda
 pub const WPF_ASYNCWINDOWPLACEMENT: WINDOWPLACEMENT_FLAGS = 4u32;
 pub const WPF_RESTORETOMAXIMIZED: WINDOWPLACEMENT_FLAGS = 2u32;
 pub const WPF_SETMINPOSITION: WINDOWPLACEMENT_FLAGS = 1u32;
+pub const WPS_ARRANGED: WINDOW_PLACEMENT_STATE = 3i32;
+pub const WPS_MAXIMIZED: WINDOW_PLACEMENT_STATE = 1i32;
+pub const WPS_MINIMIZED: WINDOW_PLACEMENT_STATE = 2i32;
+pub const WPS_NORMAL: WINDOW_PLACEMENT_STATE = 0i32;
 pub const WSF_VISIBLE: i32 = 1i32;
 pub const WS_ACTIVECAPTION: WINDOW_STYLE = 1u32;
 pub const WS_BORDER: WINDOW_STYLE = 8388608u32;
@@ -4069,6 +4148,7 @@ pub const WTS_CONSOLE_DISCONNECT: u32 = 2u32;
 pub const WTS_REMOTE_CONNECT: u32 = 3u32;
 pub const WTS_REMOTE_DISCONNECT: u32 = 4u32;
 pub const WTS_SESSION_CREATE: u32 = 10u32;
+pub const WTS_SESSION_DESKTOP_READY: u32 = 15u32;
 pub const WTS_SESSION_LOCK: u32 = 7u32;
 pub const WTS_SESSION_LOGOFF: u32 = 6u32;
 pub const WTS_SESSION_LOGON: u32 = 5u32;

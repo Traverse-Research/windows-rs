@@ -124,6 +124,7 @@ Win32_NetworkManagement_WindowsNetworkVirtualization = ["Win32_NetworkManagement
 Win32_Networking = ["Win32"]
 Win32_Networking_ActiveDirectory = ["Win32_Networking"]
 Win32_Networking_Clustering = ["Win32_Networking"]
+Win32_Networking_DeliveryOptimization = ["Win32_Networking"]
 Win32_Networking_HttpServer = ["Win32_Networking"]
 Win32_Networking_Ldap = ["Win32_Networking"]
 Win32_Networking_WebSocket = ["Win32_Networking"]

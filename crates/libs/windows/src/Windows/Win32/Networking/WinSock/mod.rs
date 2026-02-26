@@ -3876,6 +3876,35 @@ pub struct ND_OPTION_MTU {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct ND_OPTION_PREF64 {
+    pub nd_opt_p64_type: u8,
+    pub nd_opt_p64_len: u8,
+    pub Anonymous: ND_OPTION_PREF64_0,
+    pub nd_opt_p64_prefix: [u8; 12],
+}
+impl Default for ND_OPTION_PREF64 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union ND_OPTION_PREF64_0 {
+    pub nd_opt_p64_lifetime_plc: u16,
+    pub Anonymous: ND_OPTION_PREF64_0_0,
+}
+impl Default for ND_OPTION_PREF64_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct ND_OPTION_PREF64_0_0 {
+    pub _bitfield: u16,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct ND_OPTION_PREFIX_INFO {
     pub nd_opt_pi_type: u8,
     pub nd_opt_pi_len: u8,
@@ -3990,6 +4019,16 @@ pub const ND_OPT_PI_FLAG_ONLINK: u32 = 128u32;
 pub const ND_OPT_PI_FLAG_ROUTE: u32 = 1u32;
 pub const ND_OPT_PI_FLAG_ROUTER_ADDR: u32 = 32u32;
 pub const ND_OPT_PI_FLAG_SITE_PREFIX: u32 = 16u32;
+pub const ND_OPT_PREF64: ND_OPTION_TYPE = ND_OPTION_TYPE(38i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_32: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(5i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_40: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(4i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_48: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(3i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_56: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(2i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_64: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(1i32);
+pub const ND_OPT_PREF64_PREFIX_LENGTH_96: ND_OPT_PREF64_PREFIX_LENGTH_CODE = ND_OPT_PREF64_PREFIX_LENGTH_CODE(0i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct ND_OPT_PREF64_PREFIX_LENGTH_CODE(pub i32);
 pub const ND_OPT_PREFIX_INFORMATION: ND_OPTION_TYPE = ND_OPTION_TYPE(3i32);
 pub const ND_OPT_RDNSS: ND_OPTION_TYPE = ND_OPTION_TYPE(25i32);
 pub const ND_OPT_RDNSS_MIN_LEN: u32 = 24u32;
@@ -5692,6 +5731,8 @@ pub const SO_RANDOMIZE_PORT: i32 = 12293i32;
 pub const SO_RCVBUF: i32 = 4098i32;
 pub const SO_RCVLOWAT: i32 = 4100i32;
 pub const SO_RCVTIMEO: i32 = 4102i32;
+pub const SO_RECEIVED_HOPLIMIT: u32 = 12304u32;
+pub const SO_RECEIVED_PROCESSOR: u32 = 12305u32;
 pub const SO_REUSEADDR: i32 = 4i32;
 pub const SO_REUSE_MULTICASTPORT: i32 = 12296i32;
 pub const SO_REUSE_UNICASTPORT: i32 = 12295i32;

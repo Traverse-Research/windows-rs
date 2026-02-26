@@ -1751,6 +1751,7 @@ pub struct LDAP {
     pub ld_cldaptimeout: u32,
     pub ld_refhoplimit: u32,
     pub ld_options: u32,
+    pub ld_maxvalrange: u32,
 }
 impl Default for LDAP {
     fn default() -> Self {
@@ -2130,6 +2131,7 @@ pub const LDAP_OPT_GETDSNAME_FLAGS: u32 = 61u32;
 pub const LDAP_OPT_HOST_NAME: u32 = 48u32;
 pub const LDAP_OPT_HOST_REACHABLE: u32 = 62u32;
 pub const LDAP_OPT_IO_FN_PTRS: u32 = 11u32;
+pub const LDAP_OPT_MAX_VAL_RANGE: u32 = 71u32;
 pub const LDAP_OPT_PING_KEEP_ALIVE: u32 = 54u32;
 pub const LDAP_OPT_PING_LIMIT: u32 = 56u32;
 pub const LDAP_OPT_PING_WAIT_TIME: u32 = 55u32;
