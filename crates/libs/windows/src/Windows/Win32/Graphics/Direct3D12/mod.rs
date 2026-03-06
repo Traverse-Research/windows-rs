@@ -5429,7 +5429,7 @@ pub struct D3D12_PARAMETER_DESC {
     pub FirstOutRegister: u32,
     pub FirstOutComponent: u32,
 }
-pub type D3D12_PFN_TRIM_NOTIFICATION_CALLBACK = Option<unsafe extern "system" fn(__midl____midl_itf_d3d12_0000_00640000: *const D3D12_TRIM_NOTIFICATION)>;
+pub type D3D12_PFN_TRIM_NOTIFICATION_CALLBACK = Option<unsafe extern "system" fn(__midl____midl_itf_d3d12_0000_00650000: *const D3D12_TRIM_NOTIFICATION)>;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct D3D12_PIPELINE_STATE_FLAGS(pub i32);
@@ -17479,6 +17479,60 @@ impl ID3D12RootSignature_Vtbl {
     }
 }
 impl windows_core::RuntimeName for ID3D12RootSignature {}
+windows_core::imp::define_interface!(ID3D12RootSignature1, ID3D12RootSignature1_Vtbl, 0xc390bd7d_9142_4a95_b072_6d3439ade5c4);
+impl core::ops::Deref for ID3D12RootSignature1 {
+    type Target = ID3D12RootSignature;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12RootSignature1, windows_core::IUnknown, ID3D12Object, ID3D12DeviceChild, ID3D12RootSignature);
+impl ID3D12RootSignature1 {
+    pub unsafe fn GetSerializedSize(&self) -> usize {
+        unsafe { (windows_core::Interface::vtable(self).GetSerializedSize)(windows_core::Interface::as_raw(self)) }
+    }
+    pub unsafe fn GetSerializedData(&self, pdata: *mut core::ffi::c_void, size: usize) -> windows_core::Result<()> {
+        unsafe { (windows_core::Interface::vtable(self).GetSerializedData)(windows_core::Interface::as_raw(self), pdata as _, size).ok() }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12RootSignature1_Vtbl {
+    pub base__: ID3D12RootSignature_Vtbl,
+    pub GetSerializedSize: unsafe extern "system" fn(*mut core::ffi::c_void) -> usize,
+    pub GetSerializedData: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, usize) -> windows_core::HRESULT,
+}
+unsafe impl Send for ID3D12RootSignature1 {}
+unsafe impl Sync for ID3D12RootSignature1 {}
+pub trait ID3D12RootSignature1_Impl: ID3D12RootSignature_Impl {
+    fn GetSerializedSize(&self) -> usize;
+    fn GetSerializedData(&self, pdata: *mut core::ffi::c_void, size: usize) -> windows_core::Result<()>;
+}
+impl ID3D12RootSignature1_Vtbl {
+    pub const fn new<Identity: ID3D12RootSignature1_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetSerializedSize<Identity: ID3D12RootSignature1_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void) -> usize {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12RootSignature1_Impl::GetSerializedSize(this)
+            }
+        }
+        unsafe extern "system" fn GetSerializedData<Identity: ID3D12RootSignature1_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pdata: *mut core::ffi::c_void, size: usize) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12RootSignature1_Impl::GetSerializedData(this, core::mem::transmute_copy(&pdata), core::mem::transmute_copy(&size)).into()
+            }
+        }
+        Self {
+            base__: ID3D12RootSignature_Vtbl::new::<Identity, OFFSET>(),
+            GetSerializedSize: GetSerializedSize::<Identity, OFFSET>,
+            GetSerializedData: GetSerializedData::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12RootSignature1 as windows_core::Interface>::IID || iid == &<ID3D12Object as windows_core::Interface>::IID || iid == &<ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<ID3D12RootSignature as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for ID3D12RootSignature1 {}
 windows_core::imp::define_interface!(ID3D12RootSignatureDeserializer, ID3D12RootSignatureDeserializer_Vtbl, 0x34ab647b_3cc8_46ac_841b_c0965645c046);
 windows_core::imp::interface_hierarchy!(ID3D12RootSignatureDeserializer, windows_core::IUnknown);
 impl ID3D12RootSignatureDeserializer {
