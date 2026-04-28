@@ -45,6 +45,7 @@ windows_targets::link!("user32.dll" "system" fn ChildWindowFromPoint(hwndparent 
 windows_targets::link!("user32.dll" "system" fn ChildWindowFromPointEx(hwnd : super::super::Foundation:: HWND, pt : super::super::Foundation:: POINT, flags : CWP_FLAGS) -> super::super::Foundation:: HWND);
 windows_targets::link!("user32.dll" "system" fn ClipCursor(lprect : *const super::super::Foundation:: RECT) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn CloseWindow(hwnd : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
+windows_targets::link!("user32.dll" "system" fn ConvertPrimaryPointerToMouseDrag() -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn ConvertToInterceptWindow(toplevelwindow : super::super::Foundation:: HWND) -> windows_sys::core::BOOL);
 windows_targets::link!("user32.dll" "system" fn CopyAcceleratorTableA(haccelsrc : HACCEL, lpacceldst : *mut ACCEL, caccelentries : i32) -> i32);
 windows_targets::link!("user32.dll" "system" fn CopyAcceleratorTableW(haccelsrc : HACCEL, lpacceldst : *mut ACCEL, caccelentries : i32) -> i32);
@@ -3464,7 +3465,6 @@ pub const TKF_HOTKEYSOUND: u32 = 16u32;
 pub const TKF_INDICATOR: u32 = 32u32;
 pub const TKF_TOGGLEKEYSON: u32 = 1u32;
 pub type TOOLTIP_DISMISS_FLAGS = i32;
-pub const TOUCHPAD_PARAMETERS_LATEST_VERSION: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
 pub struct TOUCHPAD_PARAMETERS_V1 {
@@ -3480,7 +3480,14 @@ pub struct TOUCHPAD_PARAMETERS_V1 {
     pub rightClickZoneWidth: u32,
     pub rightClickZoneHeight: u32,
 }
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct TOUCHPAD_PARAMETERS_V2 {
+    pub Base: TOUCHPAD_PARAMETERS_V1,
+    pub _bitfield: i32,
+}
 pub const TOUCHPAD_PARAMETERS_VERSION_1: u32 = 1u32;
+pub const TOUCHPAD_PARAMETERS_VERSION_2: u32 = 2u32;
 pub type TOUCHPAD_SENSITIVITY_LEVEL = i32;
 pub const TOUCHPAD_SENSITIVITY_LEVEL_HIGH_SENSITIVITY: TOUCHPAD_SENSITIVITY_LEVEL = 1i32;
 pub const TOUCHPAD_SENSITIVITY_LEVEL_LEAST_SENSITIVE: TOUCHPAD_SENSITIVITY_LEVEL = 4i32;

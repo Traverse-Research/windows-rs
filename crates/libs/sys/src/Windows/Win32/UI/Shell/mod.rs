@@ -2638,6 +2638,7 @@ pub const DefFolderMenu: windows_sys::core::GUID = windows_sys::core::GUID::from
 pub const DesktopGadget: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x924ccc1b_6562_4c85_8657_d177925222b6);
 pub const DesktopWallpaper: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xc2cf3110_460e_4fc1_b9d0_8a1c0c9cc4bd);
 pub const DestinationList: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x77f10cf0_3db5_4966_b520_b7c54fd35ed6);
+pub const DestinationListBoth: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x38fe0cf4_6a59_4729_8e4a_2d580059ede4);
 pub const DocPropShellExtension: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x883373c3_bf89_11d1_be35_080036b11a03);
 pub const DriveSizeCategorizer: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0x94357b53_ca29_4b78_83ae_e8fe7409134f);
 pub const DriveTypeCategorizer: windows_sys::core::GUID = windows_sys::core::GUID::from_u128(0xb0a8f3cf_4333_4bab_8873_1ccb1cada48b);

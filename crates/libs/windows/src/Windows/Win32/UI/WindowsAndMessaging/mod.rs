@@ -280,6 +280,11 @@ pub unsafe fn CloseWindow(hwnd: super::super::Foundation::HWND) -> windows_core:
     unsafe { CloseWindow(hwnd).ok() }
 }
 #[inline]
+pub unsafe fn ConvertPrimaryPointerToMouseDrag() -> windows_core::BOOL {
+    windows_link::link!("user32.dll" "system" fn ConvertPrimaryPointerToMouseDrag() -> windows_core::BOOL);
+    unsafe { ConvertPrimaryPointerToMouseDrag() }
+}
+#[inline]
 pub unsafe fn ConvertToInterceptWindow(toplevelwindow: super::super::Foundation::HWND) -> windows_core::BOOL {
     windows_link::link!("user32.dll" "system" fn ConvertToInterceptWindow(toplevelwindow : super::super::Foundation:: HWND) -> windows_core::BOOL);
     unsafe { ConvertToInterceptWindow(toplevelwindow) }
@@ -6662,7 +6667,6 @@ pub const TKF_TOGGLEKEYSON: u32 = 1u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct TOOLTIP_DISMISS_FLAGS(pub i32);
-pub const TOUCHPAD_PARAMETERS_LATEST_VERSION: u32 = 1u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct TOUCHPAD_PARAMETERS_V1 {
@@ -6678,7 +6682,14 @@ pub struct TOUCHPAD_PARAMETERS_V1 {
     pub rightClickZoneWidth: u32,
     pub rightClickZoneHeight: u32,
 }
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct TOUCHPAD_PARAMETERS_V2 {
+    pub Base: TOUCHPAD_PARAMETERS_V1,
+    pub _bitfield: i32,
+}
 pub const TOUCHPAD_PARAMETERS_VERSION_1: u32 = 1u32;
+pub const TOUCHPAD_PARAMETERS_VERSION_2: u32 = 2u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct TOUCHPAD_SENSITIVITY_LEVEL(pub i32);

@@ -482,6 +482,72 @@ pub const DOMAIN_USER_RID_GUEST: i32 = 501i32;
 pub const DOMAIN_USER_RID_KRBTGT: i32 = 502i32;
 pub const DOMAIN_USER_RID_MAX: i32 = 999i32;
 pub const DOMAIN_USER_RID_WDAG_ACCOUNT: i32 = 504i32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct DRIVER_INFO_ENTRY {
+    pub InternalName: [i8; 32],
+    pub ImageHashAlgorithm: u16,
+    pub PublisherThumbprintHashAlgorithm: u16,
+    pub ImageHashOffset: u32,
+    pub PublisherThumbprintOffset: u32,
+    pub LoadCount: u16,
+    pub OemNameSize: u16,
+    pub OemNameOffset: u32,
+    pub Flags: DRIVER_INFO_ENTRY_0,
+    pub Padding: u16,
+}
+impl Default for DRIVER_INFO_ENTRY {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union DRIVER_INFO_ENTRY_0 {
+    pub Anonymous: DRIVER_INFO_ENTRY_0_0,
+    pub AsUInt16: u16,
+}
+impl Default for DRIVER_INFO_ENTRY_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct DRIVER_INFO_ENTRY_0_0 {
+    pub _bitfield: u16,
+}
+pub const DRIVER_REPORT_DIGEST_MAX_SIZE: u32 = 64u32;
+pub const DRIVER_REPORT_NAME_MAX_LENGTH: u32 = 32u32;
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct DRIVER_RUNTIME_REPORT {
+    pub Header: RUNTIME_REPORT_HEADER,
+    pub NumberOfDrivers: u16,
+    pub Flags: DRIVER_RUNTIME_REPORT_0,
+    pub DriverEntries: [DRIVER_INFO_ENTRY; 1],
+}
+impl Default for DRIVER_RUNTIME_REPORT {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union DRIVER_RUNTIME_REPORT_0 {
+    pub Anonymous: DRIVER_RUNTIME_REPORT_0_0,
+    pub AsUInt16: u16,
+}
+impl Default for DRIVER_RUNTIME_REPORT_0 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct DRIVER_RUNTIME_REPORT_0_0 {
+    pub _bitfield: u16,
+}
 pub const DYNAMIC_EH_CONTINUATION_TARGET_ADD: u32 = 1u32;
 pub const DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED: u32 = 2u32;
 pub const DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD: u32 = 1u32;
@@ -4075,6 +4141,48 @@ pub struct RTL_UMS_SCHEDULER_REASON(pub i32);
 pub const RTL_UMS_VERSION: u32 = 256u32;
 pub const RTL_VIRTUAL_UNWIND2_VALIDATE_PAC: u32 = 1u32;
 pub const RUNTIME_FUNCTION_INDIRECT: u32 = 1u32;
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct RUNTIME_REPORT_DIGEST_HEADER {
+    pub ReportType: u16,
+    pub Reserved: u16,
+    pub ReportDigest: [u8; 64],
+}
+impl Default for RUNTIME_REPORT_DIGEST_HEADER {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub const RUNTIME_REPORT_DIGEST_MAX_SIZE: u32 = 64u32;
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct RUNTIME_REPORT_HEADER {
+    pub ReportType: u16,
+    pub Reserved: u16,
+    pub ReportSize: u32,
+}
+pub const RUNTIME_REPORT_NONCE_SIZE: u32 = 32u32;
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct RUNTIME_REPORT_PACKAGE_HEADER {
+    pub Magic: u32,
+    pub PackageVersion: u16,
+    pub NumberOfReports: u16,
+    pub ReportTypesBitmap: u64,
+    pub PackageSize: u32,
+    pub ReportDigestType: u16,
+    pub TotalReportDigestsSize: u16,
+    pub Reserved: u16,
+    pub SignatureScheme: u16,
+    pub SignatureSize: u32,
+    pub TotalAuthenticatedReportsSize: u32,
+}
+pub const RUNTIME_REPORT_PACKAGE_MAGIC: u32 = 1381257808u32;
+pub const RUNTIME_REPORT_PACKAGE_VERSION_CURRENT: u32 = 1u32;
+pub const RUNTIME_REPORT_SIGNATURE_SCHEME_SHA512_RSA_PSS_SHA512: u32 = 1u32;
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct RUNTIME_REPORT_TYPE(pub i32);
 pub const RecognizerType: SERVICE_NODE_TYPE = SERVICE_NODE_TYPE(8i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -4174,6 +4282,8 @@ pub struct ReplacesCorHdrNumericDefines(pub i32);
 pub const ResourceManagerBasicInformation: RESOURCEMANAGER_INFORMATION_CLASS = RESOURCEMANAGER_INFORMATION_CLASS(0i32);
 pub const ResourceManagerCompletionInformation: RESOURCEMANAGER_INFORMATION_CLASS = RESOURCEMANAGER_INFORMATION_CLASS(1i32);
 pub const RunlevelInformationInActivationContext: ACTIVATION_CONTEXT_INFO_CLASS = ACTIVATION_CONTEXT_INFO_CLASS(5i32);
+pub const RuntimeReportTypeDriver: RUNTIME_REPORT_TYPE = RUNTIME_REPORT_TYPE(0i32);
+pub const RuntimeReportTypeMax: RUNTIME_REPORT_TYPE = RUNTIME_REPORT_TYPE(1i32);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SCOPE_TABLE_AMD64 {
@@ -4387,6 +4497,7 @@ pub const SECURITY_LOGON_IDS_RID_COUNT: i32 = 3i32;
 pub const SECURITY_MANDATORY_HIGH_RID: i32 = 12288i32;
 pub const SECURITY_MANDATORY_LOW_RID: i32 = 4096i32;
 pub const SECURITY_MANDATORY_MAXIMUM_USER_RID: i32 = 16384i32;
+pub const SECURITY_MANDATORY_MEDIUM_PLUS_CREDUI_RID: u32 = 8202u32;
 pub const SECURITY_MANDATORY_MEDIUM_PLUS_RID: u32 = 8448u32;
 pub const SECURITY_MANDATORY_MEDIUM_RID: i32 = 8192i32;
 pub const SECURITY_MANDATORY_PROTECTED_PROCESS_RID: i32 = 20480i32;
@@ -5285,15 +5396,6 @@ pub struct TOKEN_SID_INFORMATION {
     pub Sid: super::super::Security::PSID,
 }
 pub const TOKEN_SOURCE_LENGTH: u32 = 8u32;
-pub type TP_CLEANUP_GROUP_CANCEL_CALLBACK = Option<unsafe extern "system" fn(objectcontext: *mut core::ffi::c_void, cleanupcontext: *mut core::ffi::c_void)>;
-#[cfg(feature = "Win32_System_Threading")]
-pub type TP_SIMPLE_CALLBACK = Option<unsafe extern "system" fn(instance: super::Threading::PTP_CALLBACK_INSTANCE, context: *mut core::ffi::c_void)>;
-#[cfg(feature = "Win32_System_Threading")]
-pub type TP_TIMER_CALLBACK = Option<unsafe extern "system" fn(instance: super::Threading::PTP_CALLBACK_INSTANCE, context: *mut core::ffi::c_void, timer: super::Threading::PTP_TIMER)>;
-#[cfg(feature = "Win32_System_Threading")]
-pub type TP_WAIT_CALLBACK = Option<unsafe extern "system" fn(instance: super::Threading::PTP_CALLBACK_INSTANCE, context: *mut core::ffi::c_void, wait: super::Threading::PTP_WAIT, waitresult: u32)>;
-#[cfg(feature = "Win32_System_Threading")]
-pub type TP_WORK_CALLBACK = Option<unsafe extern "system" fn(instance: super::Threading::PTP_CALLBACK_INSTANCE, context: *mut core::ffi::c_void, work: super::Threading::PTP_WORK)>;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct TRANSACTIONMANAGER_BASIC_INFORMATION {

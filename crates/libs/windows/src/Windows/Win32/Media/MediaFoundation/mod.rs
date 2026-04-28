@@ -2752,6 +2752,7 @@ pub const CODECAPI_AVEncVideoHeaderFrames: windows_core::GUID = windows_core::GU
 pub const CODECAPI_AVEncVideoHeaderHours: windows_core::GUID = windows_core::GUID::from_u128(0x2acc7702_e2da_4158_bf9b_88880129d740);
 pub const CODECAPI_AVEncVideoHeaderMinutes: windows_core::GUID = windows_core::GUID::from_u128(0xdc1a99ce_0307_408b_880b_b8348ee8ca7f);
 pub const CODECAPI_AVEncVideoHeaderSeconds: windows_core::GUID = windows_core::GUID::from_u128(0x4a2e1a05_a780_4f58_8120_9a449d69656b);
+pub const CODECAPI_AVEncVideoInputAbsoluteQPBlockSettings: windows_core::GUID = windows_core::GUID::from_u128(0xef95a145_4f91_4dea_8173_acff11434210);
 pub const CODECAPI_AVEncVideoInputChromaResolution: windows_core::GUID = windows_core::GUID::from_u128(0xbb0cec33_16f1_47b0_8a88_37815bee1739);
 pub const CODECAPI_AVEncVideoInputChromaSubsampling: windows_core::GUID = windows_core::GUID::from_u128(0xa8e73a39_4435_4ec3_a6ea_98300f4b36f7);
 pub const CODECAPI_AVEncVideoInputColorLighting: windows_core::GUID = windows_core::GUID::from_u128(0x46a99549_0015_4a45_9c30_1d5cfa258316);
@@ -2759,6 +2760,7 @@ pub const CODECAPI_AVEncVideoInputColorNominalRange: windows_core::GUID = window
 pub const CODECAPI_AVEncVideoInputColorPrimaries: windows_core::GUID = windows_core::GUID::from_u128(0xc24d783f_7ce6_4278_90ab_28a4f1e5f86c);
 pub const CODECAPI_AVEncVideoInputColorTransferFunction: windows_core::GUID = windows_core::GUID::from_u128(0x8c056111_a9c3_4b08_a0a0_ce13f8a27c75);
 pub const CODECAPI_AVEncVideoInputColorTransferMatrix: windows_core::GUID = windows_core::GUID::from_u128(0x52ed68b9_72d5_4089_958d_f5405d55081c);
+pub const CODECAPI_AVEncVideoInputDeltaQPBlockSettings: windows_core::GUID = windows_core::GUID::from_u128(0x5a4787dc_0648_47aa_b945_552bfad2a6d8);
 pub const CODECAPI_AVEncVideoInstantTemporalUpSwitching: windows_core::GUID = windows_core::GUID::from_u128(0xa3308307_0d96_4ba4_b1f0_b91a5e49df10);
 pub const CODECAPI_AVEncVideoIntraLayerPrediction: windows_core::GUID = windows_core::GUID::from_u128(0xd3af46b8_bf47_44bb_a283_69f0b0228ff9);
 pub const CODECAPI_AVEncVideoInverseTelecineEnable: windows_core::GUID = windows_core::GUID::from_u128(0x2ea9098b_e76d_4ccd_a030_d3b889c1b64c);
@@ -2862,6 +2864,12 @@ pub const CODECAPI_SUPPORTSEVENTS: windows_core::GUID = windows_core::GUID::from
 pub const CODECAPI_SetHDCPManagerContext: windows_core::GUID = windows_core::GUID::from_u128(0x6d2d1fc8_3dc9_47eb_a1a2_471c80cd60d0);
 pub const CODECAPI_VIDEO_ENCODER: windows_core::GUID = windows_core::GUID::from_u128(0x7112e8e1_3d03_47ef_8e60_03f1cf537301);
 pub const CODECAPI_VideoEncoderDisplayContentType: windows_core::GUID = windows_core::GUID::from_u128(0x79b90b27_f4b1_42dc_9dd7_cdaf8135c400);
+pub const CODEC_API_QP_MAP_INT16: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(1i32);
+pub const CODEC_API_QP_MAP_INT32: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(2i32);
+pub const CODEC_API_QP_MAP_INT8: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(0i32);
+pub const CODEC_API_QP_MAP_UINT16: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(-2147483647i32);
+pub const CODEC_API_QP_MAP_UINT32: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(-2147483646i32);
+pub const CODEC_API_QP_MAP_UINT8: eAVEncVideoQPMapElementDataType = eAVEncVideoQPMapElementDataType(-2147483648i32);
 pub const COPP_ProtectionType_ACP: i32 = 2i32;
 pub const COPP_ProtectionType_CGMSA: i32 = 4i32;
 pub const COPP_ProtectionType_HDCP: i32 = 1i32;
@@ -4063,6 +4071,13 @@ impl Default for D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1 {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_400_10: windows_core::GUID = windows_core::GUID::from_u128(0x37148862_6bd6_4618_8293_777b686b0824);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_422_10: windows_core::GUID = windows_core::GUID::from_u128(0x226a709d_ae12_44c5_ba21_164feeb7f9b6);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_422_12: windows_core::GUID = windows_core::GUID::from_u128(0xf6f152ad_94e5_4bfa_9227_676cddeff42b);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_4444_10: windows_core::GUID = windows_core::GUID::from_u128(0xc83799b9_9655_4b95_8008_56a322ce5d81);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_4444_12: windows_core::GUID = windows_core::GUID::from_u128(0x6a763ee3_4d05_47fe_a429_723474b69d7c);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_444_10: windows_core::GUID = windows_core::GUID::from_u128(0x6a4a8d7d_7610_469f_855f_39f13051c013);
+pub const D3D12_VIDEO_DECODE_PROFILE_APV_VLD_444_12: windows_core::GUID = windows_core::GUID::from_u128(0xf1039a1c_e208_45c1_952c_040841b67667);
 pub const D3D12_VIDEO_DECODE_PROFILE_AV1_12BIT_PROFILE2: windows_core::GUID = windows_core::GUID::from_u128(0x17127009_a00f_4ce1_994e_bf4081f6f3f0);
 pub const D3D12_VIDEO_DECODE_PROFILE_AV1_12BIT_PROFILE2_420: windows_core::GUID = windows_core::GUID::from_u128(0x2d80bed6_9cac_4835_9e91_327bbc4f9ee8);
 pub const D3D12_VIDEO_DECODE_PROFILE_AV1_PROFILE0: windows_core::GUID = windows_core::GUID::from_u128(0xb8be4ccb_cf53_46ba_8d59_d6b8a6da5d2a);
@@ -6028,6 +6043,7 @@ pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_DIRTY_REGIONS: D3D12_VIDEO_ENCODER
 pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_RATE_CONTROL_FRAME_ANALYSIS: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(8i32);
 pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(1i32);
 pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ALLOW_SUBREGION_NOTIFICATION_SINGLE_BUFFER: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(2i32);
+pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_ENABLE_SUBREGION_NOTIFICATION_SEQUENTIAL_SIGNALING: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(16i32);
 pub const D3D12_VIDEO_ENCODER_HEAP_FLAG_NONE: D3D12_VIDEO_ENCODER_HEAP_FLAGS = D3D12_VIDEO_ENCODER_HEAP_FLAGS(0i32);
 #[repr(C)]
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -7347,6 +7363,7 @@ pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABL
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGIONS_PSNR_METADATA_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(4194304i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(128i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(524288i32);
+pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_SEQUENTIAL_SIGNALING_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(33554432i32);
 pub const D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_SINGLE_BUFFER_AVAILABLE: D3D12_VIDEO_ENCODER_SUPPORT_FLAGS = D3D12_VIDEO_ENCODER_SUPPORT_FLAGS(1048576i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -11013,35 +11030,102 @@ impl ID3D12VideoDecodeCommandList3_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDecodeCommandList3 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::define_interface!(ID3D12VideoDecodeCommandListPreview, ID3D12VideoDecodeCommandListPreview_Vtbl, 0xb17b62d7_930c_4514_9093_2cc81ba15961);
+windows_core::imp::define_interface!(ID3D12VideoDecodeCommandList4, ID3D12VideoDecodeCommandList4_Vtbl, 0xa9b3e23c_7d4f_4a90_b6e1_3c8a0f5714d2);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl core::ops::Deref for ID3D12VideoDecodeCommandListPreview {
+impl core::ops::Deref for ID3D12VideoDecodeCommandList4 {
     type Target = ID3D12VideoDecodeCommandList3;
     fn deref(&self) -> &Self::Target {
         unsafe { core::mem::transmute(self) }
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::interface_hierarchy!(ID3D12VideoDecodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoDecodeCommandList, ID3D12VideoDecodeCommandList1, ID3D12VideoDecodeCommandList2, ID3D12VideoDecodeCommandList3);
+windows_core::imp::interface_hierarchy!(ID3D12VideoDecodeCommandList4, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoDecodeCommandList, ID3D12VideoDecodeCommandList1, ID3D12VideoDecodeCommandList2, ID3D12VideoDecodeCommandList3);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoDecodeCommandList4 {
+    pub unsafe fn WaitBarrier(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64) {
+        unsafe { (windows_core::Interface::vtable(self).WaitBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), numfences, core::mem::transmute(ppfences), pfencevalues) }
+    }
+    pub unsafe fn SignalBarrier<P2>(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], pfence: P2, fencevalue: u64)
+    where
+        P2: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12Fence>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).SignalBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), pfence.param().abi(), fencevalue) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoDecodeCommandList4_Vtbl {
+    pub base__: ID3D12VideoDecodeCommandList3_Vtbl,
+    pub WaitBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, u32, *const *mut core::ffi::c_void, *const u64),
+    pub SignalBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, *mut core::ffi::c_void, u64),
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoDecodeCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoDecodeCommandList4 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoDecodeCommandList4_Impl: ID3D12VideoDecodeCommandList3_Impl {
+    fn WaitBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64);
+    fn SignalBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12Fence>, fencevalue: u64);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoDecodeCommandList4_Vtbl {
+    pub const fn new<Identity: ID3D12VideoDecodeCommandList4_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn WaitBarrier<Identity: ID3D12VideoDecodeCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const *mut core::ffi::c_void, pfencevalues: *const u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoDecodeCommandList4_Impl::WaitBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&numfences), core::mem::transmute_copy(&ppfences), core::mem::transmute_copy(&pfencevalues))
+            }
+        }
+        unsafe extern "system" fn SignalBarrier<Identity: ID3D12VideoDecodeCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: *mut core::ffi::c_void, fencevalue: u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoDecodeCommandList4_Impl::SignalBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&pfence), core::mem::transmute_copy(&fencevalue))
+            }
+        }
+        Self {
+            base__: ID3D12VideoDecodeCommandList3_Vtbl::new::<Identity, OFFSET>(),
+            WaitBarrier: WaitBarrier::<Identity, OFFSET>,
+            SignalBarrier: SignalBarrier::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoDecodeCommandList4 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoDecodeCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoDecodeCommandListPreview, ID3D12VideoDecodeCommandListPreview_Vtbl, 0xa5b45105_070b_4207_bd73_5c32ef745f9e);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoDecodeCommandListPreview {
+    type Target = ID3D12VideoDecodeCommandList4;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoDecodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoDecodeCommandList, ID3D12VideoDecodeCommandList1, ID3D12VideoDecodeCommandList2, ID3D12VideoDecodeCommandList3, ID3D12VideoDecodeCommandList4);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[repr(C)]
 #[doc(hidden)]
 pub struct ID3D12VideoDecodeCommandListPreview_Vtbl {
-    pub base__: ID3D12VideoDecodeCommandList3_Vtbl,
+    pub base__: ID3D12VideoDecodeCommandList4_Vtbl,
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Send for ID3D12VideoDecodeCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Sync for ID3D12VideoDecodeCommandListPreview {}
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-pub trait ID3D12VideoDecodeCommandListPreview_Impl: ID3D12VideoDecodeCommandList3_Impl {}
+pub trait ID3D12VideoDecodeCommandListPreview_Impl: ID3D12VideoDecodeCommandList4_Impl {}
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl ID3D12VideoDecodeCommandListPreview_Vtbl {
     pub const fn new<Identity: ID3D12VideoDecodeCommandListPreview_Impl, const OFFSET: isize>() -> Self {
-        Self { base__: ID3D12VideoDecodeCommandList3_Vtbl::new::<Identity, OFFSET>() }
+        Self { base__: ID3D12VideoDecodeCommandList4_Vtbl::new::<Identity, OFFSET>() }
     }
     pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoDecodeCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList3 as windows_core::Interface>::IID
+        iid == &<ID3D12VideoDecodeCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoDecodeCommandList4 as windows_core::Interface>::IID
     }
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
@@ -12277,35 +12361,111 @@ impl ID3D12VideoEncodeCommandList4_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoEncodeCommandList4 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::define_interface!(ID3D12VideoEncodeCommandListPreview, ID3D12VideoEncodeCommandListPreview_Vtbl, 0xe4da2a33_2e43_43e7_8dd0_3133ad41c13d);
+windows_core::imp::define_interface!(ID3D12VideoEncodeCommandList5, ID3D12VideoEncodeCommandList5_Vtbl, 0x5d1a6fc3_b8e7_42a0_97d5_6e4c1f3a9b82);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl core::ops::Deref for ID3D12VideoEncodeCommandListPreview {
+impl core::ops::Deref for ID3D12VideoEncodeCommandList5 {
     type Target = ID3D12VideoEncodeCommandList4;
     fn deref(&self) -> &Self::Target {
         unsafe { core::mem::transmute(self) }
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::interface_hierarchy!(ID3D12VideoEncodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList1, ID3D12VideoEncodeCommandList2, ID3D12VideoEncodeCommandList3, ID3D12VideoEncodeCommandList4);
+windows_core::imp::interface_hierarchy!(ID3D12VideoEncodeCommandList5, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList1, ID3D12VideoEncodeCommandList2, ID3D12VideoEncodeCommandList3, ID3D12VideoEncodeCommandList4);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoEncodeCommandList5 {
+    pub unsafe fn WaitBarrier(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64) {
+        unsafe { (windows_core::Interface::vtable(self).WaitBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), numfences, core::mem::transmute(ppfences), pfencevalues) }
+    }
+    pub unsafe fn SignalBarrier<P2>(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], pfence: P2, fencevalue: u64)
+    where
+        P2: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12Fence>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).SignalBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), pfence.param().abi(), fencevalue) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoEncodeCommandList5_Vtbl {
+    pub base__: ID3D12VideoEncodeCommandList4_Vtbl,
+    pub WaitBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, u32, *const *mut core::ffi::c_void, *const u64),
+    pub SignalBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, *mut core::ffi::c_void, u64),
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoEncodeCommandList5 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoEncodeCommandList5 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoEncodeCommandList5_Impl: ID3D12VideoEncodeCommandList4_Impl {
+    fn WaitBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64);
+    fn SignalBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12Fence>, fencevalue: u64);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoEncodeCommandList5_Vtbl {
+    pub const fn new<Identity: ID3D12VideoEncodeCommandList5_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn WaitBarrier<Identity: ID3D12VideoEncodeCommandList5_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const *mut core::ffi::c_void, pfencevalues: *const u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncodeCommandList5_Impl::WaitBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&numfences), core::mem::transmute_copy(&ppfences), core::mem::transmute_copy(&pfencevalues))
+            }
+        }
+        unsafe extern "system" fn SignalBarrier<Identity: ID3D12VideoEncodeCommandList5_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: *mut core::ffi::c_void, fencevalue: u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoEncodeCommandList5_Impl::SignalBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&pfence), core::mem::transmute_copy(&fencevalue))
+            }
+        }
+        Self {
+            base__: ID3D12VideoEncodeCommandList4_Vtbl::new::<Identity, OFFSET>(),
+            WaitBarrier: WaitBarrier::<Identity, OFFSET>,
+            SignalBarrier: SignalBarrier::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoEncodeCommandList5 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList4 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoEncodeCommandList5 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoEncodeCommandListPreview, ID3D12VideoEncodeCommandListPreview_Vtbl, 0xcfa19306_b776_44e3_97a9_6859fa9f22d6);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoEncodeCommandListPreview {
+    type Target = ID3D12VideoEncodeCommandList5;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoEncodeCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList1, ID3D12VideoEncodeCommandList2, ID3D12VideoEncodeCommandList3, ID3D12VideoEncodeCommandList4, ID3D12VideoEncodeCommandList5);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[repr(C)]
 #[doc(hidden)]
 pub struct ID3D12VideoEncodeCommandListPreview_Vtbl {
-    pub base__: ID3D12VideoEncodeCommandList4_Vtbl,
+    pub base__: ID3D12VideoEncodeCommandList5_Vtbl,
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Send for ID3D12VideoEncodeCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Sync for ID3D12VideoEncodeCommandListPreview {}
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-pub trait ID3D12VideoEncodeCommandListPreview_Impl: ID3D12VideoEncodeCommandList4_Impl {}
+pub trait ID3D12VideoEncodeCommandListPreview_Impl: ID3D12VideoEncodeCommandList5_Impl {}
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl ID3D12VideoEncodeCommandListPreview_Vtbl {
     pub const fn new<Identity: ID3D12VideoEncodeCommandListPreview_Impl, const OFFSET: isize>() -> Self {
-        Self { base__: ID3D12VideoEncodeCommandList4_Vtbl::new::<Identity, OFFSET>() }
+        Self { base__: ID3D12VideoEncodeCommandList5_Vtbl::new::<Identity, OFFSET>() }
     }
     pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoEncodeCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoEncodeCommandList4 as windows_core::Interface>::IID
+        iid == &<ID3D12VideoEncodeCommandListPreview as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList1 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList2 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList3 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList4 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoEncodeCommandList5 as windows_core::Interface>::IID
     }
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
@@ -13292,35 +13452,102 @@ impl ID3D12VideoProcessCommandList3DLUT_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoProcessCommandList3DLUT {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::define_interface!(ID3D12VideoProcessCommandListPreview, ID3D12VideoProcessCommandListPreview_Vtbl, 0x04ed2b37_b6af_44c0_a20a_24c0df3d0c4f);
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandList4, ID3D12VideoProcessCommandList4_Vtbl, 0xe7fc6a4b_8d2c_4e19_a5f3_7b91d0c28e56);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl core::ops::Deref for ID3D12VideoProcessCommandListPreview {
+impl core::ops::Deref for ID3D12VideoProcessCommandList4 {
     type Target = ID3D12VideoProcessCommandList3;
     fn deref(&self) -> &Self::Target {
         unsafe { core::mem::transmute(self) }
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3);
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandList4, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoProcessCommandList4 {
+    pub unsafe fn WaitBarrier(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64) {
+        unsafe { (windows_core::Interface::vtable(self).WaitBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), numfences, core::mem::transmute(ppfences), pfencevalues) }
+    }
+    pub unsafe fn SignalBarrier<P2>(&self, pbarriergroups: &[super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP], pfence: P2, fencevalue: u64)
+    where
+        P2: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12Fence>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).SignalBarrier)(windows_core::Interface::as_raw(self), pbarriergroups.len().try_into().unwrap(), core::mem::transmute(pbarriergroups.as_ptr()), pfence.param().abi(), fencevalue) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoProcessCommandList4_Vtbl {
+    pub base__: ID3D12VideoProcessCommandList3_Vtbl,
+    pub WaitBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, u32, *const *mut core::ffi::c_void, *const u64),
+    pub SignalBarrier: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, *mut core::ffi::c_void, u64),
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoProcessCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoProcessCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+pub trait ID3D12VideoProcessCommandList4_Impl: ID3D12VideoProcessCommandList3_Impl {
+    fn WaitBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const Option<super::super::Graphics::Direct3D12::ID3D12Fence>, pfencevalues: *const u64);
+    fn SignalBarrier(&self, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12Fence>, fencevalue: u64);
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoProcessCommandList4_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessCommandList4_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn WaitBarrier<Identity: ID3D12VideoProcessCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, numfences: u32, ppfences: *const *mut core::ffi::c_void, pfencevalues: *const u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoProcessCommandList4_Impl::WaitBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&numfences), core::mem::transmute_copy(&ppfences), core::mem::transmute_copy(&pfencevalues))
+            }
+        }
+        unsafe extern "system" fn SignalBarrier<Identity: ID3D12VideoProcessCommandList4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numbarriergroups: u32, pbarriergroups: *const super::super::Graphics::Direct3D12::D3D12_BARRIER_GROUP, pfence: *mut core::ffi::c_void, fencevalue: u64) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoProcessCommandList4_Impl::SignalBarrier(this, core::mem::transmute_copy(&numbarriergroups), core::mem::transmute_copy(&pbarriergroups), core::mem::transmute_copy(&pfence), core::mem::transmute_copy(&fencevalue))
+            }
+        }
+        Self {
+            base__: ID3D12VideoProcessCommandList3_Vtbl::new::<Identity, OFFSET>(),
+            WaitBarrier: WaitBarrier::<Identity, OFFSET>,
+            SignalBarrier: SignalBarrier::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoProcessCommandList4 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl windows_core::RuntimeName for ID3D12VideoProcessCommandList4 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandListPreview, ID3D12VideoProcessCommandListPreview_Vtbl, 0xe1887cb5_d07c_4789_a572_f60b1c48c854);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoProcessCommandListPreview {
+    type Target = ID3D12VideoProcessCommandList4;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3, ID3D12VideoProcessCommandList4);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[repr(C)]
 #[doc(hidden)]
 pub struct ID3D12VideoProcessCommandListPreview_Vtbl {
-    pub base__: ID3D12VideoProcessCommandList3_Vtbl,
+    pub base__: ID3D12VideoProcessCommandList4_Vtbl,
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Send for ID3D12VideoProcessCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Sync for ID3D12VideoProcessCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-pub trait ID3D12VideoProcessCommandListPreview_Impl: ID3D12VideoProcessCommandList3_Impl {}
+pub trait ID3D12VideoProcessCommandListPreview_Impl: ID3D12VideoProcessCommandList4_Impl {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl ID3D12VideoProcessCommandListPreview_Vtbl {
     pub const fn new<Identity: ID3D12VideoProcessCommandListPreview_Impl, const OFFSET: isize>() -> Self {
-        Self { base__: ID3D12VideoProcessCommandList3_Vtbl::new::<Identity, OFFSET>() }
+        Self { base__: ID3D12VideoProcessCommandList4_Vtbl::new::<Identity, OFFSET>() }
     }
     pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoProcessCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID
+        iid == &<ID3D12VideoProcessCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList4 as windows_core::Interface>::IID
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -45149,6 +45376,17 @@ impl IWMVideoForceKeyFrame_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IWMVideoForceKeyFrame {}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct InputQPSettings {
+    pub minBlockSize: u32,
+    pub maxBlockSize: u32,
+    pub stepsBlockSize: u32,
+    pub dataType: eAVEncVideoQPMapElementDataType,
+    pub minValue: i16,
+    pub maxValue: i16,
+    pub step: u16,
+}
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct KSMETHOD_OPMVIDEOOUTPUT(pub i32);
@@ -45655,6 +45893,7 @@ pub const MFAudioFormat_Dolby_DDPlus: windows_core::GUID = windows_core::GUID::f
 pub const MFAudioFormat_FLAC: windows_core::GUID = windows_core::GUID::from_u128(0x0000f1ac_0000_0010_8000_00aa00389b71);
 pub const MFAudioFormat_Float: windows_core::GUID = windows_core::GUID::from_u128(0x00000003_0000_0010_8000_00aa00389b71);
 pub const MFAudioFormat_Float_SpatialObjects: windows_core::GUID = windows_core::GUID::from_u128(0xfa39cd94_bc64_4ab1_9b71_dcd09d5a7e7a);
+pub const MFAudioFormat_IAMF: windows_core::GUID = windows_core::GUID::from_u128(0x78a8eba0_f446_4851_a55d_5372280e6b0b);
 pub const MFAudioFormat_LPCM: windows_core::GUID = windows_core::GUID::from_u128(0xe06d8032_db46_11cf_b4d1_00805f6cbbea);
 pub const MFAudioFormat_MP3: windows_core::GUID = windows_core::GUID::from_u128(0x00000055_0000_0010_8000_00aa00389b71);
 pub const MFAudioFormat_MPEG: windows_core::GUID = windows_core::GUID::from_u128(0x00000050_0000_0010_8000_00aa00389b71);
@@ -46578,6 +46817,8 @@ pub const MFSampleExtension_Timestamp: windows_core::GUID = windows_core::GUID::
 pub const MFSampleExtension_Token: windows_core::GUID = windows_core::GUID::from_u128(0x8294da66_f328_4805_b551_00deb4c57a61);
 pub const MFSampleExtension_VideoDSPMode: windows_core::GUID = windows_core::GUID::from_u128(0xc12d55cb_d7d9_476d_81f3_69117f163ea0);
 pub const MFSampleExtension_VideoEncodeBitsUsedMap: windows_core::GUID = windows_core::GUID::from_u128(0x6894263d_e6e2_4bcc_849d_8570365f5114);
+pub const MFSampleExtension_VideoEncodeInputAbsoluteQPMap: windows_core::GUID = windows_core::GUID::from_u128(0x432a6e9a_f1ed_456e_8dc3_6f8985649eb9);
+pub const MFSampleExtension_VideoEncodeInputDeltaQPMap: windows_core::GUID = windows_core::GUID::from_u128(0xdab419c3_bf21_4b46_8692_9a7bf0a71769);
 pub const MFSampleExtension_VideoEncodePictureType: windows_core::GUID = windows_core::GUID::from_u128(0x973704e6_cd14_483c_8f20_c9fc0928bad5);
 pub const MFSampleExtension_VideoEncodeQP: windows_core::GUID = windows_core::GUID::from_u128(0xb2efe478_f979_4c66_b95e_ee2b82c82f36);
 pub const MFSampleExtension_VideoEncodeQPMap: windows_core::GUID = windows_core::GUID::from_u128(0x2c68a331_b712_49ca_860a_3a1d58237d88);
@@ -47640,6 +47881,9 @@ pub const MF_DXGI_DEVICE_MANAGER_MODE_D3D11: MF_DXGI_DEVICE_MANAGER_MODE = MF_DX
 pub const MF_DXGI_DEVICE_MANAGER_MODE_D3D12: MF_DXGI_DEVICE_MANAGER_MODE = MF_DXGI_DEVICE_MANAGER_MODE(2i32);
 pub const MF_DXGI_DEVICE_MANAGER_MODE_INVALID: MF_DXGI_DEVICE_MANAGER_MODE = MF_DXGI_DEVICE_MANAGER_MODE(0i32);
 pub const MF_ENABLE_3DVIDEO_OUTPUT: windows_core::GUID = windows_core::GUID::from_u128(0xbdad7bca_0e5f_4b10_ab16_26de381b6293);
+pub const MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATABLE_CLASS_ID: windows_core::GUID = windows_core::GUID::from_u128(0x77631a31_e5e7_4785_bf17_20f57b224802);
+pub const MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATE: windows_core::GUID = windows_core::GUID::from_u128(0x2df7b51e_797b_4d06_be71_d14a52cf8421);
+pub const MF_ENCRYPTEDMEDIAEXTENSIONS_INITIALIZATION_DATA: windows_core::GUID = windows_core::GUID::from_u128(0x3e73735c_e6c0_481d_8260_ee5db1343b5f);
 pub const MF_EVENT_DO_THINNING: windows_core::GUID = windows_core::GUID::from_u128(0x321ea6fb_dad9_46e4_b31d_d2eae7090e30);
 pub const MF_EVENT_FLAG_NONE: MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS = MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS(0u32);
 pub const MF_EVENT_FLAG_NO_WAIT: MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS = MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS(1u32);
@@ -50578,6 +50822,9 @@ pub const eAVEncVideoOutputScan_Automatic: eAVEncVideoOutputScanType = eAVEncVid
 pub const eAVEncVideoOutputScan_Interlaced: eAVEncVideoOutputScanType = eAVEncVideoOutputScanType(1i32);
 pub const eAVEncVideoOutputScan_Progressive: eAVEncVideoOutputScanType = eAVEncVideoOutputScanType(0i32);
 pub const eAVEncVideoOutputScan_SameAsInput: eAVEncVideoOutputScanType = eAVEncVideoOutputScanType(2i32);
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct eAVEncVideoQPMapElementDataType(pub i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct eAVEncVideoSourceScanType(pub i32);

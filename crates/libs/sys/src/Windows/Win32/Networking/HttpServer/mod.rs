@@ -676,6 +676,12 @@ impl Default for HTTP_REQUEST_INFO {
         unsafe { core::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct HTTP_REQUEST_INFO_PROPERTY_INFO {
+    pub Flags: HTTP_PROPERTY_FLAGS,
+    pub RequestInfoFlags: u64,
+}
 pub type HTTP_REQUEST_INFO_TYPE = i32;
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
@@ -1411,11 +1417,12 @@ pub const HttpFeatureDscp: HTTP_FEATURE_ID = 14i32;
 pub const HttpFeatureFastForwardResponse: HTTP_FEATURE_ID = 10i32;
 pub const HttpFeatureHttp3: HTTP_FEATURE_ID = 4i32;
 pub const HttpFeatureIdleConnectionTimeoutRequestProperty: HTTP_FEATURE_ID = 12i32;
-pub const HttpFeatureLast: HTTP_FEATURE_ID = 17i32;
+pub const HttpFeatureLast: HTTP_FEATURE_ID = 18i32;
 pub const HttpFeatureQueryCipherInfo: HTTP_FEATURE_ID = 15i32;
 pub const HttpFeatureQueryInitialPacketTtl: HTTP_FEATURE_ID = 16i32;
 pub const HttpFeatureResponseTrailers: HTTP_FEATURE_ID = 1i32;
 pub const HttpFeatureTlsDualCerts: HTTP_FEATURE_ID = 7i32;
+pub const HttpFeatureTlsHandshakePerformanceCounters: HTTP_FEATURE_ID = 17i32;
 pub const HttpFeatureTlsSessionTickets: HTTP_FEATURE_ID = 5i32;
 pub const HttpFeatureUnknown: HTTP_FEATURE_ID = 0i32;
 pub const HttpFeaturemax: HTTP_FEATURE_ID = -1i32;
@@ -1582,6 +1589,7 @@ pub const HttpServerLoggingProperty: HTTP_SERVER_PROPERTY = 1i32;
 pub const HttpServerProtectionLevelProperty: HTTP_SERVER_PROPERTY = 11i32;
 pub const HttpServerQosProperty: HTTP_SERVER_PROPERTY = 2i32;
 pub const HttpServerQueueLengthProperty: HTTP_SERVER_PROPERTY = 4i32;
+pub const HttpServerRequestInfoProperty: HTTP_SERVER_PROPERTY = 19i32;
 pub const HttpServerStateProperty: HTTP_SERVER_PROPERTY = 5i32;
 pub const HttpServerTimeoutsProperty: HTTP_SERVER_PROPERTY = 3i32;
 pub const HttpServiceBindingTypeA: HTTP_SERVICE_BINDING_TYPE = 2i32;

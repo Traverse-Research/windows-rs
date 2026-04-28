@@ -66,6 +66,11 @@ pub unsafe fn BCryptCreateMultiHash(halgorithm: BCRYPT_ALG_HANDLE, phhash: *mut 
     unsafe { BCryptCreateMultiHash(halgorithm as _, phhash as _, nhashes, core::mem::transmute(pbhashobject.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbhashobject.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), core::mem::transmute(pbsecret.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbsecret.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), dwflags) }
 }
 #[inline]
+pub unsafe fn BCryptDecapsulate(hkey: BCRYPT_KEY_HANDLE, pbciphertext: &[u8], pbsecretkey: Option<&mut [u8]>, pcbsecretkey: *mut u32, dwflags: u32) -> super::super::Foundation::NTSTATUS {
+    windows_link::link!("bcrypt.dll" "system" fn BCryptDecapsulate(hkey : BCRYPT_KEY_HANDLE, pbciphertext : *const u8, cbciphertext : u32, pbsecretkey : *mut u8, cbsecretkey : u32, pcbsecretkey : *mut u32, dwflags : u32) -> super::super::Foundation:: NTSTATUS);
+    unsafe { BCryptDecapsulate(hkey, core::mem::transmute(pbciphertext.as_ptr()), pbciphertext.len().try_into().unwrap(), core::mem::transmute(pbsecretkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbsecretkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbsecretkey as _, dwflags) }
+}
+#[inline]
 pub unsafe fn BCryptDecrypt(hkey: BCRYPT_KEY_HANDLE, pbinput: Option<&[u8]>, ppaddinginfo: Option<*const core::ffi::c_void>, pbiv: Option<&mut [u8]>, pboutput: Option<&mut [u8]>, pcbresult: *mut u32, dwflags: BCRYPT_FLAGS) -> super::super::Foundation::NTSTATUS {
     windows_link::link!("bcrypt.dll" "system" fn BCryptDecrypt(hkey : BCRYPT_KEY_HANDLE, pbinput : *const u8, cbinput : u32, ppaddinginfo : *const core::ffi::c_void, pbiv : *mut u8, cbiv : u32, pboutput : *mut u8, cboutput : u32, pcbresult : *mut u32, dwflags : BCRYPT_FLAGS) -> super::super::Foundation:: NTSTATUS);
     unsafe {
@@ -133,6 +138,11 @@ pub unsafe fn BCryptDuplicateHash(hhash: BCRYPT_HASH_HANDLE, phnewhash: *mut BCR
 pub unsafe fn BCryptDuplicateKey(hkey: BCRYPT_KEY_HANDLE, phnewkey: *mut BCRYPT_KEY_HANDLE, pbkeyobject: Option<&mut [u8]>, dwflags: u32) -> super::super::Foundation::NTSTATUS {
     windows_link::link!("bcrypt.dll" "system" fn BCryptDuplicateKey(hkey : BCRYPT_KEY_HANDLE, phnewkey : *mut BCRYPT_KEY_HANDLE, pbkeyobject : *mut u8, cbkeyobject : u32, dwflags : u32) -> super::super::Foundation:: NTSTATUS);
     unsafe { BCryptDuplicateKey(hkey, phnewkey as _, core::mem::transmute(pbkeyobject.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbkeyobject.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), dwflags) }
+}
+#[inline]
+pub unsafe fn BCryptEncapsulate(hkey: BCRYPT_KEY_HANDLE, pbsecretkey: Option<&mut [u8]>, pcbsecretkey: *mut u32, pbciphertext: Option<&mut [u8]>, pcbciphertext: *mut u32, dwflags: u32) -> super::super::Foundation::NTSTATUS {
+    windows_link::link!("bcrypt.dll" "system" fn BCryptEncapsulate(hkey : BCRYPT_KEY_HANDLE, pbsecretkey : *mut u8, cbsecretkey : u32, pcbsecretkey : *mut u32, pbciphertext : *mut u8, cbciphertext : u32, pcbciphertext : *mut u32, dwflags : u32) -> super::super::Foundation:: NTSTATUS);
+    unsafe { BCryptEncapsulate(hkey, core::mem::transmute(pbsecretkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbsecretkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbsecretkey as _, core::mem::transmute(pbciphertext.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbciphertext.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbciphertext as _, dwflags) }
 }
 #[inline]
 pub unsafe fn BCryptEncrypt(hkey: BCRYPT_KEY_HANDLE, pbinput: Option<&[u8]>, ppaddinginfo: Option<*const core::ffi::c_void>, pbiv: Option<&mut [u8]>, pboutput: Option<&mut [u8]>, pcbresult: *mut u32, dwflags: BCRYPT_FLAGS) -> super::super::Foundation::NTSTATUS {
@@ -2281,6 +2291,11 @@ where
     }
 }
 #[inline]
+pub unsafe fn NCryptDecapsulate(hkey: NCRYPT_KEY_HANDLE, pbciphertext: &[u8], pbsecretkey: Option<&mut [u8]>, pcbsecretkey: *mut u32, dwflags: u32) -> windows_core::Result<()> {
+    windows_link::link!("ncrypt.dll" "system" fn NCryptDecapsulate(hkey : NCRYPT_KEY_HANDLE, pbciphertext : *const u8, cbciphertext : u32, pbsecretkey : *mut u8, cbsecretkey : u32, pcbsecretkey : *mut u32, dwflags : u32) -> windows_core::HRESULT);
+    unsafe { NCryptDecapsulate(hkey, core::mem::transmute(pbciphertext.as_ptr()), pbciphertext.len().try_into().unwrap(), core::mem::transmute(pbsecretkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbsecretkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbsecretkey as _, dwflags).ok() }
+}
+#[inline]
 pub unsafe fn NCryptDecrypt(hkey: NCRYPT_KEY_HANDLE, pbinput: Option<&[u8]>, ppaddinginfo: Option<*const core::ffi::c_void>, pboutput: Option<&mut [u8]>, pcbresult: *mut u32, dwflags: NCRYPT_FLAGS) -> windows_core::Result<()> {
     windows_link::link!("ncrypt.dll" "system" fn NCryptDecrypt(hkey : NCRYPT_KEY_HANDLE, pbinput : *const u8, cbinput : u32, ppaddinginfo : *const core::ffi::c_void, pboutput : *mut u8, cboutput : u32, pcbresult : *mut u32, dwflags : NCRYPT_FLAGS) -> windows_core::HRESULT);
     unsafe { NCryptDecrypt(hkey, core::mem::transmute(pbinput.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbinput.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), ppaddinginfo.unwrap_or(core::mem::zeroed()) as _, core::mem::transmute(pboutput.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pboutput.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbresult as _, dwflags).ok() }
@@ -2297,6 +2312,11 @@ where
 {
     windows_link::link!("ncrypt.dll" "system" fn NCryptDeriveKey(hsharedsecret : NCRYPT_SECRET_HANDLE, pwszkdf : windows_core::PCWSTR, pparameterlist : *const BCryptBufferDesc, pbderivedkey : *mut u8, cbderivedkey : u32, pcbresult : *mut u32, dwflags : u32) -> windows_core::HRESULT);
     unsafe { NCryptDeriveKey(hsharedsecret, pwszkdf.param().abi(), pparameterlist.unwrap_or(core::mem::zeroed()) as _, core::mem::transmute(pbderivedkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbderivedkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbresult as _, dwflags).ok() }
+}
+#[inline]
+pub unsafe fn NCryptEncapsulate(hkey: NCRYPT_KEY_HANDLE, pbsecretkey: Option<&mut [u8]>, pcbsecretkey: *mut u32, pbciphertext: Option<&mut [u8]>, pcbciphertext: *mut u32, dwflags: u32) -> windows_core::Result<()> {
+    windows_link::link!("ncrypt.dll" "system" fn NCryptEncapsulate(hkey : NCRYPT_KEY_HANDLE, pbsecretkey : *mut u8, cbsecretkey : u32, pcbsecretkey : *mut u32, pbciphertext : *mut u8, cbciphertext : u32, pcbciphertext : *mut u32, dwflags : u32) -> windows_core::HRESULT);
+    unsafe { NCryptEncapsulate(hkey, core::mem::transmute(pbsecretkey.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbsecretkey.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbsecretkey as _, core::mem::transmute(pbciphertext.as_deref().map_or(core::ptr::null(), |slice| slice.as_ptr())), pbciphertext.as_deref().map_or(0, |slice| slice.len().try_into().unwrap()), pcbciphertext as _, dwflags).ok() }
 }
 #[inline]
 pub unsafe fn NCryptEncrypt(hkey: NCRYPT_KEY_HANDLE, pbinput: Option<&[u8]>, ppaddinginfo: Option<*const core::ffi::c_void>, pboutput: Option<&mut [u8]>, pcbresult: *mut u32, dwflags: NCRYPT_FLAGS) -> windows_core::Result<()> {
@@ -3078,7 +3098,6 @@ pub const BCRYPT_AES_ECB_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(433u3
 pub const BCRYPT_AES_GCM_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(481u32 as _);
 pub const BCRYPT_AES_GMAC_ALGORITHM: windows_core::PCWSTR = windows_core::w!("AES-GMAC");
 pub const BCRYPT_AES_GMAC_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(273u32 as _);
-pub const BCRYPT_AES_KWP_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1105u32 as _);
 pub const BCRYPT_AES_WRAP_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("Rfc3565KeyWrapBlob");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -3180,7 +3199,6 @@ pub const BCRYPT_CHAIN_MODE_CCM: windows_core::PCWSTR = windows_core::w!("Chaini
 pub const BCRYPT_CHAIN_MODE_CFB: windows_core::PCWSTR = windows_core::w!("ChainingModeCFB");
 pub const BCRYPT_CHAIN_MODE_ECB: windows_core::PCWSTR = windows_core::w!("ChainingModeECB");
 pub const BCRYPT_CHAIN_MODE_GCM: windows_core::PCWSTR = windows_core::w!("ChainingModeGCM");
-pub const BCRYPT_CHAIN_MODE_KWP: windows_core::PCWSTR = windows_core::w!("ChainingModeKWP");
 pub const BCRYPT_CHAIN_MODE_NA: windows_core::PCWSTR = windows_core::w!("ChainingModeN/A");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -3592,6 +3610,8 @@ pub const BCRYPT_KDF_HMAC: windows_core::PCWSTR = windows_core::w!("HMAC");
 pub const BCRYPT_KDF_RAW_SECRET: windows_core::PCWSTR = windows_core::w!("TRUNCATE");
 pub const BCRYPT_KDF_SP80056A_CONCAT: windows_core::PCWSTR = windows_core::w!("SP800_56A_CONCAT");
 pub const BCRYPT_KDF_TLS_PRF: windows_core::PCWSTR = windows_core::w!("TLS_PRF");
+pub const BCRYPT_KEM_CIPHERTEXT_LENGTH: windows_core::PCWSTR = windows_core::w!("KEMCiphertextLength");
+pub const BCRYPT_KEM_SHARED_SECRET_LENGTH: windows_core::PCWSTR = windows_core::w!("KEMSharedSecretLength");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct BCRYPT_KEY_BLOB {
@@ -3624,6 +3644,8 @@ pub struct BCRYPT_KEY_DERIVATION_FUNCTION_TABLE {
 }
 pub const BCRYPT_KEY_DERIVATION_INTERFACE: u32 = 7u32;
 pub const BCRYPT_KEY_DERIVATION_OPERATION: u32 = 64u32;
+pub const BCRYPT_KEY_ENCAPSULATION_INTERFACE: u32 = 8u32;
+pub const BCRYPT_KEY_ENCAPSULATION_OPERATION: u32 = 128u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct BCRYPT_KEY_HANDLE(pub *mut core::ffi::c_void);
@@ -3672,6 +3694,8 @@ pub const BCRYPT_KMAC128_ALGORITHM: windows_core::PCWSTR = windows_core::w!("KMA
 pub const BCRYPT_KMAC128_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1073u32 as _);
 pub const BCRYPT_KMAC256_ALGORITHM: windows_core::PCWSTR = windows_core::w!("KMAC256");
 pub const BCRYPT_KMAC256_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1089u32 as _);
+pub const BCRYPT_LMS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("LMS");
+pub const BCRYPT_LMS_PUBLIC_MAGIC: u32 = 1263553868u32;
 pub const BCRYPT_MD2_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD2");
 pub const BCRYPT_MD2_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1u32 as _);
 pub const BCRYPT_MD4_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD4");
@@ -3679,6 +3703,35 @@ pub const BCRYPT_MD4_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(17u32 as 
 pub const BCRYPT_MD5_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD5");
 pub const BCRYPT_MD5_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(33u32 as _);
 pub const BCRYPT_MESSAGE_BLOCK_LENGTH: windows_core::PCWSTR = windows_core::w!("MessageBlockLength");
+pub const BCRYPT_MLDSA_ALGORITHM: windows_core::PCWSTR = windows_core::w!("ML-DSA");
+pub const BCRYPT_MLDSA_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1137u32 as _);
+pub const BCRYPT_MLDSA_EXTERNAL_MU: u32 = 64u32;
+pub const BCRYPT_MLDSA_PARAMETER_SET_44: windows_core::PCWSTR = windows_core::w!("44");
+pub const BCRYPT_MLDSA_PARAMETER_SET_65: windows_core::PCWSTR = windows_core::w!("65");
+pub const BCRYPT_MLDSA_PARAMETER_SET_87: windows_core::PCWSTR = windows_core::w!("87");
+pub const BCRYPT_MLDSA_PRIVATE_MAGIC: u32 = 1263752004u32;
+pub const BCRYPT_MLDSA_PRIVATE_SEED_MAGIC: u32 = 1397969732u32;
+pub const BCRYPT_MLDSA_PUBLIC_MAGIC: u32 = 1263555396u32;
+pub const BCRYPT_MLKEM_ALGORITHM: windows_core::PCWSTR = windows_core::w!("ML-KEM");
+pub const BCRYPT_MLKEM_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1153u32 as _);
+pub const BCRYPT_MLKEM_DECAPSULATION_BLOB: windows_core::PCWSTR = windows_core::w!("MLKEMPRIVATEBLOB");
+pub const BCRYPT_MLKEM_ENCAPSULATION_BLOB: windows_core::PCWSTR = windows_core::w!("MLKEMPUBLICBLOB");
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct BCRYPT_MLKEM_KEY_BLOB {
+    pub dwMagic: u32,
+    pub cbParameterSet: u32,
+    pub cbKey: u32,
+}
+pub const BCRYPT_MLKEM_PARAMETER_SET_1024: windows_core::PCWSTR = windows_core::w!("1024");
+pub const BCRYPT_MLKEM_PARAMETER_SET_512: windows_core::PCWSTR = windows_core::w!("512");
+pub const BCRYPT_MLKEM_PARAMETER_SET_768: windows_core::PCWSTR = windows_core::w!("768");
+pub const BCRYPT_MLKEM_PRIVATE_BLOB: windows_core::PCWSTR = windows_core::w!("MLKEMPRIVATEBLOB");
+pub const BCRYPT_MLKEM_PRIVATE_MAGIC: u32 = 1380666445u32;
+pub const BCRYPT_MLKEM_PRIVATE_SEED_BLOB: windows_core::PCWSTR = windows_core::w!("MLKEMPRIVATESEEDBLOB");
+pub const BCRYPT_MLKEM_PRIVATE_SEED_MAGIC: u32 = 1397443661u32;
+pub const BCRYPT_MLKEM_PUBLIC_BLOB: windows_core::PCWSTR = windows_core::w!("MLKEMPUBLICBLOB");
+pub const BCRYPT_MLKEM_PUBLIC_MAGIC: u32 = 1347112013u32;
 pub const BCRYPT_MULTI_FLAG: u32 = 64u32;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -3820,7 +3873,9 @@ pub const BCRYPT_PAD_NONE: BCRYPT_FLAGS = BCRYPT_FLAGS(1u32);
 pub const BCRYPT_PAD_OAEP: BCRYPT_FLAGS = BCRYPT_FLAGS(4u32);
 pub const BCRYPT_PAD_PKCS1: BCRYPT_FLAGS = BCRYPT_FLAGS(2u32);
 pub const BCRYPT_PAD_PKCS1_OPTIONAL_HASH_OID: u32 = 16u32;
+pub const BCRYPT_PAD_PQDSA: u32 = 32u32;
 pub const BCRYPT_PAD_PSS: BCRYPT_FLAGS = BCRYPT_FLAGS(8u32);
+pub const BCRYPT_PARAMETER_SET_NAME: windows_core::PCWSTR = windows_core::w!("ParameterSetName");
 pub const BCRYPT_PBKDF2_ALGORITHM: windows_core::PCWSTR = windows_core::w!("PBKDF2");
 pub const BCRYPT_PBKDF2_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(817u32 as _);
 pub const BCRYPT_PCP_PLATFORM_TYPE_PROPERTY: windows_core::PCWSTR = windows_core::w!("PCP_PLATFORM_TYPE");
@@ -3840,6 +3895,28 @@ pub const BCRYPT_PKCS11_RSA_AES_WRAP_KEY_BLOB: windows_core::PCWSTR = windows_co
 pub struct BCRYPT_PKCS1_PADDING_INFO {
     pub pszAlgId: windows_core::PCWSTR,
 }
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct BCRYPT_PQDSA_KEY_BLOB {
+    pub dwMagic: u32,
+    pub cbParameterSet: u32,
+    pub cbKey: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct BCRYPT_PQDSA_PADDING_INFO {
+    pub pbCtx: *mut u8,
+    pub cbCtx: u32,
+    pub pszPrehashAlgId: windows_core::PCWSTR,
+}
+impl Default for BCRYPT_PQDSA_PADDING_INFO {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+pub const BCRYPT_PQDSA_PRIVATE_BLOB: windows_core::PCWSTR = windows_core::w!("PQDSAPRIVATEBLOB");
+pub const BCRYPT_PQDSA_PRIVATE_SEED_BLOB: windows_core::PCWSTR = windows_core::w!("PQDSAPRIVATESEEDBLOB");
+pub const BCRYPT_PQDSA_PUBLIC_BLOB: windows_core::PCWSTR = windows_core::w!("PQDSAPUBLICBLOB");
 pub const BCRYPT_PRIMITIVE_TYPE: windows_core::PCWSTR = windows_core::w!("PrimitiveType");
 pub const BCRYPT_PRIVATE_KEY: windows_core::PCWSTR = windows_core::w!("PrivKeyVal");
 pub const BCRYPT_PRIVATE_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("PRIVATEBLOB");
@@ -4008,6 +4085,10 @@ pub const BCRYPT_SHA3_512_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SH
 pub const BCRYPT_SHA3_512_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(977u32 as _);
 pub const BCRYPT_SHA512_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SHA512");
 pub const BCRYPT_SHA512_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(97u32 as _);
+pub const BCRYPT_SHAKE128_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SHAKE128");
+pub const BCRYPT_SHAKE128_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1105u32 as _);
+pub const BCRYPT_SHAKE256_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SHAKE256");
+pub const BCRYPT_SHAKE256_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(1121u32 as _);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct BCRYPT_SIGNATURE_FUNCTION_TABLE {
@@ -4027,6 +4108,21 @@ pub struct BCRYPT_SIGNATURE_FUNCTION_TABLE {
 pub const BCRYPT_SIGNATURE_INTERFACE: BCRYPT_INTERFACE = BCRYPT_INTERFACE(5u32);
 pub const BCRYPT_SIGNATURE_LENGTH: windows_core::PCWSTR = windows_core::w!("SignatureLength");
 pub const BCRYPT_SIGNATURE_OPERATION: BCRYPT_OPERATION = BCRYPT_OPERATION(16u32);
+pub const BCRYPT_SLHDSA_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SLH-DSA");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_128F: windows_core::PCWSTR = windows_core::w!("SHA2-128f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_128S: windows_core::PCWSTR = windows_core::w!("SHA2-128s");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_192F: windows_core::PCWSTR = windows_core::w!("SHA2-192f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_192S: windows_core::PCWSTR = windows_core::w!("SHA2-192s");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_256F: windows_core::PCWSTR = windows_core::w!("SHA2-256f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHA2_256S: windows_core::PCWSTR = windows_core::w!("SHA2-256s");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_128F: windows_core::PCWSTR = windows_core::w!("SHAKE-128f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_128S: windows_core::PCWSTR = windows_core::w!("SHAKE-128s");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_192F: windows_core::PCWSTR = windows_core::w!("SHAKE-192f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_192S: windows_core::PCWSTR = windows_core::w!("SHAKE-192s");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_256F: windows_core::PCWSTR = windows_core::w!("SHAKE-256f");
+pub const BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_256S: windows_core::PCWSTR = windows_core::w!("SHAKE-256s");
+pub const BCRYPT_SLHDSA_PRIVATE_MAGIC: u32 = 1263749203u32;
+pub const BCRYPT_SLHDSA_PUBLIC_MAGIC: u32 = 1263552595u32;
 pub const BCRYPT_SP800108_CTR_HMAC_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SP800_108_CTR_HMAC");
 pub const BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(833u32 as _);
 pub const BCRYPT_SP80056A_CONCAT_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SP800_56A_CONCAT");
@@ -4045,6 +4141,8 @@ pub const BCRYPT_TLS1_2_KDF_ALGORITHM: windows_core::PCWSTR = windows_core::w!("
 pub const BCRYPT_TLS1_2_KDF_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(881u32 as _);
 pub const BCRYPT_TLS_CBC_HMAC_VERIFY_FLAG: u32 = 4u32;
 pub const BCRYPT_USE_SYSTEM_PREFERRED_RNG: BCRYPTGENRANDOM_FLAGS = BCRYPTGENRANDOM_FLAGS(2u32);
+pub const BCRYPT_XMSS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("XMSS");
+pub const BCRYPT_XMSS_PUBLIC_MAGIC: u32 = 1263553880u32;
 pub const BCRYPT_XTS_AES_ALGORITHM: windows_core::PCWSTR = windows_core::w!("XTS-AES");
 pub const BCRYPT_XTS_AES_ALG_HANDLE: BCRYPT_ALG_HANDLE = BCRYPT_ALG_HANDLE(897u32 as _);
 #[repr(C)]
@@ -4131,6 +4229,7 @@ pub const CALG_NO_SIGN: ALG_ID = ALG_ID(8192u32);
 pub const CALG_NULLCIPHER: ALG_ID = ALG_ID(24576u32);
 pub const CALG_OID_INFO_CNG_ONLY: u32 = 4294967295u32;
 pub const CALG_OID_INFO_PARAMETERS: u32 = 4294967294u32;
+pub const CALG_OID_INFO_PQ: u32 = 4294967293u32;
 pub const CALG_PCT1_MASTER: ALG_ID = ALG_ID(19460u32);
 pub const CALG_RC2: ALG_ID = ALG_ID(26114u32);
 pub const CALG_RC4: ALG_ID = ALG_ID(26625u32);
@@ -9338,6 +9437,7 @@ pub const CRYPT_OID_INFO_ECC_WRAP_PARAMETERS_ALGORITHM: windows_core::PCWSTR = w
 pub const CRYPT_OID_INFO_HASH_PARAMETERS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("CryptOIDInfoHashParameters");
 pub const CRYPT_OID_INFO_MGF1_PARAMETERS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("CryptOIDInfoMgf1Parameters");
 pub const CRYPT_OID_INFO_NAME_KEY: u32 = 2u32;
+pub const CRYPT_OID_INFO_NO_HASH_ALGORITHM: windows_core::PCWSTR = windows_core::w!("NoHash");
 pub const CRYPT_OID_INFO_NO_PARAMETERS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("CryptOIDInfoNoParameters");
 pub const CRYPT_OID_INFO_NO_SIGN_ALGORITHM: windows_core::PCWSTR = windows_core::w!("CryptOIDInfoNoSign");
 pub const CRYPT_OID_INFO_OAEP_PARAMETERS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("CryptOIDInfoOAEPParameters");
@@ -9345,15 +9445,27 @@ pub const CRYPT_OID_INFO_OID_GROUP_BIT_LEN_MASK: u32 = 268369920u32;
 pub const CRYPT_OID_INFO_OID_GROUP_BIT_LEN_SHIFT: u32 = 16u32;
 pub const CRYPT_OID_INFO_OID_KEY: u32 = 1u32;
 pub const CRYPT_OID_INFO_OID_KEY_FLAGS_MASK: u32 = 4294901760u32;
+pub const CRYPT_OID_INFO_PREHASH_ALGORITHM: windows_core::PCWSTR = windows_core::w!("PreHash");
 pub const CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG: CRYPT_IMPORT_PUBLIC_KEY_FLAGS = CRYPT_IMPORT_PUBLIC_KEY_FLAGS(1073741824u32);
+pub const CRYPT_OID_INFO_PUBKEY_PREHASH_KEY_FLAG: u32 = 67108864u32;
+pub const CRYPT_OID_INFO_PUBKEY_PURE_KEY_FLAG: u32 = 134217728u32;
 pub const CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG: CRYPT_IMPORT_PUBLIC_KEY_FLAGS = CRYPT_IMPORT_PUBLIC_KEY_FLAGS(2147483648u32);
 pub const CRYPT_OID_INFO_SIGN_KEY: u32 = 4u32;
 pub const CRYPT_OID_INHIBIT_SIGNATURE_FORMAT_FLAG: u32 = 1u32;
 pub const CRYPT_OID_NO_NULL_ALGORITHM_PARA_FLAG: u32 = 4u32;
 pub const CRYPT_OID_OPEN_STORE_PROV_FUNC: windows_core::PCSTR = windows_core::s!("CertDllOpenStoreProv");
 pub const CRYPT_OID_OPEN_SYSTEM_STORE_PROV_FUNC: windows_core::PCSTR = windows_core::s!("CertDllOpenSystemStoreProv");
+pub const CRYPT_OID_PQ_EXTRA_INFO_FLAGS_INDEX: u32 = 0u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_MAX_LENGTH: u32 = 6u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_PRIVATE_KEY_LENGTH_INDEX: u32 = 4u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_PRIVATE_MAGIC_INDEX: u32 = 2u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_PUBLIC_KEY_LENGTH_INDEX: u32 = 3u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_PUBLIC_MAGIC_INDEX: u32 = 1u32;
+pub const CRYPT_OID_PQ_EXTRA_INFO_SIGNATURE_LENGTH_INDEX: u32 = 5u32;
 pub const CRYPT_OID_PREFER_CNG_ALGID_FLAG: u32 = 1073741824u32;
 pub const CRYPT_OID_PUBKEY_ENCRYPT_ONLY_FLAG: u32 = 1073741824u32;
+pub const CRYPT_OID_PUBKEY_PREHASH_ONLY_FLAG: u32 = 67108864u32;
+pub const CRYPT_OID_PUBKEY_PURE_ONLY_FLAG: u32 = 134217728u32;
 pub const CRYPT_OID_PUBKEY_SIGN_ONLY_FLAG: u32 = 2147483648u32;
 pub const CRYPT_OID_REGISTER_PHYSICAL_STORE_FUNC: windows_core::PCSTR = windows_core::s!("CertDllRegisterPhysicalStore");
 pub const CRYPT_OID_REGISTER_SYSTEM_STORE_FUNC: windows_core::PCSTR = windows_core::s!("CertDllRegisterSystemStore");
@@ -12430,12 +12542,15 @@ pub const NCRYPTBUFFER_ECC_CURVE_NAME: u32 = 60u32;
 pub const NCRYPTBUFFER_ECC_PARAMETERS: u32 = 61u32;
 pub const NCRYPTBUFFER_EMPTY: u32 = 0u32;
 pub const NCRYPTBUFFER_KEY_PROPERTY_FLAGS: u32 = 50u32;
+pub const NCRYPTBUFFER_PKCS_AES_KEY_BITS: u32 = 96u32;
 pub const NCRYPTBUFFER_PKCS_ALG_ID: u32 = 43u32;
 pub const NCRYPTBUFFER_PKCS_ALG_OID: u32 = 41u32;
 pub const NCRYPTBUFFER_PKCS_ALG_PARAM: u32 = 42u32;
 pub const NCRYPTBUFFER_PKCS_ATTRS: u32 = 44u32;
 pub const NCRYPTBUFFER_PKCS_KEY_NAME: u32 = 45u32;
 pub const NCRYPTBUFFER_PKCS_OID: u32 = 40u32;
+pub const NCRYPTBUFFER_PKCS_PADDING_ALGO: u32 = 97u32;
+pub const NCRYPTBUFFER_PKCS_PADDING_LABEL: u32 = 98u32;
 pub const NCRYPTBUFFER_PKCS_SECRET: u32 = 46u32;
 pub const NCRYPTBUFFER_PROTECTION_DESCRIPTOR_STRING: u32 = 3u32;
 pub const NCRYPTBUFFER_PROTECTION_FLAGS: u32 = 4u32;
@@ -12667,6 +12782,8 @@ pub const NCRYPT_ISOLATED_KEY_FLAG_PER_BOOT_KEY: u32 = 4u32;
 pub const NCRYPT_KDF_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("KDFKeyBlob");
 pub const NCRYPT_KDF_KEY_BLOB_MAGIC: u32 = 826688587u32;
 pub const NCRYPT_KDF_SECRET_VALUE: windows_core::PCWSTR = windows_core::w!("KDFKeySecret");
+pub const NCRYPT_KEM_CIPHERTEXT_LENGTH_PROPERTY: windows_core::PCWSTR = windows_core::w!("KEMCiphertextLength");
+pub const NCRYPT_KEM_SHARED_SECRET_LENGTH_PROPERTY: windows_core::PCWSTR = windows_core::w!("KEMSharedSecretLength");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct NCRYPT_KEY_ACCESS_POLICY_BLOB {
@@ -12703,6 +12820,8 @@ pub struct NCRYPT_KEY_BLOB_HEADER {
 pub const NCRYPT_KEY_DERIVATION_GROUP: windows_core::PCWSTR = windows_core::w!("KEY_DERIVATION");
 pub const NCRYPT_KEY_DERIVATION_INTERFACE: u32 = 7u32;
 pub const NCRYPT_KEY_DERIVATION_OPERATION: u32 = 64u32;
+pub const NCRYPT_KEY_ENCAPSULATION_INTERFACE: u32 = 8u32;
+pub const NCRYPT_KEY_ENCAPSULATION_OPERATION: u32 = 128u32;
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub struct NCRYPT_KEY_HANDLE(pub usize);
@@ -12781,6 +12900,8 @@ pub const NCRYPT_KEY_USAGE_PROPERTY: windows_core::PCWSTR = windows_core::w!("Ke
 pub const NCRYPT_LAST_MODIFIED_PROPERTY: windows_core::PCWSTR = windows_core::w!("Modified");
 pub const NCRYPT_LENGTHS_PROPERTY: windows_core::PCWSTR = windows_core::w!("Lengths");
 pub const NCRYPT_LENGTH_PROPERTY: windows_core::PCWSTR = windows_core::w!("Length");
+pub const NCRYPT_LMS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("LMS");
+pub const NCRYPT_LMS_ALGORITHM_GROUP: windows_core::PCWSTR = windows_core::w!("LMS");
 pub const NCRYPT_MACHINE_KEY_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(32u32);
 pub const NCRYPT_MAX_ALG_ID_LENGTH: u32 = 512u32;
 pub const NCRYPT_MAX_KEY_NAME_LENGTH: u32 = 512u32;
@@ -12790,6 +12911,10 @@ pub const NCRYPT_MAX_PROPERTY_NAME: u32 = 64u32;
 pub const NCRYPT_MD2_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD2");
 pub const NCRYPT_MD4_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD4");
 pub const NCRYPT_MD5_ALGORITHM: windows_core::PCWSTR = windows_core::w!("MD5");
+pub const NCRYPT_MLDSA_ALGORITHM: windows_core::PCWSTR = windows_core::w!("ML-DSA");
+pub const NCRYPT_MLDSA_ALGORITHM_GROUP: windows_core::PCWSTR = windows_core::w!("MLDSA");
+pub const NCRYPT_MLKEM_ALGORITHM: windows_core::PCWSTR = windows_core::w!("ML-KEM");
+pub const NCRYPT_MLKEM_ALGORITHM_GROUP: windows_core::PCWSTR = windows_core::w!("MLKEM");
 pub const NCRYPT_NAMED_DESCRIPTOR_FLAG: u32 = 1u32;
 pub const NCRYPT_NAME_PROPERTY: windows_core::PCWSTR = windows_core::w!("Name");
 pub const NCRYPT_NO_CACHED_PASSWORD: u32 = 16384u32;
@@ -12836,7 +12961,9 @@ pub const NCRYPT_OVERWRITE_KEY_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(128u32);
 pub const NCRYPT_PAD_CIPHER_FLAG: u32 = 16u32;
 pub const NCRYPT_PAD_OAEP_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(4u32);
 pub const NCRYPT_PAD_PKCS1_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(2u32);
+pub const NCRYPT_PAD_PQDSA_FLAG: u32 = 32u32;
 pub const NCRYPT_PAD_PSS_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(8u32);
+pub const NCRYPT_PARAMETER_SET_NAME_PROPERTY: windows_core::PCWSTR = windows_core::w!("ParameterSetName");
 pub const NCRYPT_PBKDF2_ALGORITHM: windows_core::PCWSTR = windows_core::w!("PBKDF2");
 pub const NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY: windows_core::PCWSTR = windows_core::w!("PCP_ALTERNATE_KEY_STORAGE_LOCATION");
 pub const NCRYPT_PCP_CHANGEPASSWORD_PROPERTY: windows_core::PCWSTR = windows_core::w!("PCP_CHANGEPASSWORD");
@@ -12950,9 +13077,6 @@ pub const NCRYPT_PIN_CACHE_PIN_PROPERTY: windows_core::PCWSTR = windows_core::w!
 pub const NCRYPT_PIN_CACHE_REQUIRE_GESTURE_FLAG: u32 = 1u32;
 pub const NCRYPT_PIN_PROMPT_PROPERTY: windows_core::PCWSTR = windows_core::w!("SmartCardPinPrompt");
 pub const NCRYPT_PIN_PROPERTY: windows_core::PCWSTR = windows_core::w!("SmartCardPin");
-pub const NCRYPT_PKCS11_KWP_AES_KEY_BITS_PROPERTY: windows_core::PCWSTR = windows_core::w!("Pkcs11AesKeyBits");
-pub const NCRYPT_PKCS11_KWP_OAEP_HASH_ALGO_PROPERTY: windows_core::PCWSTR = windows_core::w!("Pkcs11OaepHashAlgorithm");
-pub const NCRYPT_PKCS11_KWP_OAEP_LABEL_PROPERTY: windows_core::PCWSTR = windows_core::w!("Pkcs11OaepLabel");
 pub const NCRYPT_PKCS7_ENVELOPE_BLOB: windows_core::PCWSTR = windows_core::w!("PKCS7_ENVELOPE");
 pub const NCRYPT_PKCS8_PRIVATE_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("PKCS8_PRIVATEKEY");
 pub const NCRYPT_PLATFORM_ATTEST_MAGIC: u32 = 1146110288u32;
@@ -12971,6 +13095,16 @@ pub const NCRYPT_PLUTON_KDF_PARENT_KEY_UNIQUE_NAME_PROPERTY: windows_core::PCWST
 pub const NCRYPT_PLUTON_RSA_EKCERT_PROPERTY: windows_core::PCWSTR = windows_core::w!("PLUTON_RSA_EKCERT");
 pub const NCRYPT_PLUTON_RSA_EKPUB_PROPERTY: windows_core::PCWSTR = windows_core::w!("PLUTON_RSA_EKPUB");
 pub const NCRYPT_PLUTON_SESSION_ID_PROPERTY: windows_core::PCWSTR = windows_core::w!("PLUTON_SESSION_ID");
+#[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct NCRYPT_PQ_BLOB {
+    pub dwMagic: u32,
+    pub cbBCryptType: u32,
+    pub cbBCryptBlob: u32,
+}
+pub const NCRYPT_PQ_PRIVATE_BLOB_MAGIC: u32 = 1380995408u32;
+pub const NCRYPT_PQ_PRIVATE_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("PQPrivateKeyBlob");
+pub const NCRYPT_PQ_PUBLIC_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("PUBLICBLOB");
 pub const NCRYPT_PREFER_VBS_FLAG: u32 = 65536u32;
 pub const NCRYPT_PREFER_VIRTUAL_ISOLATION_FLAG: u32 = 65536u32;
 pub const NCRYPT_PROTECTED_KEY_BLOB: windows_core::PCWSTR = windows_core::w!("ProtectedKeyBlob");
@@ -13064,6 +13198,8 @@ pub const NCRYPT_SIGNATURE_INTERFACE: NCRYPT_ALGORITHM_NAME_CLASS = NCRYPT_ALGOR
 pub const NCRYPT_SIGNATURE_LENGTH_PROPERTY: windows_core::PCWSTR = windows_core::w!("SignatureLength");
 pub const NCRYPT_SIGNATURE_OPERATION: NCRYPT_OPERATION = NCRYPT_OPERATION(16u32);
 pub const NCRYPT_SILENT_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(64u32);
+pub const NCRYPT_SLHDSA_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SLH-DSA");
+pub const NCRYPT_SLHDSA_ALGORITHM_GROUP: windows_core::PCWSTR = windows_core::w!("SLHDSA");
 pub const NCRYPT_SMARTCARD_GUID_PROPERTY: windows_core::PCWSTR = windows_core::w!("SmartCardGuid");
 pub const NCRYPT_SP800108_CTR_HMAC_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SP800_108_CTR_HMAC");
 pub const NCRYPT_SP80056A_CONCAT_ALGORITHM: windows_core::PCWSTR = windows_core::w!("SP800_56A_CONCAT");
@@ -13352,6 +13488,8 @@ pub const NCRYPT_VBS_ROOT_PUB_PROPERTY: windows_core::PCWSTR = windows_core::w!(
 pub const NCRYPT_VERSION_PROPERTY: windows_core::PCWSTR = windows_core::w!("Version");
 pub const NCRYPT_WINDOW_HANDLE_PROPERTY: windows_core::PCWSTR = windows_core::w!("HWND Handle");
 pub const NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG: NCRYPT_FLAGS = NCRYPT_FLAGS(512u32);
+pub const NCRYPT_XMSS_ALGORITHM: windows_core::PCWSTR = windows_core::w!("XMSS");
+pub const NCRYPT_XMSS_ALGORITHM_GROUP: windows_core::PCWSTR = windows_core::w!("XMSS");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct NCryptAlgorithmName {
@@ -15014,9 +15152,45 @@ pub const szOID_NIST_AES192_CBC: windows_core::PCSTR = windows_core::s!("2.16.84
 pub const szOID_NIST_AES192_WRAP: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.1.25");
 pub const szOID_NIST_AES256_CBC: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.1.42");
 pub const szOID_NIST_AES256_WRAP: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.1.45");
+pub const szOID_NIST_hash_ml_dsa_44_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.32");
+pub const szOID_NIST_hash_ml_dsa_65_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.33");
+pub const szOID_NIST_hash_ml_dsa_87_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.34");
+pub const szOID_NIST_hash_slh_dsa_sha2_128f_with_sha256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.36");
+pub const szOID_NIST_hash_slh_dsa_sha2_128s_with_sha256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.35");
+pub const szOID_NIST_hash_slh_dsa_sha2_192f_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.38");
+pub const szOID_NIST_hash_slh_dsa_sha2_192s_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.37");
+pub const szOID_NIST_hash_slh_dsa_sha2_256f_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.40");
+pub const szOID_NIST_hash_slh_dsa_sha2_256s_with_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.39");
+pub const szOID_NIST_hash_slh_dsa_shake_128f_with_shake128: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.42");
+pub const szOID_NIST_hash_slh_dsa_shake_128s_with_shake128: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.41");
+pub const szOID_NIST_hash_slh_dsa_shake_192f_with_shake256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.44");
+pub const szOID_NIST_hash_slh_dsa_shake_192s_with_shake256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.43");
+pub const szOID_NIST_hash_slh_dsa_shake_256f_with_shake256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.46");
+pub const szOID_NIST_hash_slh_dsa_shake_256s_with_shake256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.45");
+pub const szOID_NIST_ml_dsa_44: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.17");
+pub const szOID_NIST_ml_dsa_65: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.18");
+pub const szOID_NIST_ml_dsa_87: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.19");
+pub const szOID_NIST_ml_kem_1024: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.4.3");
+pub const szOID_NIST_ml_kem_512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.4.1");
+pub const szOID_NIST_ml_kem_768: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.4.2");
 pub const szOID_NIST_sha256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.2.1");
 pub const szOID_NIST_sha384: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.2.2");
 pub const szOID_NIST_sha512: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.2.3");
+pub const szOID_NIST_shake128: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.2.11");
+pub const szOID_NIST_shake256: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.2.12");
+pub const szOID_NIST_slh_dsa_sha2_128f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.21");
+pub const szOID_NIST_slh_dsa_sha2_128s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.20");
+pub const szOID_NIST_slh_dsa_sha2_192f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.23");
+pub const szOID_NIST_slh_dsa_sha2_192s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.22");
+pub const szOID_NIST_slh_dsa_sha2_256f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.25");
+pub const szOID_NIST_slh_dsa_sha2_256s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.24");
+pub const szOID_NIST_slh_dsa_shake_128f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.27");
+pub const szOID_NIST_slh_dsa_shake_128s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.26");
+pub const szOID_NIST_slh_dsa_shake_192f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.29");
+pub const szOID_NIST_slh_dsa_shake_192s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.28");
+pub const szOID_NIST_slh_dsa_shake_256f: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.31");
+pub const szOID_NIST_slh_dsa_shake_256s: windows_core::PCSTR = windows_core::s!("2.16.840.1.101.3.4.3.30");
+pub const szOID_NO_HASH: windows_core::PCSTR = windows_core::s!("1.3.6.1.4.1.311.73.1");
 pub const szOID_NT5_CRYPTO: windows_core::PCSTR = windows_core::s!("1.3.6.1.4.1.311.10.3.6");
 pub const szOID_NTDS_CA_SECURITY_EXT: windows_core::PCSTR = windows_core::s!("1.3.6.1.4.1.311.25.2");
 pub const szOID_NTDS_OBJECTSID: windows_core::PCSTR = windows_core::s!("1.3.6.1.4.1.311.25.2.1");

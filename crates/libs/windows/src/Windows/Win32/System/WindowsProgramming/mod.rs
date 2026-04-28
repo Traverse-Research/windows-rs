@@ -280,6 +280,14 @@ pub unsafe fn GdiEntry13() -> u32 {
     unsafe { GdiEntry13() }
 }
 #[inline]
+pub unsafe fn GetApiSetModuleBaseName<P0>(contractname: P0, modulebasename: &mut [u16], actualnamelength: Option<*mut u32>) -> windows_core::Result<()>
+where
+    P0: windows_core::Param<windows_core::PCSTR>,
+{
+    windows_link::link!("api-ms-win-core-apiquery-l2-1-1.dll" "system" fn GetApiSetModuleBaseName(contractname : windows_core::PCSTR, bufferlength : u32, modulebasename : windows_core::PWSTR, actualnamelength : *mut u32) -> windows_core::HRESULT);
+    unsafe { GetApiSetModuleBaseName(contractname.param().abi(), modulebasename.len().try_into().unwrap(), core::mem::transmute(modulebasename.as_ptr()), actualnamelength.unwrap_or(core::mem::zeroed()) as _).ok() }
+}
+#[inline]
 pub unsafe fn GetComputerNameA(lpbuffer: Option<windows_core::PSTR>, nsize: *mut u32) -> windows_core::Result<()> {
     windows_link::link!("kernel32.dll" "system" fn GetComputerNameA(lpbuffer : windows_core::PSTR, nsize : *mut u32) -> windows_core::BOOL);
     unsafe { GetComputerNameA(lpbuffer.unwrap_or(core::mem::zeroed()) as _, nsize as _).ok() }

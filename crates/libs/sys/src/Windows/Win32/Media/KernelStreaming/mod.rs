@@ -2193,6 +2193,17 @@ impl Default for KSMIDILOOPED_EVENT {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct KSMIDILOOPED_EVENT2 {
+    pub WriteEvent: super::super::Foundation::HANDLE,
+    pub ReadEvent: super::super::Foundation::HANDLE,
+}
+impl Default for KSMIDILOOPED_EVENT2 {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct KSMIDILOOPED_REGISTERS {
     pub WritePosition: *mut core::ffi::c_void,
     pub ReadPosition: *mut core::ffi::c_void,

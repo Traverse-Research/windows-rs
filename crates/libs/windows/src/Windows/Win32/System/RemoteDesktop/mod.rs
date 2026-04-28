@@ -10813,6 +10813,7 @@ impl Default for WTSCONFIGINFOW {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const WTSCapabilityCheck: WTS_INFO_CLASS = WTS_INFO_CLASS(31i32);
 pub const WTSClientAddress: WTS_INFO_CLASS = WTS_INFO_CLASS(14i32);
 pub const WTSClientBuildNumber: WTS_INFO_CLASS = WTS_INFO_CLASS(9i32);
 pub const WTSClientDirectory: WTS_INFO_CLASS = WTS_INFO_CLASS(11i32);

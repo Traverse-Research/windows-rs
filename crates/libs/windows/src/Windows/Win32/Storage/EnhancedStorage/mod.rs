@@ -1875,6 +1875,7 @@ pub const PKEY_StorageProviderSharingStatus: super::super::Foundation::PROPERTYK
 pub const PKEY_StorageProviderState: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0xe77e90df_6271_4f5b_834f_2dd1f245dda4), pid: 3 };
 pub const PKEY_StorageProviderStatus: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0xfceff153_e839_4cf3_a9e7_ea22832094b8), pid: 110 };
 pub const PKEY_StorageProviderTransferProgress: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0xe77e90df_6271_4f5b_834f_2dd1f245dda4), pid: 4 };
+pub const PKEY_StorageProviderUserAccountKind: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0xb2f9b9d6_fec4_4dd5_94d7_8957488c807b), pid: 17 };
 pub const PKEY_StorageProviderUserId: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0xb2f9b9d6_fec4_4dd5_94d7_8957488c807b), pid: 13 };
 pub const PKEY_Storage_Portable: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0x4d1ebee8_0803_4774_9842_b77db50265e9), pid: 2 };
 pub const PKEY_Storage_RemovableMedia: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0x4d1ebee8_0803_4774_9842_b77db50265e9), pid: 3 };
@@ -1998,6 +1999,9 @@ pub const STORAGEPROVIDERSTATE_PINNED: u32 = 3u32;
 pub const STORAGEPROVIDERSTATE_SPARSE: u32 = 1u32;
 pub const STORAGEPROVIDERSTATE_TRANSFERRING: u32 = 6u32;
 pub const STORAGEPROVIDERSTATE_WARNING: u32 = 8u32;
+pub const STORAGEPROVIDERUSERACCOUNTKIND_BUSINESS: u32 = 2u32;
+pub const STORAGEPROVIDERUSERACCOUNTKIND_CONSUMER: u32 = 1u32;
+pub const STORAGEPROVIDERUSERACCOUNTKIND_UNKNOWN: u32 = 0u32;
 pub const STORAGE_PROVIDER_SHARE_STATUS_GROUP: windows_core::PCWSTR = windows_core::w!("Group");
 pub const STORAGE_PROVIDER_SHARE_STATUS_OWNER: windows_core::PCWSTR = windows_core::w!("Owner");
 pub const STORAGE_PROVIDER_SHARE_STATUS_PRIVATE: windows_core::PCWSTR = windows_core::w!("Private");

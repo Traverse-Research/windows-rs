@@ -4244,6 +4244,12 @@ pub struct KSMIDILOOPED_EVENT {
     pub WriteEvent: super::super::Foundation::HANDLE,
 }
 #[repr(C)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct KSMIDILOOPED_EVENT2 {
+    pub WriteEvent: super::super::Foundation::HANDLE,
+    pub ReadEvent: super::super::Foundation::HANDLE,
+}
+#[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct KSMIDILOOPED_REGISTERS {
     pub WritePosition: *mut core::ffi::c_void,

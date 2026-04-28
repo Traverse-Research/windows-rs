@@ -1660,6 +1660,53 @@ impl IAppxBundleFactory2_Vtbl {
 }
 #[cfg(feature = "Win32_System_Com")]
 impl windows_core::RuntimeName for IAppxBundleFactory2 {}
+windows_core::imp::define_interface!(IAppxBundleFactory3, IAppxBundleFactory3_Vtbl, 0xd11ea6b6_3909_4376_b7c4_10d50f5cf3ae);
+windows_core::imp::interface_hierarchy!(IAppxBundleFactory3, windows_core::IUnknown);
+impl IAppxBundleFactory3 {
+    pub unsafe fn CreateBundleReaderFromSourceUri<P0, P1>(&self, uri: P0, expecteddigest: P1) -> windows_core::Result<IAppxBundleReader>
+    where
+        P0: windows_core::Param<windows_core::PCWSTR>,
+        P1: windows_core::Param<windows_core::PCWSTR>,
+    {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).CreateBundleReaderFromSourceUri)(windows_core::Interface::as_raw(self), uri.param().abi(), expecteddigest.param().abi(), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IAppxBundleFactory3_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub CreateBundleReaderFromSourceUri: unsafe extern "system" fn(*mut core::ffi::c_void, windows_core::PCWSTR, windows_core::PCWSTR, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+pub trait IAppxBundleFactory3_Impl: windows_core::IUnknownImpl {
+    fn CreateBundleReaderFromSourceUri(&self, uri: &windows_core::PCWSTR, expecteddigest: &windows_core::PCWSTR) -> windows_core::Result<IAppxBundleReader>;
+}
+impl IAppxBundleFactory3_Vtbl {
+    pub const fn new<Identity: IAppxBundleFactory3_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreateBundleReaderFromSourceUri<Identity: IAppxBundleFactory3_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, uri: windows_core::PCWSTR, expecteddigest: windows_core::PCWSTR, bundlereader: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IAppxBundleFactory3_Impl::CreateBundleReaderFromSourceUri(this, core::mem::transmute(&uri), core::mem::transmute(&expecteddigest)) {
+                    Ok(ok__) => {
+                        bundlereader.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            CreateBundleReaderFromSourceUri: CreateBundleReaderFromSourceUri::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IAppxBundleFactory3 as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IAppxBundleFactory3 {}
 windows_core::imp::define_interface!(IAppxBundleManifestOptionalBundleInfo, IAppxBundleManifestOptionalBundleInfo_Vtbl, 0x515bf2e8_bcb0_4d69_8c48_e383147b6e12);
 windows_core::imp::interface_hierarchy!(IAppxBundleManifestOptionalBundleInfo, windows_core::IUnknown);
 impl IAppxBundleManifestOptionalBundleInfo {
@@ -2490,6 +2537,49 @@ impl IAppxBundleReader_Vtbl {
     }
 }
 impl windows_core::RuntimeName for IAppxBundleReader {}
+windows_core::imp::define_interface!(IAppxBundleReader2, IAppxBundleReader2_Vtbl, 0x98262195_d63a_4c10_b4cf_dd72e061ba87);
+windows_core::imp::interface_hierarchy!(IAppxBundleReader2, windows_core::IUnknown);
+impl IAppxBundleReader2 {
+    pub unsafe fn GetPayloadPackageReader<P0>(&self, filename: P0) -> windows_core::Result<IAppxPackageReader>
+    where
+        P0: windows_core::Param<windows_core::PCWSTR>,
+    {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).GetPayloadPackageReader)(windows_core::Interface::as_raw(self), filename.param().abi(), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IAppxBundleReader2_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub GetPayloadPackageReader: unsafe extern "system" fn(*mut core::ffi::c_void, windows_core::PCWSTR, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+pub trait IAppxBundleReader2_Impl: windows_core::IUnknownImpl {
+    fn GetPayloadPackageReader(&self, filename: &windows_core::PCWSTR) -> windows_core::Result<IAppxPackageReader>;
+}
+impl IAppxBundleReader2_Vtbl {
+    pub const fn new<Identity: IAppxBundleReader2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetPayloadPackageReader<Identity: IAppxBundleReader2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, filename: windows_core::PCWSTR, payloadpackagereader: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IAppxBundleReader2_Impl::GetPayloadPackageReader(this, core::mem::transmute(&filename)) {
+                    Ok(ok__) => {
+                        payloadpackagereader.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self { base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(), GetPayloadPackageReader: GetPayloadPackageReader::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IAppxBundleReader2 as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IAppxBundleReader2 {}
 windows_core::imp::define_interface!(IAppxBundleWriter, IAppxBundleWriter_Vtbl, 0xec446fe8_bfec_4c64_ab4f_49f038f0c6d2);
 windows_core::imp::interface_hierarchy!(IAppxBundleWriter, windows_core::IUnknown);
 impl IAppxBundleWriter {
@@ -4296,6 +4386,53 @@ impl IAppxFactory3_Vtbl {
 }
 #[cfg(feature = "Win32_System_Com")]
 impl windows_core::RuntimeName for IAppxFactory3 {}
+windows_core::imp::define_interface!(IAppxFactory4, IAppxFactory4_Vtbl, 0x92e50000_6934_4c8d_b472_229d431daddf);
+windows_core::imp::interface_hierarchy!(IAppxFactory4, windows_core::IUnknown);
+impl IAppxFactory4 {
+    pub unsafe fn CreatePackageReaderFromSourceUri<P0, P1>(&self, uri: P0, expecteddigest: P1) -> windows_core::Result<IAppxPackageReader>
+    where
+        P0: windows_core::Param<windows_core::PCWSTR>,
+        P1: windows_core::Param<windows_core::PCWSTR>,
+    {
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(self).CreatePackageReaderFromSourceUri)(windows_core::Interface::as_raw(self), uri.param().abi(), expecteddigest.param().abi(), &mut result__).and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IAppxFactory4_Vtbl {
+    pub base__: windows_core::IUnknown_Vtbl,
+    pub CreatePackageReaderFromSourceUri: unsafe extern "system" fn(*mut core::ffi::c_void, windows_core::PCWSTR, windows_core::PCWSTR, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+}
+pub trait IAppxFactory4_Impl: windows_core::IUnknownImpl {
+    fn CreatePackageReaderFromSourceUri(&self, uri: &windows_core::PCWSTR, expecteddigest: &windows_core::PCWSTR) -> windows_core::Result<IAppxPackageReader>;
+}
+impl IAppxFactory4_Vtbl {
+    pub const fn new<Identity: IAppxFactory4_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreatePackageReaderFromSourceUri<Identity: IAppxFactory4_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, uri: windows_core::PCWSTR, expecteddigest: windows_core::PCWSTR, packagereader: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IAppxFactory4_Impl::CreatePackageReaderFromSourceUri(this, core::mem::transmute(&uri), core::mem::transmute(&expecteddigest)) {
+                    Ok(ok__) => {
+                        packagereader.write(core::mem::transmute(ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(),
+            CreatePackageReaderFromSourceUri: CreatePackageReaderFromSourceUri::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IAppxFactory4 as windows_core::Interface>::IID
+    }
+}
+impl windows_core::RuntimeName for IAppxFactory4 {}
 windows_core::imp::define_interface!(IAppxFile, IAppxFile_Vtbl, 0x91df827b_94fd_468f_827b_57f41b2f6f2e);
 windows_core::imp::interface_hierarchy!(IAppxFile, windows_core::IUnknown);
 impl IAppxFile {
