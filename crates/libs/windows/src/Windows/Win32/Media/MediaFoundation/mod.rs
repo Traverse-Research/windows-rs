@@ -11719,57 +11719,6 @@ impl ID3D12VideoDevice3_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDevice3 {}
-windows_core::imp::define_interface!(ID3D12VideoDevice3DLUT, ID3D12VideoDevice3DLUT_Vtbl, 0x4694a08b_63c8_45e2_88c8_4986acb13d64);
-impl core::ops::Deref for ID3D12VideoDevice3DLUT {
-    type Target = ID3D12VideoDevice4;
-    fn deref(&self) -> &Self::Target {
-        unsafe { core::mem::transmute(self) }
-    }
-}
-windows_core::imp::interface_hierarchy!(ID3D12VideoDevice3DLUT, windows_core::IUnknown, ID3D12VideoDevice, ID3D12VideoDevice1, ID3D12VideoDevice2, ID3D12VideoDevice3, ID3D12VideoDevice4);
-impl ID3D12VideoDevice3DLUT {
-    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-    pub unsafe fn CreateVideoProcessor2<P4, T>(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, pinputstreamdescs: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1], pprotectedresourcesession: P4) -> windows_core::Result<T>
-    where
-        P4: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>,
-        T: windows_core::Interface,
-    {
-        let mut result__ = core::ptr::null_mut();
-        unsafe { (windows_core::Interface::vtable(self).CreateVideoProcessor2)(windows_core::Interface::as_raw(self), nodemask, poutputstreamdesc, pinputstreamdescs.len().try_into().unwrap(), core::mem::transmute(pinputstreamdescs.as_ptr()), pprotectedresourcesession.param().abi(), &T::IID, &mut result__).and_then(|| windows_core::Type::from_abi(result__)) }
-    }
-}
-#[repr(C)]
-#[doc(hidden)]
-pub struct ID3D12VideoDevice3DLUT_Vtbl {
-    pub base__: ID3D12VideoDevice4_Vtbl,
-    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-    pub CreateVideoProcessor2: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, *mut core::ffi::c_void, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
-    #[cfg(not(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common")))]
-    CreateVideoProcessor2: usize,
-}
-unsafe impl Send for ID3D12VideoDevice3DLUT {}
-unsafe impl Sync for ID3D12VideoDevice3DLUT {}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-pub trait ID3D12VideoDevice3DLUT_Impl: ID3D12VideoDevice4_Impl {
-    fn CreateVideoProcessor2(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
-}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl ID3D12VideoDevice3DLUT_Vtbl {
-    pub const fn new<Identity: ID3D12VideoDevice3DLUT_Impl, const OFFSET: isize>() -> Self {
-        unsafe extern "system" fn CreateVideoProcessor2<Identity: ID3D12VideoDevice3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: *mut core::ffi::c_void, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
-            unsafe {
-                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                ID3D12VideoDevice3DLUT_Impl::CreateVideoProcessor2(this, core::mem::transmute_copy(&nodemask), core::mem::transmute_copy(&poutputstreamdesc), core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs), core::mem::transmute_copy(&pprotectedresourcesession), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&ppvideoprocessor)).into()
-            }
-        }
-        Self { base__: ID3D12VideoDevice4_Vtbl::new::<Identity, OFFSET>(), CreateVideoProcessor2: CreateVideoProcessor2::<Identity, OFFSET> }
-    }
-    pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoDevice3DLUT as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice3 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice4 as windows_core::Interface>::IID
-    }
-}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl windows_core::RuntimeName for ID3D12VideoDevice3DLUT {}
 windows_core::imp::define_interface!(ID3D12VideoDevice4, ID3D12VideoDevice4_Vtbl, 0xe59ad09e_f1ae_42bb_8983_9f6e5586c4eb);
 impl core::ops::Deref for ID3D12VideoDevice4 {
     type Target = ID3D12VideoDevice3;
@@ -11816,6 +11765,57 @@ impl ID3D12VideoDevice4_Vtbl {
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoDevice4 {}
+windows_core::imp::define_interface!(ID3D12VideoDevice5, ID3D12VideoDevice5_Vtbl, 0xabbac731_6f08_4ff9_8c7c_404b4035bc5f);
+impl core::ops::Deref for ID3D12VideoDevice5 {
+    type Target = ID3D12VideoDevice4;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+windows_core::imp::interface_hierarchy!(ID3D12VideoDevice5, windows_core::IUnknown, ID3D12VideoDevice, ID3D12VideoDevice1, ID3D12VideoDevice2, ID3D12VideoDevice3, ID3D12VideoDevice4);
+impl ID3D12VideoDevice5 {
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub unsafe fn CreateVideoProcessor2<P4, T>(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, pinputstreamdescs: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1], pprotectedresourcesession: P4) -> windows_core::Result<T>
+    where
+        P4: windows_core::Param<super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>,
+        T: windows_core::Interface,
+    {
+        let mut result__ = core::ptr::null_mut();
+        unsafe { (windows_core::Interface::vtable(self).CreateVideoProcessor2)(windows_core::Interface::as_raw(self), nodemask, poutputstreamdesc, pinputstreamdescs.len().try_into().unwrap(), core::mem::transmute(pinputstreamdescs.as_ptr()), pprotectedresourcesession.param().abi(), &T::IID, &mut result__).and_then(|| windows_core::Type::from_abi(result__)) }
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoDevice5_Vtbl {
+    pub base__: ID3D12VideoDevice4_Vtbl,
+    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+    pub CreateVideoProcessor2: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, *mut core::ffi::c_void, *const windows_core::GUID, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,
+    #[cfg(not(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common")))]
+    CreateVideoProcessor2: usize,
+}
+unsafe impl Send for ID3D12VideoDevice5 {}
+unsafe impl Sync for ID3D12VideoDevice5 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoDevice5_Impl: ID3D12VideoDevice4_Impl {
+    fn CreateVideoProcessor2(&self, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: windows_core::Ref<'_, super::super::Graphics::Direct3D12::ID3D12ProtectedResourceSession>, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::Result<()>;
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoDevice5_Vtbl {
+    pub const fn new<Identity: ID3D12VideoDevice5_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn CreateVideoProcessor2<Identity: ID3D12VideoDevice5_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, nodemask: u32, poutputstreamdesc: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, numinputstreamdescs: u32, pinputstreamdescs: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1, pprotectedresourcesession: *mut core::ffi::c_void, riid: *const windows_core::GUID, ppvideoprocessor: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoDevice5_Impl::CreateVideoProcessor2(this, core::mem::transmute_copy(&nodemask), core::mem::transmute_copy(&poutputstreamdesc), core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs), core::mem::transmute_copy(&pprotectedresourcesession), core::mem::transmute_copy(&riid), core::mem::transmute_copy(&ppvideoprocessor)).into()
+            }
+        }
+        Self { base__: ID3D12VideoDevice4_Vtbl::new::<Identity, OFFSET>(), CreateVideoProcessor2: CreateVideoProcessor2::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoDevice5 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice1 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice2 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice3 as windows_core::Interface>::IID || iid == &<ID3D12VideoDevice4 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoDevice5 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoEncodeCommandList, ID3D12VideoEncodeCommandList_Vtbl, 0x8455293a_0cbd_4831_9b39_fbdbab724723);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -13408,49 +13408,6 @@ impl ID3D12VideoProcessCommandList3_Vtbl {
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl windows_core::RuntimeName for ID3D12VideoProcessCommandList3 {}
-windows_core::imp::define_interface!(ID3D12VideoProcessCommandList3DLUT, ID3D12VideoProcessCommandList3DLUT_Vtbl, 0x0b725df5_dd55_42ad_bb7b_3a8552194ae9);
-windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandList3DLUT, windows_core::IUnknown);
-impl ID3D12VideoProcessCommandList3DLUT {
-    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-    pub unsafe fn ProcessFrames2<P0>(&self, pvideoprocessor: P0, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, pinputarguments: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2])
-    where
-        P0: windows_core::Param<ID3D12VideoProcessor3DLUT>,
-    {
-        unsafe { (windows_core::Interface::vtable(self).ProcessFrames2)(windows_core::Interface::as_raw(self), pvideoprocessor.param().abi(), core::mem::transmute(poutputarguments), pinputarguments.len().try_into().unwrap(), core::mem::transmute(pinputarguments.as_ptr())) }
-    }
-}
-#[repr(C)]
-#[doc(hidden)]
-pub struct ID3D12VideoProcessCommandList3DLUT_Vtbl {
-    pub base__: windows_core::IUnknown_Vtbl,
-    #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-    pub ProcessFrames2: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2),
-    #[cfg(not(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common")))]
-    ProcessFrames2: usize,
-}
-unsafe impl Send for ID3D12VideoProcessCommandList3DLUT {}
-unsafe impl Sync for ID3D12VideoProcessCommandList3DLUT {}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-pub trait ID3D12VideoProcessCommandList3DLUT_Impl: windows_core::IUnknownImpl {
-    fn ProcessFrames2(&self, pvideoprocessor: windows_core::Ref<'_, ID3D12VideoProcessor3DLUT>, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2);
-}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl ID3D12VideoProcessCommandList3DLUT_Vtbl {
-    pub const fn new<Identity: ID3D12VideoProcessCommandList3DLUT_Impl, const OFFSET: isize>() -> Self {
-        unsafe extern "system" fn ProcessFrames2<Identity: ID3D12VideoProcessCommandList3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pvideoprocessor: *mut core::ffi::c_void, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2) {
-            unsafe {
-                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                ID3D12VideoProcessCommandList3DLUT_Impl::ProcessFrames2(this, core::mem::transmute_copy(&pvideoprocessor), core::mem::transmute_copy(&poutputarguments), core::mem::transmute_copy(&numinputstreams), core::mem::transmute_copy(&pinputarguments))
-            }
-        }
-        Self { base__: windows_core::IUnknown_Vtbl::new::<Identity, OFFSET>(), ProcessFrames2: ProcessFrames2::<Identity, OFFSET> }
-    }
-    pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoProcessCommandList3DLUT as windows_core::Interface>::IID
-    }
-}
-#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl windows_core::RuntimeName for ID3D12VideoProcessCommandList3DLUT {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoProcessCommandList4, ID3D12VideoProcessCommandList4_Vtbl, 0xe7fc6a4b_8d2c_4e19_a5f3_7b91d0c28e56);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
@@ -13519,38 +13476,103 @@ impl ID3D12VideoProcessCommandList4_Vtbl {
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 impl windows_core::RuntimeName for ID3D12VideoProcessCommandList4 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::define_interface!(ID3D12VideoProcessCommandListPreview, ID3D12VideoProcessCommandListPreview_Vtbl, 0xe1887cb5_d07c_4789_a572_f60b1c48c854);
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandList5, ID3D12VideoProcessCommandList5_Vtbl, 0x187116cc_73da_4a7e_b985_4366b4c7a30e);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl core::ops::Deref for ID3D12VideoProcessCommandListPreview {
+impl core::ops::Deref for ID3D12VideoProcessCommandList5 {
     type Target = ID3D12VideoProcessCommandList4;
     fn deref(&self) -> &Self::Target {
         unsafe { core::mem::transmute(self) }
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3, ID3D12VideoProcessCommandList4);
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandList5, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3, ID3D12VideoProcessCommandList4);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl ID3D12VideoProcessCommandList5 {
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub unsafe fn ProcessFrames2<P0>(&self, pvideoprocessor: P0, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, pinputarguments: &[D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2])
+    where
+        P0: windows_core::Param<ID3D12VideoProcessor2>,
+    {
+        unsafe { (windows_core::Interface::vtable(self).ProcessFrames2)(windows_core::Interface::as_raw(self), pvideoprocessor.param().abi(), core::mem::transmute(poutputarguments), pinputarguments.len().try_into().unwrap(), core::mem::transmute(pinputarguments.as_ptr())) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[repr(C)]
+#[doc(hidden)]
+pub struct ID3D12VideoProcessCommandList5_Vtbl {
+    pub base__: ID3D12VideoProcessCommandList4_Vtbl,
+    #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
+    pub ProcessFrames2: unsafe extern "system" fn(*mut core::ffi::c_void, *mut core::ffi::c_void, *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, u32, *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2),
+    #[cfg(not(feature = "Win32_Graphics_Dxgi_Common"))]
+    ProcessFrames2: usize,
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Send for ID3D12VideoProcessCommandList5 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+unsafe impl Sync for ID3D12VideoProcessCommandList5 {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoProcessCommandList5_Impl: ID3D12VideoProcessCommandList4_Impl {
+    fn ProcessFrames2(&self, pvideoprocessor: windows_core::Ref<'_, ID3D12VideoProcessor2>, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2);
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl ID3D12VideoProcessCommandList5_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessCommandList5_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn ProcessFrames2<Identity: ID3D12VideoProcessCommandList5_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, pvideoprocessor: *mut core::ffi::c_void, poutputarguments: *const D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS, numinputstreams: u32, pinputarguments: *const D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS2) {
+            unsafe {
+                let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                ID3D12VideoProcessCommandList5_Impl::ProcessFrames2(this, core::mem::transmute_copy(&pvideoprocessor), core::mem::transmute_copy(&poutputarguments), core::mem::transmute_copy(&numinputstreams), core::mem::transmute_copy(&pinputarguments))
+            }
+        }
+        Self { base__: ID3D12VideoProcessCommandList4_Vtbl::new::<Identity, OFFSET>(), ProcessFrames2: ProcessFrames2::<Identity, OFFSET> }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ID3D12VideoProcessCommandList5 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList4 as windows_core::Interface>::IID
+    }
+}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+impl windows_core::RuntimeName for ID3D12VideoProcessCommandList5 {}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::define_interface!(ID3D12VideoProcessCommandListPreview, ID3D12VideoProcessCommandListPreview_Vtbl, 0xe1887cb5_d07c_4789_a572_f60b1c48c854);
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+impl core::ops::Deref for ID3D12VideoProcessCommandListPreview {
+    type Target = ID3D12VideoProcessCommandList5;
+    fn deref(&self) -> &Self::Target {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+#[cfg(feature = "Win32_Graphics_Direct3D12")]
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessCommandListPreview, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12CommandList, ID3D12VideoProcessCommandList, ID3D12VideoProcessCommandList1, ID3D12VideoProcessCommandList2, ID3D12VideoProcessCommandList3, ID3D12VideoProcessCommandList4, ID3D12VideoProcessCommandList5);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[repr(C)]
 #[doc(hidden)]
 pub struct ID3D12VideoProcessCommandListPreview_Vtbl {
-    pub base__: ID3D12VideoProcessCommandList4_Vtbl,
+    pub base__: ID3D12VideoProcessCommandList5_Vtbl,
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Send for ID3D12VideoProcessCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 unsafe impl Sync for ID3D12VideoProcessCommandListPreview {}
-#[cfg(feature = "Win32_Graphics_Direct3D12")]
-pub trait ID3D12VideoProcessCommandListPreview_Impl: ID3D12VideoProcessCommandList4_Impl {}
-#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
+pub trait ID3D12VideoProcessCommandListPreview_Impl: ID3D12VideoProcessCommandList5_Impl {}
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl ID3D12VideoProcessCommandListPreview_Vtbl {
     pub const fn new<Identity: ID3D12VideoProcessCommandListPreview_Impl, const OFFSET: isize>() -> Self {
-        Self { base__: ID3D12VideoProcessCommandList4_Vtbl::new::<Identity, OFFSET>() }
+        Self { base__: ID3D12VideoProcessCommandList5_Vtbl::new::<Identity, OFFSET>() }
     }
     pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoProcessCommandListPreview as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessCommandList4 as windows_core::Interface>::IID
+        iid == &<ID3D12VideoProcessCommandListPreview as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID
+            || iid == &<super::super::Graphics::Direct3D12::ID3D12CommandList as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList1 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList2 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList3 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList4 as windows_core::Interface>::IID
+            || iid == &<ID3D12VideoProcessCommandList5 as windows_core::Interface>::IID
     }
 }
-#[cfg(feature = "Win32_Graphics_Direct3D12")]
+#[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoProcessCommandListPreview {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 windows_core::imp::define_interface!(ID3D12VideoProcessor, ID3D12VideoProcessor_Vtbl, 0x304fdb32_bede_410a_8545_943ac6a46138);
@@ -13705,18 +13727,18 @@ impl ID3D12VideoProcessor1_Vtbl {
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
 impl windows_core::RuntimeName for ID3D12VideoProcessor1 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::define_interface!(ID3D12VideoProcessor3DLUT, ID3D12VideoProcessor3DLUT_Vtbl, 0xe8f885e6_0e57_4954_84d7_38cfb1bc5684);
+windows_core::imp::define_interface!(ID3D12VideoProcessor2, ID3D12VideoProcessor2_Vtbl, 0xa24fdd6b_a2e2_41e4_9ea7_f435e4b03751);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl core::ops::Deref for ID3D12VideoProcessor3DLUT {
+impl core::ops::Deref for ID3D12VideoProcessor2 {
     type Target = ID3D12VideoProcessor1;
     fn deref(&self) -> &Self::Target {
         unsafe { core::mem::transmute(self) }
     }
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-windows_core::imp::interface_hierarchy!(ID3D12VideoProcessor3DLUT, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12Pageable, ID3D12VideoProcessor, ID3D12VideoProcessor1);
+windows_core::imp::interface_hierarchy!(ID3D12VideoProcessor2, windows_core::IUnknown, super::super::Graphics::Direct3D12::ID3D12Object, super::super::Graphics::Direct3D12::ID3D12DeviceChild, super::super::Graphics::Direct3D12::ID3D12Pageable, ID3D12VideoProcessor, ID3D12VideoProcessor1);
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-impl ID3D12VideoProcessor3DLUT {
+impl ID3D12VideoProcessor2 {
     #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
     pub unsafe fn GetInputStreamDescs1(&self, pinputstreamdescs: &mut [D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1]) -> windows_core::Result<()> {
         unsafe { (windows_core::Interface::vtable(self).GetInputStreamDescs1)(windows_core::Interface::as_raw(self), pinputstreamdescs.len().try_into().unwrap(), core::mem::transmute(pinputstreamdescs.as_ptr())).ok() }
@@ -13725,7 +13747,7 @@ impl ID3D12VideoProcessor3DLUT {
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
 #[repr(C)]
 #[doc(hidden)]
-pub struct ID3D12VideoProcessor3DLUT_Vtbl {
+pub struct ID3D12VideoProcessor2_Vtbl {
     pub base__: ID3D12VideoProcessor1_Vtbl,
     #[cfg(feature = "Win32_Graphics_Dxgi_Common")]
     pub GetInputStreamDescs1: unsafe extern "system" fn(*mut core::ffi::c_void, u32, *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::HRESULT,
@@ -13733,30 +13755,30 @@ pub struct ID3D12VideoProcessor3DLUT_Vtbl {
     GetInputStreamDescs1: usize,
 }
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-unsafe impl Send for ID3D12VideoProcessor3DLUT {}
+unsafe impl Send for ID3D12VideoProcessor2 {}
 #[cfg(feature = "Win32_Graphics_Direct3D12")]
-unsafe impl Sync for ID3D12VideoProcessor3DLUT {}
+unsafe impl Sync for ID3D12VideoProcessor2 {}
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-pub trait ID3D12VideoProcessor3DLUT_Impl: ID3D12VideoProcessor1_Impl {
+pub trait ID3D12VideoProcessor2_Impl: ID3D12VideoProcessor1_Impl {
     fn GetInputStreamDescs1(&self, numinputstreamdescs: u32, pinputstreamdescs: *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::Result<()>;
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl ID3D12VideoProcessor3DLUT_Vtbl {
-    pub const fn new<Identity: ID3D12VideoProcessor3DLUT_Impl, const OFFSET: isize>() -> Self {
-        unsafe extern "system" fn GetInputStreamDescs1<Identity: ID3D12VideoProcessor3DLUT_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numinputstreamdescs: u32, pinputstreamdescs: *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::HRESULT {
+impl ID3D12VideoProcessor2_Vtbl {
+    pub const fn new<Identity: ID3D12VideoProcessor2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetInputStreamDescs1<Identity: ID3D12VideoProcessor2_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, numinputstreamdescs: u32, pinputstreamdescs: *mut D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC1) -> windows_core::HRESULT {
             unsafe {
                 let this: &Identity = &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                ID3D12VideoProcessor3DLUT_Impl::GetInputStreamDescs1(this, core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs)).into()
+                ID3D12VideoProcessor2_Impl::GetInputStreamDescs1(this, core::mem::transmute_copy(&numinputstreamdescs), core::mem::transmute_copy(&pinputstreamdescs)).into()
             }
         }
         Self { base__: ID3D12VideoProcessor1_Vtbl::new::<Identity, OFFSET>(), GetInputStreamDescs1: GetInputStreamDescs1::<Identity, OFFSET> }
     }
     pub fn matches(iid: &windows_core::GUID) -> bool {
-        iid == &<ID3D12VideoProcessor3DLUT as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Pageable as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor1 as windows_core::Interface>::IID
+        iid == &<ID3D12VideoProcessor2 as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Object as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12DeviceChild as windows_core::Interface>::IID || iid == &<super::super::Graphics::Direct3D12::ID3D12Pageable as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor as windows_core::Interface>::IID || iid == &<ID3D12VideoProcessor1 as windows_core::Interface>::IID
     }
 }
 #[cfg(all(feature = "Win32_Graphics_Direct3D12", feature = "Win32_Graphics_Dxgi_Common"))]
-impl windows_core::RuntimeName for ID3D12VideoProcessor3DLUT {}
+impl windows_core::RuntimeName for ID3D12VideoProcessor2 {}
 windows_core::imp::define_interface!(IDXVAHD_Device, IDXVAHD_Device_Vtbl, 0x95f12dfd_d77e_49be_815f_57d579634d6d);
 windows_core::imp::interface_hierarchy!(IDXVAHD_Device, windows_core::IUnknown);
 impl IDXVAHD_Device {

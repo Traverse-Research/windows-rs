@@ -584,6 +584,7 @@ impl Default for D3D_SHADER_CACHE_COMPILER_PROPERTIES {
         unsafe { core::mem::zeroed() }
     }
 }
+pub const D3D_SHADER_CACHE_NO_SODB: windows_core::PCWSTR = windows_core::w!("");
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D_SHADER_CACHE_PSDB_PROPERTIES {
