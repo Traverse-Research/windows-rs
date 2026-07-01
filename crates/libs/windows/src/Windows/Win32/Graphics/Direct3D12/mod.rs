@@ -2379,6 +2379,7 @@ impl core::ops::Not for D3D12_DUMP_FILE_DRIVER_OPTIONS {
         Self(self.0.not())
     }
 }
+pub const D3D12_DUMP_FILE_DRIVER_OPTIONS_DEFAULT: u32 = 1u32;
 pub const D3D12_DUMP_FILE_DRIVER_OPTION_EVENT_MARKERS: D3D12_DUMP_FILE_DRIVER_OPTIONS = D3D12_DUMP_FILE_DRIVER_OPTIONS(64i32);
 pub const D3D12_DUMP_FILE_DRIVER_OPTION_HIGH_OVERHEAD: D3D12_DUMP_FILE_DRIVER_OPTIONS = D3D12_DUMP_FILE_DRIVER_OPTIONS(4i32);
 pub const D3D12_DUMP_FILE_DRIVER_OPTION_MEDIUM_OVERHEAD: D3D12_DUMP_FILE_DRIVER_OPTIONS = D3D12_DUMP_FILE_DRIVER_OPTIONS(2i32);
@@ -3023,7 +3024,7 @@ pub struct D3D12_FEATURE_DATA_DISPLAYABLE {
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct D3D12_FEATURE_DATA_DUMP_FILE {
-    pub Supported: windows_core::BOOL,
+    pub SupportedByOS: windows_core::BOOL,
     pub DumpFileDriverTier: D3D12_DUMP_FILE_DRIVER_TIER,
     pub DumpFileDriverOptionsMask: u32,
 }
@@ -7750,6 +7751,7 @@ pub struct D3D12_RESOURCE_TRANSITION_BARRIER {
 pub struct D3D12_RESOURCE_UAV_BARRIER {
     pub pResource: core::mem::ManuallyDrop<Option<ID3D12Resource>>,
 }
+pub const D3D12_RETAIN_DUMP_FILE_DEFAULT: u32 = 1u32;
 pub const D3D12_RLDO_DETAIL: D3D12_RLDO_FLAGS = D3D12_RLDO_FLAGS(2i32);
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
